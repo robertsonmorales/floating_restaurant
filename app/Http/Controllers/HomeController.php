@@ -38,7 +38,7 @@ class HomeController extends Controller
     public function dashboard()
     {
         $name = ['Dashboard'];
-        $mode = ['/dashbaord'];
+        $mode = ['/dashboard'];
 
         // $this->audit_trail_logs('','','','');
         

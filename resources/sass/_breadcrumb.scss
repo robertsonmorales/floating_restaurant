@@ -4,15 +4,16 @@
     align-items: center;
     margin: 20px 30px;
 
-    h2{
+    h4{
         font-weight: 500;
         color: $toolbar;
     }
 
-    .breadcrumb{
+    .breadcrumb-section{
         list-style: none;
         display: flex;
         align-items: center;
+        margin-bottom: 3px;
 
         .breadcrumb-items{
             margin-right: 10px;
