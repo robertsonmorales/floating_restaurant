@@ -45,7 +45,7 @@
             overflow: hidden;
 
             img{
-                width: 150px;
+                width: 120px;
                 height: auto;
             }
         }
@@ -57,7 +57,7 @@
             flex: 1;
             padding: 30px;
 
-            h4{                
+            h5{                
                 color: $toolbar;
                 font-weight: 500;
             }
@@ -155,9 +155,9 @@
                     text-align: left;
 
                     a{
-                        text-decoration: none;
                         font-size: .9em;
                         color: $btn-primary;
+                        outline: none;
                     }
                 }
 
@@ -167,26 +167,10 @@
 
                     .btn-go-back{
                         color: $btn-primary;
-                        text-decoration: none;
                         padding: 10px;
-                        transition: all 0.4s ease;
-                        cursor: pointer;
-                        border: none;
-                        outline: none;
-                        border-radius: 4px;
                         font-family: $font-family;
                         font-size: .9em;
                         font-weight: 500;
-                        border: 1px solid $btn-primary;
-
-                        &:hover{
-                            opacity: 0.8;
-                        }
-
-                        &:active{
-                            border: 1px solid $btn-secondary;
-                            color: $btn-secondary;
-                        }
                     }
                 }
             }

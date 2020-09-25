@@ -11,7 +11,7 @@
         <img src="{{ asset('images/logo/favicon.png') }}">
     </div>
     <div class="body-card">
-        <h4>Login your account.</h4>
+        <h5>Login your account.</h5>
         <div class="divider"></div>
         
         <form method="POST" action="{{ route('login') }}" id="login-form">
@@ -61,7 +61,7 @@
             </div>
 
             <div class="form-group">
-                <button type="submit" class="btn btn-primary active btn-auth">{{ __('Login') }}</button>
+                <button type="submit" class="btn btn-primary btn-auth">{{ __('Login') }}</button>
             </div>
 
             <div class="form-group">
