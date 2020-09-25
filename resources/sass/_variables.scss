@@ -2,18 +2,32 @@
 $body-bg: #f8fafc;
 
 // Typography
-$font-family-sans-serif: 'Nunito', sans-serif;
+$font-family: 'Poppins', 'Montserrat', sans-serif;
 $font-size-base: 0.9rem;
 $line-height-base: 1.6;
 
 // Colors
-$blue: #3490dc;
-$indigo: #6574cd;
-$purple: #9561e2;
-$pink: #f66d9b;
-$red: #e3342f;
-$orange: #f6993f;
-$yellow: #ffed4a;
-$green: #38c172;
-$teal: #4dc0b5;
-$cyan: #6cb2eb;
+$red: #EA2034; // for errors, delete, close 
+$default: #909090; // secondary color for normal text
+$primary: #f8f8f8; // for hovering white bg
+$toolbar: #3e4044; // for normal text
+$inactive: #ddd;
+
+$btn-primary: #0e76bd;
+$btn-add: #0e76bd; // for add action
+$btn-secondary: #3f51b5;
+$btn-remove: #EA2034;
+
+// palette 1
+$blue: #008ffb;
+$green: #00e396;
+$gold: #feb019;
+$pink: #ff4560;
+$purple: #775dd0;
+
+// palette 2
+$dark-blue: #3f51b5;
+$sky-blue: #03a9f4;
+$army-green: #4caf50;
+$light-orange: #f9ce1d;
+$orange: #ff9800;

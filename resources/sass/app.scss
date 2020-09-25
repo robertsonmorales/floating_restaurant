@@ -6,3 +6,99 @@
 
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
+
+*{
+    margin: 0;
+    padding: 0;
+    border-sizing: border-box;
+    letter-spacing: .4px;
+}
+
+/* width */
+::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+    border-radius: 2px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #aaa;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #888;
+}
+
+html{
+    overflow-y: hidden;
+}
+
+body{
+	font-family: $font-family;
+    font-size: 90% !important;
+    font-weight: 500 !important;
+
+    .feather {
+      width: 16px;
+      height: 16px;
+    }
+    
+    .divider{
+        border: 1px solid $primary;
+        margin: 10px 0;
+    }
+
+    .horizontal-divider{
+        border: 1px solid $inactive;
+        height: 20px;
+        margin: 0 25px;
+    }
+
+    .btn-swal{
+        font-family: $font-family !important;
+        font-size: .9em;
+    }
+
+    .status{
+        padding: 3px 10px;
+        border-radius: 20px;
+    }
+
+    .active-status{
+        background-color: $green;
+        color: #fff;
+    }
+
+    .inactive-status{
+        background-color: $inactive;
+        color: $toolbar;
+    }
+
+    .is-below-minimum{
+        background-color: $gold;
+        color: #fff;
+    }
+
+    @import 'breadcrumb';
+    
+    .auth-container{
+        @import 'auth';
+    }
+    
+    .admin-container{
+        display: flex;
+        height: 100vh;
+        background-color: #f3f3f3;
+    
+        @import 'sidebar';
+    
+        @import 'admin';
+    }
+}
