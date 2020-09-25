@@ -23,7 +23,7 @@
 
             <div class="form-group">
                 <label>E-Mail Address</label>
-                
+
                 <div class="input-group-single">
                     <span class="icon">
                         <i data-feather="mail"></i>
@@ -41,11 +41,11 @@
 
             <div class="form-group">
                 <div class="two-cols">
-                    <a href="/login" class="btn btn-outline-primary btn-go-back">
+                    <a href="/login" class="btn btn-go-back">
                         {{ __('Go Back') }}
                     </a>
 
-                    <button type="submit" class="btn btn-primary active btn-auth">
+                    <button type="submit" class="btn btn-primary btn-auth">
                         {{ __('Send Password Reset Link') }}
                     </button>
                 </div>
