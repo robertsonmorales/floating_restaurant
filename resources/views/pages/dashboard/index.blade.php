@@ -6,9 +6,9 @@
 
         <div class="reports-card">
             <div class="reports">                
-                <h4>Sales</h4>
+                <span class="card-name">Sales</span>
                 <div class="report-record">
-                    <h2>₱ 150</h2>
+                    <span class="card-total">₱ 150</span>
                     <span class="card-icon" id="sales-icon">
                         <i data-feather="database"></i>
                     </span>
@@ -16,9 +16,9 @@
             </div>
 
             <div class="reports">
-                <h4>Expenses</h4>
+                <span class="card-name">Expenses</span>
                 <div class="report-record">
-                    <h2>₱ 100</h2>
+                    <span class="card-total">₱ 100</span>
                     <span class="card-icon" id="expenses-icon">
                         <i data-feather="book"></i>
                     </span>
@@ -26,19 +26,19 @@
             </div>
 
             <div class="reports">
-                <h4>Orders</h4>
+                <span class="card-name">Orders</span>
                 <div class="report-record">
-                    <h2>100</h2>
+                    <span class="card-total">150</span>
                     <span class="card-icon" id="order-icon">
                         <i data-feather="package"></i>
                     </span>
                 </div>
             </div>
 
-            <div class="reports">                
-                <h4>Today's Customers</h4>
+            <div class="reports">   
+                <span class="card-name">Today's Customers</span>
                 <div class="report-record">
-                    <h2>150</h2>
+                    <span class="card-total">150</span>
                     <span class="card-icon" id="customer-icon">
                         <i data-feather="user-check"></i>
                     </span>
@@ -47,13 +47,17 @@
         </div>
 
         <div class="exp-vs-sales">
-            <h4>Annual Sales & Expenses</h4>
+            <span class="card-name">Annual Sales & Expenses</span>
             <div id="report-chart" class="report-chart"></div>
         </div>
 
         <div class="report-details">
-            <div class="details1">1</div>
-            <div class="details2">2</div>
+            <div class="details1">
+                <span class="card-name">Stocks</span>
+            </div>
+            <div class="details2">
+                <span class="card-name">Pending Orders</span>
+            </div>
         </div>
     </div>
 </div>
@@ -107,9 +111,9 @@ $(document).ready(function(){
         },
         legend: {
             show: true,
-            position: 'top',
-            horizontalAlign: 'left',
-            fontSize: '12px',
+            position: 'bottom',
+            horizontalAlign: 'right',
+            fontSize: '13px',
             fontWeight: '500',
             fontFamily: 'inherit',
             color: '#3e4044'
