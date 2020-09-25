@@ -175,6 +175,8 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
+        // new added
+        App\Providers\NavigationProvider::class,
     ],
 
     /*

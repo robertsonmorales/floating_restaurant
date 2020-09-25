@@ -13,7 +13,7 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        // $this->middleware('auth');
     }
 
     /**
@@ -21,8 +21,31 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index()
+    public function showMain(){
+        // if (Auth::id() == 1) { // ADMIN
+        //     return redirect()->route('dashboard');
+        // }else if(Auth::id() == 2){ // CASHIER
+        //     return redirect()->route('home');
+        // }else if(Auth::id() == 3){ // MANAGER
+        //     return redirect()->route('home');
+        // }else if (Auth::id() == 4) { // COOK
+        //     return redirect()->route('home'); 
+        // }
+
+        return redirect()->route('dashboard');
+    }
+
+    public function dashboard()
     {
-        return view('home');
+        $name = ['Dashboard'];
+        $mode = ['/dashbaord'];
+
+        // $this->audit_trail_logs('','','','');
+        
+        return view('pages.dashboard.index', [
+            'breadcrumbs' => $this->breadcrumbs($name, $mode),
+            'header' => 'Dashboard',
+            'title' => 'Dashboard'
+        ]);
     }
 }
