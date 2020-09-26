@@ -1,7 +1,8 @@
 .auth-content{
-    background: #457fca;  /* fallback for old browsers */
-    background: -webkit-linear-gradient(to right, #5691c8, #457fca);  /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(to right, #5691c8, #457fca); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    // background: #457fca;
+    // background: -webkit-linear-gradient(to right, #5691c8, #457fca); 
+    // background: linear-gradient(to right, #5691c8, #457fca);
+    background-color: $body-bg;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -15,7 +16,7 @@
         display: flex;
         justify-content: space-around;
         background-color: #fff !important;
-        box-shadow: 1px 30px 80px rgba(0,0,0,0.3);
+        box-shadow: 1px 30px 80px rgba(0,0,0,0.1);
         border-radius: 4px;
         overflow: hidden;
         position: relative;
@@ -87,7 +88,6 @@
                     transition: all 0.3s ease;
                     border: 1px solid #ddd;
                     font-weight: 500;
-                    font-size: .9em;
                     background-color: #fff;
                     padding: 0 10px;
 
@@ -99,13 +99,11 @@
                     .form-control{
                         border: none;
                         outline: none;
-                        padding: 10px;
-                        font-family: $font-family !important;
                         background-color: transparent;
                         font-weight: 500;
                         color: $toolbar;
-                        width: 100%;
                         flex: 1;
+                        font-size: .9em;
                     }
                     
 
@@ -113,6 +111,10 @@
                         border: 1px solid $btn-primary;
                         background-color: #fff;
                         box-shadow: 1px 3px 5px rgba(0,0,0,0.1);
+
+                        .icon{
+                            color: $btn-primary;
+                        }
                     }
                 }
 
@@ -123,11 +125,11 @@
                 }
 
                 input:required {
-                    box-shadow:none;
+                    box-shadow: none;
                 }
 
                 input:invalid {
-                    box-shadow:0 0 3px transparent;
+                    box-shadow: 0 0 3px transparent;
                 }
 
                 .btn-auth{
@@ -163,11 +165,11 @@
 
                 .two-cols{
                     display: flex;
+                    align-items: center;
                     justify-content: space-between;
 
                     .btn-go-back{
                         color: $btn-primary;
-                        padding: 10px;
                         font-family: $font-family;
                         font-size: .9em;
                         font-weight: 500;
