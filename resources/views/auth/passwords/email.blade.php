@@ -41,9 +41,7 @@
 
             <div class="form-group">
                 <div class="two-cols">
-                    <a href="/login" class="btn btn-go-back">
-                        {{ __('Go Back') }}
-                    </a>
+                    <a href="/login" class="btn-go-back">{{ __('Go Back') }}</a>
 
                     <button type="submit" class="btn btn-primary btn-auth">
                         {{ __('Send Password Reset Link') }}
