@@ -10,7 +10,7 @@
 *{
     margin: 0;
     padding: 0;
-    border-sizing: border-box;
+    box-sizing: border-box;
     letter-spacing: .4px;
 }
 
@@ -95,7 +95,7 @@ body{
     .admin-container{
         display: flex;
         height: 100vh;
-        background-color: #f3f3f3;
+        background-color: $body-bg;
     
         @import 'sidebar';
     

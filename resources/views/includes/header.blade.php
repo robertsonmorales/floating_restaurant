@@ -29,9 +29,7 @@
 
             <a href="#" class="btn-dropdown" id="btn-dropdown">
                 <div class="username">
-                    <h4>
-                        {{ ucfirst(Crypt::decryptString(Auth::user()->first_name)). ' '.ucfirst(Crypt::decryptString(Auth::user()->last_name)) }}
-                    </h4>
+                    <span class="username-info">{{ ucfirst(Crypt::decryptString(Auth::user()->first_name)). ' '.ucfirst(Crypt::decryptString(Auth::user()->last_name)) }}</span>
                     <span class="image-wrapper" style="background-image: url('{{ (Auth::user()->profile_image) ? asset('images/user_profiles/'.Auth::user()->username.Auth::user()->id.'/'.Auth::user()->profile_image.'') : asset('images/user_profiles/avatar.svg') }}');">
                     </span>
                 </div>
