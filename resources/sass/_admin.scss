@@ -240,11 +240,6 @@ main{
                             margin-right: 5px;
                         }
 
-                        .download{
-                            position: relative;
-                            top: 2.5px;
-                        }
-
                         &:active{
                             background-color: $toolbar;
                             color: #fff;
@@ -621,13 +616,13 @@ main{
                     background-color: #fff;
                 }
 
-                .details1{
+                // .details1{
                     
-                }
+                // }
 
-                .details2{
+                // .details2{
                     
-                }
+                // }
             }
         }
     }
@@ -670,7 +665,7 @@ main{
                             color: $toolbar;
                             text-decoration: none;
                             padding: 5px 15px;
-                            transitions: all 0.2s ease;
+                            transition: all 0.2s ease;
                             font-size: .9em;
                             color: $toolbar;
                             border-radius: 20px;

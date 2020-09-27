@@ -19,4 +19,5 @@ Auth::routes();
 
 Route::middleware('auth')->group(function () {
     Route::get('/dashboard', [App\Http\Controllers\HomeController::class, 'dashboard'])->name('dashboard');
+    Route::resource('/menu_categories', App\Http\Controllers\MenuCategoryController::class);
 });
