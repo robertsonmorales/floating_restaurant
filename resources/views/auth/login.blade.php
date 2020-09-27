@@ -18,13 +18,13 @@
             @csrf
 
             <div class="form-group">
-                {{-- <label>Username</label> --}}
+                <label>Username</label>
                 <div class="input-group-single">
                     <span class="icon">
                         <i data-feather="user"></i>
                     </span>
 
-                    <input id="username" name="username" type="text" class="form-control @error('username') is-invalid @enderror" name="username" value="{{ old('username') }}" required autocomplete="off" placeholder="Username">
+                    <input id="username" name="username" type="text" class="form-control @error('username') is-invalid @enderror" name="username" value="{{ old('username') }}" required autocomplete="off">
                 </div>
                 @error('username')
                 <span class="invalid-feedback" role="alert">
@@ -34,12 +34,12 @@
             </div>
 
             <div class="form-group">
-                {{-- <label>Password</label> --}}
+                <label>Password</label>
                 <div class="input-group-single">
                     <span class="icon">
                         <i data-feather="lock"></i>
                     </span>
-                    <input id="password" name="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password" placeholder="Password">
+                    <input id="password" name="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
                 </div>
                 @error('password')
                 <span class="invalid-feedback" role="alert">
