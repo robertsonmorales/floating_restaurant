@@ -1,0 +1,84 @@
+.filters{
+    margin: 0px 30px;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .filters-child{
+        display: flex;
+        align-items: center;
+
+        a{
+            padding: 10px 20px;
+            box-shadow: 1px 3px 5px rgba(0,0,0,0.05);
+            color: #fff;
+            font-size: 0.9em;
+            font-weight: 500;
+            margin-right: 5px;
+            border-radius: 4px;
+
+            .download-icon{
+                margin-left: 5px;
+            }
+        }
+
+        a#btn-add-record{
+            background-color: $btn-add;
+        }
+
+        a#btn-export{
+            background-color: $default;
+        }
+
+        .form-group{
+            margin-right: 8px;
+            margin-bottom: 0 !important;
+            padding: 0 10px;
+            border-radius: 4px;
+            border: 1px solid transparent;
+            box-shadow: 1px 3px 5px rgba(0,0,0,0.05);
+            background-color: #fff;
+
+            input{
+                outline: none;
+                border: none;
+                background-color: transparent;
+                padding: 10px;                
+                font-weight: 500;
+                font-size: .9em;
+                transition: all 0.3s ease;
+            }
+
+            .search-icon{
+                color: $default;
+            }
+
+            &:focus-within{
+                border: 1px solid $btn-primary;
+                box-shadow: 1px 3px 5px rgba(0,0,0,0.1);
+            }
+        }
+
+        select{
+            margin-right: 8px;
+            padding: 10px;
+            outline: none;
+            border: 1px solid transparent;
+            border-radius: 4px;
+            box-shadow: 1px 3px 5px rgba(0,0,0,0.05);
+            font-weight: 500;
+            font-size: .9em;
+            transition: all 0.3s ease;
+
+            &:focus{
+                border: 1px solid $btn-primary;
+                box-shadow: 1px 3px 5px rgba(0,0,0,0.1);
+            }
+
+            &:last-child{
+                margin-right: 0;
+            }
+        }
+    }
+}
