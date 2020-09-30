@@ -11,7 +11,6 @@
 
         a{
             padding: 10px 20px;
-            box-shadow: 1px 3px 5px rgba(0,0,0,0.05);
             color: #fff;
             font-size: 0.9em;
             font-weight: 500;
@@ -23,11 +22,11 @@
             }
         }
 
-        a#btn-add-record{
+        #btn-add-record{
             background-color: $btn-add;
         }
 
-        a#btn-export{
+        #btn-export{
             background-color: $default;
         }
 
@@ -37,7 +36,7 @@
             padding: 0 10px;
             border-radius: 4px;
             border: 1px solid transparent;
-            box-shadow: 1px 3px 5px rgba(0,0,0,0.05);
+            box-shadow: $shadow;
             background-color: #fff;
 
             input{
@@ -56,7 +55,7 @@
 
             &:focus-within{
                 border: 1px solid $btn-primary;
-                box-shadow: 1px 3px 5px rgba(0,0,0,0.1);
+                box-shadow: $shadow;
             }
         }
 
@@ -66,14 +65,14 @@
             outline: none;
             border: 1px solid transparent;
             border-radius: 4px;
-            box-shadow: 1px 3px 5px rgba(0,0,0,0.05);
+            box-shadow: $shadow;
             font-weight: 500;
             font-size: .9em;
             transition: all 0.3s ease;
 
             &:focus{
                 border: 1px solid $btn-primary;
-                box-shadow: 1px 3px 5px rgba(0,0,0,0.1);
+                box-shadow: $shadow;
             }
 
             &:last-child{

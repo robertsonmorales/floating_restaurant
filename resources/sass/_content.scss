@@ -1,0 +1,224 @@
+.content{
+    background-color: #fff;
+    box-shadow: $shadow;
+    border-radius: 4px;
+    overflow: hidden;
+
+    #myGrid{
+        width: 100%;
+        height: 80vh;
+    }
+
+    .data-profile{
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+
+        .profile{
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            border: 2px solid #eee;
+        }
+
+        p{
+            color: $toolbar;
+            margin-left: 5px;
+        }
+
+        .user-status{
+            margin-left: 10px;
+            border-radius: 4px;
+            padding: 3px 7px;
+            display: flex;
+            align-items: center;
+
+            .circle{
+                font-size: .5em;                                
+            }
+
+            .status-code{
+                margin-left: 5px;
+                font-size: .7em;
+            }
+        }
+
+        .status-online{
+            color: $green;
+        }
+
+        .status-idle{
+            color: $gold;
+        }
+
+        .status-offline{
+            color: $default;
+        }
+    }
+
+    .btn-edit,
+    .btn-remove{
+        width: 38px;
+        padding: 7px;
+        border-radius: 4px;
+        color: #fff;
+    }
+
+    .btn-edit{
+        background-color: $btn-primary;
+    }
+
+    .btn-remove{
+        background-color: $btn-remove;
+    }
+
+    .card-form{
+        padding: 20px;
+        background-color: #fff;
+        box-shadow: $shadow;
+        border-radius: 10px;
+        overflow: hidden;
+        text-align: left;
+
+        h5{
+            font-weight: 500;
+            color: $toolbar;
+        }
+
+        .input-group{
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 20px;
+            text-align: left;
+
+            label{
+                font-size: .8em;
+                color: #999;
+                font-weight: 500;
+                margin-bottom: 5px;
+            }
+
+            .columns{
+                display: grid;
+                grid-template-columns: 75% 20% 5%;
+                align-items: center;
+                margin-bottom: 20px;
+
+                .form-control{
+                    margin-right: 20px;
+                    flex: 0;
+
+                    &:last-child{
+                        margin-right: 0;
+                    }
+                }
+
+                .btn-minus,
+                .btn-plus{
+                    border: none;
+                    outline: none;
+                    padding: 5px;
+                    border-radius: 4px;
+                    cursor: pointer;                        
+                    font-size: .9em;
+                    font-weight: 600;
+                    color: #fff;
+                    box-shadow: $shadow;
+
+                    &:active{
+                        background-color: $toolbar;
+                    }
+                }
+
+                .btn-minus{
+                    background-color: $red;
+                }
+
+                .btn-plus{
+                    background-color: $btn-primary;
+                    margin-left: 5px;
+                }
+
+                &:last-child{
+                    margin-bottom: 0;
+                }
+            }
+
+            .form-control{
+                outline: none;
+                border-radius: 4px;
+                // border: 1px solid #ddd;
+                font-weight: 500;
+                font-size: .9em;
+                transition: all 0.3s ease;
+                resize: none;
+                width: 100% !important;
+
+                &:focus{
+                    border: 1px solid $btn-primary;
+                    box-shadow: $shadow;
+                }
+            }
+
+            .form-control-color{
+                outline: none;
+                width: 100%;
+                overflow: hidden;
+                height: 30px;
+                border-radius: 4px;
+                border: none;
+                background-color: #fcfcfc;
+                padding: 5px;
+                border: 1px solid #ddd;
+
+                &:focus{
+                    border: 1px solid $btn-primary;
+                    background-color: #fff;
+                    box-shadow: $shadow;
+                }
+            }
+
+            .invalid-feedback{
+                strong{
+                    color: $red;
+                    font-size: inherit;
+                    font-weight: 500;
+                }
+            }
+
+            .messages{
+                strong{
+                    color: $red;
+                    font-size: .8em;
+                    font-weight: 500;
+                }
+            }
+        }
+
+        .actions{
+            margin-top: 15px;
+            text-align: right;
+
+            button, a{
+                margin-right: 5px;
+                padding: 10px 20px;
+                border: none;
+                outline: none;
+                border-radius: 4px;
+                font-family: $font-family;
+                font-size: .9em;
+                font-weight: 500;
+                transition: all 0.4s ease;
+                color: #fff;
+
+                &:last-child{
+                    margin-right: 0;
+                }
+            }
+
+            .btn-submit{
+                background-color: $btn-primary;
+            }
+        }
+    }
+}

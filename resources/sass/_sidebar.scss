@@ -3,7 +3,7 @@
     position: relative;
     display: flex;
     flex-direction: column;
-    box-shadow: 1px 3px 5px rgba(0,0,0,0.05);
+    box-shadow: $shadow;
     background-color: #fff;
     width: 20%;
 
@@ -78,7 +78,7 @@
             .sidebar-focus{
                 background: $btn-primary;
                 color: #fff;
-                box-shadow: 1px 3px 5px rgba(0,0,0,0.1);
+                box-shadow: $shadow;
 
                 &:hover{
                     background: $btn-primary;

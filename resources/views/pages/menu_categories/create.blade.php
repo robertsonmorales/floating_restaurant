@@ -15,11 +15,9 @@
 
         <div class="input-group">
             <label for="">Name</label>
-            <input type="text" name="name" id="name" autocomplete="off"
-                class="form-control @error('name') is-invalid @enderror" autofocus
-                value="{{($mode == 'update') ? $data->name : old('name')}}">
+            <input type="text" name="name" id="name" autocomplete="off" class="form-control @error('name') is-invalid @enderror" value="{{($mode == 'update') ? $data->name : old('name')}}">
 
-            <span class="messages">
+            <span class="messages" role="alert">
                 <strong id="error-name"></strong>
             </span>
 
@@ -32,7 +30,7 @@
         
         <div class="input-group">
             <label for="">Status</label>
-            <select name="status" id="status" class="form-control @error('status') is-invalid @enderror" autofocus>
+            <select name="status" id="status" class="form-control @error('status') is-invalid @enderror">
                 <option value="1" {{ ($mode == 'update' && $data->status == 1) ? 'selected' : '' }}>Active</option>
                 <option value="0" {{ ($mode == 'update' && $data->status == 0) ? 'selected' : '' }}>In-active</option>
             </select>
@@ -54,12 +52,31 @@
         @endif
 
         <div class="actions">
-            <button type="submit" class="btn btn-primary btn-submit">{{ ($mode == 'update') ? 'Update' : 'Submit'}}</button>
-            <button type="reset" class="btn btn-info">Reset</button>            
-            <a href="{{route('menu_categories.index')}}" class="btn btn-secondary">Back</a>
+            <button type="submit" class="btn btn-primary btn-submit" id="btn-submit">
+                {{ ($mode == 'update') ? 'Submit Changes' : 'Submit' }}
+            </button>
+            <button type="reset" class="btn btn-info" id="btn-reset">Reset</button>            
+            <button type="button" onclick="window.location.href='{{route('menu_categories.index') }}'" class="btn btn-secondary" id="btn-back">Back</button>
         </div>
     </form>
 </div>
 </center>
 <br>
+@endsection
+@section('scripts')
+<script type="text/javascript">
+$(document).ready(function(){
+    var unique = <?= $uniqueData ?>;
+
+    $('#card-form').on('submit', function(){
+        var mode = "{{ $mode }}";
+        $('#btn-submit').prop('disabled', true);
+        $('#btn-reset').prop('disabled', true);
+        $('#btn-back').prop('disabled', true);
+
+        $('#btn-submit').html((mode == "update") ? "Submitting Changes.." : "Submitting..");
+        $(this).submit();
+    });
+});
+</script>
 @endsection

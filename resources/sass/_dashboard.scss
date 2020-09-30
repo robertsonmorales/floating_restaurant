@@ -1,0 +1,112 @@
+.dashboard-container{
+    .dashboard-cards{
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        grid-gap: 20px;
+        grid-column-gap: 20px;
+        grid-row-gap: 20px;
+
+        .card-name{
+            color: $default;
+            font-weight: 500;
+        }
+
+        .reports-card{
+            grid-column: 1 / 3;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-gap: 20px;
+
+            .reports{
+                box-shadow: $shadow;
+                overflow: hidden;
+                padding: 20px;
+                border-radius: 4px;
+                background-color: #fff;
+
+                .report-record{
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+
+                    .card-total{
+                        color: $toolbar;
+                        font-weight: 600;
+                        font-size: 1.8em;
+                    }
+
+                    .card-icon{
+                        background-color: #ddd;
+                        border-radius: 50%;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        padding: 12px;
+                    }
+
+                    #sales-icon{
+                        background-color: #00e39633;
+                        color: #00e396;
+                    }
+
+                    #expenses-icon{
+                        background-color: #ff456033;
+                        color: #ff4560;   
+                    }                        
+
+                    #order-icon{
+                        background-color: #feb01933;
+                        color: #feb019;
+                    }
+
+                    #customer-icon{
+                        background-color: #775dd033;
+                        color: #775dd0;
+                    }
+                }
+
+            }
+        }
+
+        .exp-vs-sales{
+            box-shadow: $shadow;
+            overflow: hidden;
+            padding: 20px;
+            border-radius: 4px;
+            background-color: #fff;
+
+            h4{
+                color: $default;
+                font-weight: 500;
+                margin-bottom: 15px;
+            }
+
+            #report-chart{
+                height: auto;
+            }
+        }
+
+        .report-details{
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            grid-gap: 20px;
+
+            .details1,
+            .details2{
+                box-shadow: $shadow;
+                overflow: hidden;
+                padding: 20px;
+                border-radius: 4px;
+                background-color: #fff;
+            }
+
+            // .details1{
+                
+            // }
+
+            // .details2{
+                
+            // }
+        }
+    }
+}
