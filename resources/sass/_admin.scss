@@ -68,25 +68,11 @@ main{
         }
 
         .btn-edit,
-        .btn-remove,
-        .btn-view{
-
-            font-size: .9em;
-            padding: 11px;
-            border: none;
+        .btn-remove{
+            width: 38px;
+            padding: 7px;
             border-radius: 4px;
-            cursor: pointer;
-            margin-right: 5px;
             color: #fff;
-            box-shadow: 1px 3px 5px rgba(0,0,0,0.1);
-
-            &:hover{
-                opacity: .9;
-            }
-
-            &:active{
-                background-color: #999;
-            }
         }
 
         .btn-edit{
@@ -95,7 +81,6 @@ main{
 
         .btn-remove{
             background-color: $btn-remove;
-            padding: 11px 13px;
         }
 
         .card-form{
@@ -106,7 +91,7 @@ main{
             overflow: hidden;
             text-align: left;
 
-            h3{
+            h5{
                 font-weight: 500;
                 color: $toolbar;
             }
@@ -171,9 +156,6 @@ main{
                 }
 
                 .form-control{
-                    flex: 1;
-                    padding: 10px 12px;
-                    font-family: $font-family !important;
                     outline: none;
                     border-radius: 4px;
                     border: 1px solid #ddd;
@@ -181,6 +163,7 @@ main{
                     font-size: .9em;
                     transition: all 0.3s ease;
                     resize: none;
+                    width: 100% !important;
 
                     &:focus{
                         border: 1px solid $btn-primary;
@@ -221,27 +204,16 @@ main{
                 text-align: right;
 
                 button, a{
-                    text-decoration: none;
                     margin-right: 10px;
-                    cursor: pointer;
-                    padding: 10px 30px;
+                    padding: 10px 20px;
                     border: none;
                     outline: none;
                     border-radius: 4px;
                     font-family: $font-family;
                     font-size: .9em;
                     font-weight: 500;
-                    color: $toolbar;
-                    background-color: #dedede;
                     transition: all 0.4s ease;
-
-                    &:hover{
-                        opacity: 0.8;
-                    }
-
-                    &:active{
-                        background-color: #999;
-                    }
+                    color: #fff;
 
                     &:last-child{
                         margin-right: 0;
@@ -250,8 +222,6 @@ main{
 
                 .btn-submit{
                     background-color: $btn-primary;
-                    color: #fff;
-                    box-shadow: 1px 3px 5px rgba(0,0,0,0.2);
                 }
             }
         }

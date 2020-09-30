@@ -7,6 +7,7 @@
     h4{
         font-weight: 500;
         color: $toolbar;
+        margin-bottom: 0 !important;
     }
 
     .breadcrumb-section{
@@ -31,11 +32,6 @@
                     color: #555;
                     text-decoration: underline;
                 }
-            }
-
-            .chevrons-right{
-                position: relative;
-                top: 2.5px;
             }
 
             &:last-child{

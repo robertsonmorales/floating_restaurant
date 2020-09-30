@@ -10,7 +10,7 @@
         method="POST" class="card-form" id="card-form">
         @csrf
 
-        <h3>{{ ucfirst($mode).' '.\Str::Singular($header) }}</h3>
+        <h5>{{ ucfirst($mode).' '.\Str::Singular($header) }}</h5>
         <div class="divider"></div>
 
         <div class="input-group">
@@ -54,21 +54,12 @@
         @endif
 
         <div class="actions">
-            <button type="submit" class="btn-submit">{{ ($mode == 'update') ? 'Update' : 'Submit'}}</button>
-            <button type="reset" class="btn-reset">Reset</button>            
-            <a href="{{route('menu_categories.index')}}" class="btn-back">Back</a>
+            <button type="submit" class="btn btn-primary btn-submit">{{ ($mode == 'update') ? 'Update' : 'Submit'}}</button>
+            <button type="reset" class="btn btn-info">Reset</button>            
+            <a href="{{route('menu_categories.index')}}" class="btn btn-secondary">Back</a>
         </div>
     </form>
 </div>
 </center>
 <br>
-@endsection
-@section('scripts')
-<script type="text/javascript">
-$(document).ready(function(){
-    $("select").select2({
-        minimumResultsForSearch: Infinity
-    });
-});
-</script>
 @endsection
