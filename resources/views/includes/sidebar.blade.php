@@ -7,7 +7,9 @@
     <ul class="btn-sidebar">
     @if(isset($navigations))
     @foreach($navigations as $nav)
+
         @if($nav['type'] == "single")
+
         <li>
             <a href="{{ url('/'.$nav['mode']) }}" id="{{ $nav['mode'] }}" class="{{ $nav['mode'] }}">
                 <div>
@@ -18,7 +20,9 @@
                 </div>
             </a>
         </li>
+
         @elseif($nav['type'] == "main")
+
         <li>
             <a href="#" id="{{ $nav['mode'] }}" class="nav-list a-{{ $nav['mode'] }}">
                 <div>
@@ -34,6 +38,7 @@
             
             <ul class="sub-nav {{ $nav['mode'] }}">
                 @foreach($nav['sub'] as $sub)
+
                 <li class="sub-nav-list">
                     <a href="{{ url('/'.$sub['mode']) }}" id="{{ $sub['mode'] }}" class="{{ $sub['mode'] }}">
                         <div>
@@ -44,10 +49,13 @@
                         </div>
                     </a>
                 </li>
+
                 @endforeach
             </ul>
         </li>
+
         @endif
+
     @endforeach
     @endif
     </ul>

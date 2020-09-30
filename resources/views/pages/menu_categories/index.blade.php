@@ -2,31 +2,38 @@
 @section('title', $title)
 
 @section('content')
-<div class="content">
-    <div class="filters" style="justify-content: space-between;">
-        <div class="add_link">
-            <a href="{{ route('menu_categories.create') }}">{{ $add }}</a>
-        </div>
-        <div class="row">
-            <div class="selections">
-                <button class="btn-export">
-                    <span>Export</span>
-                    <span class="download">
-                        <i data-feather="download"></i>
-                    </span>
-                </button>
-            </div>
-            <div class="selections">
-                <p>Page Size:</p>
-                <select name="pageSize" id="pageSize">
-                    <option value="10" selected>10</option>
-                    <option value="20">20</option>
-                    <option value="50">50</option>
-                    <option value="100">100</option>
-                </select>
-            </div>
-        </div>        
+<div class="filters">
+    <div class="filters-child">
+        <a href="{{ route('menu_categories.create') }}" class="btn btn-primary" id="btn-add-record">{{ $add }}</a>
+        <a href="#" class="btn btn-primary" id="btn-export">
+            <span>Export</span>
+            <span class="download-icon"><i data-feather="download"></i></span>
+        </a>
     </div>
+    <div class="filters-child">
+        <div class="form-group">
+            <span class="search-icon">
+                <i data-feather="search"></i>
+            </span>
+            <input type="text" name="search-filter" id="search-filter" placeholder="Search here..">
+        </div>
+        <select name="sortBy" id="sortBy">
+            <option style="display: none;">Sort by</option>
+            <option value="ascending">Ascending</option>
+            <option value="descending">Descending</option>
+            <option value="date-created">Date created</option>
+            <option value="date-modified">Date modified</option>
+        </select>
+        <select name="pageSize" id="pageSize">
+            <option style="display: none;">Page size</option>
+            <option value="10">10</option>
+            <option value="20">20</option>
+            <option value="50">50</option>
+            <option value="100">100</option>
+        </select>
+    </div>
+</div>
+<div class="content">
     <div id="myGrid" class="ag-theme-material"></div>
     <form action="" method="POST" id="delform" style="display: none;">
         @csrf
@@ -34,11 +41,34 @@
         <button type="submit" class="btn btn-danger">Delete</button>
     </form>
 </div>
+
+<!-- toast -->
+<div style="position: absolute; bottom: 20px; right: 20px;">
+    <div role="alert" aria-live="assertive" aria-atomic="true" class="toast" data-autohide="true" data-animation="true" data-delay="4000">
+      <div class="toast-header">
+        <!-- <img src="..." class="rounded mr-2" alt="..."> -->
+        <strong class="mr-auto" id="toast-title">Message</strong>
+        <small>Just now</small>
+        <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="toast-body"></div>
+    </div>
+</div>
+<!-- ends here -->
+
 <br>
 @endsection
 @section('scripts')
 <script>
-$(document).ready(function(){    
+$(document).ready(function(){
+    @if(session()->get('success'))
+    var msg = "{{ session()->get('success') }}";
+    $('.toast').toast('show');
+    $('.toast-body').html(msg);
+    @endif
+
     var data = <?= $data ?>;
 
     // assign agGrid to a variable
@@ -61,7 +91,7 @@ $(document).ready(function(){
             var eDiv = document.createElement('div');
             eDiv.innerHTML = '';
             eDiv.innerHTML+='<button id="'+params.data.id+'" title="Edit" class="btn btn-primary btn-edit"><i class="far fa-edit"></i></button>&nbsp;';
-            eDiv.innerHTML+='<button id="'+params.data.id+'" title="Delete" class="btn btn-primary btn-remove"><i class="far fa-trash-alt"></i></button>&nbsp;';
+            eDiv.innerHTML+='<button id="'+params.data.id+'" title="Delete" class="btn btn-danger btn-remove"><i class="far fa-trash-alt"></i></button>&nbsp;';
 
             var btn_edit = eDiv.querySelectorAll('.btn-edit')[0];
             var btn_remove = eDiv.querySelectorAll('.btn-remove')[0];
@@ -125,7 +155,7 @@ $(document).ready(function(){
         colResizeDefault: "shift",
         rowSelection: "multiple",
         rowStyle: { 
-            fontFamily: ['Poppins', 'sans-serif'],
+            fontFamily: ['Poppins', 'Montserrat', 'sans-serif'],
             fontWeight: 'normal',
             fontSize: '1em',
             color: '#777'
@@ -134,7 +164,7 @@ $(document).ready(function(){
             autoSizeAll();
             // gridOptions.api.sizeColumnsToFit();
         }
-    };
+    }
 
     function autoSizeAll(skipHeader) {
         var allColumnIds = [];
@@ -145,23 +175,55 @@ $(document).ready(function(){
         gridOptions.columnApi.autoSizeColumns(allColumnIds, skipHeader);
     }
 
+    // export as csv
+    $('#btn-export').on('click', function(){
+        gridOptions.api.exportDataAsCsv();
+    });
+
+    function searchMenus(data) {
+      gridOptions.api.setQuickFilter(data);
+    }
+
+    $("#search-filter").on("keyup", function() {
+      searchMenus($(this).val());
+    });
+
     // change page size
     function pageSize(value){
         gridOptions.api.paginationSetPageSize(value);
     }
 
-    // $("#pageSize").change(function(){
-    //     var size = $(this).val();
-    //     pageSize(size);
-    // }).select2({
+    // SORT 
+    $("#sortBy").on('change', function(){      
+        if ($(this).val() == "ascending") {
+            gridOptions.columnApi.applyColumnState({
+              state: [{ colId: 'name', sort: 'asc' }],
+              defaultState: { sort: null },
+            });
+        }else if($(this).val() == "descending"){
+            gridOptions.columnApi.applyColumnState({
+              state: [{ colId: 'name', sort: 'desc' }],
+              defaultState: { sort: null },
+            });
+        }else if($(this).val() == "date-created"){
+            alert('under construction');
+        }else if($(this).val() == "date-modified"){
+            alert('under construction');
+        }
+    });
+    // ENDS HERE
+
+    // PAGE SIZE
+    $("#pageSize").change(function(){
+        var size = $(this).val();
+        console.log(size);
+        pageSize(size);
+    });
+
+    // .select2({
     //     minimumResultsForSearch: Infinity
     // });
-    // ends here
-
-    // export as csv
-    $('.btn-export').on('click', function(){
-        gridOptions.api.exportDataAsCsv();
-    });
+    // ENDS HERE
 
     // setup the grid after the page has finished loading
     new agGrid.Grid(gridDiv, gridOptions);

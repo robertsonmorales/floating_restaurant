@@ -30,25 +30,6 @@
             @yield('content')
         </main>
     </div>
-    <script type="text/javascript">
-        @if(session()->get('success'))
-        session('{{ session()->get('success') }}');
-        function session(msg){
-            const Toast = Swal.mixin({
-                toast: true,
-                position: 'bottom-right',
-                showConfirmButton: false,
-                timer: 4000,
-                timerProgressBar: false,
-            });
-                
-            Toast.fire({
-                icon: 'success',
-                title: msg
-            });
-        }
-        @endif
-    </script>
     @yield('scripts')
 </body>
 </html>
