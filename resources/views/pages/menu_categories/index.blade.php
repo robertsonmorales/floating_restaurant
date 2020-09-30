@@ -91,7 +91,7 @@ $(document).ready(function(){
             var eDiv = document.createElement('div');
             eDiv.innerHTML = '';
             eDiv.innerHTML+='<button id="'+params.data.id+'" title="Edit" class="btn btn-primary btn-edit"><i class="far fa-edit"></i></button>&nbsp;';
-            eDiv.innerHTML+='<button id="'+params.data.id+'" title="Delete" class="btn btn-danger btn-remove"><i class="far fa-trash-alt"></i></button>&nbsp;';
+            eDiv.innerHTML+='<button id="'+params.data.id+'" title="Delete" class="btn btn-primary btn-remove"><i class="far fa-trash-alt"></i></button>&nbsp;';
 
             var btn_edit = eDiv.querySelectorAll('.btn-edit')[0];
             var btn_remove = eDiv.querySelectorAll('.btn-remove')[0];

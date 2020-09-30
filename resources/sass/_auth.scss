@@ -16,7 +16,7 @@
         display: flex;
         justify-content: space-around;
         background-color: #fff !important;
-        box-shadow: 1px 30px 80px rgba(0,0,0,0.1);
+        box-shadow: $shadow;
         border-radius: 4px;
         overflow: hidden;
         position: relative;
@@ -110,11 +110,7 @@
                     &:focus-within{
                         border: 1px solid $btn-primary;
                         background-color: #fff;
-                        box-shadow: 1px 3px 5px rgba(0,0,0,0.1);
-
-                        .icon{
-                            color: $btn-primary;
-                        }
+                        box-shadow: $shadow;
                     }
                 }
 

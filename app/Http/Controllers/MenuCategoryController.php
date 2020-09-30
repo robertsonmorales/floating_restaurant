@@ -30,7 +30,9 @@ class MenuCategoryController extends Controller
             'status' => 'required|numeric'
         ];
 
-        $messages = [];
+        $messages = [
+            'status.numeric' => "The status must have a valid value",
+        ];
 
         $customAttributes = [
             'name' => 'name',
@@ -102,7 +104,8 @@ class MenuCategoryController extends Controller
             'mode' => $mode_action,
             'breadcrumbs' => $this->breadcrumbs($name, $mode),
             'header' => 'Menu Categories',
-            'title' => 'Menu Categories'
+            'title' => 'Menu Categories',
+            'uniqueData' => $this->category->all()
         ]);
     }
 
@@ -160,7 +163,8 @@ class MenuCategoryController extends Controller
             'breadcrumbs' => $this->breadcrumbs($name, $mode),
             'header' => 'Menu Categories',
             'title' => 'Menu Categories',
-            'data' => $data
+            'data' => $data,
+            'uniqueData' => $this->category->all()
         ]);
     }
 

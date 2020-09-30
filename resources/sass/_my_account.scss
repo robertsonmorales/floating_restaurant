@@ -1,246 +1,248 @@
-.user-container{
-    display: grid;
-    grid-template-columns: 30% 70%;
+.customer-content{
+    .user-container{
+        display: grid;
+        grid-template-columns: 30% 70%;
 
-    .user-options{
-        margin-right: 20px;
-        border-radius: 10px;
-    
-        ul{
-            list-style: none;
-            box-shadow: 1px 3px 5px rgba(0,0,0,0.05);
-            border-radius: 4px;
-            overflow: hidden;
-            padding: 15px;
-            background-color: #fff;
-    
-            li{
-                font-weight: 500;
-                font-size: .9em;
-                display: flex;
+        .user-options{
+            margin-right: 20px;
+            border-radius: 10px;
+        
+            ul{
+                list-style: none;
+                box-shadow: $shadow;
+                border-radius: 4px;
+                overflow: hidden;
+                padding: 15px;
+                background-color: #fff;
+        
+                li{
+                    font-weight: 500;
+                    font-size: .9em;
+                    display: flex;
 
-                .row{
-                    margin-bottom: 15px;
-                    flex: 1;
+                    .row{
+                        margin-bottom: 15px;
+                        flex: 1;
 
-                    .profile-image-form{
-                        display: flex;
-                        flex-direction: column;
-                        align-items: center;
-                        justify-content: center;
-                        position: relative;
-                        text-align: center;
-                        margin-bottom: 10px;
+                        .profile-image-form{
+                            display: flex;
+                            flex-direction: column;
+                            align-items: center;
+                            justify-content: center;
+                            position: relative;
+                            text-align: center;
+                            margin-bottom: 10px;
 
-                        .image-wrapper{
-                            overflow: hidden;
-                            border-radius: 50%;
-                            width: 120px;
-                            height: 120px;
-                            background-color: #eee;
-                            background-size: cover;
-                            background-position: center;
-                            border: 3px solid #fff;
-                        }
-
-                        #profile-image{
-                            display: none;
-                        }
-
-                        .offset{
-                            .btn-change-profile{
-                                box-shadow: 1px 1px 10px rgba(0,0,0,0.1);
-                                position: absolute;
-                                bottom: -10px;
-                                border: none;
-                                outline: none;
-                                background-color: #fff;
-                                cursor: pointer;
-                                margin: 2px;
-                                padding: 5px;
-                                width: 38px;
-                                height: 38px;
+                            .image-wrapper{
+                                overflow: hidden;
                                 border-radius: 50%;
-                                display: flex;
-                                justify-content: center;
-                                align-items: center;
-                                color: $btn-primary;
+                                width: 120px;
+                                height: 120px;
+                                background-color: #eee;
+                                background-size: cover;
+                                background-position: center;
+                                border: 3px solid #fff;
+                            }
 
-                                .feather{
-                                    width: 18px;
-                                    height: 18px;
-                                }
+                            #profile-image{
+                                display: none;
+                            }
 
-                                &:active{
-                                    background-color: $primary;
+                            .offset{
+                                .btn-change-profile{
+                                    box-shadow: $shadow;
+                                    position: absolute;
+                                    bottom: -10px;
+                                    border: none;
+                                    outline: none;
+                                    background-color: #fff;
+                                    cursor: pointer;
+                                    margin: 2px;
+                                    padding: 5px;
+                                    width: 38px;
+                                    height: 38px;
+                                    border-radius: 50%;
+                                    display: flex;
+                                    justify-content: center;
+                                    align-items: center;
+                                    color: $btn-primary;
+
+                                    .feather{
+                                        width: 18px;
+                                        height: 18px;
+                                    }
+
+                                    &:active{
+                                        background-color: $primary;
+                                    }
                                 }
                             }
                         }
-                    }
 
-                    .user-details{
-                        display: flex;
-                        align-items: center;
-                        justify-content: center;
-
-                        h3{
-                            color: $toolbar;
-                            margin-bottom: 5px;
-                            font-weight: 500;
-                        }
-
-                        .status{
-                            margin-left: 10px;
-                            border-radius: 4px;
-                            padding: 3px 7px;
+                        .user-details{
                             display: flex;
                             align-items: center;
+                            justify-content: center;
 
-                            .circle{
-                                font-size: .5em;                                
+                            h3{
+                                color: $toolbar;
+                                margin-bottom: 5px;
+                                font-weight: 500;
                             }
 
-                            .status-code{
-                                margin-left: 5px;
-                                font-size: .7em;
+                            .status{
+                                margin-left: 10px;
+                                border-radius: 4px;
+                                padding: 3px 7px;
+                                display: flex;
+                                align-items: center;
+
+                                .circle{
+                                    font-size: .5em;                                
+                                }
+
+                                .status-code{
+                                    margin-left: 5px;
+                                    font-size: .7em;
+                                }
+                            }
+
+                            .status-online{
+                                color: $green;
+                                border: 1px solid $green;
+                            }
+
+                            .status-idle{
+                                color: $gold;
+                                border: 1px solid $gold;
+                            }
+
+                            .status-offline{
+                                color: $default;
+                                border: 1px solid $default;
                             }
                         }
+                    }
+        
+                    a{
+                        text-decoration: none;
+                        padding: 10px 15px;
+                        flex: 1;
+                        border-radius: 4px;
+                        color: $toolbar;
 
-                        .status-online{
-                            color: $green;
-                            border: 1px solid $green;
+                        .feather{
+                            position: relative;
+                            top: 2.5px;
                         }
 
-                        .status-idle{
-                            color: $gold;
-                            border: 1px solid $gold;
+                        span{
+                            margin-left: 10px;
                         }
 
-                        .status-offline{
-                            color: $default;
-                            border: 1px solid $default;
+                        &:hover{
+                            background-color: $primary;
+                        }
+
+                        &:active{
+                            background-color: $btn-primary;
+                            color: #fff;
                         }
                     }
-                }
-    
-                a{
-                    text-decoration: none;
-                    padding: 10px 15px;
-                    flex: 1;
-                    border-radius: 4px;
-                    color: $toolbar;
-
-                    .feather{
-                        position: relative;
-                        top: 2.5px;
-                    }
-
-                    span{
-                        margin-left: 10px;
-                    }
-
-                    &:hover{
-                        background-color: $primary;
-                    }
-
-                    &:active{
+        
+                    #btn-account{
                         background-color: $btn-primary;
                         color: #fff;
                     }
                 }
-    
-                #btn-account{
+            }
+        }
+        
+        .user-content{
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: $shadow;
+            border-radius: 4px;
+            overflow: hidden;
+            margin-bottom: 20px;
+            
+            h3{
+                color: $toolbar;
+                font-weight: 500;
+            }
+
+            .input-group{
+                display: flex;
+                flex-direction: column;
+                margin-bottom: 20px;
+                text-align: left;
+        
+                label{
+                    font-size: .8em;
+                    color: #999;
+                    font-weight: 500;
+                    margin-bottom: 5px;
+                }
+        
+                .form-control{
+                    flex: 1;
+                    padding: 10px 12px;
+                    font-family: $font-family !important;
+                    outline: none;
+                    border-radius: 4px;
+                    border: 1px solid #ddd;
+                    font-weight: 500;
+                    font-size: .9em;
+                    transition: all 0.3s ease;
+
+                    &:focus{
+                        border: 1px solid $btn-primary;
+                        box-shadow: $shadow;
+                    }
+                }
+
+                .invalid-feedback{
+                    strong{
+                        color: $red;
+                        font-size: .9em;
+                        font-weight: 500;
+                    }
+                }
+            }        
+        
+            .actions{
+                text-align: right;
+        
+                button{
+                    padding: 10px 30px;
+                    border-radius: 4px;
+                    border: none;
+                    outline: none;
+                    margin-right: 5px;
+                    font-family: $font-family;
+                    font-weight: 500;
+                    font-size: .9em;
+                    cursor: pointer;
+        
+                    &:hover{
+                        opacity: 0.8;
+                    }
+        
+                    &:active{
+                        background-color: #999;
+                    }
+
+                    &:last-child{
+                        margin-right: 0;
+                    }
+                }
+        
+                .btn-save{
+                    box-shadow: $shadow;
                     background-color: $btn-primary;
                     color: #fff;
                 }
             }
-        }
-    }
-    
-    .user-content{
-        padding: 20px;
-        background-color: #fff;
-        box-shadow: 1px 3px 5px rgba(0,0,0,0.05);
-        border-radius: 4px;
-        overflow: hidden;
-        margin-bottom: 20px;
-        
-        h3{
-            color: $toolbar;
-            font-weight: 500;
-        }
-
-        .input-group{
-            display: flex;
-            flex-direction: column;
-            margin-bottom: 20px;
-            text-align: left;
-    
-            label{
-                font-size: .8em;
-                color: #999;
-                font-weight: 500;
-                margin-bottom: 5px;
-            }
-    
-            .form-control{
-                flex: 1;
-                padding: 10px 12px;
-                font-family: $font-family !important;
-                outline: none;
-                border-radius: 4px;
-                border: 1px solid #ddd;
-                font-weight: 500;
-                font-size: .9em;
-                transition: all 0.3s ease;
-
-                &:focus{
-                    border: 1px solid $btn-primary;
-                    box-shadow: 1px 3px 5px rgba(0,0,0,0.1);
-                }
-            }
-
-            .invalid-feedback{
-                strong{
-                    color: $red;
-                    font-size: .9em;
-                    font-weight: 500;
-                }
-            }
-        }        
-    
-        .actions{
-            text-align: right;
-    
-            button{
-                padding: 10px 30px;
-                border-radius: 4px;
-                border: none;
-                outline: none;
-                margin-right: 5px;
-                font-family: $font-family;
-                font-weight: 500;
-                font-size: .9em;
-                cursor: pointer;
-    
-                &:hover{
-                    opacity: 0.8;
-                }
-    
-                &:active{
-                    background-color: #999;
-                }
-
-                &:last-child{
-                    margin-right: 0;
-                }
-            }
-    
-            .btn-save{
-                box-shadow: 1px 3px 5px rgba(0,0,0,0.1);
-                background-color: $btn-primary;
-                color: #fff;
-            }
-        }
-    }   
+        }   
+    }       
 }
