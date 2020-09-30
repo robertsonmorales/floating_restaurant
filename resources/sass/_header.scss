@@ -1,0 +1,157 @@
+.header-content{
+    display: flex;
+    flex-direction: column;
+    margin: 20px 30px;
+
+    nav{
+        padding: 15px 20px;
+        box-shadow: 1px 3px 5px rgba(0,0,0,0.05);
+        background-color: #fff;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        position: relative;
+        border-radius: 4px;
+
+        .date-time{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            h5{
+                font-size: .9em;
+                font-weight: 500;
+                color: $toolbar;
+                margin: 0;
+                padding: 0;
+            }
+        }
+
+        .user-profile{
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+
+            .notifications{
+                list-style: none;
+                display: flex;
+                align-items: center;
+                margin-right: 15px;
+                display: none;
+
+                li{
+                    margin: 10px;
+
+                    a{
+                        text-decoration: none;
+                        color: $toolbar;
+                        display: flex;
+                        justify-content: center;
+                        position: relative;
+
+                        .new-notifications{
+                            color: $red;
+                            font-size: .5em;
+                            position: aboslute;
+                            bottom: 0;
+                        }
+
+                        .feather{
+                            width: 20px;
+                            height: 20px;
+                        }
+
+                        &:active{
+                            color: $btn-primary;
+                        }
+                    }
+                }
+            }
+
+            a.btn-dropdown{
+                color: $toolbar;
+                text-decoration: none;
+                font-weight: 600;
+                font-size: .9em;
+                display: flex;
+                align-items: center;
+
+                .username{
+                    // margin-right: 10px;
+                    text-align: right;
+                    display: flex;
+                    align-items: center;
+                    overflow: hidden;
+
+                    .image-wrapper{
+                        border-radius: 50%;
+                        width: 34px;
+                        height: 34px;
+                        background-color: #eee;
+                        background-size: cover;
+                        background-position: center;
+                        overflow: hidden;
+                        border: 2px solid $inactive;
+                    }
+
+                    .username-info{
+                        margin-right: 10px;
+                        font-weight: 500;
+                    }
+                }
+
+                #admin-arrow{
+                    transform: rotate(-90deg);
+                    transition: all .3s ease;
+                }
+
+                .arrow-focus{
+                    transform: rotate(0deg) !important;
+                    transition: all .3s ease;
+                }                    
+            }
+
+            .admin-dropdown{
+                z-index: 1;
+                position: absolute;
+                top: 60px;
+                right: 15px;
+                background-color: #fff;
+                box-shadow: 1px 3px 5px rgba(0,0,0,0.05);
+                border-radius: 4px;
+                list-style: none;
+                overflow: hidden;
+                max-height: 0;
+                transition: all 0.4s ease;
+
+                ul{
+                    list-style: none;
+                    
+                    li{
+                        display: flex;
+                        flex-direction: column;
+
+                        a{
+                            padding: 10px 20px;
+                            padding-right: 35px;
+                            text-decoration: none;
+                            color: $toolbar;
+                            font-weight: 500;
+                            font-size: .9em;
+                            display: flex;
+                            align-items: center;
+
+                            span{
+                                margin-left: 10px;
+                            }
+
+                            &:hover{
+                                background-color: $primary;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
