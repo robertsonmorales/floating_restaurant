@@ -78,12 +78,13 @@ $(document).ready(function(){
     // assign agGrid to a variable
     var gridDiv = document.querySelector('#myGrid');
     columnDefs = {
-        headerName: 'Controls',
-        field: 'Controls',
+        headerName: 'CONTROLS',
+        field: 'controls',
         sortable: false,
         filter: false,
         // width: 150,
         flex: 1,
+        cellStyle: {color: 'red'},
         pinned: 'left',
         cellRenderer: function(params){
             // EDIT
@@ -143,11 +144,7 @@ $(document).ready(function(){
                 var convertURI = (image == null) ? defaultImage : src;
                 return '<div class="data-profile">\
                         <span class="profile" style="background-image: url(' + encodeURI(convertURI) + '); background-size: cover;"></span>\
-                        <span class="name">'+ first_name + ' ' + last_name +'</span>\
-                        <div class="user-status status-online">\
-                            <span class="circle"><i class="fas fa-circle"></i></span>\
-                            <span class="status-code">Online</span>\
-                        </div>\
+                        <span class="account">'+ first_name + ' ' + last_name +'</span>\
                     </div>';
             }
         }
@@ -179,10 +176,11 @@ $(document).ready(function(){
         colResizeDefault: "shift",
         rowSelection: "multiple",
         rowStyle: { 
-            fontFamily: ['Poppins', 'sans-serif'],
-            fontWeight: 'normal',
-            fontSize: '1em',
-            color: '#777'
+            fontFamily: ['Poppins', 'Montserrat', 'sans-serif'],
+            fontWeight: 500,
+            fontSize: '.9em',
+            color: '#3e4044',
+            border: '1px solid #f3f3f3',
         },
         onGridReady: function () {
             autoSizeAll();

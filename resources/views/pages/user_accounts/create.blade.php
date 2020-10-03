@@ -185,8 +185,8 @@
             <button type="submit" class="btn btn-primary btn-submit" id="btn-submit">
                 {{ ($mode == 'update') ? 'Submit Changes' : 'Submit' }}
             </button>
-            <button type="reset" class="btn btn-danger" id="btn-reset">Reset</button>            
-            <button type="button" onclick="window.location.href='{{route('user_accounts.index') }}'" class="btn btn-secondary" id="btn-back">Back</button>
+            <button type="reset" class="btn btn-secondary btn-default">Reset</button>            
+            <button type="button" onclick="window.location.href='{{route('user_accounts.index') }}'" class="btn btn-secondary btn-default">Back</button>
         </div>
 
     </form>

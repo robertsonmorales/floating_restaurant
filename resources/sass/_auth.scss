@@ -67,6 +67,13 @@
                 width: 100%;
             }
 
+            .form-columns{
+                display: grid !important;
+                grid-template-columns: repeat(2, 1fr);
+                font-size: .9em !important;
+                align-items: center;
+            }
+
             .form-group{
                 margin-bottom: 15px;
                 display: flex;
@@ -147,6 +154,8 @@
                     label{
                         font-size: .9em;
                         color: #999;
+                        position: relative;
+                        top: 1.5px;
                     }
                 }
 
