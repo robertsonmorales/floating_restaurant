@@ -77,7 +77,6 @@
                 align-items: center;
 
                 .username{
-                    // margin-right: 10px;
                     text-align: right;
                     display: flex;
                     align-items: center;
@@ -85,20 +84,20 @@
 
                     .image-wrapper{
                         border-radius: 50%;
-                        width: 34px;
-                        height: 34px;
+                        width: 40px;
+                        height: 40px;
                         background-color: #eee;
                         background-size: cover;
                         background-position: center;
                         overflow: hidden;
                         border: 2px solid $inactive;
+                        margin-right: 10px;
                     }
 
                     .user-detail{
-                        margin-right: 10px;
                         display: flex;
                         flex-direction: column;
-                        justify-content: flex-end;
+                        text-align: left;
 
                         .user{
                             font-weight: 600;
@@ -112,16 +111,6 @@
                         }
                     }
                 }
-
-                #admin-arrow{
-                    transform: rotate(-90deg);
-                    transition: all .3s ease;
-                }
-
-                .arrow-focus{
-                    transform: rotate(0deg) !important;
-                    transition: all .3s ease;
-                }                    
             }
 
             .admin-dropdown{
@@ -133,8 +122,8 @@
                 box-shadow: $shadow;
                 border-radius: 4px;
                 overflow: hidden;
-                max-height: 0;
-                transition: all 0.4s ease;
+                max-height: 0;                
+                transition: all .2s ease;
 
                 ul{
                     list-style: none;

@@ -2,16 +2,14 @@ $(document).ready(function(){
 	$("#btn-dropdown").click(function(event){
 		event.stopPropagation();
 		var profile_dropdown = document.getElementById('admin-dropdown');
-		var arrow = document.getElementById('admin-arrow');
 
 		if(profile_dropdown.style.maxHeight){
 		    profile_dropdown.style.maxHeight = null;
-		    // if (arrow.classList.contains('arrow-focus')) {
-		    // 	arrow.classList.remove("arrow-focus");
-		    // }
+		    profile_dropdown.style.opacity = 0;
 		}else{ 
-		    profile_dropdown.style.maxHeight = profile_dropdown.scrollHeight + "px";
-		    // arrow.classList.add("arrow-focus");
+			var scrollHeight = profile_dropdown.scrollHeight - 16;
+		    profile_dropdown.style.maxHeight = scrollHeight + "px";
+		    profile_dropdown.style.opacity = 1;
 		}
 	});
 
@@ -27,14 +25,16 @@ $(document).ready(function(){
 	});
 
 	$('.nav-list').click(function(){
-		var maxHeight = $(this).parent().children()[1];
+		var navBar = $(this).parent().children()[1];
 
-		if (maxHeight.style.maxHeight) {
-			maxHeight.style.maxHeight = null;
+		if (navBar.style.maxHeight) {
+			navBar.style.maxHeight = null;
+			navBar.style.opacity = .2;
 			$(this).children()[1].classList.remove('dropdown-focus');
 		}else{
+			navBar.style.maxHeight = $(this).parent().children()[1].scrollHeight + "px";
+			navBar.style.opacity = 1;
 			$(this).children()[1].classList.add('dropdown-focus');
-			maxHeight.style.maxHeight = $(this).parent().children()[1].scrollHeight + "px";
 		}
 	});
 
