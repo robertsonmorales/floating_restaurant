@@ -104,8 +104,7 @@ class MenuCategoryController extends Controller
             'mode' => $mode_action,
             'breadcrumbs' => $this->breadcrumbs($name, $mode),
             'header' => 'Menu Categories',
-            'title' => 'Menu Categories',
-            'uniqueData' => $this->category->all()
+            'title' => 'Menu Categories'
         ]);
     }
 

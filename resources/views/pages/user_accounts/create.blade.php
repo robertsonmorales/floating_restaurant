@@ -193,8 +193,6 @@
 @section('scripts')
 <script type="text/javascript">
 $(document).ready(function(){
-    var unique = <?= $uniqueData ?>;
-
     $('#card-form').on('submit', function(){
         var mode = "{{ $mode }}";
         $('#btn-submit').prop('disabled', true);

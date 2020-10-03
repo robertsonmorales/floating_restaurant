@@ -235,7 +235,7 @@ class UserAccountController extends Controller
         $validator = Validator::make($input, $rules, $messages,$customAttributes);
         return $validator->validate();
     }
-    
+
     /**
      * Update the specified resource in storage.
      *
