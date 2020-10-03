@@ -11,8 +11,8 @@
 
     .data-profile{
         display: flex;
-        align-items: center;
         justify-content: flex-start;
+        align-items: center;
 
         .profile{
             width: 36px;
@@ -21,36 +21,10 @@
             border: 2px solid #eee;
         }
 
-        .name{
-            color: $toolbar;
-            margin-left: 5px;
-        }
-
-        .user-status{
-            margin-left: 5px;
+        .account{
             display: flex;
-            align-items: center;
-
-            .circle{
-                font-size: .5em;                                
-            }
-
-            .status-code{
-                margin-left: 5px;
-                font-size: .7em;
-            }
-        }
-
-        .status-online{
-            color: $green;
-        }
-
-        .status-idle{
-            color: $gold;
-        }
-
-        .status-offline{
-            color: $default;
+            flex-direction: column;
+            margin-left: 5px;
         }
     }
 
@@ -74,7 +48,6 @@
         padding: 20px;
         background-color: #fff;
         box-shadow: $shadow;
-        border-radius: 10px;
         overflow: hidden;
         text-align: left;
 
@@ -197,7 +170,7 @@
             margin-top: 15px;
             text-align: right;
 
-            button, a{
+            button{
                 margin-right: 5px;
                 padding: 10px 20px;
                 border: none;
@@ -205,7 +178,7 @@
                 border-radius: 4px;
                 font-family: $font-family;
                 font-size: .9em;
-                font-weight: 500;
+                font-weight: 600;
                 transition: all 0.4s ease;
                 color: #fff;
 
@@ -216,6 +189,16 @@
 
             .btn-submit{
                 background-color: $btn-primary;
+            }
+
+            // .btn-reset{
+                // background-color: #ffd0d5aa;
+                // color: $red;
+            // }
+
+            .btn-default{
+                color: $toolbar;
+                background-color: $inactive;
             }
         }
     }

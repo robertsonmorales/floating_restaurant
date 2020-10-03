@@ -89,17 +89,17 @@ class UserAccountController extends Controller
             'sortable'=>true,
             'floatingFilter'=>true,
             'resizable'=>true,
-            'flex'=>1
+            'flex'=>1,
         );
 
         $columnDefs = array();
-        $columnDefs[] = array_merge(array('headerName'=>'Name','field'=>'name'), $arr_set);
-        $columnDefs[] = array_merge(array('headerName'=>'Username','field'=>'username'), $arr_set);
-        $columnDefs[] = array_merge(array('headerName'=>'Email','field'=>'email'), $arr_set);
-        $columnDefs[] = array_merge(array('headerName'=>'Contact Number','field'=>'contact_number'), $arr_set);
-        $columnDefs[] = array_merge(array('headerName'=>'Status','field'=>'status'), $arr_set);
+        $columnDefs[] = array_merge(array('headerName'=>'NAME','field'=>'name'), $arr_set);
+        $columnDefs[] = array_merge(array('headerName'=>'USERNAME','field'=>'username'), $arr_set);
+        $columnDefs[] = array_merge(array('headerName'=>'EMAIL','field'=>'email'), $arr_set);
+        $columnDefs[] = array_merge(array('headerName'=>'CONTACT NUMBER','field'=>'contact_number'), $arr_set);
+        $columnDefs[] = array_merge(array('headerName'=>'STATUS','field'=>'status'), $arr_set);
         // $columnDefs[] = array_merge(array('headerName'=>'User Role','field'=>'user_role'), $arr_set);
-        $columnDefs[] = array_merge(array('headerName'=>'Created at','field'=>'created_at'), $arr_set);
+        $columnDefs[] = array_merge(array('headerName'=>'CREATED AT','field'=>'created_at'), $arr_set);
         $data = json_encode(array('rows'=>$rows, 'column'=>$columnDefs));
 
         $this->audit_trail_logs('','','','');

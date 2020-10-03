@@ -49,7 +49,7 @@
                 @enderror
             </div>
 
-            <div class="form-group">
+            <div class="form-group form-columns">
                 <div class="form-check">
                     <input class="form-check-input" type="checkbox"
                         name="remember"
@@ -59,13 +59,7 @@
                     <label class="form-check-label" for="remember">{{ __('Remember Me') }}</label>
 
                 </div>
-            </div>
 
-            <div class="form-group">
-                <button type="submit" class="btn btn-primary btn-auth">{{ __('Login') }}</button>
-            </div>
-
-            <div class="form-group">
                 @if (Route::has('password.request'))
                 <div class="forgot">
                     <a href="{{ route('password.request') }}">
@@ -73,6 +67,14 @@
                     </a>
                 </div>
                 @endif
+            </div>
+
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary btn-auth">{{ __('Login') }}</button>
+            </div>
+
+            <div class="form-group">
+                
             </div>
             
         </form>
