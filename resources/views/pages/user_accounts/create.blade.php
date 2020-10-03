@@ -181,7 +181,7 @@
             <button type="submit" class="btn btn-primary btn-submit" id="btn-submit">
                 {{ ($mode == 'update') ? 'Submit Changes' : 'Submit' }}
             </button>
-            <button type="reset" class="btn btn-info" id="btn-reset">Reset</button>            
+            <button type="reset" class="btn btn-danger" id="btn-reset">Reset</button>            
             <button type="button" onclick="window.location.href='{{route('user_accounts.index') }}'" class="btn btn-secondary" id="btn-back">Back</button>
         </div>
 
@@ -201,6 +201,10 @@ $(document).ready(function(){
 
         $('#btn-submit').html((mode == "update") ? "Submitting Changes.." : "Submitting..");
         $(this).submit();
+    });
+
+    $('#example-popover').popover({
+        container: 'body'
     });
 });
 </script>
