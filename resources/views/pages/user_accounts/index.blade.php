@@ -212,6 +212,14 @@ $(document).ready(function(){
         gridOptions.api.exportDataAsCsv();
     });
 
+    function search(data) {
+      gridOptions.api.setQuickFilter(data);
+    }
+
+    $("#search-filter").on("keyup", function() {
+      search($(this).val());
+    });
+
     // setup the grid after the page has finished loading
     new agGrid.Grid(gridDiv, gridOptions);
 });
