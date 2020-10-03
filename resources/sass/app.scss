@@ -16,19 +16,20 @@
 
 /* width */
 ::-webkit-scrollbar {
-    width: 5px;
-    height: 5px;
-    border-radius: 2px;
+    width: 7px;
+    height: 7px;
 }
 
 /* Track */
 ::-webkit-scrollbar-track {
-    background: #f1f1f1;
+    background: transparent;
 }
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-    background: #aaa;
+    border: 4px solid #dedede;
+    border-radius: 8px;
+    background-clip: padding-box;
 }
 
 /* Handle on hover */
@@ -67,13 +68,14 @@ body{
     }
 
     .status{
-        padding: 3px 10px;
+        padding: 1px 10px;
         border-radius: 20px;
     }
 
     .active-status{
-        background-color: $green;
+        background-color: #49dc9ce6;
         color: #fff;
+        border: 1px solid #85f3ce;
     }
 
     .inactive-status{

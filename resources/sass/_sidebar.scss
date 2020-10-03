@@ -19,10 +19,15 @@
         }
     }
 
+    .btn-sidebar::-webkit-scrollbar-thumb{
+        display: none;
+    }
+
     .btn-sidebar{
         list-style: none;
         flex: 1;
         overflow-y: auto !important;
+        transition: all 0.4s ease;
 
         li{
             display: flex;
@@ -93,6 +98,10 @@
             .selected-color{
                 color: $btn-primary;
             }
+        }
+
+        &:hover::-webkit-scrollbar-thumb{
+            display: block;
         }
     }
 }
