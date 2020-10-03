@@ -190,3 +190,20 @@
 </center>
 <br>
 @endsection
+@section('scripts')
+<script type="text/javascript">
+$(document).ready(function(){
+    var unique = <?= $uniqueData ?>;
+
+    $('#card-form').on('submit', function(){
+        var mode = "{{ $mode }}";
+        $('#btn-submit').prop('disabled', true);
+        $('#btn-reset').prop('disabled', true);
+        $('#btn-back').prop('disabled', true);
+
+        $('#btn-submit').html((mode == "update") ? "Submitting Changes.." : "Submitting..");
+        $(this).submit();
+    });
+});
+</script>
+@endsection
