@@ -4,7 +4,7 @@
 @section('content')
 <div class="filters">
     <div class="filters-child">
-        <a href="{{ route('menu_categories.create') }}" class="btn btn-primary" id="btn-add-record">{{ $add }}</a>
+        <a href="{{ route('user_accounts.create') }}" class="btn btn-primary" id="btn-add-record">{{ $add }}</a>
         <a href="#" class="btn btn-primary" id="btn-export">
             <span>Export</span>
             <span class="download-icon"><i data-feather="download"></i></span>
@@ -69,13 +69,14 @@ $(document).ready(function(){
     $('.toast').toast('show');
     $('.toast-body').html(msg);
     @endif
-
+    
     var data = <?= $data ?>;
+    
+    // specify the data    
+    var columnDefs = [];
 
     // assign agGrid to a variable
     var gridDiv = document.querySelector('#myGrid');
-
-    var columnDefs = [];
     columnDefs = {
         headerName: 'Controls',
         field: 'Controls',
@@ -86,7 +87,7 @@ $(document).ready(function(){
         pinned: 'left',
         cellRenderer: function(params){
             // EDIT
-            var edit_url = '{{ route("menu_categories.edit", ":id") }}';
+            var edit_url = '{{ route("user_accounts.edit", ":id") }}';
             edit_url = edit_url.replace(':id', params.data.id);
 
             var eDiv = document.createElement('div');
@@ -105,12 +106,12 @@ $(document).ready(function(){
                 var data_id = $(this).attr("id");
                 
                 // REMOVE
-                var remove_url = '{{ route("menu_categories.destroy", ":id") }}';
+                var remove_url = '{{ route("user_accounts.destroy", ":id") }}';
                 remove_url = remove_url.replace(':id', params.data.id);
                 document.getElementById("delform").action = remove_url;
                 Swal.fire({
                     title: 'Warning',
-                    text: "Are you sure you want to remove this record?",
+                    text: "Are you sure you wan't to remove this record?",
                     icon: 'warning',
                     showCancelButton: true,
                     confirmButtonColor: '#e3342f',
@@ -128,7 +129,29 @@ $(document).ready(function(){
         }
     }
 
-    for (var i = data.column.length - 1; i >= 0; i--) {
+    for (var i = data.column.length - 1; i >= 0; i--) {       
+
+        if (data.column[i].field == "name") {
+            data.column[i].cellRenderer = function imageName(params) {
+                var first_name = params.data.first_name.charAt(0).toUpperCase() + params.data.first_name.substr(1);
+                var last_name = params.data.last_name.charAt(0).toUpperCase() + params.data.last_name.substr(1);
+                var image = params.data.profile_image;
+                var defaultImage = "{{ asset('images/user_profiles/avatar.svg') }}";
+                var public_path = "{{ asset('images/user_profiles/') }}";                
+                var folder = params.data.username + params.data.id;
+                var src = public_path + "/" + folder + "/" + image;
+                var convertURI = (image == null) ? defaultImage : src;
+                return '<div class="data-profile">\
+                        <span class="profile" style="background-image: url(' + encodeURI(convertURI) + '); background-size: cover;"></span>\
+                        <span class="name">'+ first_name + ' ' + last_name +'</span>\
+                        <div class="user-status status-online">\
+                            <span class="circle"><i class="fas fa-circle"></i></span>\
+                            <span class="status-code">Online</span>\
+                        </div>\
+                    </div>';
+            }
+        }
+
         if (data.column[i].field == "status") {
             data.column[i].cellRenderer = function display(params) {
                 if (params.data.status == "Active") {
@@ -156,7 +179,7 @@ $(document).ready(function(){
         colResizeDefault: "shift",
         rowSelection: "multiple",
         rowStyle: { 
-            fontFamily: ['Poppins', 'Montserrat', 'sans-serif'],
+            fontFamily: ['Poppins', 'sans-serif'],
             fontWeight: 'normal',
             fontSize: '1em',
             color: '#777'
@@ -165,7 +188,7 @@ $(document).ready(function(){
             autoSizeAll();
             // gridOptions.api.sizeColumnsToFit();
         }
-    }
+    };
 
     function autoSizeAll(skipHeader) {
         var allColumnIds = [];
@@ -176,55 +199,18 @@ $(document).ready(function(){
         gridOptions.columnApi.autoSizeColumns(allColumnIds, skipHeader);
     }
 
-    // export as csv
-    $('#btn-export').on('click', function(){
-        gridOptions.api.exportDataAsCsv();
-    });
-
-    function searchMenus(data) {
-      gridOptions.api.setQuickFilter(data);
-    }
-
-    $("#search-filter").on("keyup", function() {
-      searchMenus($(this).val());
-    });
-
     // change page size
-    function pageSize(value){
-        gridOptions.api.paginationSetPageSize(value);
-    }
-
-    // SORT 
-    $("#sortBy").on('change', function(){      
-        if ($(this).val() == "ascending") {
-            gridOptions.columnApi.applyColumnState({
-              state: [{ colId: 'name', sort: 'asc' }],
-              defaultState: { sort: null },
-            });
-        }else if($(this).val() == "descending"){
-            gridOptions.columnApi.applyColumnState({
-              state: [{ colId: 'name', sort: 'desc' }],
-              defaultState: { sort: null },
-            });
-        }else if($(this).val() == "date-created"){
-            alert('under construction');
-        }else if($(this).val() == "date-modified"){
-            alert('under construction');
-        }
-    });
-    // ENDS HERE
-
-    // PAGE SIZE
+    function pageSize(value){gridOptions.api.paginationSetPageSize(Number(value));}
     $("#pageSize").change(function(){
         var size = $(this).val();
-        console.log(size);
         pageSize(size);
     });
+    // ends here
 
-    // .select2({
-    //     minimumResultsForSearch: Infinity
-    // });
-    // ENDS HERE
+    // export as csv
+    $('.btn-export').on('click', function(){
+        gridOptions.api.exportDataAsCsv();
+    });
 
     // setup the grid after the page has finished loading
     new agGrid.Grid(gridDiv, gridOptions);

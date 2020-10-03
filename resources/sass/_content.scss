@@ -21,15 +21,13 @@
             border: 2px solid #eee;
         }
 
-        p{
+        .name{
             color: $toolbar;
             margin-left: 5px;
         }
 
         .user-status{
-            margin-left: 10px;
-            border-radius: 4px;
-            padding: 3px 7px;
+            margin-left: 5px;
             display: flex;
             align-items: center;
 
