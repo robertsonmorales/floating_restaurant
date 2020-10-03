@@ -18,14 +18,14 @@
             <input type="text" name="search-filter" id="search-filter" placeholder="Search here..">
         </div>
         <select name="sortBy" id="sortBy">
-            <option style="display: none;">Sort by</option>
+            <option disabled>Sort by</option>
             <option value="ascending">Ascending</option>
             <option value="descending">Descending</option>
             <option value="date-created">Date created</option>
             <option value="date-modified">Date modified</option>
         </select>
         <select name="pageSize" id="pageSize">
-            <option style="display: none;">Page size</option>
+            <option disabled>Page size</option>
             <option value="10">10</option>
             <option value="20">20</option>
             <option value="50">50</option>
@@ -33,6 +33,7 @@
         </select>
     </div>
 </div>
+
 <div class="content">
     <div id="myGrid" class="ag-theme-material"></div>
     <form action="" method="POST" id="delform" style="display: none;">
