@@ -181,12 +181,12 @@ $(document).ready(function(){
         gridOptions.api.exportDataAsCsv();
     });
 
-    function searchMenus(data) {
+    function search(data) {
       gridOptions.api.setQuickFilter(data);
     }
 
     $("#search-filter").on("keyup", function() {
-      searchMenus($(this).val());
+      search($(this).val());
     });
 
     // change page size

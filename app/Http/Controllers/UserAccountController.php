@@ -248,14 +248,10 @@ class UserAccountController extends Controller
         $validated = $this->updateValidator($request);
         if ($validated) {
             $data = $this->user->find($id);
-
-            $first_name = ($validated['first_name'] == Crypt::decryptString($data->first_name))
-                ? $data->first_name : Crypt::decryptString($validated['first_name']);
-            $last_name = ($validated['last_name'] == Crypt::decryptString($data->last_name))
-                ? $data->last_name : Crypt::decryptString($validated['last_name']);
-
-            $data->first_name = $first_name;
-            $data->last_name = $last_name;
+            // $firstName = ($data->first_name === $validated['first_name']) ? $data->first_name : $validated['first_name'];
+            $data->first_name = Crypt::encryptString($validated['first_name']);
+            $data->last_name = Crypt::encryptString($validated['last_name']);
+            $data->address = $validated['address'];
             $data->status = $validated['status'];
             $data->user_role = $validated['user_role'];
             $data->updated_by = Auth::id();
@@ -286,6 +282,6 @@ class UserAccountController extends Controller
         $this->audit_trail_logs('', 'deleted', 'user_account '.$data->username, $id);
 
         return redirect()->route('user_accounts.index')
-            ->with('success','User accounts removed successfully');
+            ->with('success','User Account Removed Successfully');
     }
 }

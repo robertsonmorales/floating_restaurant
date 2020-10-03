@@ -83,7 +83,11 @@
         </div>
 
         <div class="input-group">
-            <label for="">Password</label>
+            <label for="">Password 
+                <a tabindex="0" id="password-popover" role="button" data-toggle="popover" data-placement="bottom" data-trigger="focus" title="More Information" data-content="Your password must be more than 8 characters long, should contain at-least one Uppercase, one Lowercase, one Numeric and one special character." style="outline: none;">
+                    <i data-feather="help-circle"></i>
+                </a>
+            </label>
             <input type="password" name="password" id="password" autocomplete="off"
                 class="form-control @error('password') is-invalid @enderror"
                 value="{{ old('password') }}">
@@ -203,7 +207,7 @@ $(document).ready(function(){
         $(this).submit();
     });
 
-    $('#example-popover').popover({
+    $('#password-popover').popover({
         container: 'body'
     });
 });
