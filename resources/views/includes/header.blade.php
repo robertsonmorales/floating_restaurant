@@ -29,23 +29,19 @@
 
             <a href="#" class="btn-dropdown" id="btn-dropdown">
                 <div class="username">
+                    <span class="image-wrapper" style="background-image: url('{{ (Auth::user()->profile_image) ? asset('images/user_profiles/'.Auth::user()->username.Auth::user()->id.'/'.Auth::user()->profile_image.'') : asset('images/user_profiles/avatar.svg') }}');">
+                    </span>
                     <div class="user-detail">
                         <span class="user">{{ ucfirst(Crypt::decryptString(Auth::user()->first_name)). ' '.ucfirst(Crypt::decryptString(Auth::user()->last_name)) }}</span>
                         <span class="email">{{ Crypt::decryptString(Auth::user()->email) }}</span>
-                    </div>
-                    <span class="image-wrapper" style="background-image: url('{{ (Auth::user()->profile_image) ? asset('images/user_profiles/'.Auth::user()->username.Auth::user()->id.'/'.Auth::user()->profile_image.'') : asset('images/user_profiles/avatar.svg') }}');">
-                    </span>
+                    </div>                    
                 </div>
-                <!-- <div class="arrow" id="admin-arrow">
-                    <i data-feather="chevron-down"></i>
-                </div> -->
             </a>
 
             <div class="admin-dropdown" id="admin-dropdown">
                 <ul>
                     <li>
-                        {{-- {{ route('my_account.index') }} --}}
-                        <a href="" id="my_account">
+                        <a href="{{ route('user_accounts.show', Auth::id()) }}" id="my_account">
                             <i data-feather="user"></i>
                             <span>My Account</span>
                         </a>
