@@ -181,10 +181,12 @@
         <input type="hidden" name="id" value="{{ ($mode == 'update') ? $user->id : ''}}">
         @endif
 
-        <div class="actions">
-            <button type="submit" class="btn btn-primary btn-submit" id="btn-submit">{{ ($mode == 'update') ? 'Submit Changes' : 'Submit' }}</button>
-            <button type="reset" class="btn btn-secondary btn-default" id="btn-reset">Reset</button>            
-            <button type="button" onclick="window.location.href='{{route('user_accounts.index') }}'" class="btn btn-secondary btn-default" id="btn-back">Back</button>
+        <div class="actions">            
+            <div class="actions">           
+                <button type="submit" class="btn btn-primary btn-submit" id="btn-submit">{{ ($mode == 'update') ? 'Submit Changes' : 'Submit' }}</button>
+                <button type="reset" class="btn btn-secondary" id="btn-reset">Reset</button>
+                <button type="button" onclick="window.location.href='{{route('user_accounts.index') }}'" class="btn btn-secondary" id="btn-back">Back</button>
+            </div>
         </div>
 
     </form>

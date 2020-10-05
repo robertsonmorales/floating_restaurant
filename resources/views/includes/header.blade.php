@@ -42,7 +42,7 @@
             <div class="admin-dropdown" id="admin-dropdown">
                 <ul>
                     <li>
-                        <a href="{{ route('user_accounts.show', Auth::id()) }}" id="my_account">
+                        <a href="{{ route('my_account.index') }}" id="my_account">
                             <i data-feather="user"></i>
                             <span>My Account</span>
                         </a>

@@ -53,8 +53,8 @@
 
         <div class="actions">           
             <button type="submit" class="btn btn-primary btn-submit" id="btn-submit">{{ ($mode == 'update') ? 'Submit Changes' : 'Submit' }}</button>
-            <button type="reset" class="btn btn-secondary btn-default" id="btn-reset">Reset</button>
-            <button type="button" onclick="window.location.href='{{route('menu_categories.index') }}'" class="btn btn-secondary btn-default" id="btn-back">Back</button>
+            <button type="reset" class="btn btn-secondary" id="btn-reset">Reset</button>
+            <button type="button" onclick="window.location.href='{{route('menu_categories.index') }}'" class="btn btn-secondary" id="btn-back">Back</button>
         </div>
     </form>
 </div>
