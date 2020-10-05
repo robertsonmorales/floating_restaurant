@@ -11,6 +11,8 @@ main{
 
     @import 'content';
 
+    @import 'modal';
+
     @import 'dashboard';
 
     // this is in POS
@@ -483,145 +485,6 @@ main{
     // Ends here
 
     @import 'my_account';
-
-    .modal{
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background-color: rgba(0,0,0,0.2);
-        width: 100%;
-        max-height: 0;
-        overflow-y: auto;
-        overflow-x: hidden;
-
-        .modal-content{
-            padding: 20px;
-            background-color: #fff;
-            border-radius: 4px;
-            box-shadow: $shadow;
-            position: relative;
-            overflow: hidden;
-            width: 30%;
-            margin: 20px;
-
-            h3{
-                color: $toolbar;
-                font-weight: 500;
-            }
-
-            .dismiss-modal{
-                position: absolute;
-                right: 10px;
-                top: 10px;
-                border: none;
-                padding: 10px;
-                background-color: #fff;
-                color: $toolbar;
-                cursor: pointer;
-                outline: none;
-
-                &:hover{
-                    color: $red;
-                }
-
-                &:active{
-                    color: $toolbar;
-                }
-            }
-
-            .row{
-
-                .profile-image{
-                    overflow: hidden;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    background-color: #eee;
-                    border-radius: 4px;
-                    padding: 10px;
-
-                    img{
-                        width: 70%;
-                        height: auto;
-                        border-radius: 4px;
-                    }
-                }
-
-                .image-form{
-                    display: flex;
-                    flex-direction: column;
-
-                    .btn-choose-photo,
-                    .btn-upload,
-                    .btn-cancel{
-                        outline: none;
-                        padding: 10px;
-                        font-size: 0.9em;
-                        font-weight: 500;
-                        font-family: $font-family;
-                        cursor: pointer;
-                        border-radius: 4px;
-                        display: flex;
-                        align-items: center;
-                        justify-content: center;
-
-                        span{
-                            margin-right: 10px;
-                        }
-                    }
-
-                    .input-group{
-                        margin-bottom: 10px;
-
-                        .btn-choose-photo{
-                            width: 100%;
-                            color: $btn-primary;
-                            margin-bottom: 10px;
-                            background-color: #fff;
-                            border: 1px dashed $btn-primary;
-                            outline: none;
-                        }
-                    }                    
-
-                    .action-btn{
-                        display: flex;
-                        justify-content: flex-end;
-
-                        .btn-upload{
-                            border: none;
-                            background-color: $btn-primary;
-                            box-shadow: $shadow;
-                            color: #fff;
-                            outline: none;
-                            padding: 10px 30px;
-
-                            &:active{
-                                background-color: $btn-secondary;
-                                color: #fff;
-                            }
-                        }
-
-                        .btn-cancel{
-                            outline: none;
-                            border: none;
-                            color: $toolbar;
-                            padding: 10px 20px;
-                            margin-right: 10px;
-
-                            &:active{
-                                color: #000;
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    }
 
     .content,
     .dashboard-container,

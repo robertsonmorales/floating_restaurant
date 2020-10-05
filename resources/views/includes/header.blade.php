@@ -31,6 +31,7 @@
                 <div class="username">
                     <span class="image-wrapper" style="background-image: url('{{ (Auth::user()->profile_image) ? asset('images/user_profiles/'.Auth::user()->username.Auth::user()->id.'/'.Auth::user()->profile_image.'') : asset('images/user_profiles/avatar.svg') }}');">
                     </span>
+                    
                     <div class="user-detail">
                         <span class="user">{{ ucfirst(Crypt::decryptString(Auth::user()->first_name)). ' '.ucfirst(Crypt::decryptString(Auth::user()->last_name)) }}</span>
                         <span class="email">{{ Crypt::decryptString(Auth::user()->email) }}</span>

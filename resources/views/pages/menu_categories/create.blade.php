@@ -66,6 +66,7 @@
 $(document).ready(function(){
     $('#card-form').on('submit', function(){
         var mode = "{{ $mode }}";
+        
         $('#btn-submit').prop('disabled', true);
         $('#btn-reset').prop('disabled', true);
         $('#btn-back').prop('disabled', true);
