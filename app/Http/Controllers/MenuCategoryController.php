@@ -69,9 +69,9 @@ class MenuCategoryController extends Controller
 
         $columnDefs = array();
         $columnDefs[] = array_merge(array('headerName'=>'Name','field'=>'name'), $arr_set);
+        $columnDefs[] = array_merge(array('headerName'=>'Status','field'=>'status'), $arr_set);
         $columnDefs[] = array_merge(array('headerName'=>'Created By','field'=>'created_by'), $arr_set);
         $columnDefs[] = array_merge(array('headerName'=>'Updated By','field'=>'updated_by'), $arr_set);
-        $columnDefs[] = array_merge(array('headerName'=>'Status','field'=>'status'), $arr_set);
         $columnDefs[] = array_merge(array('headerName'=>'Created At','field'=>'created_at'), $arr_set);
         $columnDefs[] = array_merge(array('headerName'=>'Updated At','field'=>'updated_at'), $arr_set);
         $data = json_encode(array('rows'=>$rows, 'column'=>$columnDefs));
@@ -126,7 +126,7 @@ class MenuCategoryController extends Controller
 
             $this->audit_trail_logs('', 'created', 'menu_categories: '.$validated['name'], $this->category->id);
 
-            return redirect()->route('menu_categories.index')->with('success', 'Menu Category Added Successfully');
+            return redirect()->route('menu_categories.index')->with('success', 'You have successfully added '.$validated['name'].' menu category');
         }
     }
 
@@ -187,7 +187,7 @@ class MenuCategoryController extends Controller
             $this->audit_trail_logs('', 'updated', 'menu_categories: '.$data->name, $id);
 
             return redirect()->route('menu_categories.index')
-                ->with('success', 'Menu Category Updated Successfully');
+                ->with('success', 'You have successfully updated '.$validated['name'].' menu category');
         }
     }
 
@@ -202,8 +202,7 @@ class MenuCategoryController extends Controller
         $data = $this->category->findOrFail($id);
         $this->audit_trail_logs('', 'deleted', 'menu_categories '.$data->name, $id);
         $data->delete();
-
         return redirect()->route('menu_categories.index')
-            ->with('success','Menu Category Removed Successfully');
+            ->with('success', 'You have successfully removed '.$data->name.' menu category');
     }
 }
