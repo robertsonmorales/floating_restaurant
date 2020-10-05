@@ -34,42 +34,53 @@
     </div>
 </div>
 
+<!-- alert -->
+@if(session()->get('success'))
+<div class="alert alert-success alert-dismissible fade show alerts" role="alert">
+    <span><i data-feather="check"></i> {{ session()->get('success') }}</span>
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true" class="dismiss-icon"><i data-feather="x"></i> </span>
+    </button>
+</div>
+@endif
+<!-- ends here -->
+
 <div class="content">
     <div id="myGrid" class="ag-theme-material"></div>
-    <form action="" method="POST" id="delform" style="display: none;">
-        @csrf
-        @method('DELETE')
-        <button type="submit" class="btn btn-danger">Delete</button>
-    </form>
 </div>
 
-<!-- toast -->
-<div style="position: absolute; bottom: 20px; right: 20px;">
-    <div role="alert" aria-live="assertive" aria-atomic="true" class="toast" data-autohide="true" data-animation="true" data-delay="4000">
-      <div class="toast-header">
-        <!-- <img src="..." class="rounded mr-2" alt="..."> -->
-        <strong class="mr-auto" id="toast-title">Message</strong>
-        <small>Just now</small>
-        <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="toast-body"></div>
+<!-- The Modal -->
+<form class="modal" action="" method="POST" id="form-submit">
+    @csrf
+    @method('DELETE')
+
+    <div class="modal-content">
+        <div class="modal-header">      
+            <div class="modal-icon">
+                <i data-feather="alert-triangle"></i>
+            </div>
+
+            <div class="modal-body">
+                <h5>Remove Record</h5>
+                <p>Are you sure you want to remove this record? This will be permanently removed. This action cannot be undone.</p>
+            </div>
+
+        </div>
+
+        <div class="modal-footer">
+            <button type="button" class="btn btn-outline-secondary" id="btn-cancel">Cancel</button>
+            <button type="button" class="btn btn-danger" id="btn-remove">Remove</button>
+        </div>
     </div>
-</div>
-<!-- ends here -->
+
+</form>
+<!-- Ends here -->
 
 <br>
 @endsection
 @section('scripts')
 <script>
 $(document).ready(function(){
-    @if(session()->get('success'))
-    var msg = "{{ session()->get('success') }}";
-    $('.toast').toast('show');
-    $('.toast-body').html(msg);
-    @endif
-    
     var data = <?= $data ?>;
     
     // specify the data    
@@ -105,25 +116,8 @@ $(document).ready(function(){
 
             btn_remove.addEventListener('click', function() {
                 var data_id = $(this).attr("id");
-                
-                // REMOVE
-                var remove_url = '{{ route("user_accounts.destroy", ":id") }}';
-                remove_url = remove_url.replace(':id', params.data.id);
-                document.getElementById("delform").action = remove_url;
-                Swal.fire({
-                    title: 'Warning',
-                    text: "Are you sure you wan't to remove this record?",
-                    icon: 'warning',
-                    showCancelButton: true,
-                    confirmButtonColor: '#e3342f',
-                    cancelButtonColor: '#999',
-                    confirmButtonText: '<span class="btn-swal">Yes Do It!</span>',
-                    cancelButtonText: '<span class="btn-swal">No</span>'
-                }).then((result) => {
-                    if (result.value) {
-                        document.getElementById('delform').submit();
-                    }
-                });
+                $('.modal').attr('style', 'display: flex;');
+                $('.modal-content').attr('id', params.data.id);
             });
             
             return eDiv;
@@ -220,6 +214,28 @@ $(document).ready(function(){
 
     // setup the grid after the page has finished loading
     new agGrid.Grid(gridDiv, gridOptions);
+
+    $('#btn-cancel').on('click', function(){
+        $('#form-submit').hide();
+    });
+
+    // window.onclick = function(event) {
+    //     if (event.target == $('.modal')[0]) {
+    //         $('#form-submit').hide();
+    //     }
+    // }
+
+    $('#btn-remove').on('click', function(){
+        var destroy = '{{ route("user_accounts.destroy", ":id") }}';
+        url = destroy.replace(':id', $('.modal-content').attr('id'));
+
+        $('#btn-cancel').prop('disabled', true);
+        $('#btn-remove').prop('disabled', true);
+        $('#btn-remove').html("Removing..");
+
+        document.getElementById("form-submit").action = url;
+        document.getElementById("form-submit").submit();
+    });
 });
 </script>
 @endsection

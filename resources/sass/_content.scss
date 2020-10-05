@@ -118,7 +118,6 @@
             .form-control{
                 outline: none;
                 border-radius: 4px;
-                // border: 1px solid #ddd;
                 font-weight: 500;
                 font-size: .9em;
                 transition: all 0.3s ease;
@@ -189,16 +188,6 @@
 
             .btn-submit{
                 background-color: $btn-primary;
-            }
-
-            // .btn-reset{
-                // background-color: #ffd0d5aa;
-                // color: $red;
-            // }
-
-            .btn-default{
-                color: $toolbar;
-                background-color: $inactive;
             }
         }
     }

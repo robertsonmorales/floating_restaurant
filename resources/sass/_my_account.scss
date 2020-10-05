@@ -20,7 +20,7 @@
                     font-size: .9em;
                     display: flex;
 
-                    .row{
+                    .user-profile{
                         margin-bottom: 15px;
                         flex: 1;
 
@@ -166,7 +166,7 @@
             overflow: hidden;
             margin-bottom: 20px;
             
-            h3{
+            h5{
                 color: $toolbar;
                 font-weight: 500;
             }
@@ -185,15 +185,13 @@
                 }
         
                 .form-control{
-                    flex: 1;
-                    padding: 10px 12px;
-                    font-family: $font-family !important;
                     outline: none;
                     border-radius: 4px;
-                    border: 1px solid #ddd;
                     font-weight: 500;
                     font-size: .9em;
                     transition: all 0.3s ease;
+                    resize: none;
+                    width: 100% !important;
 
                     &:focus{
                         border: 1px solid $btn-primary;
@@ -212,37 +210,30 @@
         
             .actions{
                 text-align: right;
-        
+
                 button{
-                    padding: 10px 30px;
-                    border-radius: 4px;
+                    margin-right: 5px;
+                    padding: 10px 20px;
                     border: none;
                     outline: none;
-                    margin-right: 5px;
+                    border-radius: 4px;
                     font-family: $font-family;
-                    font-weight: 500;
                     font-size: .9em;
-                    cursor: pointer;
-        
-                    &:hover{
-                        opacity: 0.8;
-                    }
-        
-                    &:active{
-                        background-color: #999;
-                    }
+                    font-weight: 600;
+                    transition: all 0.4s ease;
+                    color: #fff;
 
                     &:last-child{
                         margin-right: 0;
                     }
                 }
-        
+
                 .btn-save{
-                    box-shadow: $shadow;
                     background-color: $btn-primary;
-                    color: #fff;
                 }
             }
         }   
     }       
 }
+
+@import 'modal';
