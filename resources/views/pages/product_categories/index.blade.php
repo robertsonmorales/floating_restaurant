@@ -4,7 +4,7 @@
 @section('content')
 <div class="filters">
     <div class="filters-child">
-        <a href="{{ route('menus.create') }}" class="btn btn-primary" id="btn-add-record">{{ $add }}</a>
+        <a href="{{ route('product_categories.create') }}" class="btn btn-primary" id="btn-add-record">{{ $add }}</a>
         <a href="#" class="btn btn-primary" id="btn-export">
             <span>Export</span>
             <span class="download-icon"><i data-feather="download"></i></span>
@@ -97,7 +97,7 @@ $(document).ready(function(){
         pinned: 'left',
         cellRenderer: function(params){
             // EDIT
-            var edit_url = '{{ route("menus.edit", ":id") }}';
+            var edit_url = '{{ route("product_categories.edit", ":id") }}';
             edit_url = edit_url.replace(':id', params.data.id);
 
             var eDiv = document.createElement('div');
@@ -234,7 +234,7 @@ $(document).ready(function(){
     // }
 
     $('#btn-remove').on('click', function(){
-        var destroy = '{{ route("menus.destroy", ":id") }}';
+        var destroy = '{{ route("product_categories.destroy", ":id") }}';
         url = destroy.replace(':id', $('.modal-content').attr('id'));
 
         $('#btn-cancel').prop('disabled', true);

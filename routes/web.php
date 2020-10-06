@@ -22,6 +22,12 @@ Route::middleware('auth')->group(function () {
     Route::resource('/user_accounts', App\Http\Controllers\UserAccountController::class);
     Route::resource('/menu_categories', App\Http\Controllers\MenuCategoryController::class);
     Route::resource('/menu_types', App\Http\Controllers\MenuTypeController::class);
+    Route::resource('/menus', App\Http\Controllers\MenuController::class);
+
+
+    Route::resource('/product_categories', App\Http\Controllers\ProductCategoryController::class);
+    Route::resource('/products', App\Http\Controllers\ProductController::class);
+
 
     // My Account
     $match = ['PUT', 'POST'];
