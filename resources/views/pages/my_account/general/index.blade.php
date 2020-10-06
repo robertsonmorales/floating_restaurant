@@ -76,8 +76,8 @@
             </div>
         </div>
         <div class="modal-footer">
-            <button type="button" class="btn btn-outline-secondary" id="btn-cancel">Cancel</button>
             <button type="button" class="btn btn-primary" id="btn-save">Set New Profile Picture</button>
+            <button type="button" class="btn btn-outline-secondary" id="btn-cancel">Cancel</button>
         </div>
     </div>
 </form>

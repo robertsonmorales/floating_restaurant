@@ -68,8 +68,8 @@
         </div>
 
         <div class="modal-footer">
-            <button type="button" class="btn btn-outline-secondary" id="btn-cancel">Cancel</button>
             <button type="button" class="btn btn-danger" id="btn-remove">Remove</button>
+            <button type="button" class="btn btn-outline-secondary" id="btn-cancel">Cancel</button>
         </div>
     </div>
 
