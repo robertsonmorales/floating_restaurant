@@ -13,26 +13,16 @@
                     <div class="user-profile">
                         <div class="profile-image-form">
                             <span class="image-wrapper" style="background-image: url('{{ (Auth::user()->profile_image) ? asset('images/user_profiles/'.Auth::user()->username.Auth::user()->id.'/'.Auth::user()->profile_image.'') : asset('images/user_profiles/avatar.svg') }}');">
-                            </span>                            
-
+                            </span>
                             <div class="offset">
                                 <button type="button" class="btn-change-profile" title="Edit profile">
                                     <i class="fas fa-pen"></i>
                                 </button>
                             </div>
-
                         </div>
+
                         <div class="user-details">
-
                             <h5>{{ ucfirst(Crypt::decryptString(Auth::user()->first_name)). ' '.ucfirst(Crypt::decryptString(Auth::user()->last_name)) }}</h5>
-
-                            <div class="status {{ (Auth::check()) ? 'status-online' : 'status-offline' }}">
-                                <span class="circle">
-                                    <i class="fas fa-circle"></i>
-                                </span>
-                                <span class="status-code">Online</span>
-                            </div>
-
                         </div>
                     </div>
                 </li>
@@ -61,66 +51,67 @@
     </div>
 </div>
 
-<div class="modal" id="modal">
-    <div class="modal-content" id="change-profile">
-        <button class="dismiss-modal" title="close">
-            <i class="fas fa-times"></i>    
+<!-- The Modal -->
+<form class="modal" action="{{ route('my_account.change_profile') }}" method="POST" id="form-submit" enctype="multipart/form-data">
+    @csrf
+
+    <div class="modal-content">
+        <button type="button" class="btn" id="close-modal">
+            <i data-feather="x"></i>
         </button>
 
-        <h5>Edit Photo</h5>
-        <div class="divider"></div>
+        <div class="modal-header">
+            <input type="file" name="profile-image" id="profile-image" onchange="previewFile(this)" accept="image/*" style="display: none;">
+            <div class="modal-body" style="padding: 0 !important;">
+                <h5>Change Profile</h5>
 
-        <div class="row">
-            <div class="profile-image">
-                <img id="previewImg" src="{{ (Auth::user()->profile_image) ? asset('images/user_profiles/'.Auth::user()->username.Auth::user()->id.'/'.Auth::user()->profile_image.'') : asset('images/user_profiles/avatar.svg') }}" alt="preview profile">
+                <div class="profile-image">
+                    <img id="previewImg" src="{{ (Auth::user()->profile_image) ? asset('images/user_profiles/'.Auth::user()->username.Auth::user()->id.'/'.Auth::user()->profile_image.'') : asset('images/user_profiles/avatar.svg') }}" alt="preview profile">
+                </div>
+
+                <button type="button" class="btn btn-outline-primary btn-choose-photo">
+                    <span>Upload a different photo</span>
+                </button>
+
             </div>
-
-            <form action="{{ route('my_account.change_profile') }}" method="POST" class="image-form" id="image-form" enctype="multipart/form-data">
-                @csrf
-                <div class="input-group">
-
-                    <input type="file" name="profile-image" id="profile-image" onchange="previewFile(this)" accept="image/*" style="visibility: hidden;">
-
-                    <button type="button" class="btn-choose-photo">
-                        <span>Upload a Different Photo</span>
-                        <i data-feather="camera"></i>
-                    </button>
-                </div>
-                <br>
-                <div class="action-btn">
-                    <button type="button" class="btn-cancel">Cancel</button>
-                    <button type="submit" class="btn-upload">Save</button>
-                </div>
-            </form>
-
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-outline-secondary" id="btn-cancel">Cancel</button>
+            <button type="button" class="btn btn-primary" id="btn-save">Set New Profile Picture</button>
         </div>
     </div>
-</div>
+</form>
+<!-- Ends here -->
 
 @endsection
 
 @section('scripts')
 <script type="text/javascript">
 $(document).ready(function(){
-    var profile = document.getElementById('change-profile');
-    var modal = document.getElementById('modal');
-    $('.action-btn').hide();
+    $('.modal-footer').hide();
 
     $('.btn-change-profile').on('click', function(){
-        profile.style.height = 'auto';
-        modal.style.maxHeight = '100%';
+        $('#form-submit').attr('style', 'display: flex;');
     });
 
-    $('.dismiss-modal').on('click', function(){
-        modal.style.maxHeight = '0%';
+    $('#btn-cancel').on('click', function(){
+        $('#form-submit').attr('style', 'display: none;');
     });
 
-    $('.btn-cancel').on('click', function(){
-        modal.style.maxHeight = '0%';
+    $('#close-modal').on('click', function(){
+        $('#form-submit').attr('style', 'display: none;');
     });
 
     $(".btn-choose-photo").on('click', function(){
         $('#profile-image').trigger('click');
+    });
+
+    $('#btn-save').on('click', function(){
+        $('#btn-cancel').prop('disabled', true);
+        $(this).prop('disabled', true);
+        $(this).html("Setting New Profile Picture..");
+
+        document.getElementById("form-submit").submit();
     });
 });
 
@@ -132,7 +123,7 @@ function previewFile(input){
 
         reader.onload = function(){
             $("#previewImg").attr("src", reader.result);
-            $('.action-btn').show();
+            $('.modal-footer').show();
         }
 
         reader.readAsDataURL(file);
