@@ -19,6 +19,14 @@
 		animation-name: animatetop;
 		animation-duration: 0.4s;
 
+		#close-modal{
+			position: absolute;
+			right: 10px;
+			top: 10px;
+			cursor: pointer;
+			z-index: 1;
+		}
+
 		.modal-header,
 		.modal-footer{
 			border: none !important;
@@ -26,29 +34,32 @@
 
 		.modal-header{
 			padding: 20px;
-			padding-bottom: 0 !important;
-
-			.close{
-				position: absolute;
-				right: 20px;
-				top: 20px;
-				cursor: pointer !important;
-			}
+			padding-bottom: 15px !important;
 
 			.modal-icon{
 				display: flex;
 				align-items: center;
 				justify-content: center;
 				width: 50px;
-				background-color: pink;
-				color: $red;
 				border-radius: 50%;
 				padding: 10px;
+				background-color: pink;
+				color: $red;
 
 				.feather{
 					width: 24px;
 					height: 24px;
 				}
+			}
+
+			.modal-icon-error{
+				background-color: pink;
+				color: $red;
+			}
+
+			.modal-icon-info{
+				color: $btn-primary;
+				background-color: #0e76bd33;
 			}
 
 			.modal-body{
@@ -57,11 +68,45 @@
 				p{
 					font-weight: normal !important;
 				}
+
+				.profile-image{
+				    overflow: hidden;
+				    display: flex;
+				    align-items: center;
+				    justify-content: center;
+				    background-color: #eee;
+				    border-radius: 4px;
+				    padding: 10px;
+
+				    img{
+				        width: 70%;
+				        height: auto;
+				        border-radius: 4px;
+				    }
+				}
+
+				.btn-choose-photo{
+				    width: 100%;
+				    color: $btn-primary;
+				    margin-bottom: 10px;
+				    background-color: #fff;
+				    border: 1px dashed $btn-primary;
+				    outline: none;
+				}
 			}
 		}
 
 		.modal-footer{
 			background-color: $primary;
+
+			button{
+				font-size: .9em !important;
+			}
+
+			#btn-save{
+				background-color: $btn-primary;
+				color: #fff;
+			}
 		}
 	}
 

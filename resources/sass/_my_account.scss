@@ -1,7 +1,7 @@
 .customer-content{
     .user-container{
         display: grid;
-        grid-template-columns: 30% 70%;
+        grid-template-columns: 30% 50% 20%;
 
         .user-options{
             margin-right: 20px;
@@ -21,8 +21,8 @@
                     display: flex;
 
                     .user-profile{
-                        margin-bottom: 15px;
                         flex: 1;
+                        margin-bottom: 10px;
 
                         .profile-image-form{
                             display: flex;
@@ -86,40 +86,7 @@
 
                             h3{
                                 color: $toolbar;
-                                margin-bottom: 5px;
                                 font-weight: 500;
-                            }
-
-                            .status{
-                                margin-left: 10px;
-                                border-radius: 4px;
-                                padding: 3px 7px;
-                                display: flex;
-                                align-items: center;
-
-                                .circle{
-                                    font-size: .5em;                                
-                                }
-
-                                .status-code{
-                                    margin-left: 5px;
-                                    font-size: .7em;
-                                }
-                            }
-
-                            .status-online{
-                                color: $green;
-                                border: 1px solid $green;
-                            }
-
-                            .status-idle{
-                                color: $gold;
-                                border: 1px solid $gold;
-                            }
-
-                            .status-offline{
-                                color: $default;
-                                border: 1px solid $default;
                             }
                         }
                     }
@@ -130,11 +97,6 @@
                         flex: 1;
                         border-radius: 4px;
                         color: $toolbar;
-
-                        .feather{
-                            position: relative;
-                            top: 2.5px;
-                        }
 
                         span{
                             margin-left: 10px;
@@ -219,7 +181,7 @@
                     border-radius: 4px;
                     font-family: $font-family;
                     font-size: .9em;
-                    font-weight: 600;
+                    font-weight: 500;
                     transition: all 0.4s ease;
                     color: #fff;
 
@@ -235,5 +197,3 @@
         }   
     }       
 }
-
-@import 'modal';
