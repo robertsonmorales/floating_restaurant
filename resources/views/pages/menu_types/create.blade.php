@@ -10,7 +10,7 @@
         method="POST" class="card-form" id="card-form">
         @csrf
 
-        <h3>{{ ucfirst($mode).' '.\Str::Singular($header) }}</h3>
+        <h5>{{ ucfirst($mode).' '.\Str::Singular($header) }}</h5>
         <div class="divider"></div>
         
         <div class="input-group">
@@ -53,13 +53,29 @@
         <input type="hidden" name="id" value="{{ ($mode == 'update') ? $data->id: ''}}">
         @endif
 
-        <div class="actions">
-            <button type="submit" class="btn-submit">{{ ($mode == 'update') ? 'Update' : 'Submit'}}</button>
-            <button type="reset" class="btn-reset">Reset</button>            
-            <a href="{{route('menu_types.index')}}" class="btn-back">Back</a>
+        <div class="actions">           
+            <button type="submit" class="btn btn-primary btn-submit" id="btn-submit">{{ ($mode == 'update') ? 'Submit Changes' : 'Submit' }}</button>
+            <button type="reset" class="btn btn-secondary" id="btn-reset">Reset</button>
+            <button type="button" onclick="window.location.href='{{route('menu_types.index') }}'" class="btn btn-secondary" id="btn-back">Back</button>
         </div>
     </form>
 </div>
 </center>
 <br>
+@endsection
+@section('scripts')
+<script type="text/javascript">
+$(document).ready(function(){
+    $('#card-form').on('submit', function(){
+        var mode = "{{ $mode }}";
+        
+        $('#btn-submit').prop('disabled', true);
+        $('#btn-reset').prop('disabled', true);
+        $('#btn-back').prop('disabled', true);
+
+        $('#btn-submit').html((mode == "update") ? "Submitting Changes.." : "Submitting..");
+        $(this).submit();
+    });
+});
+</script>
 @endsection
