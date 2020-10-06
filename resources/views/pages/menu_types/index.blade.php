@@ -2,50 +2,91 @@
 @section('title', $title)
 
 @section('content')
-<div class="content">
-    <div class="filters" style="justify-content: space-between;">
-        <div class="add_link">
-            <a href="{{ route('menu_types.create') }}">{{ $add }}</a>
+<div class="filters">
+    <div class="filters-child">
+        <a href="{{ route('menu_types.create') }}" class="btn btn-primary" id="btn-add-record">{{ $add }}</a>
+        <a href="#" class="btn btn-primary" id="btn-export">
+            <span>Export</span>
+            <span class="download-icon"><i data-feather="download"></i></span>
+        </a>
+    </div>
+    <div class="filters-child">
+        <div class="form-group">
+            <span class="search-icon">
+                <i data-feather="search"></i>
+            </span>
+            <input type="text" name="search-filter" id="search-filter" placeholder="Search here..">
         </div>
-        <div class="row">
-            <div class="selections">
-                <button class="btn-export">
-                    <span>Export</span>
-                    <span class="download">
-                        <i data-feather="download"></i>
-                    </span>
-                </button>
+        <select name="sortBy" id="sortBy">
+            <option disabled>Sort by</option>
+            <option value="ascending">Ascending</option>
+            <option value="descending">Descending</option>
+            <option value="date-created">Date created</option>
+            <option value="date-modified">Date modified</option>
+        </select>
+        <select name="pageSize" id="pageSize">
+            <option disabled>Page size</option>
+            <option value="10">10</option>
+            <option value="20">20</option>
+            <option value="50">50</option>
+            <option value="100">100</option>
+        </select>
+    </div>
+</div>
+
+<!-- alert -->
+@if(session()->get('success'))
+<div class="alert alert-success alert-dismissible fade show alerts" role="alert">
+    <span><i data-feather="check"></i> {{ session()->get('success') }}</span>
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true" class="dismiss-icon"><i data-feather="x"></i> </span>
+    </button>
+</div>
+@endif
+<!-- ends here -->
+
+<div class="content">
+    <div id="myGrid" class="ag-theme-material"></div>
+</div>
+
+<!-- The Modal -->
+<form class="modal" action="" method="POST" id="form-submit">
+    @csrf
+    @method('DELETE')
+
+    <div class="modal-content">
+        <div class="modal-header">      
+            <div class="modal-icon">
+                <i data-feather="alert-triangle"></i>
             </div>
-            <div class="selections">
-                <p>Page Size:</p>
-                <select name="pageSize" id="pageSize">
-                    <option value="10" selected>10</option>
-                    <option value="20">20</option>
-                    <option value="50">50</option>
-                    <option value="100">100</option>
-                </select>
+
+            <div class="modal-body">
+                <h5>Remove Record</h5>
+                <p>Are you sure you want to remove this record? This will be permanently removed. This action cannot be undone.</p>
             </div>
+
+        </div>
+
+        <div class="modal-footer">
+            <button type="button" class="btn btn-danger" id="btn-remove">Remove</button>
+            <button type="button" class="btn btn-outline-secondary" id="btn-cancel">Cancel</button>
         </div>
     </div>
-    <div id="myGrid" class="ag-theme-material"></div>
-    <form action="" method="POST" id="delform" style="display: none;">
-        @csrf
-        @method('DELETE')
-        <button type="submit" class="btn btn-danger">Delete</button>
-    </form>
-</div>
+
+</form>
+<!-- Ends here -->
+
 <br>
 @endsection
 @section('scripts')
 <script>
-$(document).ready(function(){    
+$(document).ready(function(){
     var data = <?= $data ?>;
-
-    // specify the data    
-    var columnDefs = [];
 
     // assign agGrid to a variable
     var gridDiv = document.querySelector('#myGrid');
+
+    var columnDefs = [];
     columnDefs = {
         headerName: 'Controls',
         field: 'Controls',
@@ -61,8 +102,8 @@ $(document).ready(function(){
 
             var eDiv = document.createElement('div');
             eDiv.innerHTML = '';
-            eDiv.innerHTML+='<button id="'+params.data.id+'" title="Edit" class="btn-edit"><i class="far fa-edit"></i></button>&nbsp;';
-            eDiv.innerHTML+='<button id="'+params.data.id+'" title="Delete" class="btn-remove"><i class="far fa-trash-alt"></i></button>&nbsp;';
+            eDiv.innerHTML+='<button id="'+params.data.id+'" title="Edit" class="btn btn-primary btn-edit"><i class="far fa-edit"></i></button>&nbsp;';
+            eDiv.innerHTML+='<button id="'+params.data.id+'" title="Delete" class="btn btn-primary btn-remove"><i class="far fa-trash-alt"></i></button>&nbsp;';
 
             var btn_edit = eDiv.querySelectorAll('.btn-edit')[0];
             var btn_remove = eDiv.querySelectorAll('.btn-remove')[0];
@@ -73,25 +114,8 @@ $(document).ready(function(){
 
             btn_remove.addEventListener('click', function() {
                 var data_id = $(this).attr("id");
-                
-                // REMOVE
-                var remove_url = '{{ route("menu_types.destroy", ":id") }}';
-                remove_url = remove_url.replace(':id', params.data.id);
-                document.getElementById("delform").action = remove_url;
-                Swal.fire({
-                    title: 'Warning',
-                    text: "Are you sure you want to remove this record?",
-                    icon: 'warning',
-                    showCancelButton: true,
-                    confirmButtonColor: '#e3342f',
-                    cancelButtonColor: '#999',
-                    confirmButtonText: '<span class="btn-swal">Yes Do It!</span>',
-                    cancelButtonText: '<span class="btn-swal">No</span>'
-                }).then((result) => {
-                    if (result.value) {
-                        document.getElementById('delform').submit();
-                    }
-                });
+                $('.modal').attr('style', 'display: flex;');
+                $('.modal-content').attr('id', params.data.id);
             });
             
             return eDiv;
@@ -126,7 +150,7 @@ $(document).ready(function(){
         colResizeDefault: "shift",
         rowSelection: "multiple",
         rowStyle: { 
-            fontFamily: ['Poppins', 'sans-serif'],
+            fontFamily: ['Poppins', 'Montserrat', 'sans-serif'],
             fontWeight: 'normal',
             fontSize: '1em',
             color: '#777'
@@ -135,7 +159,7 @@ $(document).ready(function(){
             autoSizeAll();
             // gridOptions.api.sizeColumnsToFit();
         }
-    };
+    }
 
     function autoSizeAll(skipHeader) {
         var allColumnIds = [];
@@ -146,26 +170,80 @@ $(document).ready(function(){
         gridOptions.columnApi.autoSizeColumns(allColumnIds, skipHeader);
     }
 
-    // change page size
-    function pageSize(value){
-        gridOptions.api.paginationSetPageSize(Number(value));
-    }
-    
-    $("#pageSize").change(function(){
-        var size = $(this).val();
-        pageSize(size);
-    }).select2({
-        minimumResultsForSearch: Infinity
-    });
-    // ends here
-
     // export as csv
-    $('.btn-export').on('click', function(){
+    $('#btn-export').on('click', function(){
         gridOptions.api.exportDataAsCsv();
     });
 
+    function search(data) {
+      gridOptions.api.setQuickFilter(data);
+    }
+
+    $("#search-filter").on("keyup", function() {
+      search($(this).val());
+    });
+
+    // change page size
+    function pageSize(value){
+        gridOptions.api.paginationSetPageSize(value);
+    }
+
+    // SORT 
+    $("#sortBy").on('change', function(){      
+        if ($(this).val() == "ascending") {
+            gridOptions.columnApi.applyColumnState({
+              state: [{ colId: 'name', sort: 'asc' }],
+              defaultState: { sort: null },
+            });
+        }else if($(this).val() == "descending"){
+            gridOptions.columnApi.applyColumnState({
+              state: [{ colId: 'name', sort: 'desc' }],
+              defaultState: { sort: null },
+            });
+        }else if($(this).val() == "date-created"){
+            alert('under construction');
+        }else if($(this).val() == "date-modified"){
+            alert('under construction');
+        }
+    });
+    // ENDS HERE
+
+    // PAGE SIZE
+    $("#pageSize").change(function(){
+        var size = $(this).val();
+        // console.log(size);
+        pageSize(size);
+    });
+
+    // .select2({
+    //     minimumResultsForSearch: Infinity
+    // });
+    // ENDS HERE
+
     // setup the grid after the page has finished loading
     new agGrid.Grid(gridDiv, gridOptions);
+
+    $('#btn-cancel').on('click', function(){
+        $('#form-submit').hide();
+    });
+
+    // window.onclick = function(event) {
+    //     if (event.target == $('.modal')[0]) {
+    //         $('#form-submit').hide();
+    //     }
+    // }
+
+    $('#btn-remove').on('click', function(){
+        var destroy = '{{ route("menu_types.destroy", ":id") }}';
+        url = destroy.replace(':id', $('.modal-content').attr('id'));
+
+        $('#btn-cancel').prop('disabled', true);
+        $('#btn-remove').prop('disabled', true);
+        $('#btn-remove').html("Removing..");
+
+        document.getElementById("form-submit").action = url;
+        document.getElementById("form-submit").submit();
+    });
 });
 </script>
 @endsection
