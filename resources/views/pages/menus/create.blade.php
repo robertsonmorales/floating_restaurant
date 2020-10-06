@@ -10,7 +10,7 @@
         method="POST" class="card-form" id="card-form">
         @csrf
 
-        <h3>{{ ucfirst($mode).' '.\Str::Singular($header) }}</h3>
+        <h5>{{ ucfirst($mode).' '.\Str::Singular($header) }}</h5>
         <div class="divider"></div>
         
         <div class="input-group">
@@ -80,7 +80,7 @@
         <div class="input-group" id="recipe-list">
             <div class="columns" style="margin-bottom: 5px; display: flex;">
                 <label for="">Add Recipes</label>
-                <button type="button" class="btn-plus" id="btn-plus">
+                <button type="button" class="btn btn-primary btn-plus" id="btn-plus">
                     <i class="fas fa-plus"></i>
                 </button>
             </div>
@@ -166,10 +166,10 @@
         <input type="hidden" name="id" value="{{ ($mode == 'update') ? $data->id: ''}}">
         @endif
 
-        <div class="actions">
-            <button type="submit" class="btn-submit">{{ ($mode == 'update') ? 'Update' : 'Submit'}}</button>
-            <button type="reset" class="btn-reset">Reset</button>            
-            <a href="{{ route('menus.index') }}" class="btn-back">Back</a>
+        <div class="actions">           
+            <button type="submit" class="btn btn-primary btn-submit" id="btn-submit">{{ ($mode == 'update') ? 'Submit Changes' : 'Submit' }}</button>
+            <button type="reset" class="btn btn-secondary" id="btn-reset">Reset</button>
+            <button type="button" onclick="window.location.href='{{route('menus.index') }}'" class="btn btn-secondary" id="btn-back">Back</button>
         </div>
     </form>
 </div>
@@ -234,6 +234,17 @@ $(document).on('keyup', "input[name='recipe_qty[]']", function(){
             title: 'Please input a number',
         });
     }
+});
+
+$('#card-form').on('submit', function(){
+    var mode = "{{ $mode }}";
+    
+    $('#btn-submit').prop('disabled', true);
+    $('#btn-reset').prop('disabled', true);
+    $('#btn-back').prop('disabled', true);
+
+    $('#btn-submit').html((mode == "update") ? "Submitting Changes.." : "Submitting..");
+    $(this).submit();
 });
 
 </script>
