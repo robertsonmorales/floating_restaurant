@@ -146,8 +146,8 @@ class MyAccountController extends Controller
             $data->save();
 
             $this->audit_trail_logs('', 'updated', 'user_accounts: '.$validator['username'], $id);
+            return back()->with('success', 'You have successfully updated your profile');
 
-            return back()->with('success', 'Your account is updated Successfully');
         }else{
             return back()->withErrors($validator)->withInput();
         }
@@ -189,7 +189,7 @@ class MyAccountController extends Controller
 
         $rules = [
             'old_password' => 'required',
-            'password' => 'required|unique:users,password,'.Auth::user()->id.'
+            'password' => 'required|unique:users,password,'.Auth::id().'
                 |confirmed|min:8|max:30|regex:/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/',
             'password_confirmation' => 'required|min:8|max:30'
         ];
@@ -208,30 +208,33 @@ class MyAccountController extends Controller
         return $validator->validate();
     }
 
-    public function updatePassword(Request $request){        
-        $user_id = Auth::user()->id;
-        $user = $this->user->findOrFail($user_id);
-        $current_password = $this->safeInputs($request->input('old_password'));
-        $new_password = $this->safeInputs($request->input('password'));
+    public function updatePassword(Request $request){
+        $currentPassword = $request->input('old_password');
+        $newPassword = $request->input('password');
 
-        if (!Hash::check($current_password, $user->password)) {
-            return back()->with('incorrect', "Old password is incorrect");
+        $userId = Auth::id();
+        $user = $this->user->findOrFail($userId);
+
+        if (!Hash::check($currentPassword, $user->password)) {
+            return back()->with('error', "Current password is incorrect");
         }else{
-            if(Hash::check($new_password, $user->password)){
-                return back()->with('match', "You can't user old password as a new password, please try again.");
+            if(Hash::check($newPassword, $user->password)){
+                return back()->with('warning', "You can't use current password as a new password, please try again.");
+            }else if(Hash::check($newPassword, $user->old_password)){
+                return back()->with('warning', "You can't use old password as a new password, please try again.");
             }else{
                 $validator = $this->passwordValidator($request);
                 if ($validator) {
-                    $old_password = [];
-                    $user->password = Hash::make($new_password);
-                    $user->password_updated_at = now();
-                    $user->password_expiration_date = now()->addDays(30);
-                    $user->old_password = Hash::make($current_password);
-                    $user->save();
+                    $this->user->where('id', $userId)->update([
+                        'password' => Hash::make($newPassword),
+                        'password_updated_at' => now(),
+                        'password_expiration_date' => now()->addDays(30),
+                        'old_password' => Hash::make($currentPassword)
+                    ]);
 
-                    $this->audit_trail_logs('', 'updated', 'user_accounts: password', $user_id);
+                    $this->audit_trail_logs('', 'updated', 'user_accounts: password', $userId);
 
-                    return back()->with('success', 'Password Updated Successfully');
+                    return back()->with('success', 'You have successfully updated your password');
                 }
             }
         }
@@ -260,7 +263,7 @@ class MyAccountController extends Controller
         $image = $request->file('profile-image');
         if ($request->file('profile-image')->isValid()) {
             $username = Auth::user()->username;
-            $userId = Auth::user()->id;
+            $userId = Auth::id();
 
             $publicFolder = public_path('images/user_profiles/'.$username.$userId);
 
@@ -279,9 +282,10 @@ class MyAccountController extends Controller
             $data->profile_image_expiration_date = now()->addDays(15);
             $data->save();
 
-            return back()->with('success', 'Profile Changed Successfully');
+            return back()->with('success', 'You have successfully updated your profile picture');
+
         }else{
-            return 'not okie';
+            return back()->with('error', "Something wrong with the image, please try again..");
         }
     }
 }

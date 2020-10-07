@@ -7,9 +7,9 @@ use Auth;
 use DB;
 use Crypt;
 use Arr;
-use Carbon\Carbon;
 use Validator;
 
+use Carbon\Carbon;
 use App\Models\Menu;
 use App\Models\MenuCategories;
 use App\Models\MenuTypes;
@@ -25,7 +25,6 @@ class MenuController extends Controller
             'name' => $this->safeInputs($request->input('name')),
             'price' => $this->safeInputs($request->input('price')),
             'status' => $this->safeInputs($request->input('status')),
-
         ];
 
         $rules = [
@@ -155,7 +154,7 @@ class MenuController extends Controller
             $data->price = $validated['price'];
             $data->recipes = $json_recipe;
             $data->status = $validated['status'];
-            $data->created_by = Auth::user()->id;
+            $data->created_by = Auth::id();
             $data->created_at = Carbon::now();
             $data->save();
 

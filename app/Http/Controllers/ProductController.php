@@ -167,7 +167,7 @@ class ProductController extends Controller
             
             $this->audit_trail_logs('', 'created', 'products: '.$validated['name'], $this->product->id);
 
-            return redirect()->route('products.index')->with('success', 'You have successfully added '.$validated['name'].' product');
+            return redirect()->route('products.index')->with('success', 'You have successfully added '.$validated['name']);
         }
     }
 
@@ -242,7 +242,7 @@ class ProductController extends Controller
 
             $this->audit_trail_logs('', 'updated', 'products: '.$data->name, $id);
 
-            return redirect()->route('products.index')->with('success', 'You have successfully updated '.$validated['name'].' product');
+            return redirect()->route('products.index')->with('success', 'You have successfully updated '.$validated['name']);
         }
     }
 
@@ -271,6 +271,6 @@ class ProductController extends Controller
 
         $this->audit_trail_logs('', 'deleted', 'products '.$data->name, $id);
 
-        return redirect()->route('products.index')->with('success', 'You have successfully removed '.$data->name.' product');
+        return redirect()->route('products.index')->with('success', 'You have successfully removed '.$data->name);
     }
 }

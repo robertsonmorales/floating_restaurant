@@ -93,13 +93,13 @@ class UserAccountController extends Controller
         );
 
         $columnDefs = array();
-        $columnDefs[] = array_merge(array('headerName'=>'NAME','field'=>'name'), $arr_set);
-        $columnDefs[] = array_merge(array('headerName'=>'USERNAME','field'=>'username'), $arr_set);
-        $columnDefs[] = array_merge(array('headerName'=>'EMAIL','field'=>'email'), $arr_set);
-        $columnDefs[] = array_merge(array('headerName'=>'CONTACT NUMBER','field'=>'contact_number'), $arr_set);
-        $columnDefs[] = array_merge(array('headerName'=>'STATUS','field'=>'status'), $arr_set);
+        $columnDefs[] = array_merge(array('headerName'=>'Name','field'=>'name'), $arr_set);
+        $columnDefs[] = array_merge(array('headerName'=>'Username','field'=>'username'), $arr_set);
+        $columnDefs[] = array_merge(array('headerName'=>'Email','field'=>'email'), $arr_set);
+        $columnDefs[] = array_merge(array('headerName'=>'Contact No.','field'=>'contact_number'), $arr_set);
+        $columnDefs[] = array_merge(array('headerName'=>'Status','field'=>'status'), $arr_set);
         // $columnDefs[] = array_merge(array('headerName'=>'User Role','field'=>'user_role'), $arr_set);
-        $columnDefs[] = array_merge(array('headerName'=>'CREATED AT','field'=>'created_at'), $arr_set);
+        $columnDefs[] = array_merge(array('headerName'=>'Created At','field'=>'created_at'), $arr_set);
         $data = json_encode(array('rows'=>$rows, 'column'=>$columnDefs));
 
         $this->audit_trail_logs('','','','');
@@ -165,8 +165,7 @@ class UserAccountController extends Controller
 
             $this->audit_trail_logs('', 'created', 'user_accounts: '.$validated['username'], $this->user->id);
 
-            return redirect()->route('user_accounts.index')
-                ->with('success', 'User Account Added Successfully');
+            return redirect()->route('user_accounts.index')->with('success', 'You have successfully added '.$this->user->username);
         }
     }
 
@@ -248,7 +247,6 @@ class UserAccountController extends Controller
         $validated = $this->updateValidator($request);
         if ($validated) {
             $data = $this->user->find($id);
-            // $firstName = ($data->first_name === $validated['first_name']) ? $data->first_name : $validated['first_name'];
             $data->first_name = Crypt::encryptString($validated['first_name']);
             $data->last_name = Crypt::encryptString($validated['last_name']);
             $data->address = $validated['address'];
@@ -259,8 +257,7 @@ class UserAccountController extends Controller
 
             $this->audit_trail_logs('', 'updated', 'user_accounts: '.$data->username, $id);
 
-            return redirect()->route('user_accounts.index')
-                ->with('success', 'User Account Updated Successfully');
+            return redirect()->route('user_accounts.index')->with('success', 'You have successfully updated '.$data->username);
         }
     }
 
@@ -281,7 +278,6 @@ class UserAccountController extends Controller
 
         $this->audit_trail_logs('', 'deleted', 'user_account '.$data->username, $id);
 
-        return redirect()->route('user_accounts.index')
-            ->with('success','User Account Removed Successfully');
+        return redirect()->route('user_accounts.index')->with('success', 'You have successfully removed '.$data->username);
     }
 }

@@ -15,6 +15,7 @@ use App\Models\MenuTypes;
 
 class MenuTypeController extends Controller
 {
+    protected $menuTypes;
     public function __construct(MenuTypes $menuTypes){
         $this->menuType = $menuTypes;
     }
@@ -125,7 +126,7 @@ class MenuTypeController extends Controller
 
             $this->audit_trail_logs('', 'created', 'menu_types: '.$validated['name'], $this->menuType->id);
 
-            return redirect()->route('menu_types.index')->with('success', 'You have successfully added '.$validated['name'].' menu type');
+            return redirect()->route('menu_types.index')->with('success', 'You have successfully added '.$validated['name']);
         }
     }
 
@@ -183,7 +184,7 @@ class MenuTypeController extends Controller
 
             $this->audit_trail_logs('', 'updated', 'menu_types: '.$data->name, $id);
 
-            return redirect()->route('menu_types.index')->with('success', 'You have successfully updated '.$validated['name'].' menu type');
+            return redirect()->route('menu_types.index')->with('success', 'You have successfully updated '.$validated['name']);
         }
     }
 
@@ -198,6 +199,6 @@ class MenuTypeController extends Controller
         $data = $this->menuType->findOrFail($id);
         $this->audit_trail_logs('', 'deleted', 'menu_types '.$data->name, $id);
         $data->delete();
-        return redirect()->route('menu_types.index')->with('success', 'You have successfully removed '.$data->name.' menu type');
+        return redirect()->route('menu_types.index')->with('success', 'You have successfully removed '.$data->name);
     }
 }

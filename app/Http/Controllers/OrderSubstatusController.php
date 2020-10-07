@@ -16,7 +16,6 @@ class OrderSubstatusController extends Controller
 {
 
     protected $orderSubstatus;
-
     public function __construct(OrderSubStatus $orderSubstatus){
         $this->substatus = $orderSubstatus;
     }
@@ -131,7 +130,7 @@ class OrderSubstatusController extends Controller
 
             $this->audit_trail_logs('', 'created', 'order_substatus: '.$validated['name'], $this->substatus->id);
 
-            return redirect()->route('order_substatus.index')->with('success', 'You have successfully added '.$validated['name'].' order substatus');
+            return redirect()->route('order_substatus.index')->with('success', 'You have successfully added '.$validated['name']);
         }
     }
 
@@ -190,7 +189,7 @@ class OrderSubstatusController extends Controller
 
             $this->audit_trail_logs('', 'updated', 'order_substatus: '.$data->name, $id);
 
-            return redirect()->route('order_substatus.index')->with('success', 'You have successfully updated '.$validated['name'].' order substatus');
+            return redirect()->route('order_substatus.index')->with('success', 'You have successfully updated '.$validated['name']);
         }
     }
 
@@ -206,6 +205,6 @@ class OrderSubstatusController extends Controller
         $this->audit_trail_logs('', 'deleted', 'order_substatus '.$data->name, $id);
         $data->delete();
 
-        return redirect()->route('order_substatus.index')->with('success', 'You have successfully removed '.$data->name.' order substatus');
+        return redirect()->route('order_substatus.index')->with('success', 'You have successfully removed '.$data->name);
     }
 }

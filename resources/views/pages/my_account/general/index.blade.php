@@ -2,6 +2,25 @@
 @section('title', $title)
 
 @section('content')
+
+@if(session()->get('success'))
+<div class="alert alert-success alert-dismissible fade show alerts" role="alert">
+    <span><i data-feather="check"></i> {{ session()->get('success') }}</span>
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true" class="dismiss-icon"><i data-feather="x"></i> </span>
+    </button>
+</div>
+@endif
+
+@if(session()->get('error'))
+<div class="alert alert-danger alert-dismissible fade show alerts" role="alert">
+    <span><i data-feather="x"></i> {{ session()->get('error') }} </span>
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true" class="dismiss-icon"><i data-feather="x"></i> </span>
+    </button>
+</div>
+@endif
+
 <div class="customer-content">
     <div class="user-container">
         <div class="user-options">
@@ -112,6 +131,14 @@ $(document).ready(function(){
         $(this).html("Setting New Profile Picture..");
 
         document.getElementById("form-submit").submit();
+    });
+
+    $('#general-form').on('submit', function(){
+        $('#btn-general').prop('disabled', true);
+        $('#btn-reset').prop('disabled', true);
+
+        $('#btn-general').html('Saving..');
+        $(this).submit();
     });
 });
 
