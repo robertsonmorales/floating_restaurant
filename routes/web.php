@@ -20,16 +20,17 @@ Auth::routes();
 Route::middleware('auth')->group(function () {
     Route::get('/dashboard', [App\Http\Controllers\HomeController::class, 'dashboard'])->name('dashboard');
     Route::resource('/user_accounts', App\Http\Controllers\UserAccountController::class);
+    
     Route::resource('/menu_categories', App\Http\Controllers\MenuCategoryController::class);
     Route::resource('/menu_types', App\Http\Controllers\MenuTypeController::class);
     Route::resource('/menus', App\Http\Controllers\MenuController::class);
-
 
     Route::resource('/product_categories', App\Http\Controllers\ProductCategoryController::class);
     Route::resource('/product_units', App\Http\Controllers\ProductUnitController::class);
     Route::resource('/products', App\Http\Controllers\ProductController::class);
 
     Route::resource('/order_status', App\Http\Controllers\OrderStatusController::class);
+    Route::resource('/order_substatus', App\Http\Controllers\OrderSubstatusController::class);
 
 
     // My Account
