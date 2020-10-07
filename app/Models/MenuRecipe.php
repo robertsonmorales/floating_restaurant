@@ -5,11 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Menu extends Model
+class MenuRecipe extends Model
 {
     use HasFactory;
 
-    protected $table = 'menus';
-
-    protected $fillable = ['menu_categories_id'];
+    protected $table = 'menu_recipes';
 }

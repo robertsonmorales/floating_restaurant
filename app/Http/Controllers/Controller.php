@@ -19,6 +19,8 @@ use Carbon\Carbon;
 
 use App\Models\User;
 use App\Models\ProductCategories;
+use App\Models\MenuCategories;
+use App\Models\MenuTypes;
 
 class Controller extends BaseController
 {
