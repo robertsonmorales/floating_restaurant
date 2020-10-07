@@ -10,8 +10,7 @@
         method="POST" class="card-form" id="card-form">
         @csrf
 
-        <h5>{{ ucfirst($mode).' '.\Str::Singular($header) }}</h5>
-        <div class="divider"></div>
+        <h5>{{ ucfirst($mode).' '.\Str::Singular($header) }}</h5>        
         
         <div class="input-group">
             <label for="">Name</label>

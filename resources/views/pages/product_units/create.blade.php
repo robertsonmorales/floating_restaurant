@@ -5,18 +5,20 @@
 <center>
 <div class="content" style="width: 45%;">
     <form action="{{ ($mode == 'update') ? 
-        route('menu_categories.update', $data->id) : 
-        route('menu_categories.store') }}"
+        route('product_units.update', $data->id) : 
+        route('product_units.store') }}"
         method="POST" class="card-form" id="card-form">
         @csrf
 
         <h5>{{ ucfirst($mode).' '.\Str::Singular($header) }}</h5>
-
+        
         <div class="input-group">
             <label for="">Name</label>
-            <input type="text" name="name" id="name" autocomplete="off" class="form-control @error('name') is-invalid @enderror" value="{{($mode == 'update') ? $data->name : old('name')}}">
+            <input type="text" name="name" id="name" autocomplete="off"
+                class="form-control @error('name') is-invalid @enderror" autofocus
+                value="{{($mode == 'update') ? $data->name : old('name')}}">
 
-            <span class="messages" role="alert">
+            <span class="messages">
                 <strong id="error-name"></strong>
             </span>
 
@@ -29,7 +31,7 @@
         
         <div class="input-group">
             <label for="">Status</label>
-            <select name="status" id="status" class="form-control @error('status') is-invalid @enderror">
+            <select name="status" id="status" class="form-control @error('status') is-invalid @enderror" autofocus>
                 <option value="1" {{ ($mode == 'update' && $data->status == 1) ? 'selected' : '' }}>Active</option>
                 <option value="0" {{ ($mode == 'update' && $data->status == 0) ? 'selected' : '' }}>In-active</option>
             </select>
@@ -53,8 +55,9 @@
         <div class="actions">           
             <button type="submit" class="btn btn-primary btn-submit" id="btn-submit">{{ ($mode == 'update') ? 'Submit Changes' : 'Submit' }}</button>
             <button type="reset" class="btn btn-secondary" id="btn-reset">Reset</button>
-            <button type="button" onclick="window.location.href='{{route('menu_categories.index') }}'" class="btn btn-secondary" id="btn-back">Back</button>
+            <button type="button" onclick="window.location.href='{{route('product_units.index') }}'" class="btn btn-secondary" id="btn-back">Back</button>
         </div>
+
     </form>
 </div>
 </center>

@@ -11,7 +11,6 @@
         @csrf
 
         <h5>{{ ucfirst($mode).' '.\Str::Singular($header) }}</h5>
-        <div class="divider"></div>
         
         <div class="input-group">
             <label for="">First Name</label>
