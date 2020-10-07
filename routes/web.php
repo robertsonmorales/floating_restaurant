@@ -29,6 +29,8 @@ Route::middleware('auth')->group(function () {
     Route::resource('/product_units', App\Http\Controllers\ProductUnitController::class);
     Route::resource('/products', App\Http\Controllers\ProductController::class);
 
+    Route::resource('/order_status', App\Http\Controllers\OrderStatusController::class);
+
 
     // My Account
     $match = ['PUT', 'POST'];
