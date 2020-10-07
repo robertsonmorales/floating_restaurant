@@ -86,19 +86,19 @@
 
             @if($mode == 'update')
             @foreach($recipes as $recipe)
-            <div class="columns">
+            <div class="columns" style="justify-content: space-between;">
                 <select name="recipe[]" id="recipe" class="form-control @error('recipe') is-invalid @enderror" autofocus required title="product name">
                     @foreach($products as $pro)
-                    <option value="{{ ($pro->id == $recipe['product'][0]) ? $recipe['product'][0].'|'.$recipe['product'][1] : $pro->id.'|'.$pro->name }}" {{ ($pro->id == $recipe['product'][0]) ? 'selected' : '' }}>
-                        {{ ($pro->id == $recipe['product'][0]) ? $recipe['product'][1] : $pro->name }}
+                    <option value="{{ ($pro->id == $recipe->product_id) ? $recipe->product_id.'|'.$recipe->product_name : $pro->id.'|'.$pro->name }}" {{ ($pro->id == $recipe->product_id) ? 'selected' : '' }}>
+                        {{ ($pro->id == $recipe->product_id) ? $recipe->product_name : $pro->name }}
                     </option>
                     @endforeach
                 </select>
 
                 <input type="text" min="1" name="recipe_qty[]" id="recipe_qty" required autocomplete="off"
                     class="form-control @error('recipe_qty') is-invalid @enderror" autofocus
-                    value="{{ $recipe['stock_out'] }}" placeholder="Stock out..." title="product quantity" style="text-align: center;">
-                <button type="button" class="btn-minus" title="remove">
+                    value="{{ $recipe->stock_out }}" title="product quantity" style="text-align: center;">
+                <button type="button" class="btn btn-danger btn-minus" title="remove">
                     <i class="fas fa-times"></i>
                 </button>
             </div>
@@ -191,7 +191,7 @@ $(document).on('click', '#btn-plus', function(){
     var cols_length = document.getElementsByClassName('columns').length - 1;
 
     var recipe = '\
-        <div class="columns">\
+        <div class="columns" style="justify-content: space-between;">\
             <select name="recipe[]" id="recipe" class="form-control" autofocus required title="product name">\
                 <option value="" style="display: none;">Select product...</option>\
                 @foreach($products as $pro)\
@@ -200,8 +200,8 @@ $(document).on('click', '#btn-plus', function(){
             </select>\
             <input type="text" min="1" name="recipe_qty[]" id="recipe_qty" required autocomplete="off"\
                 class="form-control" autofocus\
-                value="1" placeholder="Stock out..." title="product quantity" style="text-align: center;">\
-            <button type="button" class="btn-minus btn-minus'+length+'" title="remove" onclick="removeRecipe('+length+')">\
+                value="1" title="product quantity" style="text-align: center;">\
+            <button type="button" class="btn btn-danger btn-minus btn-minus'+length+'" title="remove" onclick="removeRecipe('+length+')">\
                 <i class="fas fa-times"></i>\
             </button>\
         </div>';
@@ -223,8 +223,8 @@ $('.btn-minus').on('click', function(){
     $(this).parent().remove();
 });
 
-$("#menu_category").select2();
-$("#menu_type").select2();
+// $("#menu_category").select2();
+// $("#menu_type").select2();
 
 $(document).on('keyup', "input[name='recipe_qty[]']", function(){
     if (isNaN($(this).val())) {

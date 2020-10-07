@@ -14,9 +14,19 @@ use App\Models\Menu;
 use App\Models\MenuCategories;
 use App\Models\MenuTypes;
 use App\Models\Products;
+use App\Models\MenuRecipe;
 
 class MenuController extends Controller
 {
+    protected $menu, $menuCategory, $menuType, $product, $menuRecipe;
+    public function __construct(Menu $menu, MenuCategories $menuCategory, MenuTypes $menuType, Products $product, MenuRecipe $menuRecipe){
+        $this->menu = $menu;
+        $this->category = $menuCategory;
+        $this->type = $menuType;
+        $this->product = $product;
+        $this->recipe = $menuRecipe;
+    }
+
     public function validator(Request $request)
     {
         $input = [
@@ -60,8 +70,7 @@ class MenuController extends Controller
         $mode = [route('menus.index')];        
         
         $rows = array();
-        $rows = Menu::orderBy('created_at', 'desc')
-            ->get();
+        $rows = $this->menu->get();
         $rows = $this->changeVal($rows);
             
         $arr_set = array(
@@ -76,12 +85,14 @@ class MenuController extends Controller
 
         $columnDefs = array();
         $columnDefs[] = array_merge(array('headerName'=>'Name','field'=>'name'), $arr_set);
-        $columnDefs[] = array_merge(array('headerName'=>'Menu Category','field'=>'menu_categories_id'), $arr_set);
+        $columnDefs[] = array_merge(array('headerName'=>'Category','field'=>'menu_categories_id'), $arr_set);
         $columnDefs[] = array_merge(array('headerName'=>'Price','field'=>'price'), $arr_set);
-        $columnDefs[] = array_merge(array('headerName'=>'Menu Type','field'=>'menu_type_id'), $arr_set);
-        $columnDefs[] = array_merge(array('headerName'=>'Created By','field'=>'created_by'), $arr_set);
+        $columnDefs[] = array_merge(array('headerName'=>'Type','field'=>'menu_type_id'), $arr_set);
         $columnDefs[] = array_merge(array('headerName'=>'Status','field'=>'status'), $arr_set);
+        $columnDefs[] = array_merge(array('headerName'=>'Created By','field'=>'created_by'), $arr_set);
+        $columnDefs[] = array_merge(array('headerName'=>'Updated By','field'=>'created_by'), $arr_set);
         $columnDefs[] = array_merge(array('headerName'=>'Created At','field'=>'created_at'), $arr_set);
+        $columnDefs[] = array_merge(array('headerName'=>'Updated At','field'=>'created_at'), $arr_set);
         $data = json_encode(array('rows'=>$rows, 'column'=>$columnDefs));
 
         $this->audit_trail_logs('','','','');
@@ -108,9 +119,9 @@ class MenuController extends Controller
 
         $this->audit_trail_logs('','','Creating new record','');
 
-        $menu_category = MenuCategories::all();
-        $menu_type = MenuTypes::all();
-        $products = Products::where('inventoriable', 1)->get();
+        $menuCategory = $this->category->all();
+        $menuType = $this->type->all();
+        $products = $this->product->where('inventoriable', 1)->get();
 
         return view('pages.menus.create', [            
             'mode' => $mode_action,
@@ -118,8 +129,8 @@ class MenuController extends Controller
             'header' => 'Menus',
             'title' => 'Menus',
             'products' => $products,
-            'menu_category' => $menu_category,
-            'menu_type' => $menu_type
+            'menu_category' => $menuCategory,
+            'menu_type' => $menuType
         ]);
     }
 
@@ -133,35 +144,39 @@ class MenuController extends Controller
     {
         $validated = $this->validator($request);
         if ($validated) {
-            $recipe = ($request->input('recipe')) ? array_filter($request->input('recipe')) : null;
-            $recipe_qty = ($request->input('recipe_qty')) ? array_filter($request->input('recipe_qty')) : null;
-            $recipes = [];
+            $insert = $this->menu->insert([
+               'menu_categories_id' => $validated['menu_category'],
+               'menu_type_id' => $validated['menu_type'],
+               'name' => $validated['name'],
+               'price' => $validated['price'],
+               'status' => $validated['status'],
+               'created_by' => Auth::id(),
+               'created_at' => now()
+            ]);
 
-            $counter = ($recipe == null) ? 0 : count($recipe);
-            for ($i=0; $i < $counter; $i++) {
-                $recipes[] = [
-                    'product' => $recipe[$i],
-                    'stock_out' => $recipe_qty[$i] 
-                ];
-            }    
+            if ($insert) {
+                for ($i=0; $i < count($request->input('recipe')); $i++) { 
+                    $stock_out = $request->input('recipe_qty');
+                    $recipes = $request->input('recipe');
+                    $product = explode('|', $recipes[$i]);
 
-            $json_recipe = ($recipes == []) ? null : json_encode($recipes, true);
+                    $menu = $this->menu->latest()->first();
 
-            $data = new Menu;
-            $data->menu_categories_id = $validated['menu_category'];
-            $data->menu_type_id = $validated['menu_type'];
-            $data->name = $validated['name'];
-            $data->price = $validated['price'];
-            $data->recipes = $json_recipe;
-            $data->status = $validated['status'];
-            $data->created_by = Auth::id();
-            $data->created_at = Carbon::now();
-            $data->save();
+                    $this->recipe->insert([
+                        'menu_id' => $menu->id,
+                        'menu_name' => $menu->name,
+                        'product_id' => $product[0],
+                        'product_name' => $product[1],
+                        'stock_out' => $stock_out[$i],
+                        'created_by' => Auth::id(),
+                        'created_at' => now()
+                    ]);
+                }
+            }
 
-            $this->audit_trail_logs('', 'created', 'menus: '.$validated['name'], $data->id);
+            $this->audit_trail_logs('', 'created', 'menus: '.$validated['name'], $this->menu->id);
 
-            return redirect()->route('menus.index')
-                ->with('success', 'Menu Added Successfully');                
+            return redirect()->route('menus.index')->with('success', 'You have successfully added '.$validated['name']);
         }
     }
 
@@ -184,7 +199,35 @@ class MenuController extends Controller
      */
     public function edit($id)
     {
-        //
+        $data = $this->menu->findOrFail($id);
+        $recipes = $this->recipe->where('menu_id', $data->id)->get();
+        $mode_action = 'update';
+        $name = ['Menus', 'Edit', $data->name];
+        $mode = [route('menus.index'), route('menus.edit', $id), route('menus.edit', $id)];
+
+        $this->audit_trail_logs('', '', 'menus: '.$data->name, $id);
+
+        $menu_category = $this->category->where('status', 1)->get();
+        $select_menu_category = $this->category->find($data->menu_categories_id);
+
+        $menu_type = $this->type->where('status', 1)->get();
+        $select_menu_type = $this->type->find($data->menu_type_id);
+
+        $products = $this->product->where(array('inventoriable' => 1, 'status' => 1))->get();
+
+        return view('pages.menus.create', [            
+            'mode' => $mode_action,
+            'breadcrumbs' => $this->breadcrumbs($name, $mode),
+            'header' => 'Menus',
+            'title' => 'Menus',
+            'data' => $data,
+            'products' => $products,
+            'menu_category' => $menu_category,
+            'select_menu_category' => $select_menu_category,
+            'menu_type' => $menu_type,
+            'select_menu_type' => $select_menu_type,
+            'recipes' => $recipes
+        ]);
     }
 
     /**
@@ -196,7 +239,42 @@ class MenuController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $validated = $this->validator($request);
+        if ($validated) {
+            $update = $this->menu->find($id)->update([
+                'menu_categories_id' => $validated['menu_category'],
+                'menu_type_id' => $validated['menu_type'],
+                'name' => $validated['name'],
+                'price' => $validated['price'],
+                'status' => $validated['status'],
+                'updated_by' => Auth::id(),
+                'updated_at' => now()
+            ]);
+
+            if ($update) {
+                for ($i=0; $i < count($request->input('recipe')); $i++) { 
+                    $stock_out = $request->input('recipe_qty');
+                    $recipes = $request->input('recipe');
+                    $product = explode('|', $recipes[$i]);
+
+                    $menu = $this->menu->latest()->first();
+
+                    $this->recipe->menu_id = $menu->id;
+                    $this->recipe->menu_name = $menu->name;
+                    $this->recipe->product_id = $product[0];
+                    $this->recipe->product_name = $product[1];
+                    $this->recipe->stock_out = $stock_out[$i];
+                    $this->recipe->created_by = Auth::id();
+                    $this->recipe->created_at = now();
+                    $this->recipe->save();
+                }
+            }
+
+            $this->audit_trail_logs('', 'updated', 'menus: '.$this->menu->name, $id);
+
+            return redirect()->route('menus.index')
+                ->with('success', 'Menu Updated Successfully');
+        }
     }
 
     /**

@@ -72,7 +72,8 @@
 
             .columns{
                 display: grid;
-                grid-template-columns: 75% 20% 5%;
+                grid-template-columns: 60% 22% 8%;
+                grid-column-gap: 10px;
                 align-items: center;
                 margin-bottom: 20px;
 
@@ -85,30 +86,9 @@
                     }
                 }
 
-                .btn-minus,
                 .btn-plus{
-                    border: none;
-                    outline: none;
-                    padding: 5px;
-                    border-radius: 4px;
-                    cursor: pointer;                        
-                    font-size: .9em;
-                    font-weight: 600;
                     color: #fff;
-                    box-shadow: $shadow;
-
-                    &:active{
-                        background-color: $toolbar;
-                    }
-                }
-
-                .btn-minus{
-                    background-color: $red;
-                }
-
-                .btn-plus{
                     background-color: $btn-primary;
-                    margin-left: 5px;
                 }
 
                 &:last-child{
