@@ -18,6 +18,7 @@ use Illuminate\Support\Facades\Gate;
 use Carbon\Carbon;
 
 use App\Models\User;
+use App\Models\ProductCategories;
 
 class Controller extends BaseController
 {

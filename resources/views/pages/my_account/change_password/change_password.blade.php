@@ -1,6 +1,5 @@
 <div class="user-content">
     <h5>Change Password</h5>
-    <div class="divider"></div>
     
     <form action="{{ route('my_account.password_update') }}" method="POST" id="change-password-form">
         @csrf

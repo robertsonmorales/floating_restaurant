@@ -1,6 +1,5 @@
 <div class="user-content">
     <h5>Personal Information</h5>
-    <div class="divider"></div>
 
     <form action="{{ route('my_account.update', Auth::user()->id) }}" method="post">
         @csrf
