@@ -13,31 +13,22 @@
             </span>
             @enderror
 
-            @if(session()->get('incorrect'))
-            <span class="invalid-feedback" role="alert">
-                <strong>{{ session()->get('incorrect') }}</strong>
-            </span>
-            @endif
-
         </div>
 
         <div class="input-group">
-            <label for="">New Password</label>
+            <label for="">New Password
+                <a id="password-popover" role="button" data-toggle="popover" data-placement="bottom" data-trigger="focus" title="More Information" data-content="Your new password must be more than 8 characters long, should contain at-least one Uppercase, one Lowercase, one Numeric and one special character." style="outline: none;">
+                    <i data-feather="help-circle"></i>
+                </a>
+            </label>
             <input type="password" name="password" id="password" required autocomplete="off"
                 class="form-control @error('password') is-invalid @enderror" autofocus>
-            <!-- <label for="" style="margin-top: 5px; color: #ff9800;">Your password must be more than 8 characters long, should contain at-least <b>one uppercase</b>, <b>one lowercase</b>, <b>one numeric</b> and <b>one special character</b>.</label> -->
 
             @error('password')
             <span class="invalid-feedback" role="alert">
                 <strong>{{ $message }}</strong>
             </span>
             @enderror
-
-            @if(session()->get('match'))
-            <span class="invalid-feedback" role="alert">
-                <strong>{{ session()->get('match') }}</strong>
-            </span>
-            @endif
         </div>
 
         <div class="input-group">
@@ -57,8 +48,8 @@
         <input type="hidden" name="id" value="{{ Auth::user()->id }}">
 
         <div class="actions">                        
-            <button type="submit" class="btn btn-primary btn-save">Save Password</button>
-            <button type="reset" class="btn btn-secondary">Reset</button>
+            <button type="submit" class="btn btn-primary btn-save" id="btn-password">Save Password</button>
+            <button type="reset" class="btn btn-secondary" id="btn-reset">Reset</button>
         </div>
     </form>
 </div>

@@ -14,6 +14,7 @@ use App\Models\ProductCategories;
 
 class ProductCategoryController extends Controller
 {
+    protected $productCategories;
     public function __construct(ProductCategories $productCategories){
         $this->productCategory = $productCategories;
     }
@@ -123,7 +124,7 @@ class ProductCategoryController extends Controller
 
             $this->audit_trail_logs('', 'created', 'product_categories: '.$validated['name'], $data->id);
 
-            return redirect()->route('product_categories.index')->with('success', 'You have successfully added '.$validated['name'].' product category');
+            return redirect()->route('product_categories.index')->with('success', 'You have successfully added '.$validated['name']);
         } 
     }
 
@@ -181,7 +182,7 @@ class ProductCategoryController extends Controller
 
             $this->audit_trail_logs('', 'updated', 'product_categories: '.$data->name, $id);
 
-            return redirect()->route('product_categories.index')->with('success', 'You have successfully updated '.$validated['name'].' product category');
+            return redirect()->route('product_categories.index')->with('success', 'You have successfully updated '.$validated['name']);
         }
     }
 
@@ -198,6 +199,6 @@ class ProductCategoryController extends Controller
 
         $this->audit_trail_logs('', 'deleted', 'product_categories '.$data->name, $id);
 
-        return redirect()->route('product_categories.index')->with('success', 'You have successfully removed '.$data->name.' product category');
+        return redirect()->route('product_categories.index')->with('success', 'You have successfully removed '.$data->name);
     }
 }

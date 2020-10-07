@@ -2,6 +2,34 @@
 @section('title', $title)
 
 @section('content')
+
+@if(session()->get('success'))
+<div class="alert alert-success alert-dismissible fade show alerts" role="alert">
+    <span><i data-feather="check"></i> {{ session()->get('success') }}</span>
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true" class="dismiss-icon"><i data-feather="x"></i> </span>
+    </button>
+</div>
+@endif
+
+@if(session()->get('error'))
+<div class="alert alert-danger alert-dismissible fade show alerts" role="alert">
+    <span><i data-feather="x-circle"></i> {{ session()->get('error') }} </span>
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true" class="dismiss-icon"><i data-feather="x"></i> </span>
+    </button>
+</div>
+@endif
+
+@if(session()->get('warning'))
+<div class="alert alert-warning alert-dismissible fade show alerts" role="alert">
+    <span><i data-feather="alert-triangle"></i> {{ session()->get('warning') }} </span>
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true" class="dismiss-icon"><i data-feather="x"></i> </span>
+    </button>
+</div>
+@endif
+
 <div class="customer-content">
     <div class="user-container">
         <div class="user-options">
@@ -113,6 +141,18 @@ $(document).ready(function(){
 
         document.getElementById("form-submit").submit();
     });
+
+    $('#password-popover').popover({
+        container: 'body'
+    });
+
+    $('#change-password-form').on('submit', function(){
+        $('#btn-password').prop('disabled', true);
+        $('#btn-reset').prop('disabled', true);
+
+        $('#btn-password').html('Saving Password..');
+        $(this).submit();
+    });
 });
 
 function previewFile(input){
@@ -129,5 +169,6 @@ function previewFile(input){
         reader.readAsDataURL(file);
     }
 }
+
 </script>
 @endsection

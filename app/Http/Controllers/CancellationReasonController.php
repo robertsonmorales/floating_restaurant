@@ -5,40 +5,38 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Auth;
 use DB;
-use Crypt;
-use Arr;
 use Validator;
 
 use Carbon\Carbon;
-use App\Models\ProductUnits;
+use App\Models\CancellationReason;
 
-class ProductUnitController extends Controller
+class CancellationReasonController extends Controller
 {
-    protected $productUnit;
-    public function __construct(ProductUnits $productUnit){
-        $this->productUnit = $productUnit;
+    protected $cancellationReason;
+    public function __construct(CancellationReason $cancellationReason){
+        $this->cancellation = $cancellationReason;
     }
 
     public function validator(Request $request)
     {
         $input = [
             'name' => $this->safeInputs($request->input('name')),
-            'status' => $this->safeInputs($request->input('status')),
+            'description' => $this->safeInputs($request->input('description')),
         ];
 
         $rules = [
-            'name' => 'required|string|max:255|unique:product_units,name,'.$this->safeInputs($request->input('id')).'',
-            'status' => 'required'
+            'name' => 'required|string|max:100|unique:cancellation_reasons,name,'.$this->safeInputs($request->input('id')).'',            
+            'description' => 'required|max:255'
         ];
 
         $messages = [];
 
         $customAttributes = [
             'name' => 'name',
-            'status' => 'status'
+            'description' => 'description'
         ];                
 
-        $validator = Validator::make($input, $rules, $messages,$customAttributes);
+        $validator = Validator::make($input, $rules, $messages, $customAttributes);
         return $validator->validate();
     }
 
@@ -49,11 +47,11 @@ class ProductUnitController extends Controller
      */
     public function index()
     {
-        $name = ['Product Units'];
-        $mode = [route('product_units.index')];
+        $name = ['Cancellation Reasons'];
+        $mode = [route('cancellation_reasons.index')];
         
         $rows = array();
-        $rows = $this->productUnit->latest()->get();
+        $rows = $this->cancellation->latest()->get();
         $rows = $this->changeVal($rows);
             
         $arr_set = array(
@@ -68,7 +66,7 @@ class ProductUnitController extends Controller
 
         $columnDefs = array();
         $columnDefs[] = array_merge(array('headerName'=>'Name','field'=>'name'), $arr_set);
-        $columnDefs[] = array_merge(array('headerName'=>'Status','field'=>'status'), $arr_set);
+        $columnDefs[] = array_merge(array('headerName'=>'Description','field'=>'description'), $arr_set);
         $columnDefs[] = array_merge(array('headerName'=>'Created By','field'=>'created_by'), $arr_set);
         $columnDefs[] = array_merge(array('headerName'=>'Updated By','field'=>'updated_by'), $arr_set);
         $columnDefs[] = array_merge(array('headerName'=>'Created At','field'=>'created_at'), $arr_set);
@@ -77,12 +75,12 @@ class ProductUnitController extends Controller
 
         $this->audit_trail_logs('','','','');
 
-        return view('pages.product_units.index', [
+        return view('pages.cancellation_reasons.index', [
             'breadcrumbs' => $this->breadcrumbs($name, $mode),
             'data' => $data,
             'add' => 'Add New Record',
-            'header' => 'Product Units',
-            'title' => 'Product Units'
+            'header' => 'Cancellation Reasons',
+            'title' => 'Cancellation Reasons'
         ]);
     }
 
@@ -94,16 +92,16 @@ class ProductUnitController extends Controller
     public function create()
     {
         $mode_action = 'create';
-        $name = ['Product Units', 'Create'];
-        $mode = [route('product_units.index'), route('product_units.create')];
+        $name = ['Cancellation Reasons', 'Create'];
+        $mode = [route('cancellation_reasons.index'), route('cancellation_reasons.create')];
 
         $this->audit_trail_logs('','','Creating new record','');
 
-        return view('pages.product_units.create', [            
+        return view('pages.cancellation_reasons.create', [            
             'mode' => $mode_action,
             'breadcrumbs' => $this->breadcrumbs($name, $mode),
-            'header' => 'Product Units',
-            'title' => 'Product Units'
+            'header' => 'Cancellation Reasons',
+            'title' => 'Cancellation Reasons'
         ]);
     }
 
@@ -117,15 +115,15 @@ class ProductUnitController extends Controller
     {
         $validated = $this->validator($request);
         if($validated){
-            $this->productUnit->name = $validated['name'];
-            $this->productUnit->status = $validated['status'];
-            $this->productUnit->created_by = Auth::user()->id;
-            $this->productUnit->created_at = Carbon::now();
-            $this->productUnit->save();
+            $this->cancellation->name = $validated['name'];
+            $this->cancellation->description = $validated['description'];
+            $this->cancellation->created_by = Auth::user()->id;
+            $this->cancellation->created_at = now();
+            $this->cancellation->save();
 
-            $this->audit_trail_logs('', 'created', 'product_units: '.$validated['name'], $this->productUnit->id);
+            $this->audit_trail_logs('', 'created', 'cancellation_reasons: '.$validated['name'], $this->cancellation->id);
 
-            return redirect()->route('product_units.index')->with('success', 'You have successfully added '.$validated['name']);
+            return redirect()->route('cancellation_reasons.index')->with('success', 'You have successfully added '.$validated['name']);
         }
     }
 
@@ -148,18 +146,18 @@ class ProductUnitController extends Controller
      */
     public function edit($id)
     {
-        $data = $this->productUnit->findOrFail($id);
+        $data = $this->cancellation->findOrFail($id);
         $mode_action = 'update';
-        $name = ['Product Units', 'Edit', $data->name];
-        $mode = [route('product_units.index'), route('product_units.edit', $id), route('product_units.edit', $id)];
+        $name = ['Cancellation Reasons', 'Edit', $data->name];
+        $mode = [route('cancellation_reasons.index'), route('cancellation_reasons.edit', $id), route('cancellation_reasons.edit', $id)];
 
-        $this->audit_trail_logs('', '', 'product_units: '.$data->name, $id);
+        $this->audit_trail_logs('', '', 'cancellation_reasons: '.$data->name, $id);
 
-        return view('pages.product_units.create', [            
+        return view('pages.cancellation_reasons.create', [            
             'mode' => $mode_action,
             'breadcrumbs' => $this->breadcrumbs($name, $mode),
-            'header' => 'Product Units',
-            'title' => 'Product Units',
+            'header' => 'Cancellation Reasons',
+            'title' => 'Cancellation Reasons',
             'data' => $data
         ]);
     }
@@ -174,16 +172,16 @@ class ProductUnitController extends Controller
     public function update(Request $request, $id)
     {
         $validated = $this->validator($request);
-        if ($validated) {
-            $data = $this->productUnit->find($id);
+        if($validated){
+            $data = $this->cancellation->findOrFail($id);
             $data->name = $validated['name'];
-            $data->status = $validated['status'];
+            $data->description = $validated['description'];
             $data->updated_by = Auth::user()->id;
             $data->save();
 
-            $this->audit_trail_logs('', 'updated', 'product_units: '.$data->name, $id);
+            $this->audit_trail_logs('', 'updated', 'cancellation_reasons: '.$data->name, $id);
 
-            return redirect()->route('product_units.index')->with('success', 'You have successfully updated '.$validated['name']);
+            return redirect()->route('cancellation_reasons.index')->with('success', 'You have successfully updated '.$validated['name']);
         }
     }
 
@@ -195,10 +193,10 @@ class ProductUnitController extends Controller
      */
     public function destroy($id)
     {
-        $data = $this->productUnit->findOrFail($id);
-        $this->audit_trail_logs('', 'deleted', 'product_units '.$data->name, $id);
+        $data = $this->cancellation->findOrFail($id);
+        $this->audit_trail_logs('', 'deleted', 'cancellation_reasons '.$data->name, $id);
         $data->delete();
 
-        return redirect()->route('product_units.index')->with('success', 'You have successfully removed '.$data->name);
+        return redirect()->route('cancellation_reasons.index')->with('success', 'You have successfully removed '.$data->name);
     }
 }

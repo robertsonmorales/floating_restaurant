@@ -130,7 +130,7 @@ class OrderStatusController extends Controller
 
             $this->audit_trail_logs('', 'created', 'order_status: '.$validated['name'], $this->orderStatus->id);
 
-            return redirect()->route('order_status.index')->with('success', 'You have successfully added '.$validated['name'].' order status');
+            return redirect()->route('order_status.index')->with('success', 'You have successfully added '.$validated['name']);
         }
     }
 
@@ -189,7 +189,7 @@ class OrderStatusController extends Controller
 
             $this->audit_trail_logs('', 'updated', 'order_status: '.$data->name, $id);
 
-            return redirect()->route('order_status.index')->with('success', 'You have successfully updated '.$validated['name'].' order status');
+            return redirect()->route('order_status.index')->with('success', 'You have successfully updated '.$validated['name']);
         }
     }
 
@@ -205,6 +205,6 @@ class OrderStatusController extends Controller
         $data->delete();
         $this->audit_trail_logs('', 'deleted', 'order_status '.$data->name, $id);
 
-        return redirect()->route('order_status.index')->with('success', 'You have successfully removed '.$data->name.' order status');
+        return redirect()->route('order_status.index')->with('success', 'You have successfully removed '.$data->name);
     }
 }

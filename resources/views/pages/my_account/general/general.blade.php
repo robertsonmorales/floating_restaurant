@@ -1,7 +1,7 @@
 <div class="user-content">
     <h5>Personal Information</h5>
 
-    <form action="{{ route('my_account.update', Auth::user()->id) }}" method="post">
+    <form action="{{ route('my_account.update', Auth::user()->id) }}" method="post" id="general-form">
         @csrf
         <div class="input-group">
             <label for="">First Name</label>
@@ -76,8 +76,8 @@
         <input type="hidden" name="id" value="{{ Auth::user()->id }}">
 
         <div class="actions">                        
-            <button type="submit" class="btn btn-primary btn-save">Save</button>
-            <button type="reset" class="btn btn-secondary">Reset</button>
+            <button type="submit" class="btn btn-primary btn-save" id="btn-general">Save</button>
+            <button type="reset" class="btn btn-secondary" id="btn-reset">Reset</button>
         </div>
     </form>
 </div>

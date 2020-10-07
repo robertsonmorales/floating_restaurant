@@ -126,7 +126,7 @@ class MenuCategoryController extends Controller
 
             $this->audit_trail_logs('', 'created', 'menu_categories: '.$validated['name'], $this->category->id);
 
-            return redirect()->route('menu_categories.index')->with('success', 'You have successfully added '.$validated['name'].' menu category');
+            return redirect()->route('menu_categories.index')->with('success', 'You have successfully added '.$validated['name']);
         }
     }
 
@@ -187,7 +187,7 @@ class MenuCategoryController extends Controller
             $this->audit_trail_logs('', 'updated', 'menu_categories: '.$data->name, $id);
 
             return redirect()->route('menu_categories.index')
-                ->with('success', 'You have successfully updated '.$validated['name'].' menu category');
+                ->with('success', 'You have successfully updated '.$validated['name']);
         }
     }
 
@@ -200,9 +200,10 @@ class MenuCategoryController extends Controller
     public function destroy($id)
     {
         $data = $this->category->findOrFail($id);
-        $this->audit_trail_logs('', 'deleted', 'menu_categories '.$data->name, $id);
         $data->delete();
+        $this->audit_trail_logs('', 'deleted', 'menu_categories '.$data->name, $id);
+        
         return redirect()->route('menu_categories.index')
-            ->with('success', 'You have successfully removed '.$data->name.' menu category');
+            ->with('success', 'You have successfully removed '.$data->name);
     }
 }

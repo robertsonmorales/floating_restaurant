@@ -12,7 +12,6 @@
     </div>
     <div class="body-card">
         <h5>Login your account.</h5>
-        <div class="divider"></div>
         
         <form method="POST" action="{{ route('login') }}" id="login-form">
             @csrf
@@ -70,14 +69,22 @@
             </div>
 
             <div class="form-group">
-                <button type="submit" class="btn btn-primary btn-auth">{{ __('Login') }}</button>
-            </div>
-
-            <div class="form-group">
-                
+                <button type="submit" class="btn btn-primary btn-auth" id="btn-auth">{{ __('Login') }}</button>
             </div>
             
         </form>
     </div>
 </div>
+@endsection
+@section('scripts')
+<script type="text/javascript">
+$(document).ready(function(){
+    $('#login-form').on('submit', function(){
+        $('#btn-auth').prop('disabled', true);
+
+        $('#btn-auth').html('Verifying account..');
+        $(this).submit();
+    });
+});
+</script>
 @endsection
