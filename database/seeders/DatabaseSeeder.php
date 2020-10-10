@@ -25,6 +25,7 @@ class DatabaseSeeder extends Seeder
             OrderSubstatusSeeder::class,
             ExpenseCategorySeeder::class,
             CustomerDiscountSeeder::class,
+            EmployeePositionSeeder::class,
         ]);
     }
 }
