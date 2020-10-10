@@ -83,7 +83,7 @@
 
         <div class="input-group">
             <label for="">Password 
-                <a tabindex="0" id="password-popover" role="button" data-toggle="popover" data-placement="bottom" data-trigger="focus" title="More Information" data-content="Your password must be more than 8 characters long, should contain at-least one Uppercase, one Lowercase, one Numeric and one special character." style="outline: none;">
+                <a tabindex="0" id="password-popover" role="button" data-toggle="popover" data-placement="top" data-trigger="focus" title="More Information" data-content="Your password must be more than 8 characters long, should contain at-least one Uppercase, one Lowercase, one Numeric and one special character." style="outline: none;">
                     <i data-feather="help-circle"></i>
                 </a>
             </label>
@@ -139,7 +139,7 @@
         
         <div class="input-group">
             <label for="">Status</label>
-            <select name="status" id="status" class="form-control @error('status') is-invalid @enderror">
+            <select name="status" id="status" class="custom-select form-control @error('status') is-invalid @enderror">
                 <option value="1" {{ ($mode == 'update' && $user->status == 1) ? 'selected' : '' }}>Active</option>
                 <option value="0" {{ ($mode == 'update' &&  $user->status == 0) ? 'selected' : '' }}>In-active</option>
             </select>
@@ -157,7 +157,7 @@
 
         <div class="input-group">
             <label for="">User Role</label>
-            <select name="user_role" id="user_role" class="form-control @error('user_role') is-invalid @enderror">
+            <select name="user_role" id="user_role" class="custom-select form-control @error('user_role') is-invalid @enderror">
                 <option value="4" {{ ($mode == 'update' && $user->user_role == 4) ? 'selected' : '' }}>Cook</option>
                 <option value="3" {{ ($mode == 'update' && $user->user_role == 3) ? 'selected' : '' }}>Manager</option>
                 <option value="2" {{ ($mode == 'update' && $user->user_role == 2) ? 'selected' : '' }}>Cashier</option>
@@ -180,12 +180,10 @@
         <input type="hidden" name="id" value="{{ ($mode == 'update') ? $user->id : ''}}">
         @endif
 
-        <div class="actions">            
-            <div class="actions">           
-                <button type="submit" class="btn btn-primary btn-submit" id="btn-submit">{{ ($mode == 'update') ? 'Submit Changes' : 'Submit' }}</button>
-                <button type="reset" class="btn btn-secondary" id="btn-reset">Reset</button>
-                <button type="button" onclick="window.location.href='{{route('user_accounts.index') }}'" class="btn btn-secondary" id="btn-back">Back</button>
-            </div>
+        <div class="actions">           
+            <button type="submit" class="btn btn-primary btn-submit" id="btn-submit">{{ ($mode == 'update') ? 'Submit Changes' : 'Submit' }}</button>
+            <button type="reset" class="btn btn-secondary" id="btn-reset">Reset</button>
+            <button type="button" onclick="window.location.href='{{route('user_accounts.index') }}'" class="btn btn-secondary" id="btn-back">Back</button>
         </div>
 
     </form>

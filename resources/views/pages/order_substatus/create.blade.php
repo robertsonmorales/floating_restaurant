@@ -48,7 +48,7 @@
         
         <div class="input-group">
             <label for="">Status</label>
-            <select name="status" id="status" class="form-control @error('status') is-invalid @enderror" autofocus>
+            <select name="status" id="status" class="custom-select form-control @error('status') is-invalid @enderror" autofocus>
                 <option value="1" {{ ($mode == 'update' && $data->status == 1) ? 'selected' : '' }}>Active</option>
                 <option value="0" {{ ($mode == 'update' && $data->status == 0) ? 'selected' : '' }}>In-active</option>
             </select>

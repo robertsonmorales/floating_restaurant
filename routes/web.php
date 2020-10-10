@@ -28,7 +28,9 @@ Route::middleware('auth')->group(function () {
     Route::resource('/products', App\Http\Controllers\ProductController::class);
     Route::resource('/order_status', App\Http\Controllers\OrderStatusController::class);
     Route::resource('/order_substatus', App\Http\Controllers\OrderSubstatusController::class);
-    Route::resource('/cancellation_reasons', App\Http\Controllers\CancellationReasonController::class);
+    Route::resource('/table_maintenance', App\Http\Controllers\TableMaintenanceController::class);
+    Route::resource('/expense_categories', App\Http\Controllers\ExpenseCategoryController::class);
+    Route::resource('/customer_discounts', App\Http\Controllers\CustomerDiscountController::class);
 
 
     // My Account

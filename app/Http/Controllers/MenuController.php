@@ -252,28 +252,37 @@ class MenuController extends Controller
             ]);
 
             if ($update) {
+                $menu = $this->menu->find($id);
                 for ($i=0; $i < count($request->input('recipe')); $i++) { 
                     $stock_out = $request->input('recipe_qty');
                     $recipes = $request->input('recipe');
                     $product = explode('|', $recipes[$i]);
 
-                    $menu = $this->menu->latest()->first();
+                    $recipeFields = ['id', 'menu_id', 'menu_name', 'product_id', 'product_name', 'stock_out'];
+                    $recipes = $this->recipe->where('menu_id', $menu->id)->get($recipeFields);
 
-                    $this->recipe->menu_id = $menu->id;
-                    $this->recipe->menu_name = $menu->name;
-                    $this->recipe->product_id = $product[0];
-                    $this->recipe->product_name = $product[1];
-                    $this->recipe->stock_out = $stock_out[$i];
-                    $this->recipe->created_by = Auth::id();
-                    $this->recipe->created_at = now();
-                    $this->recipe->save();
+                    // nasa update nato
+                    
+                    // foreach ($recipes as $key => $recipe) {
+                    //     $this->recipe->where(array(
+                    //         'menu_id' => $recipe->menu_id,
+                    //         'product_id' => $recipe->product_id
+                    //     ))->update([
+                    //         'menu_id' => $menu->id,
+                    //         'menu_name' => $menu->name,
+                    //         'product_id' => $product[0],
+                    //         'product_name' => $product[1],
+                    //         'stock_out' => $stock_out[$i],
+                    //         'created_by' => Auth::id(),
+                    //         'created_at' => now()
+                    //     ]);
+                    // }
                 }
             }
 
             $this->audit_trail_logs('', 'updated', 'menus: '.$this->menu->name, $id);
 
-            return redirect()->route('menus.index')
-                ->with('success', 'Menu Updated Successfully');
+            return redirect()->route('menus.index')->with('success', 'You have successfully updated '.$validated['name']);
         }
     }
 
@@ -285,6 +294,10 @@ class MenuController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $data = $this->menu->findOrFail($id);
+        $this->audit_trail_logs('', 'deleted', 'menus '.$data->name, $id);
+        $data->delete();
+
+        return redirect()->route('menus.index')->with('success', 'You have successfully added '.$data->name);
     }
 }

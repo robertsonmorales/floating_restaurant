@@ -5,7 +5,7 @@
 <!-- filter -->
 <div class="filters">
     <div class="filters-child">
-        <button onclick="window.location.href='{{ route('user_accounts.create') }}'" class="btn btn-primary" id="btn-add-record">{{ $add }}</button>
+        <button onclick="window.location.href='{{ route('customer_discounts.create') }}'" class="btn btn-primary" id="btn-add-record">{{ $add }}</button>
         <button class="btn btn-primary" id="btn-export">
             <span>Export</span>
             <span class="download-icon"><i data-feather="download"></i></span>
@@ -87,15 +87,14 @@
 <script>
 $(document).ready(function(){
     var data = <?= $data ?>;
-    
-    // specify the data    
-    var columnDefs = [];
 
     // assign agGrid to a variable
     var gridDiv = document.querySelector('#myGrid');
+
+    var columnDefs = [];
     columnDefs = {
         headerName: 'Controls',
-        field: 'controls',
+        field: 'Controls',
         sortable: false,
         filter: false,
         // width: 150,
@@ -106,7 +105,7 @@ $(document).ready(function(){
 
             var trash_icon = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash-2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg>';
             
-            var edit_url = '{{ route("user_accounts.edit", ":id") }}';
+            var edit_url = '{{ route("customer_discounts.edit", ":id") }}';
             edit_url = edit_url.replace(':id', params.data.id);
 
             var eDiv = document.createElement('div');
@@ -131,25 +130,7 @@ $(document).ready(function(){
         }
     }
 
-    for (var i = data.column.length - 1; i >= 0; i--) {       
-
-        if (data.column[i].field == "name") {
-            data.column[i].cellRenderer = function imageName(params) {
-                var first_name = params.data.first_name.charAt(0).toUpperCase() + params.data.first_name.substr(1);
-                var last_name = params.data.last_name.charAt(0).toUpperCase() + params.data.last_name.substr(1);
-                var image = params.data.profile_image;
-                var defaultImage = "{{ asset('images/user_profiles/avatar.svg') }}";
-                var public_path = "{{ asset('images/user_profiles/') }}";                
-                var folder = params.data.username + params.data.id;
-                var src = public_path + "/" + folder + "/" + image;
-                var convertURI = (image == null) ? defaultImage : src;
-                return '<div class="data-profile">\
-                        <span class="profile" style="background-image: url(' + encodeURI(convertURI) + '); background-size: cover;"></span>\
-                        <span class="account">'+ first_name + ' ' + last_name +'</span>\
-                    </div>';
-            }
-        }
-
+    for (var i = data.column.length - 1; i >= 0; i--) {
         if (data.column[i].field == "status") {
             data.column[i].cellRenderer = function display(params) {
                 if (params.data.status == "Active") {
@@ -178,16 +159,15 @@ $(document).ready(function(){
         rowSelection: "multiple",
         rowStyle: { 
             fontFamily: ['Poppins', 'Montserrat', 'sans-serif'],
-            fontWeight: 500,
-            fontSize: '.9em',
-            color: '#3e4044',
-            border: '1px solid #f3f3f3',
+            fontWeight: 'normal',
+            fontSize: '1em',
+            color: '#777'
         },
         onGridReady: function () {
             autoSizeAll();
             // gridOptions.api.sizeColumnsToFit();
         }
-    };
+    }
 
     function autoSizeAll(skipHeader) {
         var allColumnIds = [];
@@ -198,16 +178,8 @@ $(document).ready(function(){
         gridOptions.columnApi.autoSizeColumns(allColumnIds, skipHeader);
     }
 
-    // change page size
-    function pageSize(value){gridOptions.api.paginationSetPageSize(Number(value));}
-    $("#pageSize").change(function(){
-        var size = $(this).val();
-        pageSize(size);
-    });
-    // ends here
-
     // export as csv
-    $('.btn-export').on('click', function(){
+    $('#btn-export').on('click', function(){
         gridOptions.api.exportDataAsCsv();
     });
 
@@ -218,6 +190,43 @@ $(document).ready(function(){
     $("#search-filter").on("keyup", function() {
       search($(this).val());
     });
+
+    // change page size
+    function pageSize(value){
+        gridOptions.api.paginationSetPageSize(value);
+    }
+
+    // SORT 
+    $("#sortBy").on('change', function(){      
+        if ($(this).val() == "ascending") {
+            gridOptions.columnApi.applyColumnState({
+              state: [{ colId: 'name', sort: 'asc' }],
+              defaultState: { sort: null },
+            });
+        }else if($(this).val() == "descending"){
+            gridOptions.columnApi.applyColumnState({
+              state: [{ colId: 'name', sort: 'desc' }],
+              defaultState: { sort: null },
+            });
+        }else if($(this).val() == "date-created"){
+            alert('under construction');
+        }else if($(this).val() == "date-modified"){
+            alert('under construction');
+        }
+    });
+    // ENDS HERE
+
+    // PAGE SIZE
+    $("#pageSize").change(function(){
+        var size = $(this).val();
+        // console.log(size);
+        pageSize(size);
+    });
+
+    // .select2({
+    //     minimumResultsForSearch: Infinity
+    // });
+    // ENDS HERE
 
     // setup the grid after the page has finished loading
     new agGrid.Grid(gridDiv, gridOptions);
@@ -233,7 +242,7 @@ $(document).ready(function(){
     // }
 
     $('#btn-remove').on('click', function(){
-        var destroy = '{{ route("user_accounts.destroy", ":id") }}';
+        var destroy = '{{ route("customer_discounts.destroy", ":id") }}';
         url = destroy.replace(':id', $('.modal-content').attr('id'));
 
         $('#btn-cancel').prop('disabled', true);

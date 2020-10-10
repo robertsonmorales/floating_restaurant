@@ -49,7 +49,7 @@
             </div>
 
             <div class="form-group form-columns">
-                <div class="form-check">
+                <div class="form-check form-inline-check">
                     <input class="form-check-input" type="checkbox"
                         name="remember"
                         id="remember" {{ old('remember') ?

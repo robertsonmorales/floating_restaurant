@@ -10,8 +10,6 @@
     <div class="body-card">
         <h5>Reset Password</h5>
 
-        <div class="divider"></div>
-
         @if (session('status'))
             <div class="alert alert-success" role="alert">
                 {{ session('status') }}
@@ -22,7 +20,7 @@
             @csrf
 
             <div class="form-group">
-                <label>E-Mail Address</label>
+                <label>Email Address</label>
 
                 <div class="input-group-single">
                     <span class="icon">

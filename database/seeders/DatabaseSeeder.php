@@ -23,6 +23,8 @@ class DatabaseSeeder extends Seeder
             ProductSeeder::class,
             OrderStatusSeeder::class,
             OrderSubstatusSeeder::class,
+            ExpenseCategorySeeder::class,
+            CustomerDiscountSeeder::class,
         ]);
     }
 }

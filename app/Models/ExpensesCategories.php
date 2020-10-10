@@ -9,5 +9,5 @@ class ExpensesCategories extends Model
 {
     use HasFactory;
 
-    protected $table = 'expense_categories';
+    protected $table = 'expenses_categories';
 }
