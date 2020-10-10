@@ -31,7 +31,7 @@
 
         <div class="input-group">
             <label for="">Product Unit</label>
-            <select name="unit" id="unit" class="form-control @error('unit') is-invalid @enderror" autofocus>
+            <select name="unit" id="unit" class="custom-select form-control @error('unit') is-invalid @enderror" autofocus>
                 @if($mode == 'create')
                     @foreach($product_units as $units)
                     <option value="{{ $units->id.'|'.$units->name }}">{{ $units->name }}</option>
@@ -61,7 +61,7 @@
 
         <div class="input-group">
             <label for="">Product Category</label>
-            <select name="product_categories" id="product_category" class="form-control @error('product_categories') is-invalid @enderror" autofocus>
+            <select name="product_categories" id="product_category" class="custom-select form-control @error('product_categories') is-invalid @enderror" autofocus>
                 @if($mode == 'create')
                     @foreach($product_categories as $types)
                     <option value="{{ $types->id.'|'.$types->name }}">{{ $types->name }}</option>
@@ -95,7 +95,7 @@
                     <i data-feather="help-circle"></i>
                 </a>
             </label>
-            <select name="inventoriable" id="inventoriable" class="form-control @error('inventoriable') is-invalid @enderror" autofocus>
+            <select name="inventoriable" id="inventoriable" class="custom-select form-control @error('inventoriable') is-invalid @enderror" autofocus>
                 <option value="1" {{ ($mode == 'update' && $data->inventoriable == 1) ? 'selected' : '' }}>Yes</option>
                 <option value="0" {{ ($mode == 'update' && $data->inventoriable == 0) ? 'selected' : '' }}>No</option>
             </select>
@@ -134,7 +134,7 @@
 
         <div class="input-group">
             <label for="">Status</label>
-            <select name="status" id="status" class="form-control @error('status') is-invalid @enderror" autofocus>
+            <select name="status" id="status" class="custom-select form-control @error('status') is-invalid @enderror" autofocus>
                 <option value="1" {{ ($mode == 'update' && $data->status == 1) ? 'selected' : '' }}>Active</option>
                 <option value="0" {{ ($mode == 'update' && $data->status == 0) ? 'selected' : '' }}>In-active</option>
             </select>
@@ -155,12 +155,10 @@
         <input type="hidden" name="id" value="{{ ($mode == 'update') ? $data->id: ''}}">
         @endif
 
-        <div class="actions">            
-            <div class="actions">           
-                <button type="submit" class="btn btn-primary btn-submit" id="btn-submit">{{ ($mode == 'update') ? 'Submit Changes' : 'Submit' }}</button>
-                <button type="reset" class="btn btn-secondary" id="btn-reset">Reset</button>
-                <button type="button" onclick="window.location.href='{{route('products.index') }}'" class="btn btn-secondary" id="btn-back">Back</button>
-            </div>
+        <div class="actions">           
+            <button type="submit" class="btn btn-primary btn-submit" id="btn-submit">{{ ($mode == 'update') ? 'Submit Changes' : 'Submit' }}</button>
+            <button type="reset" class="btn btn-secondary" id="btn-reset">Reset</button>
+            <button type="button" onclick="window.location.href='{{route('products.index') }}'" class="btn btn-secondary" id="btn-back">Back</button>
         </div>
 
     </form>

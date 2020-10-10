@@ -31,7 +31,7 @@
 
         <div class="input-group">
             <label for="">Menu Category</label>
-            <select name="menu_category" id="menu_category" class="form-control @error('menu_category') is-invalid @enderror" autofocus required>
+            <select name="menu_category" id="menu_category" class="custom-select form-control @error('menu_category') is-invalid @enderror" autofocus required>
                 @if($mode == 'create')
                     @foreach($menu_category as $types)
                     <option value="{{ $types->id }}">{{ $types->name }}</option>
@@ -76,45 +76,9 @@
             @enderror
         </div>
 
-        <div class="input-group" id="recipe-list">
-            <div class="columns" style="margin-bottom: 5px; display: flex;">
-                <label for="">Add Recipes</label>
-                <button type="button" class="btn btn-primary btn-plus" id="btn-plus">
-                    <i class="fas fa-plus"></i>
-                </button>
-            </div>
-
-            @if($mode == 'update')
-            @foreach($recipes as $recipe)
-            <div class="columns" style="justify-content: space-between;">
-                <select name="recipe[]" id="recipe" class="form-control @error('recipe') is-invalid @enderror" autofocus required title="product name">
-                    @foreach($products as $pro)
-                    <option value="{{ ($pro->id == $recipe->product_id) ? $recipe->product_id.'|'.$recipe->product_name : $pro->id.'|'.$pro->name }}" {{ ($pro->id == $recipe->product_id) ? 'selected' : '' }}>
-                        {{ ($pro->id == $recipe->product_id) ? $recipe->product_name : $pro->name }}
-                    </option>
-                    @endforeach
-                </select>
-
-                <input type="text" min="1" name="recipe_qty[]" id="recipe_qty" required autocomplete="off"
-                    class="form-control @error('recipe_qty') is-invalid @enderror" autofocus
-                    value="{{ $recipe->stock_out }}" title="product quantity" style="text-align: center;">
-                <button type="button" class="btn btn-danger btn-minus" title="remove">
-                    <i class="fas fa-times"></i>
-                </button>
-            </div>
-            @endforeach
-            @endif
-
-            @error('recipe')
-            <span class="invalid-feedback" role="alert">
-                <strong>{{ $message }}</strong>
-            </span>
-            @enderror
-        </div>
-
         <div class="input-group">
             <label for="">Menu Type</label>
-            <select name="menu_type" id="menu_type" class="form-control @error('menu_type') is-invalid @enderror" autofocus required>
+            <select name="menu_type" id="menu_type" class="custom-select form-control @error('menu_type') is-invalid @enderror" autofocus required>
                 @if($mode == 'create')
                     @foreach($menu_type as $types)
                     <option value="{{ $types->id }}">{{ $types->name }}</option>
@@ -144,7 +108,7 @@
         
         <div class="input-group">
             <label for="">Status</label>
-            <select name="status" id="status" class="form-control @error('status') is-invalid @enderror" autofocus>
+            <select name="status" id="status" class="custom-select form-control @error('status') is-invalid @enderror" autofocus>
                 <option value="1" {{ ($mode == 'update' && $data->status == 1) ? 'selected' : '' }}>Active</option>
                 <option value="0" {{ ($mode == 'update' && $data->status == 0) ? 'selected' : '' }}>In-active</option>
             </select>
@@ -158,6 +122,43 @@
                 <strong>{{ $message }}</strong>
             </span>
             @enderror
+        </div>
+
+        <div class="input-group" id="recipe-list">
+
+            <div class="row mb-1">
+                <div class="col">
+                    <button type="button" class="btn btn-primary btn-plus" id="btn-plus">Add Recipe</button>
+                </div>
+            </div>
+
+            @if($mode == 'update')
+            @foreach($recipes as $recipe)
+            <div class="row align-items-center my-2">
+                <div class="col-7">
+                    <select name="recipe[]" id="recipe" class="custom-select form-control" autofocus required title="product name">
+                        @foreach($products as $pro)
+                        <option value="{{ ($pro->id == $recipe->product_id) ? $recipe->product_id.'|'.$recipe->product_name : $pro->id.'|'.$pro->name }}" {{ ($pro->id == $recipe->product_id) ? 'selected' : '' }}>
+                            {{ ($pro->id == $recipe->product_id) ? $recipe->product_name : $pro->name }}
+                        </option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="col-2">
+                    <input type="text" min="1" name="recipe_qty[]" id="recipe_qty" required autocomplete="off"
+                        class="form-control @error('recipe_qty') is-invalid @enderror" autofocus
+                        value="{{ $recipe->stock_out }}" title="product quantity">
+                </div>
+                <div class="col">
+                    <button type="button" class="btn btn-danger btn-sm btn-minus" title="remove">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+            </div>
+
+            @endforeach
+            @endif
+
         </div>
 
         @if ($mode == 'update')
@@ -191,20 +192,27 @@ $(document).on('click', '#btn-plus', function(){
     var cols_length = document.getElementsByClassName('columns').length - 1;
 
     var recipe = '\
-        <div class="columns" style="justify-content: space-between;">\
-            <select name="recipe[]" id="recipe" class="form-control" autofocus required title="product name">\
-                <option value="" style="display: none;">Select product...</option>\
-                @foreach($products as $pro)\
-                <option value="{{ $pro->id."|".$pro->name }}">{{ $pro->name }}</option>\
-                @endforeach\
-            </select>\
-            <input type="text" min="1" name="recipe_qty[]" id="recipe_qty" required autocomplete="off"\
-                class="form-control" autofocus\
-                value="1" title="product quantity" style="text-align: center;">\
-            <button type="button" class="btn btn-danger btn-minus btn-minus'+length+'" title="remove" onclick="removeRecipe('+length+')">\
-                <i class="fas fa-times"></i>\
-            </button>\
+        <div class="row align-items-center my-2">\
+            <div class="col-7">\
+                <select name="recipe[]" id="recipe" class="custom-select form-control" autofocus required title="product name">\
+                    <option value="" style="display: none;">Select product...</option>\
+                    @foreach($products as $pro)\
+                    <option value="{{ $pro->id."|".$pro->name }}">{{ $pro->name }}</option>\
+                    @endforeach\
+                </select>\
+            </div>\
+            <div class="col-2">\
+                <input type="text" min="1" name="recipe_qty[]" id="recipe_qty" required autocomplete="off"\
+                    class="form-control" autofocus\
+                    value="1" title="product quantity">\
+            </div>\
+            <div class="col">\
+                <button type="button" class="btn btn-danger btn-sm btn-minus btn-minus'+length+'" title="remove" onclick="removeRecipe('+length+')">\
+                    <i class="fas fa-times"></i>\
+                </button>\
+            </div>\
         </div>';
+
     if (cols_length < products.length) {
         $('#recipe-list').append(recipe);
     }else{            
@@ -216,11 +224,11 @@ $(document).on('click', '#btn-plus', function(){
 });
 
 function removeRecipe(data){
-    var remove = $('.btn-minus'+data).parent().remove();        
+    var remove = $('.btn-minus'+data).parent().parent().remove();        
 }
 
 $('.btn-minus').on('click', function(){
-    $(this).parent().remove();
+    $(this).parent().parent().remove();
 });
 
 // $("#menu_category").select2();
@@ -241,6 +249,8 @@ $('#card-form').on('submit', function(){
     $('#btn-submit').prop('disabled', true);
     $('#btn-reset').prop('disabled', true);
     $('#btn-back').prop('disabled', true);
+    $('#btn-plus').prop('disabled', true);
+    $('.btn-minus').prop('disabled', true);
 
     $('#btn-submit').html((mode == "update") ? "Submitting Changes.." : "Submitting..");
     $(this).submit();
