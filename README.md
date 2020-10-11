@@ -4,8 +4,9 @@
 ## About Sunrise Floating Restaurant Web App
 
 ### Getting Started
+- clone this repo then run the following commands
 - composer install
 - npm install
 - php artisan migrate:fresh --seed
-- php artisan serve --host=<hostname> --port=<portID>
+- php artisan serve
 - npm run watch
