@@ -25,7 +25,10 @@ class NavigationProvider extends ServiceProvider
      */
     public function boot()
     {
-        $navigations = Storage::disk('local')->get('navigations.json');
+        $navigations = file_get_contents(public_path('js/navigation.json'));
         View::share('navigations', json_decode($navigations, true));
+        
+        // $navigations = Storage::disk('local')->get('navigations.json');
+        // View::share('navigations', json_decode($navigations, true));
     }
 }

@@ -1,4 +1,4 @@
-<div class="header-content">
+<div class="header-content position-sticky sticky-top">
     <nav>
         <div class="date-time">
             <h5 id="date-time"></h5>

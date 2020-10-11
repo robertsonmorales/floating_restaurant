@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Arr;
+use Arr;
 use Auth;
 use DB;
 use Crypt;
@@ -81,6 +81,7 @@ class UserAccountController extends Controller
         $rows = array();
         $rows = $this->user->where('id', '!=', Auth::id())->latest()->get();
         $rows = $this->changeVal($rows);
+        $rows = $this->changeValue($rows);
             
         $arr_set = array(
             'editable'=>false,
@@ -88,7 +89,6 @@ class UserAccountController extends Controller
             'filter'=>true,
             'sortable'=>true,
             'floatingFilter'=>true,
-            'resizable'=>true,
             'flex'=>1,
         );
 
@@ -98,7 +98,7 @@ class UserAccountController extends Controller
         $columnDefs[] = array_merge(array('headerName'=>'Email','field'=>'email'), $arr_set);
         $columnDefs[] = array_merge(array('headerName'=>'Contact No.','field'=>'contact_number'), $arr_set);
         $columnDefs[] = array_merge(array('headerName'=>'Status','field'=>'status'), $arr_set);
-        // $columnDefs[] = array_merge(array('headerName'=>'User Role','field'=>'user_role'), $arr_set);
+        $columnDefs[] = array_merge(array('headerName'=>'Role','field'=>'user_role'), $arr_set);
         $columnDefs[] = array_merge(array('headerName'=>'Created At','field'=>'created_at'), $arr_set);
         $data = json_encode(array('rows'=>$rows, 'column'=>$columnDefs));
 
@@ -279,5 +279,44 @@ class UserAccountController extends Controller
         $this->audit_trail_logs('', 'deleted', 'user_account '.$data->username, $id);
 
         return redirect()->route('user_accounts.index')->with('success', 'You have successfully removed '.$data->username);
+    }
+
+    public function changeValue($rows){
+        foreach ($rows as $key => $value) {
+            if(Arr::exists($value, 'first_name')){
+                $first_name = Crypt::decryptString($value->first_name);
+                $value->first_name = $first_name;
+            }
+
+            if(Arr::exists($value, 'last_name')){
+                $last_name = Crypt::decryptString($value->last_name);
+                $value->last_name = $last_name;
+            }
+
+            if(Arr::exists($value, 'email')){
+                $email = Crypt::decryptString($value->email);
+                $value->email = $email;
+            }
+
+            if(Arr::exists($value, 'contact_number')){
+                $contact_number = Crypt::decryptString($value->contact_number);
+                $value->contact_number = $contact_number;
+            }
+
+            // 1 = admin, 2 = cashier, 3 = manager, 4 = cook
+            if (Arr::exists($value, 'user_role')) {
+                if ($value->user_role == 1) {
+                    $value->user_role = "Admin";
+                }elseif ($value->user_role == 2) {
+                    $value->user_role = "Cashier";
+                }elseif ($value->user_role == 3) {
+                    $value->user_role = "Manager";
+                }elseif ($value->user_role == 4) {
+                    $value->user_role = "Cook";
+                }
+            }
+        }
+
+        return $rows;
     }
 }

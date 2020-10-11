@@ -1,0 +1,248 @@
+[
+	{
+		"name": "Dashboard",
+		"mode": "dashboard",
+		"controller": "HomeController",
+		"type": "single",
+		"icon": "grid",
+		"order": 2,
+		"status": 1
+	},{
+		"name": "Maintenance",
+		"mode": "maintenance",
+		"controller": "",
+		"type": "main",
+		"icon": "tool",
+		"order": 3,
+		"status": 1,
+		"sub": [{
+			"name": "Menu Categories",
+			"mode": "menu_categories",
+			"controller": "MenuCategoryController",
+			"icon": "far fa-circle",
+			"sub_order": 1,
+			"status": 1
+		},{
+			"name": "Menu Types",
+			"mode": "menu_types",
+			"controller": "MenuTypeController",
+			"icon": "far fa-circle",
+			"sub_order": 2,
+			"status": 1
+		},{
+			"name": "Menus",
+			"mode": "menus",
+			"controller": "MenuController",
+			"icon": "far fa-circle",
+			"sub_order": 3,
+			"status": 1
+		},{
+			"name": "Order Status",
+			"mode": "order_status",
+			"controller": "OrderStatusController",
+			"icon": "far fa-circle",
+			"sub_order": 4,
+			"status": 1
+		},{
+			"name": "Order Substatus",
+			"mode": "order_substatus",
+			"controller": "OrderSubstatusController",
+			"icon": "far fa-circle",
+			"sub_order": 5,
+			"status": 1
+		},{
+			"name": "Cancellation Reason",
+			"mode": "cancellation_reasons",
+			"controller": "CancellationReasonController",
+			"icon": "far fa-circle",
+			"sub_order": 6,
+			"status": 1
+		},{
+			"name": "Products",
+			"mode": "products",
+			"controller": "ProductController",
+			"icon": "far fa-circle",
+			"sub_order": 7,
+			"status": 1
+		},{
+			"name": "Product Categories",
+			"mode": "product_categories",
+			"controller": "ProductCategoryController",
+			"icon": "far fa-circle",
+			"sub_order": 8,
+			"status": 1
+		},{
+			"name": "Product Units",
+			"mode": "product_units",
+			"controller": "ProductUnitController",
+			"icon": "far fa-circle",
+			"sub_order": 9,
+			"status": 1
+		},{
+			"name": "Table Maintenance",
+			"mode": "table_maintenance",
+			"controller": "TableMaintenanceController",
+			"icon": "far fa-circle",
+			"sub_order": 10,
+			"status": 1
+		},{
+			"name": "Expense Categories",
+			"mode": "expense_categories",
+			"controller": "ExpenseCategoriesController",
+			"icon": "far fa-circle",
+			"sub_order": 11,
+			"status": 1
+		},{
+			"name": "Customer Discount",
+			"mode": "customer_discounts",
+			"controller": "CustomerDiscountController",
+			"icon": "far fa-circle",
+			"sub_order": 12,
+			"status": 1
+		},{
+			"name": "Employee Positions",
+			"mode": "employee_positions",
+			"controller": "EmployeePositionsController",
+			"icon": "far fa-circle",
+			"sub_order": 13,
+			"status": 1
+		}]
+	},{
+		"name": "Orders",
+		"mode": "orders",
+		"controller": "",
+		"type": "single",
+		"icon": "archive",
+		"order": 4,
+		"status": 1
+	},{
+		"name": "Stock Management",
+		"mode": "stock_management",
+		"controller": "",
+		"type": "main",
+		"icon": "clipboard",
+		"order": 5,
+		"status": 1,
+		"sub": [{
+			"name": "Inventory Logs",
+			"mode": "inventory_logs",
+			"controller": "InventoryLogController",
+			"icon": "far fa-circle",
+			"sub_order": 1,
+			"status": 1
+		},{
+			"name": "Stocks",
+			"mode": "stocks",
+			"controller": "StockController",
+			"icon": "far fa-circle",
+			"sub_order": 1,
+			"status": 1
+		},{
+			"name": "Deliveries",
+			"mode": "deliveries",
+			"controller": "DeliveryController",
+			"icon": "far fa-circle",
+			"sub_order": 2,
+			"status": 1
+		},{
+			"name": "Damages",
+			"mode": "damages",
+			"controller": "DamageController",
+			"icon": "far fa-circle",
+			"sub_order": 3,
+			"status": 1
+		}]
+	},{
+		"name": "Reports",
+		"mode": "reports",
+		"controller": "",
+		"type": "main",
+		"icon": "trending-up",
+		"order": 6,
+		"status": 1,
+		"sub": [{
+			"name": "Sales Reports",
+			"mode": "",
+			"controller": "SalesReportController",
+			"icon": "far fa-circle",
+			"sub_order": 1,
+			"status": 1
+		},{
+			"name": "Expenses Reports",
+			"mode": "expenses_reports",
+			"controller": "ExpenseReportController",
+			"icon": "far fa-circle",
+			"sub_order": 2,
+			"status": 1
+		},{
+			"name": "Order Reports",
+			"mode": "",
+			"controller": "",
+			"icon": "far fa-circle",
+			"sub_order": 3,
+			"status": 1
+		}]
+	},{
+		"name": "Settings",
+		"mode": "settings",
+		"controller": "",
+		"type": "main",
+		"icon": "settings",
+		"order": 7,
+		"status": 1,
+		"sub": [{
+			"name": "General Settings",
+			"mode": "",
+			"controller": "",
+			"icon": "far fa-circle",
+			"sub_order": 1,
+			"status": 1
+		}]
+	},{
+		"name": "System Logs",
+		"mode": "system-logs",
+		"controller": "",
+		"type": "main",
+		"icon": "server",
+		"order": 8,
+		"status": 1,
+		"sub": [{
+			"name": "Audit Trail Logs",
+			"mode": "audit_trail_logs",
+			"controller": "AuditTrailLogsController",
+			"icon": "far fa-circle",
+			"sub_order": 1,
+			"status": 1
+		}]
+	},{
+		"name": "User Management",
+		"mode": "user-management",
+		"controller": "",
+		"type": "main",
+		"icon": "users",
+		"order": 9,
+		"status": 1,
+		"sub": [{
+			"name": "User Accounts",
+			"mode": "user_accounts",
+			"controller": "UserAccountsController",
+			"icon": "far fa-circle",
+			"sub_order": 1,
+			"status": 1
+		},{
+			"name": "Employees",
+			"mode": "employees",
+			"controller": "EmployeeController",
+			"icon": "far fa-circle",
+			"sub_order": 2,
+			"status": 1
+		},{
+			"name": "Access Level",
+			"mode": "",
+			"controller": "",
+			"icon": "far fa-circle",
+			"sub_order": 3,
+			"status": 1
+		}]
+	}
+]

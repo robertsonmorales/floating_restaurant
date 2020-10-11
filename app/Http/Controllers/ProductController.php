@@ -74,6 +74,7 @@ class ProductController extends Controller
         $rows = array();
         $rows = $this->product->latest()->get();
         $rows = $this->changeVal($rows);
+        $rows = $this->changeValue($rows);
             
         $arr_set = array(
             'editable'=>false,
@@ -81,7 +82,6 @@ class ProductController extends Controller
             'filter'=>true,
             'sortable'=>true,
             'floatingFilter'=>true,
-            'resizable'=>true,
             'flex'=>1
         );
 
@@ -272,5 +272,24 @@ class ProductController extends Controller
         $this->audit_trail_logs('', 'deleted', 'products '.$data->name, $id);
 
         return redirect()->route('products.index')->with('success', 'You have successfully removed '.$data->name);
+    }
+
+    public function changeValue($rows){
+        foreach ($rows as $key => $value) {
+            if (Arr::exists($value, 'product_categories_id')) {
+                $menu_types = $this->category->select('name')->where('id', $value->product_categories_id)->first();
+                $value->product_categories_id = $menu_types->name;
+            }
+
+            if(Arr::exists($value, 'inventoriable')){
+                if($value->inventoriable == 1){
+                    $value->inventoriable = 'Yes';
+                 }else{
+                    $value->inventoriable = 'No';
+                 }
+            }
+        }
+
+        return $rows;
     }
 }

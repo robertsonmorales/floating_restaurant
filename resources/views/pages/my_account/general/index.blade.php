@@ -57,12 +57,12 @@
                         <span>Change Password</span>
                     </a>
                 </li>
-                <li>
+                <!-- <li>
                     <a href="">
                         <i data-feather="clock"></i>
                         <span>Activity Logs</span>
                     </a>
-                </li>
+                </li> -->
             </ul>
         </div>
 
