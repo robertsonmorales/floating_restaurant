@@ -1,6 +1,6 @@
 $(document).ready(function(){
 	$("#btn-dropdown").click(function(event){
-		event.stopPropagation();
+		// event.stopPropagation();
 		var profile_dropdown = document.getElementById('admin-dropdown');
 
 		if(profile_dropdown.style.maxHeight){
@@ -13,12 +13,12 @@ $(document).ready(function(){
 		}
 	});
 
-	$(document).click(function(){
-		var profile_dropdown = document.getElementById('admin-dropdown');
-		if (profile_dropdown.style.maxHeight) {
-			profile_dropdown.style.maxHeight = null;
-		}
-	});
+	// $(document).click(function(){
+	// 	var profile_dropdown = document.getElementById('admin-dropdown');
+	// 	if (profile_dropdown.style.maxHeight) {
+	// 		profile_dropdown.style.maxHeight = null;
+	// 	}
+	// });
 
 	$('.btn-logout').click(function(){
 		$("#logout-form").submit();

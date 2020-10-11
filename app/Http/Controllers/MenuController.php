@@ -15,16 +15,18 @@ use App\Models\MenuCategories;
 use App\Models\MenuTypes;
 use App\Models\Products;
 use App\Models\MenuRecipe;
+use App\Models\User;
 
 class MenuController extends Controller
 {
-    protected $menu, $menuCategory, $menuType, $product, $menuRecipe;
-    public function __construct(Menu $menu, MenuCategories $menuCategory, MenuTypes $menuType, Products $product, MenuRecipe $menuRecipe){
+    protected $menu, $menuCategory, $menuType, $product, $menuRecipe, $user;
+    public function __construct(Menu $menu, MenuCategories $menuCategory, MenuTypes $menuType, Products $product, MenuRecipe $menuRecipe, User $user){
         $this->menu = $menu;
         $this->category = $menuCategory;
         $this->type = $menuType;
         $this->product = $product;
         $this->recipe = $menuRecipe;
+        $this->user = $user;
     }
 
     public function validator(Request $request)
@@ -70,8 +72,9 @@ class MenuController extends Controller
         $mode = [route('menus.index')];        
         
         $rows = array();
-        $rows = $this->menu->get();
+        $rows = $this->menu->all();
         $rows = $this->changeVal($rows);
+        $rows = $this->changeValue($rows);
             
         $arr_set = array(
             'editable'=>false,
@@ -79,7 +82,6 @@ class MenuController extends Controller
             'filter'=>true,
             'sortable'=>true,
             'floatingFilter'=>true,
-            'resizable'=>true,
             'flex'=>1
         );
 
@@ -299,5 +301,51 @@ class MenuController extends Controller
         $data->delete();
 
         return redirect()->route('menus.index')->with('success', 'You have successfully added '.$data->name);
+    }
+
+    public function changeValue($rows){
+        foreach ($rows as $key => $value) {
+            if(Arr::exists($value, 'menu_categories_id')){
+                $menu_categories = $this->category->find($value->menu_categories_id);
+                $value->menu_categories_id = $menu_categories->name;
+            }
+
+            if (Arr::exists($value, 'price')) {
+                $value->price = "Php ".$value->price.".00";
+            }
+
+            if(Arr::exists($value, 'menu_type_id')){
+                $menu_type = $this->type->find($value->menu_type_id);
+                $value->menu_type_id = $menu_type->name;   
+            }
+
+            // if(Arr::exists($value, 'status')){
+            //      if($value->status == 1){
+            //         $value->status = 'Active';
+            //      }else{
+            //         $value->status = 'In-active';
+            //      }
+            // }
+
+            // if(Arr::exists($value, 'created_by')){
+            //     if ($value->created_by == null) {
+            //         $value->created_by = 'NULL';
+            //     }else{
+            //         $users = $this->user->select('username')->where('id', $value->created_by)->first();
+            //         $value->created_by = $users->username;
+            //     }
+            // }
+
+            // if(Arr::exists($value, 'updated_by')){
+            //     if ($value->updated_by == null) {
+            //         $value->updated_by = 'NULL';
+            //     }else{
+            //         $users = $this->user->select('username')->where('id', $value->updated_by)->first();
+            //         $value->updated_by = $users->username;
+            //     }
+            // }
+        }
+
+        return $rows;
     }
 }

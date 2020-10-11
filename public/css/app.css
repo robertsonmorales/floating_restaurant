@@ -10971,8 +10971,8 @@ body .status {
 }
 
 body .active-status {
-  background-color: #b8f1d8e6;
-  color: #1f9073;
+  background-color: #00e39611;
+  color: #00e396;
 }
 
 body .inactive-status {
@@ -10981,8 +10981,8 @@ body .inactive-status {
 }
 
 body .is-below-minimum {
-  background-color: #feb019;
-  color: #fff;
+  background-color: #feb01911;
+  color: #feb019;
 }
 
 body .auth-container {
@@ -11059,6 +11059,7 @@ body .auth-container .auth-content .auth-card .body-card {
 body .auth-container .auth-content .auth-card .body-card h5 {
   color: #3e4044;
   font-weight: 500;
+  margin-bottom: 15px;
 }
 
 body .auth-container .auth-content .auth-card .body-card #login-form {
@@ -11135,17 +11136,18 @@ body .auth-container .auth-content .auth-card .body-card .form-group input:inval
 }
 
 body .auth-container .auth-content .auth-card .body-card .form-group .btn-auth {
-  padding: 10px !important;
-  color: #fff;
-  background-color: #0e76bd;
-  transition: all 0.4s ease;
+  margin-right: 5px;
+  border-radius: 5px;
   font-family: "Poppins", "Montserrat", sans-serif;
   font-size: 0.9em;
   font-weight: 500;
+  transition: all 0.4s ease;
+  color: #fff;
+  background-color: #0e76bd;
 }
 
-body .auth-container .auth-content .auth-card .body-card .form-group .btn-auth:hover {
-  opacity: 0.8;
+body .auth-container .auth-content .auth-card .body-card .form-group .btn-auth:last-child {
+  margin-right: 0;
 }
 
 body .auth-container .auth-content .auth-card .body-card .form-group .form-check label {
@@ -11381,7 +11383,7 @@ body .admin-container .sidebar .logo {
 }
 
 body .admin-container .sidebar .logo img {
-  width: 120px;
+  width: 130px;
 }
 
 body .admin-container .sidebar .btn-sidebar::-webkit-scrollbar-thumb {
@@ -11586,12 +11588,14 @@ body .admin-container main .header-content nav .user-profile a.btn-dropdown .use
 body .admin-container main .header-content nav .user-profile a.btn-dropdown .username .user-detail .user {
   font-weight: 600;
   color: #3e4044;
+  position: relative;
+  top: 3px;
 }
 
 body .admin-container main .header-content nav .user-profile a.btn-dropdown .username .user-detail .email {
-  font-weight: 500;
+  font-weight: normal;
   color: #909090;
-  font-size: 0.9em;
+  font-size: 0.8em;
 }
 
 body .admin-container main .header-content nav .user-profile .admin-dropdown {
@@ -11691,16 +11695,15 @@ body .admin-container main .filters .filters-child {
   align-items: center;
 }
 
-body .admin-container main .filters .filters-child a {
-  padding: 10px 20px;
+body .admin-container main .filters .filters-child button {
   color: #fff;
   font-size: 0.9em;
   font-weight: 500;
   margin-right: 5px;
-  border-radius: 4px;
+  border-radius: 5px;
 }
 
-body .admin-container main .filters .filters-child a .download-icon {
+body .admin-container main .filters .filters-child button .download-icon {
   margin-left: 5px;
 }
 
@@ -11712,7 +11715,7 @@ body .admin-container main .filters .filters-child #btn-export {
   background-color: #909090;
 }
 
-body .admin-container main .filters .filters-child .form-group {
+body .admin-container main .filters .filters-child .search-group {
   margin-right: 8px;
   margin-bottom: 0 !important;
   padding: 0 10px;
@@ -11720,9 +11723,10 @@ body .admin-container main .filters .filters-child .form-group {
   border: 1px solid transparent;
   box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
   background-color: #fff;
+  display: flex;
 }
 
-body .admin-container main .filters .filters-child .form-group input {
+body .admin-container main .filters .filters-child .search-group input {
   outline: none;
   border: none;
   background-color: transparent;
@@ -11732,21 +11736,18 @@ body .admin-container main .filters .filters-child .form-group input {
   transition: all 0.3s ease;
 }
 
-body .admin-container main .filters .filters-child .form-group .search-icon {
+body .admin-container main .filters .filters-child .search-group .search-icon {
   color: #909090;
 }
 
-body .admin-container main .filters .filters-child .form-group:focus-within {
+body .admin-container main .filters .filters-child .search-group:focus-within {
   border: 1px solid #0e76bd;
   box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
 }
 
 body .admin-container main .filters .filters-child select {
   margin-right: 8px;
-  padding: 10px;
-  outline: none;
   border: 1px solid transparent;
-  border-radius: 4px;
   box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
   font-weight: 500;
   font-size: 0.9em;
@@ -11771,7 +11772,7 @@ body .admin-container main .content {
 
 body .admin-container main .content #myGrid {
   width: 100%;
-  height: 80vh;
+  height: 100vh;
 }
 
 body .admin-container main .content .data-profile {
@@ -11795,10 +11796,11 @@ body .admin-container main .content .data-profile .account {
 
 body .admin-container main .content .btn-edit,
 body .admin-container main .content .btn-remove {
-  width: 38px;
-  padding: 7px;
-  border-radius: 4px;
+  width: 34px;
+  height: 34px;
+  border-radius: 5px;
   color: #fff;
+  padding: 0;
 }
 
 body .admin-container main .content .btn-edit {
@@ -11820,6 +11822,7 @@ body .admin-container main .content .card-form {
 body .admin-container main .content .card-form h5 {
   font-weight: 500;
   color: #3e4044;
+  margin-bottom: 20px;
 }
 
 body .admin-container main .content .card-form .input-group {
@@ -11836,58 +11839,11 @@ body .admin-container main .content .card-form .input-group label {
   margin-bottom: 5px;
 }
 
-body .admin-container main .content .card-form .input-group .columns {
-  display: grid;
-  grid-template-columns: 75% 20% 5%;
-  align-items: center;
-  margin-bottom: 20px;
-}
-
-body .admin-container main .content .card-form .input-group .columns .form-control {
-  margin-right: 20px;
-  flex: 0;
-}
-
-body .admin-container main .content .card-form .input-group .columns .form-control:last-child {
-  margin-right: 0;
-}
-
-body .admin-container main .content .card-form .input-group .columns .btn-minus,
-body .admin-container main .content .card-form .input-group .columns .btn-plus {
-  border: none;
-  outline: none;
-  padding: 5px;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 0.9em;
-  font-weight: 600;
-  color: #fff;
-  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
-}
-
-body .admin-container main .content .card-form .input-group .columns .btn-minus:active,
-body .admin-container main .content .card-form .input-group .columns .btn-plus:active {
-  background-color: #3e4044;
-}
-
-body .admin-container main .content .card-form .input-group .columns .btn-minus {
-  background-color: #EA2034;
-}
-
-body .admin-container main .content .card-form .input-group .columns .btn-plus {
-  background-color: #0e76bd;
-  margin-left: 5px;
-}
-
-body .admin-container main .content .card-form .input-group .columns:last-child {
-  margin-bottom: 0;
-}
-
 body .admin-container main .content .card-form .input-group .form-control {
   outline: none;
-  border-radius: 4px;
   font-weight: 500;
   font-size: 0.9em;
+  border-radius: 4px;
   transition: all 0.3s ease;
   resize: none;
   width: 100% !important;
@@ -11916,6 +11872,14 @@ body .admin-container main .content .card-form .input-group .form-control-color:
   box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
 }
 
+body .admin-container main .content .card-form .input-group .btn-plus {
+  color: #fff;
+  background-color: #0e76bd;
+  font-size: 0.9em;
+  font-weight: 500;
+  border-radius: 5px;
+}
+
 body .admin-container main .content .card-form .input-group .invalid-feedback strong {
   color: #EA2034;
   font-size: inherit;
@@ -11935,13 +11899,10 @@ body .admin-container main .content .card-form .actions {
 
 body .admin-container main .content .card-form .actions button {
   margin-right: 5px;
-  padding: 10px 20px;
-  border: none;
-  outline: none;
-  border-radius: 4px;
+  border-radius: 5px;
   font-family: "Poppins", "Montserrat", sans-serif;
   font-size: 0.9em;
-  font-weight: 600;
+  font-weight: 500;
   transition: all 0.4s ease;
   color: #fff;
 }
@@ -11954,9 +11915,150 @@ body .admin-container main .content .card-form .actions .btn-submit {
   background-color: #0e76bd;
 }
 
-body .admin-container main .content .card-form .actions .btn-default {
-  color: #3e4044;
-  background-color: #ddd;
+body .admin-container main .modal {
+  display: none;
+  position: fixed;
+  z-index: 9999999;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: black;
+  background-color: rgba(0, 0, 0, 0.4);
+  /* Add Animation */
+}
+
+body .admin-container main .modal .modal-content {
+  background-color: #fefefe;
+  margin: auto;
+  padding: 0;
+  width: 40%;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  -webkit-animation-name: animatetop;
+  -webkit-animation-duration: 0.4s;
+  animation-name: animatetop;
+  animation-duration: 0.4s;
+}
+
+body .admin-container main .modal .modal-content #close-modal {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  cursor: pointer;
+  z-index: 1;
+}
+
+body .admin-container main .modal .modal-content .modal-header,
+body .admin-container main .modal .modal-content .modal-footer {
+  border: none !important;
+}
+
+body .admin-container main .modal .modal-content .modal-header {
+  padding: 20px;
+  padding-bottom: 15px !important;
+}
+
+body .admin-container main .modal .modal-content .modal-header .modal-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50px;
+  border-radius: 50%;
+  padding: 10px;
+  background-color: #EA203411;
+  color: #EA2034;
+}
+
+body .admin-container main .modal .modal-content .modal-header .modal-icon .feather {
+  width: 24px;
+  height: 24px;
+}
+
+body .admin-container main .modal .modal-content .modal-header .modal-icon-error {
+  background-color: pink;
+  color: #EA2034;
+}
+
+body .admin-container main .modal .modal-content .modal-header .modal-icon-info {
+  color: #0e76bd;
+  background-color: #0e76bd33;
+}
+
+body .admin-container main .modal .modal-content .modal-header .modal-body {
+  padding: 0 1rem !important;
+}
+
+body .admin-container main .modal .modal-content .modal-header .modal-body p {
+  font-weight: normal !important;
+}
+
+body .admin-container main .modal .modal-content .modal-header .modal-body .profile-image {
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #eee;
+  border-radius: 4px;
+  padding: 10px;
+}
+
+body .admin-container main .modal .modal-content .modal-header .modal-body .profile-image img {
+  width: 70%;
+  height: auto;
+  border-radius: 4px;
+}
+
+body .admin-container main .modal .modal-content .modal-header .modal-body .btn-choose-photo {
+  width: 100%;
+  color: #0e76bd;
+  margin-bottom: 10px;
+  background-color: #fff;
+  border: 1px dashed #0e76bd;
+  outline: none;
+}
+
+body .admin-container main .modal .modal-content .modal-footer {
+  background-color: #f8f8f8;
+}
+
+body .admin-container main .modal .modal-content .modal-footer button {
+  font-size: 0.9em !important;
+}
+
+body .admin-container main .modal .modal-content .modal-footer #btn-save {
+  background-color: #0e76bd;
+  color: #fff;
+}
+
+@-webkit-keyframes animatetop {
+  from {
+    top: -300px;
+    opacity: 0;
+  }
+
+  to {
+    top: 0;
+    opacity: 1;
+  }
+}
+
+@keyframes animatetop {
+  from {
+    top: -300px;
+    opacity: 0;
+  }
+
+  to {
+    top: 0;
+    opacity: 1;
+  }
+}
+
+body .admin-container main .alerts {
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+  border-radius: 4px;
+  overflow: hidden;
+  margin: 20px 30px;
+  margin-top: 0;
 }
 
 body .admin-container main .dashboard-container .dashboard-cards {
@@ -12534,7 +12636,7 @@ body .admin-container main .dashboard-content .menus-orders .dashboard-orders .p
 
 body .admin-container main .customer-content .user-container {
   display: grid;
-  grid-template-columns: 30% 70%;
+  grid-template-columns: 30% 50% 20%;
 }
 
 body .admin-container main .customer-content .user-container .user-options {
@@ -12557,12 +12659,12 @@ body .admin-container main .customer-content .user-container .user-options ul li
   display: flex;
 }
 
-body .admin-container main .customer-content .user-container .user-options ul li .row {
-  margin-bottom: 15px;
+body .admin-container main .customer-content .user-container .user-options ul li .user-profile {
   flex: 1;
+  margin-bottom: 10px;
 }
 
-body .admin-container main .customer-content .user-container .user-options ul li .row .profile-image-form {
+body .admin-container main .customer-content .user-container .user-options ul li .user-profile .profile-image-form {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -12572,7 +12674,7 @@ body .admin-container main .customer-content .user-container .user-options ul li
   margin-bottom: 10px;
 }
 
-body .admin-container main .customer-content .user-container .user-options ul li .row .profile-image-form .image-wrapper {
+body .admin-container main .customer-content .user-container .user-options ul li .user-profile .profile-image-form .image-wrapper {
   overflow: hidden;
   border-radius: 50%;
   width: 120px;
@@ -12583,11 +12685,11 @@ body .admin-container main .customer-content .user-container .user-options ul li
   border: 3px solid #fff;
 }
 
-body .admin-container main .customer-content .user-container .user-options ul li .row .profile-image-form #profile-image {
+body .admin-container main .customer-content .user-container .user-options ul li .user-profile .profile-image-form #profile-image {
   display: none;
 }
 
-body .admin-container main .customer-content .user-container .user-options ul li .row .profile-image-form .offset .btn-change-profile {
+body .admin-container main .customer-content .user-container .user-options ul li .user-profile .profile-image-form .offset .btn-change-profile {
   box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
   position: absolute;
   bottom: -10px;
@@ -12606,57 +12708,24 @@ body .admin-container main .customer-content .user-container .user-options ul li
   color: #0e76bd;
 }
 
-body .admin-container main .customer-content .user-container .user-options ul li .row .profile-image-form .offset .btn-change-profile .feather {
+body .admin-container main .customer-content .user-container .user-options ul li .user-profile .profile-image-form .offset .btn-change-profile .feather {
   width: 18px;
   height: 18px;
 }
 
-body .admin-container main .customer-content .user-container .user-options ul li .row .profile-image-form .offset .btn-change-profile:active {
+body .admin-container main .customer-content .user-container .user-options ul li .user-profile .profile-image-form .offset .btn-change-profile:active {
   background-color: #f8f8f8;
 }
 
-body .admin-container main .customer-content .user-container .user-options ul li .row .user-details {
+body .admin-container main .customer-content .user-container .user-options ul li .user-profile .user-details {
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-body .admin-container main .customer-content .user-container .user-options ul li .row .user-details h3 {
+body .admin-container main .customer-content .user-container .user-options ul li .user-profile .user-details h3 {
   color: #3e4044;
-  margin-bottom: 5px;
   font-weight: 500;
-}
-
-body .admin-container main .customer-content .user-container .user-options ul li .row .user-details .status {
-  margin-left: 10px;
-  border-radius: 4px;
-  padding: 3px 7px;
-  display: flex;
-  align-items: center;
-}
-
-body .admin-container main .customer-content .user-container .user-options ul li .row .user-details .status .circle {
-  font-size: 0.5em;
-}
-
-body .admin-container main .customer-content .user-container .user-options ul li .row .user-details .status .status-code {
-  margin-left: 5px;
-  font-size: 0.7em;
-}
-
-body .admin-container main .customer-content .user-container .user-options ul li .row .user-details .status-online {
-  color: #00e396;
-  border: 1px solid #00e396;
-}
-
-body .admin-container main .customer-content .user-container .user-options ul li .row .user-details .status-idle {
-  color: #feb019;
-  border: 1px solid #feb019;
-}
-
-body .admin-container main .customer-content .user-container .user-options ul li .row .user-details .status-offline {
-  color: #909090;
-  border: 1px solid #909090;
 }
 
 body .admin-container main .customer-content .user-container .user-options ul li a {
@@ -12665,11 +12734,6 @@ body .admin-container main .customer-content .user-container .user-options ul li
   flex: 1;
   border-radius: 4px;
   color: #3e4044;
-}
-
-body .admin-container main .customer-content .user-container .user-options ul li a .feather {
-  position: relative;
-  top: 2.5px;
 }
 
 body .admin-container main .customer-content .user-container .user-options ul li a span {
@@ -12699,9 +12763,10 @@ body .admin-container main .customer-content .user-container .user-content {
   margin-bottom: 20px;
 }
 
-body .admin-container main .customer-content .user-container .user-content h3 {
+body .admin-container main .customer-content .user-container .user-content h5 {
   color: #3e4044;
   font-weight: 500;
+  margin-bottom: 15px;
 }
 
 body .admin-container main .customer-content .user-container .user-content .input-group {
@@ -12719,15 +12784,13 @@ body .admin-container main .customer-content .user-container .user-content .inpu
 }
 
 body .admin-container main .customer-content .user-container .user-content .input-group .form-control {
-  flex: 1;
-  padding: 10px 12px;
-  font-family: "Poppins", "Montserrat", sans-serif !important;
   outline: none;
   border-radius: 4px;
-  border: 1px solid #ddd;
   font-weight: 500;
   font-size: 0.9em;
   transition: all 0.3s ease;
+  resize: none;
+  width: 100% !important;
 }
 
 body .admin-container main .customer-content .user-container .user-content .input-group .form-control:focus {
@@ -12746,23 +12809,13 @@ body .admin-container main .customer-content .user-container .user-content .acti
 }
 
 body .admin-container main .customer-content .user-container .user-content .actions button {
-  padding: 10px 30px;
-  border-radius: 4px;
-  border: none;
-  outline: none;
   margin-right: 5px;
+  border-radius: 5px;
   font-family: "Poppins", "Montserrat", sans-serif;
-  font-weight: 500;
   font-size: 0.9em;
-  cursor: pointer;
-}
-
-body .admin-container main .customer-content .user-container .user-content .actions button:hover {
-  opacity: 0.8;
-}
-
-body .admin-container main .customer-content .user-container .user-content .actions button:active {
-  background-color: #999;
+  font-weight: 500;
+  transition: all 0.4s ease;
+  color: #fff;
 }
 
 body .admin-container main .customer-content .user-container .user-content .actions button:last-child {
@@ -12770,147 +12823,7 @@ body .admin-container main .customer-content .user-container .user-content .acti
 }
 
 body .admin-container main .customer-content .user-container .user-content .actions .btn-save {
-  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
   background-color: #0e76bd;
-  color: #fff;
-}
-
-body .admin-container main .modal {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: rgba(0, 0, 0, 0.2);
-  width: 100%;
-  max-height: 0;
-  overflow-y: auto;
-  overflow-x: hidden;
-}
-
-body .admin-container main .modal .modal-content {
-  padding: 20px;
-  background-color: #fff;
-  border-radius: 4px;
-  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
-  position: relative;
-  overflow: hidden;
-  width: 30%;
-  margin: 20px;
-}
-
-body .admin-container main .modal .modal-content h3 {
-  color: #3e4044;
-  font-weight: 500;
-}
-
-body .admin-container main .modal .modal-content .dismiss-modal {
-  position: absolute;
-  right: 10px;
-  top: 10px;
-  border: none;
-  padding: 10px;
-  background-color: #fff;
-  color: #3e4044;
-  cursor: pointer;
-  outline: none;
-}
-
-body .admin-container main .modal .modal-content .dismiss-modal:hover {
-  color: #EA2034;
-}
-
-body .admin-container main .modal .modal-content .dismiss-modal:active {
-  color: #3e4044;
-}
-
-body .admin-container main .modal .modal-content .row .profile-image {
-  overflow: hidden;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: #eee;
-  border-radius: 4px;
-  padding: 10px;
-}
-
-body .admin-container main .modal .modal-content .row .profile-image img {
-  width: 70%;
-  height: auto;
-  border-radius: 4px;
-}
-
-body .admin-container main .modal .modal-content .row .image-form {
-  display: flex;
-  flex-direction: column;
-}
-
-body .admin-container main .modal .modal-content .row .image-form .btn-choose-photo,
-body .admin-container main .modal .modal-content .row .image-form .btn-upload,
-body .admin-container main .modal .modal-content .row .image-form .btn-cancel {
-  outline: none;
-  padding: 10px;
-  font-size: 0.9em;
-  font-weight: 500;
-  font-family: "Poppins", "Montserrat", sans-serif;
-  cursor: pointer;
-  border-radius: 4px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-body .admin-container main .modal .modal-content .row .image-form .btn-choose-photo span,
-body .admin-container main .modal .modal-content .row .image-form .btn-upload span,
-body .admin-container main .modal .modal-content .row .image-form .btn-cancel span {
-  margin-right: 10px;
-}
-
-body .admin-container main .modal .modal-content .row .image-form .input-group {
-  margin-bottom: 10px;
-}
-
-body .admin-container main .modal .modal-content .row .image-form .input-group .btn-choose-photo {
-  width: 100%;
-  color: #0e76bd;
-  margin-bottom: 10px;
-  background-color: #fff;
-  border: 1px dashed #0e76bd;
-  outline: none;
-}
-
-body .admin-container main .modal .modal-content .row .image-form .action-btn {
-  display: flex;
-  justify-content: flex-end;
-}
-
-body .admin-container main .modal .modal-content .row .image-form .action-btn .btn-upload {
-  border: none;
-  background-color: #0e76bd;
-  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
-  color: #fff;
-  outline: none;
-  padding: 10px 30px;
-}
-
-body .admin-container main .modal .modal-content .row .image-form .action-btn .btn-upload:active {
-  background-color: #3f51b5;
-  color: #fff;
-}
-
-body .admin-container main .modal .modal-content .row .image-form .action-btn .btn-cancel {
-  outline: none;
-  border: none;
-  color: #3e4044;
-  padding: 10px 20px;
-  margin-right: 10px;
-}
-
-body .admin-container main .modal .modal-content .row .image-form .action-btn .btn-cancel:active {
-  color: #000;
 }
 
 body .admin-container main .content,

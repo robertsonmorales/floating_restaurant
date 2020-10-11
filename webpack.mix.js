@@ -21,7 +21,7 @@ mix.scripts([
 
 mix.styles([
 		// 'public/vendors/select2/select2.min.css',
-		'public/vendors/jquery/jquery-ui.css',
+		// 'public/vendors/jquery/jquery-ui.css',
 		'public/vendors/sweetalert2/node_modules/sweetalert2/dist/sweetalert2.min.css',
 		'public/vendors/agGrid/agGrid.css',
 		'public/vendors/agGrid/ag-theme_material.css'

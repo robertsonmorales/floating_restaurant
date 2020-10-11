@@ -61,6 +61,7 @@ class CustomerDiscountController extends Controller
         $rows = array();
         $rows = $this->discount->latest()->get();
         $rows = $this->changeVal($rows);
+        $rows = $this->changeValue($rows);
             
         $arr_set = array(
             'editable'=>false,
@@ -211,5 +212,23 @@ class CustomerDiscountController extends Controller
         $data->delete();
 
         return redirect()->route('customer_discounts.index')->with('success', 'You have successfully removed '.$data->name);
+    }
+
+    public function changeValue($rows){
+        foreach ($rows as $key => $value) {
+            if(Arr::exists($value, 'verification')){
+                 if($value->verification == 1){
+                    $value->verification = 'Required';
+                 }else{
+                    $value->verification = 'Not Required';
+                 }
+            }
+
+            if(Arr::exists($value, 'percentage')){
+                $value->percentage = $value->percentage.'%';
+            }
+        }
+
+        return $rows;
     }
 }

@@ -26,6 +26,7 @@ class DatabaseSeeder extends Seeder
             ExpenseCategorySeeder::class,
             CustomerDiscountSeeder::class,
             EmployeePositionSeeder::class,
+            StockSeeder::class,
         ]);
     }
 }
