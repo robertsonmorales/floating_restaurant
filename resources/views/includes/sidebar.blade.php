@@ -11,8 +11,8 @@
         @if($nav['type'] == "single")
 
         <li>
-            <a href="{{ url('/'.$nav['mode']) }}" id="{{ $nav['mode'] }}" class="{{ $nav['mode'] }}">
-                <div>
+            <a href="{{ url('/'.$nav['mode']) }}" id="{{ $nav['mode'] }}" class="btn {{ $nav['mode'] }}">
+                <div class="nav-name">
                     <span class="awesome">
                         <i data-feather="{{ $nav['icon'] }}"></i>
                     </span>
@@ -24,8 +24,8 @@
         @elseif($nav['type'] == "main")
 
         <li>
-            <a href="#" id="{{ $nav['mode'] }}" class="nav-list a-{{ $nav['mode'] }}">
-                <div>
+            <a href="#" id="{{ $nav['mode'] }}" class="btn nav-list a-{{ $nav['mode'] }}">
+                <div class="nav-name">
                     <span class="awesome">
                         <i data-feather="{{ $nav['icon'] }}"></i>
                     </span>
@@ -39,9 +39,9 @@
             <ul class="sub-nav {{ $nav['mode'] }}">
                 @foreach($nav['sub'] as $sub)
 
-                <li class="sub-nav-list">
-                    <a href="{{ url('/'.$sub['mode']) }}" id="{{ $sub['mode'] }}" class="{{ $sub['mode'] }}">
-                        <div>
+                <li class="sub-nav-list ml-3">
+                    <a href="{{ url('/'.$sub['mode']) }}" id="{{ $sub['mode'] }}" class="btn {{ $sub['mode'] }}">
+                        <div class="nav-name">
                             <span class="awesome2">
                                 <i class="{{ $sub['icon'] }}"></i>
                             </span>

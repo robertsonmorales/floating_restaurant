@@ -1,7 +1,7 @@
-<div class="user-content">
-    <h5>Personal Information</h5>
+<div class="col-6 user-content">
+    <h5>Basic Information</h5>
 
-    <form action="{{ route('my_account.update', Auth::user()->id) }}" method="post" id="general-form">
+    <form action="{{ route('account_settings.update', Auth::user()->id) }}" method="post" id="settings-form">
         @csrf
         <div class="input-group">
             <label for="">First Name</label>
@@ -51,6 +51,7 @@
             </span>
             @enderror
         </div>
+        
         <div class="input-group">
             <label for="">Contact Number</label>
             <input type="text" name="contact_number" id="contact_number" class="form-control" required value="{{ Crypt::decryptString($users->contact_number) }}"
@@ -76,8 +77,7 @@
         <input type="hidden" name="id" value="{{ Auth::user()->id }}">
 
         <div class="actions">                        
-            <button type="submit" class="btn btn-primary btn-save" id="btn-general">Save</button>
-            <button type="reset" class="btn btn-secondary" id="btn-reset">Reset</button>
+            <button type="submit" class="btn btn-primary btn-save" id="btn-general">Save Changes</button>
         </div>
     </form>
 </div>

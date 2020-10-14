@@ -1,7 +1,7 @@
-<div class="user-content">
-    <h5>Change Password</h5>
+<div class="col-6 user-content">
+    <h5>Password</h5>
     
-    <form action="{{ route('my_account.password_update') }}" method="POST" id="change-password-form">
+    <form action="{{ route('account_settings.password_update') }}" method="POST" id="settings-form">
         @csrf
         <div class="input-group">
             <label for="">Current Password</label>
@@ -48,8 +48,7 @@
         <input type="hidden" name="id" value="{{ Auth::user()->id }}">
 
         <div class="actions">                        
-            <button type="submit" class="btn btn-primary btn-save" id="btn-password">Save Password</button>
-            <button type="reset" class="btn btn-secondary" id="btn-reset">Reset</button>
+            <button type="submit" class="btn btn-primary btn-save" id="btn-save">Save Changes</button>
         </div>
     </form>
 </div>

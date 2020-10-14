@@ -1,17 +1,19 @@
-// Body
-$body-bg: #f8fafc;
-$shadow: 0 1px 3px 0 rgba(0,0,0,.1), 0 1px 2px 0 rgba(0,0,0,.06);
+$body-bg: #fff; // #f8fafc;
+
+$shadow: 0 6px 12px rgba(140,152,164,.075);
+$dropDown-shadow: 0 10px 40px 10px rgba(140,152,164,.175);
+$border: .0625rem solid rgba(231,234,243,.7);
+$radius: .75rem;
 
 // Typography
 $font-family: 'Poppins', 'Montserrat', sans-serif;
 $font-size-base: 0.9rem;
 $line-height-base: 1.6;
 
-// Colors
-$red: #EA2034; // for errors, delete, close 
-$default: #909090; // secondary color for normal text
-$primary: #f8f8f8; // for hovering white bg
-$toolbar: #3e4044; // for normal text
+$red: #EA2034;
+$default: #909090;
+$primary: #f8f8f8;
+$toolbar: #3e4044;
 $inactive: #ddd;
 
 $btn-primary: #0e76bd;

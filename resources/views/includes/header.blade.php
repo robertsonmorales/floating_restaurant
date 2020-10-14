@@ -4,59 +4,35 @@
             <h5 id="date-time"></h5>
         </div>
         <div class="user-profile">
-            <ul class="notifications">
-                <li>
-                    <a href="#notification" title="notifications">
-                        <span>
-                            <i data-feather="bell"></i>
-                        </span>
-                        <span class="new-notifications">
-                            <i class="fas fa-circle"></i>
-                        </span>
-                    </a>
-                </li>
-                <li>
-                    <a href="#message" title="messages">
-                        <span>
-                            <i data-feather="message-square"></i>
-                        </span>
-                        <!-- <span class="new-notifications">
-                            <i class="fas fa-circle"></i>
-                        </span> -->
-                    </a>
-                </li>
-            </ul>
+            <div class="btn-group mr-2">
+              <button class="btn btn-primary btn-dropdown rounded-circle" id="btn-dropdown" data-toggle="dropdown" style="background-image: url('{{ (Auth::user()->profile_image) ? asset('images/user_profiles/'.Auth::user()->username.Auth::user()->id.'/'.Auth::user()->profile_image.'') : asset('images/user_profiles/avatar.svg') }}');">
+              </button>
 
-            <a href="#" class="btn-dropdown" id="btn-dropdown">
-                <div class="username">
-                    <span class="image-wrapper" style="background-image: url('{{ (Auth::user()->profile_image) ? asset('images/user_profiles/'.Auth::user()->username.Auth::user()->id.'/'.Auth::user()->profile_image.'') : asset('images/user_profiles/avatar.svg') }}');">
+              <div class="dropdown-menu dropdown-menu-right mt-2 py-2">
+
+                <div class="dropdown-item-text d-flex align-items-center py-2">
+                    <span class="profile-image rounded-circle mr-2" style="background-image: url('{{ (Auth::user()->profile_image) ? asset('images/user_profiles/'.Auth::user()->username.Auth::user()->id.'/'.Auth::user()->profile_image.'') : asset('images/user_profiles/avatar.svg') }}');"></span>
+
+                    <span class="profile-info">
+                        <span id="user-name">{{ ucfirst(Crypt::decryptString(Auth::user()->first_name)). ' '.ucfirst(Crypt::decryptString(Auth::user()->last_name)) }}</span>
+                        <span id="user-email">{{ Crypt::decryptString(Auth::user()->email) }}</span>
                     </span>
-                    
-                    <div class="user-detail">
-                        <span class="user">{{ ucfirst(Crypt::decryptString(Auth::user()->first_name)). ' '.ucfirst(Crypt::decryptString(Auth::user()->last_name)) }}</span>
-                        <span class="email">{{ Crypt::decryptString(Auth::user()->email) }}</span>
-                    </div>                    
-                </div>
-            </a>
 
-            <div class="admin-dropdown" id="admin-dropdown">
-                <ul>
-                    <li>
-                        <a href="{{ route('my_account.index') }}" id="my_account">
-                            <i data-feather="user"></i>
-                            <span>My Account</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" class="btn-logout">
-                            <i data-feather="log-out"></i>
-                            <span>Logout</span>
-                        </a>
-                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                            @csrf
-                        </form>
-                    </li>
-                </ul>
+                </div>
+
+                <div class="dropdown-divider"></div>
+                <button class="dropdown-item d-flex justify-content-between py-2" type="button">
+                    <span class="item-text">Set Status</span>
+                    <span class="item-icon"><i data-feather="chevron-right"></i></span>
+                </button>
+
+                <button onclick="window.location.href='{{ route('account_settings.index') }}'" class="dropdown-item py-2" type="button">Profile & Account</button>
+
+                <button onclick="document.getElementById('logout-form').submit();" class="dropdown-item py-2" type="button">Logout</button>
+                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                    @csrf
+                </form>
+              </div>
             </div>
         </div>
     </nav>

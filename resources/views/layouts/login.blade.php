@@ -21,7 +21,7 @@
 
 </head>
 <body>
-    <div class="auth-container">
+    <div class="auth-container" style="background-image: url('{{ asset('images/svg/i-like-food.svg') }}');">
         <div class="auth-content">
             @yield('login')
         </div>
