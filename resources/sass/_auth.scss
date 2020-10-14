@@ -1,7 +1,4 @@
 .auth-content{
-    // background: #457fca;
-    // background: -webkit-linear-gradient(to right, #5691c8, #457fca); 
-    // background: linear-gradient(to right, #5691c8, #457fca);
     background-color: $body-bg;
     display: flex;
     align-items: center;
@@ -16,8 +13,9 @@
         display: flex;
         justify-content: space-around;
         background-color: #fff !important;
+        border: $border;
         box-shadow: $shadow;
-        border-radius: 4px;
+        border-radius: $radius;
         overflow: hidden;
         position: relative;
         width: 55%;
@@ -27,7 +25,7 @@
             justify-content: center;
             align-items: center;
             padding: 30px;
-            background-color: #fafafa;
+            background-color: #fdfdfd;
             flex: 1;
             overflow: hidden;
             
@@ -143,6 +141,7 @@
                     font-family: $font-family;
                     font-size: .9em;
                     font-weight: 500;
+                    padding: 8px;
                     transition: all 0.4s ease;
                     color: #fff;
                     background-color: $btn-primary;

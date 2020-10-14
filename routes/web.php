@@ -42,19 +42,20 @@ Route::middleware('auth')->group(function () {
 
 
     // My Account
+
     $match = ['PUT', 'POST'];
-    Route::get('/my_account/change_password', [
+    Route::get('/account_settings/password', [
     	App\Http\Controllers\MyAccountController::class, 'changingPassword'
-    ])->name('my_account.change_password');
+    ])->name('account_settings.password');
 
-    Route::match($match, '/my_account/password_update', [
+    Route::match($match, '/account_settings/password_update', [
     	App\Http\Controllers\MyAccountController::class, 'updatePassword'
-    ])->name('my_account.password_update');
+    ])->name('account_settings.password_update');
 
-    Route::match($match, '/my_account/change_profile', [
+    Route::match($match, '/account_settings/change_profile', [
     	App\Http\Controllers\MyAccountController::class, 'changeProfile'
-    ])->name('my_account.change_profile');
+    ])->name('account_settings.change_profile');
 
-    Route::resource('/my_account', App\Http\Controllers\MyAccountController::class);
+    Route::resource('/account_settings', App\Http\Controllers\MyAccountController::class);    
     // Ends here
 });

@@ -21,57 +21,14 @@
 </div>
 @endif
 
-<div class="customer-content">
-    <div class="user-container">
-        <div class="user-options">
-            <ul style="
-                background-image: url('{{ asset('images/svg/wave.svg') }}');
-                background-size: cover;
-                background-position: center;">
-                <li>
-                    <div class="user-profile">
-                        <div class="profile-image-form">
-                            <span class="image-wrapper" style="background-image: url('{{ (Auth::user()->profile_image) ? asset('images/user_profiles/'.Auth::user()->username.Auth::user()->id.'/'.Auth::user()->profile_image.'') : asset('images/user_profiles/avatar.svg') }}');">
-                            </span>                            
+<div class="row no-gutters user-container">
+    @include('pages.account_settings.sidebar')
 
-                            <div class="offset">
-                                <button type="button" class="btn-change-profile" title="Edit profile">
-                                    <i class="fas fa-pen"></i>
-                                </button>
-                            </div>
-                        </div>
-                        <div class="user-details">
-                            <h5>{{ ucfirst(Crypt::decryptString(Auth::user()->first_name)). ' '.ucfirst(Crypt::decryptString(Auth::user()->last_name)) }}</h5>
-                        </div>
-                    </div>
-                </li>
-                <li>
-                    <a href="{{ route('my_account.index') }}" id="btn-account">
-                        <i data-feather="user"></i>
-                        <span>Personal Information</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="{{ route('my_account.change_password') }}">
-                        <i data-feather="lock"></i>
-                        <span>Change Password</span>
-                    </a>
-                </li>
-                <!-- <li>
-                    <a href="">
-                        <i data-feather="clock"></i>
-                        <span>Activity Logs</span>
-                    </a>
-                </li> -->
-            </ul>
-        </div>
-
-        @include('pages.my_account.general.general')
-    </div>
+    @include('pages.account_settings.basic_information.form')
 </div>
 
 <!-- The Modal -->
-<form class="modal" action="{{ route('my_account.change_profile') }}" method="POST" id="form-submit" enctype="multipart/form-data">
+<form class="modal" action="{{ route('account_settings.change_profile') }}" method="POST" id="form-submit" enctype="multipart/form-data">
     @csrf
 
     <div class="modal-content">
@@ -133,11 +90,11 @@ $(document).ready(function(){
         document.getElementById("form-submit").submit();
     });
 
-    $('#general-form').on('submit', function(){
-        $('#btn-general').prop('disabled', true);
+    $('#settings-form').on('submit', function(){
+        $('#btn-save').prop('disabled', true);
         $('#btn-reset').prop('disabled', true);
 
-        $('#btn-general').html('Saving..');
+        $('#btn-save').html('Saving Changes..');
         $(this).submit();
     });
 });

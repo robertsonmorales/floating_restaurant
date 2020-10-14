@@ -62,18 +62,18 @@ class MyAccountController extends Controller
      */
     public function index()
     {
-        $name = ['Home', Auth::user()->username, 'Personal Information'];
-        $mode = ['/', route('my_account.index'), route('my_account.index')];
+        $name = ['Home', 'Account Settings', 'Basic Information'];
+        $mode = ['/', route('account_settings.index'), route('account_settings.index')];
 
         $action_mode = 'update';
         $user = $this->user->find(Auth::user()->id);
 
         $this->audit_trail_logs('','','','');
         
-        return view('pages.my_account.general.index', [
+        return view('pages.account_settings.basic_information.index', [
             'breadcrumbs' => $this->breadcrumbs($name, $mode),
-            'header' => 'My Account',
-            'title' => 'My Account',
+            'header' => 'Account Settings',
+            'title' => 'Account Settings',
             'users' => $user,
             'mode' => $action_mode
         ]);
@@ -165,17 +165,17 @@ class MyAccountController extends Controller
     }
 
     public function changingPassword(){
-        $name = ['Home', Auth::user()->username, 'Change Password'];
-        $mode = ['/', route('my_account.index'), route('my_account.change_password')];
+        $name = ['Home', 'Account Settings', 'Password'];
+        $mode = ['/', route('account_settings.index'), route('account_settings.password')];
 
         $data = $this->user->find(Auth::user()->id);
 
         $this->audit_trail_logs('', '', '', '');
 
-        return view('pages.my_account.change_password.index', [
+        return view('pages.account_settings.password.index', [
             'breadcrumbs' => $this->breadcrumbs($name, $mode),
-            'header' => 'My Account',
-            'title' => 'My Account',
+            'header' => 'Account Settings',
+            'title' => 'Account Settings',
             'users' => $data
         ]);
     }
