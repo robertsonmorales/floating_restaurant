@@ -3,11 +3,11 @@
 
 @section('content')
 <center>
-<div class="content" style="width: 50%;">
-    <form action="{{ ($mode == 'update') ? 
+<form class="content" action="{{ ($mode == 'update') ? 
         route('menus.update', $data->id) : 
         route('menus.store') }}"
-        method="POST" class="card-form" id="card-form">
+        method="POST">
+    <div class="mb-4 card-form" id="card-form" style="width: 45%;">
         @csrf
 
         <h5>{{ ucfirst($mode).' '.\Str::Singular($header) }}</h5>        
@@ -77,45 +77,6 @@
         </div>
 
         <div class="input-group">
-            <div class="row">
-                <div class="col">
-                    <button type="button" class="btn btn-primary btn-plus" id="btn-plus">Add Recipe</button>
-                </div>
-            </div>
-        </div>
-
-        <div class="input-group" id="recipe-list">
-
-            @if($mode == 'update')
-            @foreach($recipes as $recipe)
-            <div class="row align-items-center mb-3 recipe-pro">
-                <div class="col-8">
-                    <select name="recipe[]" id="recipe" class="custom-select form-control" autofocus required title="product name">
-                        @foreach($products as $pro)
-                        <option value="{{ ($pro->id == $recipe->product_id) ? $recipe->product_id.'|'.$recipe->product_name : $pro->id.'|'.$pro->name }}" {{ ($pro->id == $recipe->product_id) ? 'selected' : '' }}>
-                            {{ ($pro->id == $recipe->product_id) ? $recipe->product_name : $pro->name }}
-                        </option>
-                        @endforeach
-                    </select>
-                </div>
-                <div class="col-2">
-                    <input type="text" min="1" name="recipe_qty[]" id="recipe_qty" required autocomplete="off"
-                        class="form-control @error('recipe_qty') is-invalid @enderror" autofocus
-                        value="{{ $recipe->stock_out }}" title="product quantity">
-                </div>
-                <div class="col">
-                    <button type="button" class="btn btn-danger btn-sm btn-minus" title="remove">
-                        <i class="fas fa-times"></i>
-                    </button>
-                </div>
-            </div>
-
-            @endforeach
-            @endif
-
-        </div>
-
-        <div class="input-group">
             <label for="">Menu Type</label>
             <select name="menu_type" id="menu_type" class="custom-select form-control @error('menu_type') is-invalid @enderror" autofocus required>
                 @if($mode == 'create')
@@ -168,13 +129,60 @@
         <input type="hidden" name="id" value="{{ ($mode == 'update') ? $data->id: ''}}">
         @endif
 
+    </div>
+
+    <div class="mb-4 card-form" style="width: 45%;">
+        <h5>{{ ucfirst($mode).' '.\Str::Singular('Recipe') }}</h5>         
+
+        <div class="input-group">
+            <div class="row">
+                <div class="col">
+                    <button type="button" class="btn btn-plus" id="btn-plus">
+                        <i data-feather="plus"></i>
+                        <span class="btn-text">Add Recipe</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="input-group" id="recipe-list">
+            
+
+            @if($mode == 'update')
+            @foreach($recipes as $recipe)
+            <div class="row align-items-center mb-3 recipe-pro">
+                <div class="col-8">
+                    <select name="recipe[]" id="recipe" class="custom-select form-control" autofocus required title="product name">
+                        @foreach($products as $pro)
+                        <option value="{{ ($pro->id == $recipe->product_id) ? $recipe->product_id.'|'.$recipe->product_name : $pro->id.'|'.$pro->name }}" {{ ($pro->id == $recipe->product_id) ? 'selected' : '' }}>
+                            {{ ($pro->id == $recipe->product_id) ? $recipe->product_name : $pro->name }}
+                        </option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="col-2">
+                    <input type="text" min="1" name="recipe_qty[]" id="recipe_qty" required autocomplete="off"
+                        class="form-control @error('recipe_qty') is-invalid @enderror" autofocus
+                        value="{{ $recipe->stock_out }}" title="product quantity">
+                </div>
+                <div class="col">
+                    <button type="button" class="btn btn-sm text-danger btn-minus" title="remove">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+            </div>
+
+            @endforeach
+            @endif
+        </div>
+
         <div class="actions">           
             <button type="submit" class="btn btn-primary btn-submit" id="btn-submit">{{ ($mode == 'update') ? 'Submit Changes' : 'Submit' }}</button>
             <button type="reset" class="btn btn-secondary" id="btn-reset">Reset</button>
             <button type="button" onclick="window.location.href='{{route('menus.index') }}'" class="btn btn-secondary" id="btn-back">Back</button>
         </div>
-    </form>
-</div>
+    </div>
+</form>
 </center>
 <br>
 @endsection
@@ -192,6 +200,7 @@ $('#btn-plus').on('click', function(){
     var products = <?= $products ?>;
     var length = document.getElementsByClassName('btn-minus').length;
     var cols_length = $('#recipe-list').children().length;
+
     var recipe = '\
         <div class="row align-items-center mb-3">\
             <div class="col-8">\
@@ -208,7 +217,7 @@ $('#btn-plus').on('click', function(){
                     value="1" title="product quantity">\
             </div>\
             <div class="col">\
-                <button type="button" class="btn btn-danger btn-sm btn-minus btn-minus'+length+'" title="remove" onclick="removeRecipe('+length+')">\
+                <button type="button" class="btn text-danger btn-sm btn-minus btn-minus'+length+'" title="remove" onclick="removeRecipe('+length+')">\
                     <i class="fas fa-times"></i>\
                 </button>\
             </div>\
@@ -217,25 +226,25 @@ $('#btn-plus').on('click', function(){
     if (cols_length < products.length) {
         $('#recipe-list').append(recipe);
     }else{
-        $(this).html('Maximum adding recipe reached..');
         $(this).prop('disabled', true);
+        Toast.fire({
+            icon: 'warning',
+            title: 'Maximum adding recipe reached',
+        });
     }
 });
 
 function removeRecipe(data){
     var remove = $('.btn-minus'+data).parent().parent().remove();
-    $('#btn-plus').html('Add Recipe');
+    $('.btn-text').html('Add Recipe');
     $('#btn-plus').prop('disabled', false);
 }
 
 $('.btn-minus').on('click', function(){
     $(this).parent().parent().remove();
-    $('#btn-plus').html('Add Recipe');
+    $('.btn-text').html('Add Recipe');
     $('#btn-plus').prop('disabled', false);
 });
-
-// $("#menu_category").select2();
-// $("#menu_type").select2();
 
 $(document).on('keyup', "input[name='recipe_qty[]']", function(){
     if (isNaN($(this).val())) {
@@ -246,17 +255,18 @@ $(document).on('keyup', "input[name='recipe_qty[]']", function(){
     }
 });
 
-$('#card-form').on('submit', function(){
-    var mode = "{{ $mode }}";
+$('form').on('submit', function(){
+    alert('submit');
+    // var mode = "{{ $mode }}";
     
-    $('#btn-submit').prop('disabled', true);
-    $('#btn-reset').prop('disabled', true);
-    $('#btn-back').prop('disabled', true);
-    $('#btn-plus').prop('disabled', true);
-    $('.btn-minus').prop('disabled', true);
+    // $('#btn-submit').prop('disabled', true);
+    // $('#btn-reset').prop('disabled', true);
+    // $('#btn-back').prop('disabled', true);
+    // $('#btn-plus').prop('disabled', true);
+    // $('.btn-minus').prop('disabled', true);
 
-    $('#btn-submit').html((mode == "update") ? "Submitting Changes.." : "Submitting..");
-    $(this).submit();
+    // $('#btn-submit').html((mode == "update") ? "Submitting Changes.." : "Submitting..");
+    // $(this).submit();
 });
 
 </script>

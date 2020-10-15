@@ -3,11 +3,9 @@
 
 @section('content')
 <center>
-<div class="content" style="padding: 20px 0;">
-    <form action="{{ ($mode == 'update') ? 
-        route('menu_categories.update', $data->id) : 
-        route('menu_categories.store') }}"
-        method="POST" class="card-form" id="card-form" style="width: 45%;">
+<div class="content">
+    <form action="{{ ($mode == 'update') ? route('menu_categories.update', $data->id) : route('menu_categories.store') }}"
+        method="POST" class="mb-4 card-form" id="card-form" style="width: 45%;">
         @csrf
 
         <h5>{{ ucfirst($mode).' '.\Str::Singular($header) }}</h5>

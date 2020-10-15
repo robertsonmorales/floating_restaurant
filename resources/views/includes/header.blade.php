@@ -21,6 +21,7 @@
                 </div>
 
                 <div class="dropdown-divider"></div>
+
                 <button class="dropdown-item d-flex justify-content-between py-2" type="button">
                     <span class="item-text">Set Status</span>
                     <span class="item-icon"><i data-feather="chevron-right"></i></span>
@@ -28,6 +29,8 @@
 
                 <button onclick="window.location.href='{{ route('account_settings.index') }}'" class="dropdown-item py-2" type="button">Profile & Account</button>
 
+                <div class="dropdown-divider"></div>
+                
                 <button onclick="document.getElementById('logout-form').submit();" class="dropdown-item py-2" type="button">Logout</button>
                 <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                     @csrf
