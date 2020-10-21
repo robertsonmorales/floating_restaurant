@@ -1,4 +1,17 @@
-<div class="col-6 user-content">
+<!-- <div class="user-content" style="padding: 0 !important;">    
+    <form action="{{ route('account_settings.update', Auth::user()->id) }}" method="post" id="settings-form" style="background: #36D1DC;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #5B86E5, #36D1DC);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #5B86E5, #36D1DC); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */">
+        @csrf        
+        <div class="py-4">
+            <h3>hl</h3>
+        </div> 
+        @method('PUT')
+        <input type="hidden" name="id" value="{{ Auth::user()->id }}">
+    </form>
+</div> -->
+
+<div class="user-content">
     <h5>Basic Information</h5>
 
     <form action="{{ route('account_settings.update', Auth::user()->id) }}" method="post" id="settings-form">
@@ -42,17 +55,6 @@
         </div>
         
         <div class="input-group">
-            <label for="">Email</label>
-            <input type="email" name="email" id="email" class="form-control" value="{{ Crypt::decryptString($users->email) }}"
-            class="form-control @error('email') is-invalid @enderror" autocomplete="off" autofocus>
-            @error('email')
-            <span class="invalid-feedback" role="alert">
-                <strong>{{ $message }}</strong>
-            </span>
-            @enderror
-        </div>
-        
-        <div class="input-group">
             <label for="">Contact Number</label>
             <input type="text" name="contact_number" id="contact_number" class="form-control" required value="{{ Crypt::decryptString($users->contact_number) }}"
             class="form-control @error('contact_number') is-invalid @enderror" autocomplete="off" autofocus>
@@ -62,6 +64,7 @@
             </span>
             @enderror
         </div>
+        
         <div class="input-group">
             <label for="">Address</label>
             <input type="text" name="address" id="address" class="form-control" required value="{{ $users->address }}"
@@ -77,7 +80,7 @@
         <input type="hidden" name="id" value="{{ Auth::user()->id }}">
 
         <div class="actions">                        
-            <button type="submit" class="btn btn-primary btn-save" id="btn-general">Save Changes</button>
+            <button type="submit" class="btn btn-primary btn-save" id="btn-save">Save Changes</button>
         </div>
     </form>
 </div>

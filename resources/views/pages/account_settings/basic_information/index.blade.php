@@ -23,8 +23,9 @@
 
 <div class="row no-gutters user-container">
     @include('pages.account_settings.sidebar')
-
-    @include('pages.account_settings.basic_information.form')
+    <div class="col-6">
+        @include('pages.account_settings.basic_information.form')
+    </div>
 </div>
 
 <!-- The Modal -->

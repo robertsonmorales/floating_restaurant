@@ -8,6 +8,7 @@ use DB;
 use Crypt;
 use Arr;
 use Validator;
+use Str;
 
 use Carbon\Carbon;
 use App\Models\Menu;
@@ -32,6 +33,9 @@ class MenuController extends Controller
     public function validator(Request $request)
     {
         $input = [
+            'upload_type' => $this->safeInputs($request->input('upload_type')),
+            'url_image' => $request->input('url_image'),
+            'menu_image' => $request->file('menu_image'),
             'menu_category' => $this->safeInputs($request->input('menu_category')),
             'menu_type' => $this->safeInputs($request->input('menu_type')),
             'name' => $this->safeInputs($request->input('name')),
@@ -40,6 +44,9 @@ class MenuController extends Controller
         ];
 
         $rules = [
+            'upload_type' => 'required',
+            'url_image' => 'nullable|url|',
+            'menu_image' => 'nullable|image|mimes:jpeg,png,jpg,gif',
             'menu_category' => 'required',
             'menu_type' => 'required',
             'name' => 'required|string|max:255|unique:menus,name,'.$this->safeInputs($request->input('id')).'',
@@ -47,9 +54,14 @@ class MenuController extends Controller
             'status' => 'required'
         ];
 
-        $messages = [];
+        $messages = [
+            'status.numeric' => "The status must have a valid value",
+        ];
 
         $customAttributes = [
+            'upload_type' => 'upload type',
+            'url_image' => 'url',
+            'menu_image' => 'image',
             'menu_category' => 'menu category',
             'menu_type' => 'menu type',
             'name' => 'name',
@@ -143,36 +155,64 @@ class MenuController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
+    {   
         $validated = $this->validator($request);
         if ($validated) {
-            $insert = $this->menu->insert([
-               'menu_categories_id' => $validated['menu_category'],
-               'menu_type_id' => $validated['menu_type'],
-               'name' => $validated['name'],
-               'price' => $validated['price'],
-               'status' => $validated['status'],
-               'created_by' => Auth::id(),
-               'created_at' => now()
-            ]);
+            $uploadType = explode('|', $validated['upload_type']);
+            $uploadIndex = $uploadType[0];
+            $uploadName = $uploadType[1];
+            $urlImage = $validated['url_image'];
+            $fileImage = $validated['menu_image'];
+
+            $data = $this->menu;
+            $data->menu_categories_id = $validated['menu_category'];
+            $data->menu_type_id = $validated['menu_type'];
+            $data->upload_type = $validated['upload_type'];
+            if ($uploadIndex == 0) { // URL
+                $data->menu_image = $urlImage;
+            }else if($uploadIndex == 1){ // FILE
+                if ($fileImage->isValid()) {
+                    $publicFolder = public_path('images/menus/');
+                    $profileImage = $fileImage->getClientOriginalName(); // returns original name
+                    $extension = $fileImage->getclientoriginalextension(); // returns the file extension
+                    $newProfileImage = strtoupper(Str::random(20)).'.'.$extension;
+                    $move = $fileImage->move($publicFolder, $newProfileImage);
+                    if ($move) {
+                        $data->menu_image = $newProfileImage;
+                    }else{
+                        return back()->with('error', "Failed to upload image");
+                    }
+                }else{
+                    return back()->with('error', "Something wrong with the image, please try again..");
+                }
+            }
+
+            $data->name = $validated['name'];
+            $data->price = $validated['price'];
+            $data->status = $validated['status'];
+            $data->created_by = Auth::id();
+            $data->created_at = now();
+            $insert = $data->save();
 
             if ($insert) {
-                for ($i=0; $i < count($request->input('recipe')); $i++) { 
-                    $stock_out = $request->input('recipe_qty');
-                    $recipes = $request->input('recipe');
-                    $product = explode('|', $recipes[$i]);
+                if (Arr::exists($request, 'recipe')) {
+                    for ($i=0; $i < count($request->input('recipe')); $i++) { 
+                        $stock_out = $request->input('recipe_qty');
+                        $recipes = $request->input('recipe');
+                        $product = explode('|', $recipes[$i]);
 
-                    $menu = $this->menu->latest()->first();
+                        $menu = $this->menu->latest()->first();
 
-                    $this->recipe->insert([
-                        'menu_id' => $menu->id,
-                        'menu_name' => $menu->name,
-                        'product_id' => $product[0],
-                        'product_name' => $product[1],
-                        'stock_out' => $stock_out[$i],
-                        'created_by' => Auth::id(),
-                        'created_at' => now()
-                    ]);
+                        $this->recipe->insert([
+                            'menu_id' => $menu->id,
+                            'menu_name' => $menu->name,
+                            'product_id' => $product[0],
+                            'product_name' => $product[1],
+                            'stock_out' => $stock_out[$i],
+                            'created_by' => Auth::id(),
+                            'created_at' => now()
+                        ]);
+                    }
                 }
             }
 
@@ -318,32 +358,6 @@ class MenuController extends Controller
                 $menu_type = $this->type->find($value->menu_type_id);
                 $value->menu_type_id = $menu_type->name;   
             }
-
-            // if(Arr::exists($value, 'status')){
-            //      if($value->status == 1){
-            //         $value->status = 'Active';
-            //      }else{
-            //         $value->status = 'In-active';
-            //      }
-            // }
-
-            // if(Arr::exists($value, 'created_by')){
-            //     if ($value->created_by == null) {
-            //         $value->created_by = 'NULL';
-            //     }else{
-            //         $users = $this->user->select('username')->where('id', $value->created_by)->first();
-            //         $value->created_by = $users->username;
-            //     }
-            // }
-
-            // if(Arr::exists($value, 'updated_by')){
-            //     if ($value->updated_by == null) {
-            //         $value->updated_by = 'NULL';
-            //     }else{
-            //         $users = $this->user->select('username')->where('id', $value->updated_by)->first();
-            //         $value->updated_by = $users->username;
-            //     }
-            // }
         }
 
         return $rows;

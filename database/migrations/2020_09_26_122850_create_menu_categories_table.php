@@ -15,6 +15,9 @@ class CreateMenuCategoriesTable extends Migration
     {
         Schema::create('menu_categories', function (Blueprint $table) {
             $table->id();
+            $table->string('upload_type')->nullable();
+            $table->string('category_image')->nullable();
+            $table->string('category_icon')->nullable();
             $table->string('name')->nullable();
             $table->string('status')->default(1)->nullable();
             $table->string('created_by')->nullable();

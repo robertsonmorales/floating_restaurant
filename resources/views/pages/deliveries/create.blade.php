@@ -3,18 +3,18 @@
 
 @section('content')
 <center>
-<div class="content" style="width: 45%;">
+<div class="content">
     <form action="{{ ($mode == 'update') ? 
         route('deliveries.update', $data->id) : 
         route('deliveries.store') }}"
-        method="POST" class="card-form" id="card-form">
+        method="POST" class="mb-4 card-form" id="card-form" style="width: 45%;">
         @csrf        
 
         <h5>{{ ucfirst($mode).' '.\Str::Singular($header) }}</h5>
         
         <div class="input-group">
             <label for="">Product</label>
-            <select name="product" id="product" class="form-control @error('product') is-invalid @enderror" autofocus>
+            <select name="product" id="product" class="custom-select form-control @error('product') is-invalid @enderror" autofocus>
                 @if($mode == 'create')
                     @foreach($products as $prod)
                     <option value="{{ $prod->id.'|'.$prod->name }}">{{ $prod->name }}</option>

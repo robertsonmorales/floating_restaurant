@@ -17,9 +17,10 @@ class CreateMenusTable extends Migration
             $table->id();
             $table->integer('menu_categories_id')->nullable();
             $table->integer('menu_type_id')->nullable();
+            $table->string('upload_type')->nullable();
+            $table->string('menu_image')->nullable();
             $table->string('name')->nullable();
             $table->string('price')->nullable();
-            // $table->string('recipes')->nullable(); // json format
             $table->string('status')->default(1)->nullable();
             $table->string('created_by')->nullable();
             $table->string('updated_by')->nullable();

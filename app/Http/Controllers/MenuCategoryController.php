@@ -7,6 +7,7 @@ use Auth;
 use DB;
 use Crypt;
 use Validator;
+use Str;
 
 use App\Models\MenuCategories;
 use Carbon\Carbon;
@@ -21,11 +22,19 @@ class MenuCategoryController extends Controller
     public function validator(Request $request)
     {
         $input = [
+            'upload_type' => $this->safeInputs($request->input('upload_type')),
+            'category_image' => $request->file('category_image'),
+            'url_image' => $request->input('url_image'),
+            'category_icon' => $this->safeInputs($request->input('category_icon')),
             'name' => $this->safeInputs($request->input('name')),
             'status' => $this->safeInputs($request->input('status')),
         ];
 
         $rules = [
+            'upload_type' => 'required',
+            'category_image' => 'nullable|image|mimes:jpeg,png,jpg,gif',
+            'url_image' => 'nullable|url|',
+            'category_icon' => 'required|max:100',
             'name' => 'required|string|max:255|unique:menu_categories,name,'.$this->safeInputs($request->input('id')).'',
             'status' => 'required|numeric'
         ];
@@ -35,6 +44,10 @@ class MenuCategoryController extends Controller
         ];
 
         $customAttributes = [
+            'upload_type' => 'upload type',
+            'category_image' => 'file',
+            'url_image' => 'url',
+            'category_icon' => 'icon',
             'name' => 'name',
             'status' => 'status'
         ];                
@@ -63,7 +76,6 @@ class MenuCategoryController extends Controller
             'filter'=>true,
             'sortable'=>true,
             'floatingFilter'=>true,
-            'resizable'=>true,
             'flex'=>1
         );
 
@@ -117,12 +129,40 @@ class MenuCategoryController extends Controller
     public function store(Request $request)
     {
         $validated = $this->validator($request);
-        if($validated){            
-            $this->category->name = $validated['name'];
-            $this->category->status = $validated['status'];
-            $this->category->created_by = Auth::user()->id;
-            $this->category->created_at = Carbon::now();
-            $this->category->save();
+        if($validated){
+            $uploadType = explode('|', $validated['upload_type']);
+            $uploadIndex = $uploadType[0];
+            $uploadName = $uploadType[1];
+
+            $urlImage = $validated['url_image'];
+            $fileImage = $validated['category_image'];
+
+            $data = $this->category;
+            $data->upload_type = $validated['upload_type'];
+            if ($uploadIndex == 0) { // URL
+                $data->category_image = $urlImage;
+            }else if($uploadIndex == 1){ // FILE
+                if ($fileImage->isValid()) {
+                    $publicFolder = public_path('images/menu_categories/');
+                    $profileImage = $fileImage->getClientOriginalName(); // returns original name
+                    $extension = $fileImage->getclientoriginalextension(); // returns the file extension
+                    $newProfileImage = strtoupper(Str::random(20)).'.'.$extension;
+                    $move = $fileImage->move($publicFolder, $newProfileImage);
+                    if ($move) {
+                        $data->category_image = $newProfileImage;
+                    }else{
+                        return back()->with('error', "Failed to upload image");
+                    }
+                }else{
+                    return back()->with('error', "Something wrong with the image, please try again..");
+                }
+            }
+            $data->category_icon = $validated['category_icon'];
+            $data->name = $validated['name'];
+            $data->status = $validated['status'];
+            $data->created_by = Auth::user()->id;
+            $data->created_at = Carbon::now();
+            $data->save();
 
             $this->audit_trail_logs('', 'created', 'menu_categories: '.$validated['name'], $this->category->id);
 
@@ -179,6 +219,32 @@ class MenuCategoryController extends Controller
         $data = $this->category->findOrFail($id);
         $validated = $this->validator($request);
         if($validated){
+            $uploadType = explode('|', $validated['upload_type']);
+            $uploadIndex = $uploadType[0];
+            $uploadName = $uploadType[1];
+            $urlImage = $validated['url_image'];
+            $fileImage = $validated['category_image'];
+
+            $data->upload_type = $validated['upload_type'];
+            if ($uploadIndex == 0) { // URL
+                $data->category_image = $urlImage;
+            }else if($uploadIndex == 1){ // FILE
+                if ($fileImage->isValid()) {
+                    $publicFolder = public_path('images/menu_categories/');
+                    $profileImage = $fileImage->getClientOriginalName(); // returns original name
+                    $extension = $fileImage->getclientoriginalextension(); // returns the file extension
+                    $newProfileImage = strtoupper(Str::random(20)).'.'.$extension;
+                    $move = $fileImage->move($publicFolder, $newProfileImage);
+                    if ($move) {
+                        $data->category_image = $newProfileImage;
+                    }else{
+                        return back()->with('error', "Failed to upload image");
+                    }
+                }else{
+                    return back()->with('error', "Something wrong with the image, please try again..");
+                }
+            }
+            $data->category_icon = $validated['category_icon'];
             $data->name = $validated['name'];
             $data->status = $validated['status'];
             $data->updated_by = Auth::user()->id;

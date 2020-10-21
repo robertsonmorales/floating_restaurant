@@ -19,6 +19,9 @@ Auth::routes();
 
 Route::middleware('auth')->group(function () {
     Route::get('/dashboard', [App\Http\Controllers\HomeController::class, 'dashboard'])->name('dashboard');
+    Route::get('/cashier', [App\Http\Controllers\HomeController::class, 'cashier'])->name('cashier');
+    Route::get('/cook', [App\Http\Controllers\HomeController::class, 'cook'])->name('cook');
+    
     Route::resource('/user_accounts', App\Http\Controllers\UserAccountController::class);
     Route::resource('/menu_categories', App\Http\Controllers\MenuCategoryController::class);
     Route::resource('/menu_types', App\Http\Controllers\MenuTypeController::class);
@@ -42,19 +45,14 @@ Route::middleware('auth')->group(function () {
 
 
     // My Account
-
     $match = ['PUT', 'POST'];
-    Route::get('/account_settings/password', [
-    	App\Http\Controllers\MyAccountController::class, 'changingPassword'
-    ])->name('account_settings.password');
+    Route::get('/account_settings/password', [App\Http\Controllers\MyAccountController::class, 'password'])->name('account_settings.password');
+    Route::match($match, '/account_settings/password_update', [App\Http\Controllers\MyAccountController::class, 'passwordUpdate'])->name('account_settings.password_update');
 
-    Route::match($match, '/account_settings/password_update', [
-    	App\Http\Controllers\MyAccountController::class, 'updatePassword'
-    ])->name('account_settings.password_update');
+    Route::get('/account_settings/email', [App\Http\Controllers\MyAccountController::class, 'email'])->name('account_settings.email');
+    Route::match($match, '/account_settings/email_update', [App\Http\Controllers\MyAccountController::class, 'emailUpdate'])->name('account_settings.email_update');
 
-    Route::match($match, '/account_settings/change_profile', [
-    	App\Http\Controllers\MyAccountController::class, 'changeProfile'
-    ])->name('account_settings.change_profile');
+    Route::match($match, '/account_settings/change_profile', [App\Http\Controllers\MyAccountController::class, 'changeProfile'])->name('account_settings.change_profile');
 
     Route::resource('/account_settings', App\Http\Controllers\MyAccountController::class);    
     // Ends here

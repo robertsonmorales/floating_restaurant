@@ -69,14 +69,13 @@
             text-align: left;
 
             label{
-                font-size: .8em;
-                color: #999;
-                font-weight: 500;
+                font-size: .9em;
+                color: $default;
+                font-weight: normal;
                 margin-bottom: 5px;
             }
 
             .form-control{
-                outline: none;
                 font-weight: 500;
                 font-size: .9em;
                 border-radius: 4px;
@@ -106,14 +105,6 @@
                     background-color: #fff;
                     box-shadow: $shadow;
                 }
-            }
-
-            .btn-plus{
-                color: #fff;
-                background-color: $btn-primary;
-                font-size: .9em;
-                font-weight: 500;
-                border-radius: 5px;
             }
 
             .invalid-feedback{

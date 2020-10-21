@@ -32,8 +32,8 @@
 
                     .card-total{
                         color: $toolbar;
-                        font-weight: 600;
-                        font-size: 1.4em;
+                        font-weight: 500;
+                        font-size: 1.2em;
                         font-style: uppercase;
                     }
 
@@ -46,8 +46,8 @@
                         padding: 12px;
 
                         .feather{
-                            height: 24px;
-                            width: 24px;
+                            height: 22px;
+                            width: 22px;
                         }
                     }
 
@@ -86,6 +86,7 @@
             h4{
                 color: $default;
                 font-weight: 500;
+                font-size: 1.2em;
                 margin-bottom: 15px;
             }
 

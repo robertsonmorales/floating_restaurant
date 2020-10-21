@@ -26,7 +26,9 @@
         @include('includes.sidebar')
         <main>
             @include('includes.header')
-            @include('includes.breadcrumb')
+            @if (!\Request::is('cashier'))
+              @include('includes.breadcrumb')
+            @endif
             @yield('content')
         </main>
     </div>

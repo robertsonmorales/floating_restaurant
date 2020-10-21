@@ -168,7 +168,7 @@ class DeliveryController extends Controller
 
             $this->audit_trail_logs('', 'created', 'deliveries: '.$explodeProduct[1], $this->delivery->id);
 
-            return redirect()->route('deliveries.index')->with('success', 'You have successfully added '.$product[1]);
+            return redirect()->route('deliveries.index')->with('success', 'You have successfully added '.$stock->product_name);
         }
     }
 
