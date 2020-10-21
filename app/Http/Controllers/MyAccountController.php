@@ -138,7 +138,6 @@ class MyAccountController extends Controller
             $data->first_name = Crypt::encryptString($validator['first_name']);
             $data->last_name = Crypt::encryptString($validator['last_name']);
             $data->username = $validator['username'];
-            $data->email = Crypt::encryptString($validator['email']);
             $data->contact_number = Crypt::encryptString($validator['contact_number']);
             $data->address = $validator['address'];
             $data->ip = $this->ipAddress();
@@ -162,22 +161,6 @@ class MyAccountController extends Controller
     public function destroy($id)
     {
         //
-    }
-
-    public function changingPassword(){
-        $name = ['Home', 'Account Settings', 'Password'];
-        $mode = ['/', route('account_settings.index'), route('account_settings.password')];
-
-        $data = $this->user->find(Auth::user()->id);
-
-        $this->audit_trail_logs('', '', '', '');
-
-        return view('pages.account_settings.password.index', [
-            'breadcrumbs' => $this->breadcrumbs($name, $mode),
-            'header' => 'Account Settings',
-            'title' => 'Account Settings',
-            'users' => $data
-        ]);
     }
 
     public function passwordValidator(Request $request){
@@ -208,7 +191,23 @@ class MyAccountController extends Controller
         return $validator->validate();
     }
 
-    public function updatePassword(Request $request){
+    public function password(){
+        $name = ['Home', 'Account Settings', 'Password'];
+        $mode = ['/', route('account_settings.index'), route('account_settings.password')];
+
+        $data = $this->user->find(Auth::user()->id);
+
+        $this->audit_trail_logs('', '', '', '');
+
+        return view('pages.account_settings.password.index', [
+            'breadcrumbs' => $this->breadcrumbs($name, $mode),
+            'header' => 'Account Settings',
+            'title' => 'Account Settings',
+            'users' => $data
+        ]);
+    }
+
+    public function passwordUpdate(Request $request){
         $currentPassword = $request->input('old_password');
         $newPassword = $request->input('password');
 
@@ -237,6 +236,54 @@ class MyAccountController extends Controller
                     return back()->with('success', 'You have successfully updated your password');
                 }
             }
+        }
+    }
+
+    public function emailValidator(Request $request){
+        $input = ['email' => $this->safeInputs($request->input('email'))];
+
+        $rules = ['email' => 'required|string|max:50|email|unique:users,email,'.Auth::user()->id];
+
+        $messages = [];
+
+        $customAttributes = ['email' => 'email'];
+
+        $validator = Validator::make($input, $rules, $messages,$customAttributes);
+        return $validator->validate();
+    }
+
+    public function email(){
+        $name = ['Home', 'Account Settings', 'Email'];
+        $mode = ['/', route('account_settings.index'), route('account_settings.email')];
+
+        $data = $this->user->find(Auth::user()->id);
+
+        $this->audit_trail_logs('', '', '', '');
+
+        return view('pages.account_settings.email.index', [
+            'breadcrumbs' => $this->breadcrumbs($name, $mode),
+            'header' => 'Account Settings',
+            'title' => 'Account Settings',
+            'users' => $data
+        ]);
+    }
+
+    public function emailUpdate(Request $request){
+        $validator = $this->emailValidator($request);
+
+        if($validator){
+            $id = $request->input('id');
+            $data = $this->user->findOrFail($id)->update([
+                'email' => Crypt::encryptString($validator['email']),
+                'email_updated_at' => now(),
+                'updated_by' => Auth::id()
+            ]);
+
+            $this->audit_trail_logs('', 'updated', 'user_accounts: '.$validator['email'], $id);
+            return back()->with('success', 'You have successfully updated your email');
+
+        }else{
+            return back()->withErrors($validator)->withInput();
         }
     }
 

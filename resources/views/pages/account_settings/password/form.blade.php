@@ -16,11 +16,7 @@
         </div>
 
         <div class="input-group">
-            <label for="">New Password
-                <a id="password-popover" role="button" data-toggle="popover" data-placement="bottom" data-trigger="focus" title="More Information" data-content="Your new password must be more than 8 characters long, should contain at-least one Uppercase, one Lowercase, one Numeric and one special character." style="outline: none;">
-                    <i data-feather="help-circle"></i>
-                </a>
-            </label>
+            <label for="">New Password</label>
             <input type="password" name="password" id="password" required autocomplete="off"
                 class="form-control @error('password') is-invalid @enderror" autofocus>
 
@@ -42,6 +38,17 @@
             </span>
             @enderror
 
+        </div>
+
+        <div class="input-group">
+            <h6>Password Requirements:</h6>
+
+            <ul class="list-group ml-4" style="font-size: .9em; color: #909090;">
+              <li>Minimumm 8 characters long, the more the better</li>
+              <li>Contain at-least 1 uppercase character</li>
+              <li>Contain at-least 1 lowercase character</li>
+              <li>And 1 numeric and 1 special character</li>
+            </ul>
         </div>
 
         @method('PUT')

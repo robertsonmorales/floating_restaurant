@@ -1,4 +1,4 @@
-.user-options{
+.list-options{
     ul{
         list-style: none;
         box-shadow: $shadow;
@@ -12,77 +12,6 @@
             font-weight: 500;
             font-size: .9em;
             display: flex;
-
-            .user-profile{
-                flex: 1;
-                margin-bottom: 10px;
-
-                .profile-image-form{
-                    display: flex;
-                    flex-direction: column;
-                    align-items: center;
-                    justify-content: center;
-                    position: relative;
-                    text-align: center;
-                    margin-bottom: 10px;
-
-                    .image-wrapper{
-                        overflow: hidden;
-                        border-radius: 50%;
-                        width: 120px;
-                        height: 120px;
-                        background-color: #eee;
-                        background-size: cover;
-                        background-position: center;
-                        border: 3px solid #fff;
-                    }
-
-                    #profile-image{
-                        display: none;
-                    }
-
-                    .offset{
-                        .btn-change-profile{
-                            box-shadow: $shadow;
-                            position: absolute;
-                            bottom: -10px;
-                            border: none;
-                            outline: none;
-                            background-color: #fff;
-                            cursor: pointer;
-                            margin: 2px;
-                            padding: 5px;
-                            width: 38px;
-                            height: 38px;
-                            border-radius: 50%;
-                            display: flex;
-                            justify-content: center;
-                            align-items: center;
-                            color: $btn-primary;
-
-                            .feather{
-                                width: 18px;
-                                height: 18px;
-                            }
-
-                            &:active{
-                                background-color: $primary;
-                            }
-                        }
-                    }
-                }
-
-                .user-details{
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-
-                    h3{
-                        color: $toolbar;
-                        font-weight: 500;
-                    }
-                }
-            }
 
             a{
                 text-decoration: none;

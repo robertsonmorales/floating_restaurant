@@ -90,10 +90,6 @@ $(document).ready(function(){
         document.getElementById("form-submit").submit();
     });
 
-    $('#password-popover').popover({
-        container: 'body'
-    });
-
     $('#settings-form').on('submit', function(){
         $('#btn-save').prop('disabled', true);
         $('#btn-reset').prop('disabled', true);

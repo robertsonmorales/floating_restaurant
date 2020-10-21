@@ -3,9 +3,10 @@
 
 @section('content')
 <center>
-<div class="content">
-    <form action="{{ ($mode == 'update') ? route('menu_categories.update', $data->id) : route('menu_categories.store') }}"
-        method="POST" class="mb-4 card-form" id="card-form" style="width: 45%;">
+<form action="{{ ($mode == 'update') ? route('menu_categories.update', $data->id) : route('menu_categories.store') }}"
+        method="POST" class="content" id="card-form" enctype="multipart/form-data">
+
+    <div class="mb-4 card-form" style="width: 45%;">
         @csrf
 
         <h5>{{ ucfirst($mode).' '.\Str::Singular($header) }}</h5>
@@ -19,6 +20,21 @@
             </span>
 
             @error('name')
+            <span class="invalid-feedback" role="alert">
+                <strong>{{ $message }}</strong>
+            </span>
+            @enderror
+        </div>
+
+        <div class="input-group">
+            <label for="">Icon</label>
+            <input type="text" name="category_icon" id="category_icon" autocomplete="off" class="form-control @error('name') is-invalid @enderror" value="{{($mode == 'update') ? $data->category_icon : old('category_icon')}}">
+
+            <span class="messages" role="alert">
+                <strong id="error-category-icon"></strong>
+            </span>
+
+            @error('category_icon')
             <span class="invalid-feedback" role="alert">
                 <strong>{{ $message }}</strong>
             </span>
@@ -42,6 +58,63 @@
             </span>
             @enderror
         </div>
+    </div>
+
+    <div class="mb-4 card-form" style="width: 45%;">
+        <h5>{{ ($mode == 'create') ? 'Upload Image' : 'Change Image' }}</h5>
+
+        <div class="input-group">
+            <label>Upload Type</label>
+            <select id="upload_type" name="upload_type" class="custom-select form-control @error('upload_type') is-invalid @enderror">
+                <option value="1|File Upload" {{ ($mode == 'update' && $data->upload_type == "1|File Upload") ? 'selected' : '' }}>File Upload</option>
+                <option value="0|URL" {{ ($mode == 'update' && $data->upload_type == "0|URL") ? 'selected' : '' }}>URL</option>
+            </select>
+
+            <span class="messages">
+                <strong id="error-upload-type"></strong>
+            </span>
+
+            @error('upload_type')
+            <span class="invalid-feedback" role="alert">
+                <strong>{{ $message }}</strong>
+            </span>
+            @enderror
+        </div>
+
+        <div class="input-group" id="file-group">
+            <label>Upload Image</label>
+            <input type="file" id="category_image" name="category_image" onchange="previewFile(this)" class="form-control @error('category_image') is-invalid @enderror" accept="image/*">
+
+            <span class="messages">
+                <strong id="error-category-image"></strong>
+            </span>
+
+            @error('category_image')
+            <span class="invalid-feedback" role="alert">
+                <strong>{{ $message }}</strong>
+            </span>
+            @enderror
+        </div>
+
+        <div class="input-group" id="url-group">
+            <label for="">URL</label>
+            <input type="url" name="url_image" id="url_image" autocomplete="off"
+                class="form-control @error('url_image') is-invalid @enderror" autofocus placeholder="https://www.example.com/img/example.png" value="{{ ($mode == 'update') ? $data->category_image : '' }}">
+
+            <span class="messages">
+                <strong id="error-url-image"></strong>
+            </span>
+
+            @error('url_image')
+            <span class="invalid-feedback" role="alert">
+                <strong>{{ $message }}</strong>
+            </span>
+            @enderror
+        </div>
+
+        <div class="input-group">
+            <img src="{{ ($mode == 'update' && $data->upload_type == '1|File Upload') ? asset('images/menu_categories/'.$data->category_image) : '' }}" id="image-preview" width="300" class="rounded">
+        </div>
 
         @if ($mode == 'update')
         @method('PUT')
@@ -53,14 +126,58 @@
             <button type="reset" class="btn btn-secondary" id="btn-reset">Reset</button>
             <button type="button" onclick="window.location.href='{{route('menu_categories.index') }}'" class="btn btn-secondary" id="btn-back">Back</button>
         </div>
-    </form>
-</div>
+    </div>
+
+</form>
 </center>
 <br>
 @endsection
 @section('scripts')
 <script type="text/javascript">
 $(document).ready(function(){
+    function fileUpload(){
+        if ($('#upload_type').val() == "1|File Upload") {
+            $('#file-group').show();
+            $('#url-group').hide();
+        }else{
+            $('#url-group').show();
+            $('#file-group').hide();
+
+            $('#image-preview').attr('src', $("#url_image").val());
+        }
+    }
+
+    fileUpload();
+
+
+    $("#url_image").on('keyup', function(){
+        $('#image-preview').attr('src', $(this).val());
+    });
+
+    $('#upload_type').on('change', function(){
+        if ($(this).val() == "1|File Upload") {
+            $('#file-group').show();
+            $('#url-group').hide();
+        }else{
+            $('#url-group').show();
+            $('#file-group').hide();
+        }
+    });
+
+    $('#category_image').on('change', function(){
+        var file = $("#category_image").get(0).files[0];
+        
+        if(file){
+            var reader = new FileReader();
+
+            reader.onload = function(){
+                $("#image-preview").attr("src", reader.result);
+            }
+
+            reader.readAsDataURL(file);
+        }
+    })
+
     $('#card-form').on('submit', function(){
         var mode = "{{ $mode }}";
         
@@ -72,5 +189,9 @@ $(document).ready(function(){
         $(this).submit();
     });
 });
+
+function previewFile(input){
+    
+}
 </script>
 @endsection

@@ -1,4 +1,4 @@
-<div class="col-3 mr-4 user-options">
+<div class="col-3 mr-4 list-options">
     <ul id="list-actions">
         <li>
             <a href="/account_settings">
@@ -7,7 +7,7 @@
             </a>
         </li>
         <li>
-            <a href="#email">
+            <a href="{{ route('account_settings.email') }}">
                 <i data-feather="at-sign"></i>
                 <span>Email</span>
             </a>

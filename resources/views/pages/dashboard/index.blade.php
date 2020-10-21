@@ -56,7 +56,7 @@
                 <span class="card-name">Stocks</span>
             </div>
             <div class="details2">
-                <span class="card-name">Pending Orders</span>
+                <span class="card-name">On-going Orders</span>
             </div>
         </div>
     </div>
@@ -104,9 +104,9 @@ $(document).ready(function(){
             toolbar: {
                 show: false,
             },
-            fontSize: '12px',
+            fontSize: '1me',
             fontWeight: '500',
-            fontFamily: ['Poppins', 'Montserrat'],
+            fontFamily: ['Segoe UI', 'Poppins', 'Montserrat'],
             color: '#3e4044'
         },
         legend: {

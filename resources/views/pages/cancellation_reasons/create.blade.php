@@ -3,11 +3,11 @@
 
 @section('content')
 <center>
-<div class="content" style="width: 45%;">
+<div class="content">
     <form action="{{ ($mode == 'update') ? 
         route('cancellation_reasons.update', $data->id) : 
         route('cancellation_reasons.store') }}"
-        method="POST" class="card-form" id="card-form">
+        method="POST" class="mb-4 card-form" id="card-form" style="width: 45%;">
         @csrf
 
         <h5>{{ ucfirst($mode).' '.\Str::Singular($header) }}</h5>

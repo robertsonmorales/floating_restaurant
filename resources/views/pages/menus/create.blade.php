@@ -6,12 +6,12 @@
 <form class="content" action="{{ ($mode == 'update') ? 
         route('menus.update', $data->id) : 
         route('menus.store') }}"
-        method="POST">
-    <div class="mb-4 card-form" id="card-form" style="width: 45%;">
+        method="POST" enctype="multipart/form-data">
+    <div class="mb-4 card-form" style="width: 45%;">
         @csrf
 
-        <h5>{{ ucfirst($mode).' '.\Str::Singular($header) }}</h5>        
-        
+        <h5>{{ ucfirst($mode).' '.\Str::Singular($header) }}</h5>
+
         <div class="input-group">
             <label for="">Name</label>
             <input type="text" name="name" id="name" autocomplete="off"
@@ -123,23 +123,75 @@
             </span>
             @enderror
         </div>
-
-        @if ($mode == 'update')
-        @method('PUT')
-        <input type="hidden" name="id" value="{{ ($mode == 'update') ? $data->id: ''}}">
-        @endif
-
     </div>
 
     <div class="mb-4 card-form" style="width: 45%;">
-        <h5>{{ ucfirst($mode).' '.\Str::Singular('Recipe') }}</h5>         
+        <h5>{{ ($mode == 'create') ? 'Upload Image' : 'Change Image' }}</h5>
+
+        <div class="input-group">
+            <label>Upload Type</label>
+            <select id="upload_type" name="upload_type" class="custom-select form-control @error('upload_type') is-invalid @enderror">
+                <option value="1|File Upload" {{ ($mode == 'update' && $data->upload_type == "1|File Upload") ? 'selected' : '' }}>File Upload</option>
+                <option value="0|URL" {{ ($mode == 'update' && $data->upload_type == "0|URL") ? 'selected' : '' }}>URL</option>
+            </select>
+
+            <span class="messages">
+                <strong id="error-upload-type"></strong>
+            </span>
+
+            @error('upload_type')
+            <span class="invalid-feedback" role="alert">
+                <strong>{{ $message }}</strong>
+            </span>
+            @enderror
+        </div>
+
+        <div class="input-group" id="file-group">
+            <label>Upload Image</label>
+            <input type="file" id="menu_image" name="menu_image" class="form-control @error('menu_image') is-invalid @enderror" accept="image/*">
+
+            <span class="messages">
+                <strong id="error-menu-image"></strong>
+            </span>
+
+            @error('menu_image')
+            <span class="invalid-feedback" role="alert">
+                <strong>{{ $message }}</strong>
+            </span>
+            @enderror
+        </div>
+
+        <div class="input-group" id="url-group">
+            <label for="">URL</label>
+            <input type="url" name="url_image" id="url_image" autocomplete="off"
+                class="form-control @error('url_image') is-invalid @enderror" autofocus placeholder="https://www.example.com/img/example.png" value="{{ ($mode == 'update') ? $data->menu_image : '' }}">
+
+            <span class="messages">
+                <strong id="error-url-image"></strong>
+            </span>
+
+            @error('url_image')
+            <span class="invalid-feedback" role="alert">
+                <strong>{{ $message }}</strong>
+            </span>
+            @enderror
+        </div>
+
+        <div class="input-group">
+            <img src="" id="image-preview" width="300" class="rounded">
+        </div>
+    </div>
+
+
+    <div class="mb-4 card-form" style="width: 45%;">
+        <h5>{{ ucfirst($mode).' '.'Recipe' }}</h5>         
 
         <div class="input-group">
             <div class="row">
                 <div class="col">
-                    <button type="button" class="btn btn-plus" id="btn-plus">
+                    <button type="button" class="btn btn-outline-info btn-sm d-flex align-items-center" id="btn-plus">
                         <i data-feather="plus"></i>
-                        <span class="btn-text">Add Recipe</span>
+                        <span class="btn-text ml-2">Add Recipe</span>
                     </button>
                 </div>
             </div>
@@ -147,7 +199,6 @@
 
         <div class="input-group" id="recipe-list">
             
-
             @if($mode == 'update')
             @foreach($recipes as $recipe)
             <div class="row align-items-center mb-3 recipe-pro">
@@ -176,6 +227,11 @@
             @endif
         </div>
 
+        @if ($mode == 'update')
+        @method('PUT')
+        <input type="hidden" name="id" value="{{ ($mode == 'update') ? $data->id: ''}}">
+        @endif
+
         <div class="actions">           
             <button type="submit" class="btn btn-primary btn-submit" id="btn-submit">{{ ($mode == 'update') ? 'Submit Changes' : 'Submit' }}</button>
             <button type="reset" class="btn btn-secondary" id="btn-reset">Reset</button>
@@ -184,7 +240,6 @@
     </div>
 </form>
 </center>
-<br>
 @endsection
 @section('scripts')
 <script type="text/javascript">
@@ -194,6 +249,35 @@ const Toast = Swal.mixin({
     showConfirmButton: false,
     timer: 4000,
     timerProgressBar: false,
+});
+
+function fileUpload(){
+    if ($('#upload_type').val() == "1|File Upload") {
+        $('#file-group').show();
+        $('#url-group').hide();
+    }else{
+        $('#url-group').show();
+        $('#file-group').hide();
+
+        $('#image-preview').attr('src', $("#url_image").val());
+    }
+}
+
+fileUpload();
+
+
+$("#url_image").on('keyup', function(){
+    $('#image-preview').attr('src', $(this).val());
+});
+
+$('#upload_type').on('change', function(){
+    if ($(this).val() == "1|File Upload") {
+        $('#file-group').show();
+        $('#url-group').hide();
+    }else{
+        $('#url-group').show();
+        $('#file-group').hide();
+    }
 });
 
 $('#btn-plus').on('click', function(){
@@ -256,17 +340,16 @@ $(document).on('keyup', "input[name='recipe_qty[]']", function(){
 });
 
 $('form').on('submit', function(){
-    alert('submit');
-    // var mode = "{{ $mode }}";
+    var mode = "{{ $mode }}";
     
-    // $('#btn-submit').prop('disabled', true);
-    // $('#btn-reset').prop('disabled', true);
-    // $('#btn-back').prop('disabled', true);
-    // $('#btn-plus').prop('disabled', true);
-    // $('.btn-minus').prop('disabled', true);
+    $('#btn-submit').prop('disabled', true);
+    $('#btn-reset').prop('disabled', true);
+    $('#btn-back').prop('disabled', true);
+    $('#btn-plus').prop('disabled', true);
+    $('.btn-minus').prop('disabled', true);
 
-    // $('#btn-submit').html((mode == "update") ? "Submitting Changes.." : "Submitting..");
-    // $(this).submit();
+    $('#btn-submit').html((mode == "update") ? "Submitting Changes.." : "Submitting..");
+    $(this).submit();
 });
 
 </script>

@@ -1,7 +1,12 @@
 <div class="header-content position-sticky sticky-top">
     <nav>
-        <div class="date-time">
+        <!-- <div class="date-time">
             <h5 id="date-time"></h5>
+        </div> -->
+        <div class="row ml-1">
+            <button class="btn btn-sm" type="button">
+                <i data-feather="skip-back"></i>
+            </button>
         </div>
         <div class="user-profile">
             <div class="btn-group mr-2">
