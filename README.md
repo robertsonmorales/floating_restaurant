@@ -3,7 +3,9 @@
 
 ## Sunrise Floating Restaurant Web App
 
-### Getting Started, What command to run / install
+### Getting Started
+
+#### What command to run / install
 - mkdir -p storage/framework/{sessions,views,cache}
 - mkdir -p storage/framework/cache/data
 - mkdir -p bootstrap/cache
