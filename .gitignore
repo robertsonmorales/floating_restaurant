@@ -8,7 +8,7 @@
 /public/images/user_profiles/
 /public/hot
 
-vendor/
+/vendor
 .env
 .env.backup
 .phpunit.result.cache

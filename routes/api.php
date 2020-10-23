@@ -18,4 +18,4 @@ use Illuminate\Support\Facades\Route;
 //     return $request->user();
 // });
 
-Route::get('/add_order', [App\Http\Controllers\ApiController::class, 'addOrder']);
+// Route::post('/add_order', [App\Http\Controllers\ApiController::class, 'addOrder']);

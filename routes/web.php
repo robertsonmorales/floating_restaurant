@@ -44,6 +44,12 @@ Route::middleware('auth')->group(function () {
     Route::resource('/employees', App\Http\Controllers\EmployeeController::class);
 
 
+    // ORDERING
+    Route::get('/orders/get_orders', [App\Http\Controllers\OrderController::class, 'getOrders'])->name('orders.get_orders');
+    Route::resource('/orders', App\Http\Controllers\OrderController::class);
+
+
+
     // My Account
     $match = ['PUT', 'POST'];
     Route::get('/account_settings/password', [App\Http\Controllers\MyAccountController::class, 'password'])->name('account_settings.password');

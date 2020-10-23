@@ -13,7 +13,7 @@ class CreateOrderedMenusesTable extends Migration
      */
     public function up()
     {
-        Schema::create('ordered_menuses', function (Blueprint $table) {
+        Schema::create('ordered_menus', function (Blueprint $table) {
             $table->id();
             $table->integer('order_id')->nullable();
             $table->integer('menu_id')->nullable();
@@ -21,7 +21,7 @@ class CreateOrderedMenusesTable extends Migration
             $table->integer('unit_price')->nullable();
             $table->integer('qty')->default(1)->nullable();
             $table->integer('total_price')->nullable();
-            $table->integer('order_status')->nullable(); // order menu status
+            $table->integer('order_substatus')->nullable();
             $table->integer('processed_by')->nullable(); // cook
             $table->string('created_by')->nullable();
             $table->string('updated_by')->nullable();
@@ -36,6 +36,6 @@ class CreateOrderedMenusesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('ordered_menuses');
+        Schema::dropIfExists('ordered_menus');
     }
 }

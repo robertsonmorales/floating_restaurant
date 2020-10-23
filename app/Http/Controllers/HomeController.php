@@ -32,16 +32,6 @@ class HomeController extends Controller
      * @return \Illuminate\Contracts\Support\Renderable
      */
     public function showMain(){
-        // if (Auth::id() == 1) { // ADMIN
-        //     return redirect()->route('dashboard');
-        // }else if(Auth::id() == 2){ // CASHIER
-        //     return redirect()->route('home');
-        // }else if(Auth::id() == 3){ // MANAGER
-        //     return redirect()->route('home');
-        // }else if (Auth::id() == 4) { // COOK
-        //     return redirect()->route('home'); 
-        // }
-
         return redirect()->route('dashboard');
     }
 
@@ -64,7 +54,7 @@ class HomeController extends Controller
         $mode = ['/cashier'];
 
         $categories = $this->categories->where('status', 1)->oldest()->get();
-        $menus = $this->menu->where('status', 1)->latest()->get();
+        $menus = $this->menu->where('status', 1)->paginate(5);
         $countMenus = count($menus);
 
         $this->audit_trail_logs('','','','');
@@ -74,8 +64,8 @@ class HomeController extends Controller
             'header' => 'Cashier',
             'title' => 'Cashier',
             'menu_categories' => $categories,
-            'menus' => $menus,
-            'countMenus' => $countMenus
+            'countMenus' => $countMenus,
+            'paginator' => $menus
         ]);
     }
 
