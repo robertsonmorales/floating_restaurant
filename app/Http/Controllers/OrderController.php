@@ -106,8 +106,8 @@ class OrderController extends Controller
                 if (!empty($checkOrder)) {
                     return response()->json([
                         'status' => 404,
-                        'text' => 'This item already exist in the ordered list',
-                        'icon' => 'warning'
+                        'text' => 'This menu already exist in the order list, please try the other menus.',
+                        'icon' => 'Warning'
                     ]);
                 }else{
                     $data = $this->orderedMenu;
@@ -129,21 +129,21 @@ class OrderController extends Controller
                     return response()->json([
                         'status' => 200,
                         'text' => 'Success',
-                        'icon' => 'success'
+                        'icon' => 'Success'
                     ]);
                 }
             }else{
                 return response()->json([
                     'status' => 404,
                     'text' => 'No order history of this customer',
-                    'icon' => 'warning'
+                    'icon' => 'Error'
                 ]);
             }
         }else{
             return response()->json([
                 'status' => 404,
                 'text' => 'Add customer for todays transaction',
-                'icon' => 'warning'
+                'icon' => 'Error'
             ]);
         }
     }
@@ -200,9 +200,15 @@ class OrderController extends Controller
             $order = $this->order->where('customer_id', $customers->id)->latest('id')->first();
             if(!empty($order)){
 
-                $orderedMenu = $this->orderedMenu->where('order_id', $order->id)->get();
+                $orderedMenu = $this->orderedMenu->where('order_id', $order->id)->latest('id')->first();
+                $orderedMenuCount = $this->orderedMenu->where('order_id', $order->id)->get()->count();
+                $orderMenuTotal = $orderedMenu->sum('total_price');
+                return response()->json([
+                    'ordered_menu' => $orderedMenu,
+                    'order_count' => $orderedMenuCount,
+                    'orderMenuTotal' => $orderMenuTotal
+                ]);
 
-                return response()->json($orderedMenu);
             }else{
                 return response()->json([
                     'status' => 404,
