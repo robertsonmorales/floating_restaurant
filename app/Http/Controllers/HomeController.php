@@ -6,9 +6,14 @@ use Illuminate\Http\Request;
 
 use DB;
 use Auth;
+use Arr;
 
 use App\Models\MenuCategories;
 use App\Models\Menu;
+use App\Models\MenuTypes;
+use App\Models\OrderedMenus;
+use App\Models\Orders;
+use App\Models\Customers;
 
 class HomeController extends Controller
 {
@@ -18,12 +23,15 @@ class HomeController extends Controller
      * @return void
      */
 
-    protected $menuCategories, $menu;
-    public function __construct(MenuCategories $menuCategories, Menu $menu)
-    {
+    protected $menuCategories, $menu, $menuType, $orders, $orderedMenus;
+    public function __construct(MenuCategories $menuCategories, Menu $menu, MenuTypes $menuType, Orders $orders, OrderedMenus $orderedMenus, Customers $customer){
         // $this->middleware('auth');
         $this->categories = $menuCategories;
         $this->menu = $menu;
+        $this->type = $menuType;
+        $this->order = $orders;
+        $this->orderedMenu = $orderedMenus;
+        $this->customer = $customer;
     }
 
     /**
@@ -55,7 +63,19 @@ class HomeController extends Controller
 
         $categories = $this->categories->where('status', 1)->oldest()->get();
         $menus = $this->menu->where('status', 1)->paginate(5);
+        $menus = $this->changeValue($menus);
         $countMenus = count($menus);
+
+        $customers = $this->customer->latest('id')->first();
+        $customers = @$this->changeVal($customers);
+        if(!empty($customers)){
+            $order = $this->order->where('customer_id', $customers->id)->latest('id')->first();
+            if(!empty($order)){
+                $orderedMenu = $this->orderedMenu->where('order_id', $order->id)->get();
+                $orderedMenuCount = count($orderedMenu);
+                $orderedMenuTotal = $orderedMenu->sum('total_price');
+            }
+        }
 
         $this->audit_trail_logs('','','','');
         
@@ -65,7 +85,10 @@ class HomeController extends Controller
             'title' => 'Cashier',
             'menu_categories' => $categories,
             'countMenus' => $countMenus,
-            'paginator' => $menus
+            'paginator' => $menus,
+            'orderedMenus' => $orderedMenu,
+            'orderedMenuCount' => $orderedMenuCount,
+            'orderedMenuTotal' => $orderedMenuTotal
         ]);
     }
 
@@ -80,5 +103,21 @@ class HomeController extends Controller
             'header' => 'Cook',
             'title' => 'Cook'
         ]);
+    }
+
+    public function changeValue($rows){
+        foreach ($rows as $key => $value) {
+            if(Arr::exists($value, 'menu_categories_id')){
+                $menu_categories = $this->categories->find($value->menu_categories_id);
+                $value->menu_categories_id = $menu_categories->name;
+            }
+
+            if(Arr::exists($value, 'menu_type_id')){
+                $menu_type = $this->type->find($value->menu_type_id);
+                $value->menu_type_id = $menu_type->name;   
+            }
+        }
+
+        return $rows;
     }
 }

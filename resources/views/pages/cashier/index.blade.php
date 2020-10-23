@@ -8,7 +8,7 @@
 		@foreach($menu_categories as $categories)
 		@if($categories->upload_type != null)
 
-		<button type="button" class="btn btn-primary btn-cart text-left mb-2 px-3 py-4 radius bg-cover" id="{{ $categories->id }}" style="background: linear-gradient(45deg, rgba(0,0,0,0.6), rgba(0,0,0,0.3), rgba(0,0,0,0.6)), url('{{ ($categories->upload_type == '0|URL') ? $categories->category_image : asset('images/menu_categories/'.$categories->category_image) }}');">
+		<button type="button" class="btn btn-primary btn-cart text-center mb-2 px-3 py-4 radius bg-cover font-weight-500 h5" id="{{ $categories->id }}" style="background: linear-gradient(45deg, rgba(0,0,0,0.6), rgba(0,0,0,0.3), rgba(0,0,0,0.6)), url('{{ ($categories->upload_type == '0|URL') ? $categories->category_image : asset('images/menu_categories/'.$categories->category_image) }}');">
 			<!-- <i class="{{ $categories->category_icon }}"></i> -->
 			<span>{{ $categories->name }}</span>
 		</button>
@@ -29,7 +29,7 @@
 			<input type="text" name="search-bar" placeholder="Search here..." class="border-0 search-bar" maxlength="50">
 		</div>
 
-		<div class="row no-gutters menu-card">
+		<div class="row no-gutters menu-card" id="menu-list">
 			@foreach($paginator as $menu)
 			<div class="card card-shadow">
 			  <div class="row card-body align-items-start justify-content-between">
@@ -41,7 +41,8 @@
 			  		@endif
 			  	</div>
 			  	<div class="col">
-			  		<div class="card-title title-size">{{ ucFirst($menu->name) }}</div>
+			  		<div class="badge badge-pill badge-warning font-weight-500 text-white">{{ $menu->menu_categories_id }}</div>
+			  		<div class="card-title title-size d-flex align-items-center justify-content-start">{{ ucFirst($menu->name) }}</div>
 			  		<div class="card-subtitle subtitle-size text-muted mt-1 mb-3">{{ "Php ".$menu->price.".00" }}</div>
 
 			  		<div class="input-group mb-3">
@@ -81,21 +82,48 @@
 			</button>
 
 			<h5 class="d-flex justify-content-between align-items-center">
-				<span>Order</span>
-				<span id="no-items" class="text-blue font-weight-500"></span>
+				<span>Orders</span>
+				<span id="no-items" class="text-blue font-weight-500">{{ $orderedMenuCount }}</span>
 			</h5>
 
-			<div id="order-list"></div>
+			<hr>
+
+			<div id="order-list">
+				@foreach($orderedMenus as $orders)
+				<ul class="list-group mb-2 no-gutters">
+					<li class="list-group-item list-group-padding border-0 d-flex align-items-center justify-content-between">
+						{{ $orders->menu_name }}
+						<button class="btn btn-sm text-danger btn-remove" id="{{ $orders->id }}" style="position: relative; bottom: 15px;">
+							<i data-feather="x"></i>
+						</button>
+					</li>
+					<li class="list-group-item list-group-padding border-0 d-flex justify-content-between subtitle-size">
+						<span class="text-muted">Amount</span>
+						<span class="text-blue">Php {{ $orders->unit_price }}.00</span>
+					</li>
+					<li class="list-group-item list-group-padding border-0 d-flex justify-content-between subtitle-size">
+						<span class="text-muted">Quantity</span>
+						<span class="text-blue">{{ $orders->qty }}</span>
+					</li>
+					<li class="list-group-item list-group-padding border-0 d-flex justify-content-end">
+						
+					</li>
+				</ul>
+				<hr>
+				@endforeach
+
+			</div>
 
 		</div>
 
 		<div class="d-flex flex-column py-3 px-4 card-transaction">
 			<h5>Billing</h5>
+			<hr>
 
 			<ul class="list-group">
 				<li class="list-group-item list-group-padding border-0 d-flex justify-content-between subtitle-size">
 					<span>Initial Amount</span>
-					<span class="text-blue">Php 720.00</span>
+					<span class="text-blue" id="initial">Php {{ $orderedMenuTotal }}.00</span>
 				</li>
 				<li class="list-group-item list-group-padding border-0 d-flex justify-content-between subtitle-size">
 					<span>Discount</span>
@@ -115,6 +143,28 @@
 		</div>
 	</div>
 </div>
+
+<!-- The Modal -->
+<div class="modal">
+    <div class="modal-content">
+        <div class="modal-header">      
+            <div class="modal-icon modal-icon-warning">
+                <i data-feather="alert-triangle"></i>
+            </div>
+
+            <div class="modal-body">
+                <h5></h5>
+                <p></p>
+            </div>
+
+        </div>
+
+        <div class="modal-footer">
+            <button type="button" class="btn btn-warning" id="btn-okie">Okay, I got it!</button>
+        </div>
+    </div>
+</form>
+<!-- Ends here -->
 @endsection
 
 @section('scripts')
@@ -155,8 +205,16 @@ $(document).ready(function(){
 				qty: $('#input-qty-'+id).val()
 			},
 			success: function (result, status, xhr){
+				console.log(result);
+
 				if(result.status == 200){
-					refreshOrders();
+					lastOrder();
+				}
+
+				if (result.status == 404) {
+					$('.modal').attr('style', 'display: flex;');
+					$('.modal-body h5').html(result.icon);
+					$('.modal-body p').html(result.text);
 				}
 			},
 			error: function (xhr, status, error) {
@@ -165,32 +223,34 @@ $(document).ready(function(){
 		});
 	});
 
-	function refreshOrders(){
-		$("#order-list").html("");
+	$('#btn-okie').on('click', function(){
+        $('.modal').hide();
+    });
+
+	var trash_icon = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>';
+
+	function lastOrder(){
 		$.get("{{ route('orders.get_orders') }}", function(data, status){
-			$('#no-items').html(data.length);
+			$('#no-items').html(data.order_count);
 
-			var trash_icon = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash-2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg>';
+			var content = '<ul class="list-group mb-2 no-gutters">\
+					<li class="list-group-item list-group-padding border-0 d-flex align-items-center justify-content-between">\
+						'+data.ordered_menu.menu_name+'\
+						<button class="btn btn-sm text-danger btn-remove-'+data.ordered_menu.id+'" id="'+data.ordered_menu.id+'" onclick="removeMenu('+data.ordered_menu.id+')" style="position: relative; bottom: 15px;">'+trash_icon+'</button>\
+					</li>\
+					<li class="list-group-item list-group-padding border-0 d-flex justify-content-between subtitle-size">\
+						<span class="text-muted">Amount</span>\
+						<span class="text-blue">Php '+ data.ordered_menu.unit_price +'.00</span\
+					</li>\
+					<li class="list-group-item list-group-padding border-0 d-flex justify-content-between subtitle-size">\
+						<span class="text-muted">Quantity</span>\
+						<span class="text-blue">'+data.ordered_menu.qty+'</span>\
+					</li>\
+				</ul>\
+				<hr>';
 
-			for (var i = data.length - 1; i >= 0; i--) {
-				var content = '<ul class="list-group mb-2 no-gutters">\
-						<li class="list-group-item list-group-padding border-0 subtitle-size">'+data[i].menu_name+'</li>\
-						<li class="list-group-item list-group-padding border-0 d-flex justify-content-between subtitle-size">\
-							<span class="text-muted">Amount</span>\
-							<span class="text-blue">Php '+ data[i].unit_price +'.00</span\
-						</li>\
-						<li class="list-group-item list-group-padding border-0 d-flex justify-content-between subtitle-size">\
-							<span class="text-muted">Quantity</span>\
-							<span class="text-blue">'+data[i].qty+'</span>\
-						</li>\
-						<li class="list-group-item list-group-padding border-0 d-flex justify-content-end">\
-							<button class="btn btn-outline-danger btn-sm btn-remove-'+data[i].id+'" id="'+data[i].id+'" onclick="removeMenu('+data[i].id+')">'+trash_icon+'</button>\
-						</li>\
-					</ul>\
-					<hr>';
-
-				$("#order-list").append(content);
-			}			
+			$("#order-list").prepend(content);
+			$('#initial').html("Php "+data.orderMenuTotal+".00");
 		});
 	}
 
@@ -203,7 +263,6 @@ $(document).ready(function(){
 	}
 
 	loadQty();
-	refreshOrders();
 });
 
 function removeMenu(data){
