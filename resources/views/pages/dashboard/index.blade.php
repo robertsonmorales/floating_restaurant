@@ -104,9 +104,9 @@ $(document).ready(function(){
             toolbar: {
                 show: false,
             },
-            fontSize: '1me',
+            fontSize: '1em',
             fontWeight: '500',
-            fontFamily: ['Segoe UI', 'Poppins', 'Montserrat'],
+            fontFamily: ['Poppins', 'Montserrat', 'Segoe UI'],
             color: '#3e4044'
         },
         legend: {

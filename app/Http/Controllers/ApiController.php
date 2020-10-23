@@ -19,7 +19,7 @@ class ApiController extends Controller
         $this->menu = $menu;
     }
 
-    public function addOrder(){
-    	
+    public function addOrder(Request $request){
+    	return $request;
     }
 }

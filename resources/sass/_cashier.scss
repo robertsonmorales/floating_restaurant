@@ -1,4 +1,97 @@
 .btn-cart{
-    background-color: $btn-primary;
+    border-radius: 5px;
+    font-family: $font-family;
+    font-size: .9em;
+    font-weight: 500;
+    transition: all 0.4s ease;
     color: #fff;
+    padding: 8px 15px;
+    background-color: $btn-primary;
+}
+
+.radius{
+	border-radius: .5rem !important;
+}
+
+.bg-cover{
+	background-size: cover !important;
+}
+
+.active-page{
+	background-color: $btn-primary;	
+}
+
+.search-text{
+	padding: 0 10px;
+	border-radius: 4px;
+	border: 1px solid $inactive;
+	transition: all 0.3s ease;
+	background-color: #fff;
+	overflow: hidden;
+
+	.search-bar{
+	    font-weight: 500;
+	    font-size: .9em;    
+	    font-family: $font-family;
+	    flex: 1;
+	    padding: 10px;
+	    outline: none;
+	}
+
+	&:focus-within{
+	    border: 1px solid $btn-primary;
+	    box-shadow: $shadow;
+	}
+}
+
+.menu-card{
+	display: grid;
+	grid-template-columns: repeat(1, 1fr);
+	grid-gap: 20px;
+}
+
+.card-shadow{
+	box-shadow: $shadow;
+	border: $border;
+	border-radius: $radius;
+}
+
+.fixed-size{
+	height: 42px;
+	width: 42px;	
+}
+
+.outline-0{
+	outline: none;
+}
+
+.title-size{
+	font-size: 1.1em;
+	margin-bottom: 0 !important;
+}
+
+.subtitle-size{
+	font-size: .9em;
+}
+
+.font-weight-500{
+	font-weight: 500;
+}
+
+.card-transaction{
+	box-shadow: $shadow;
+	border: $border;
+	border-radius: $radius;
+}
+
+.text-blue{
+	color: $btn-primary;
+}
+
+.list-group-padding{
+	padding: 5px 0;
+}
+
+.left-padding-0{
+	padding-left: 0 !important;
 }
