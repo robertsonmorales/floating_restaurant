@@ -110,6 +110,7 @@ class OrderController extends Controller
                         'icon' => 'Warning'
                     ]);
                 }else{
+
                     $data = $this->orderedMenu;
                     $data->order_id = $order->id;
                     $data->menu_id = $menu->id;
@@ -122,14 +123,16 @@ class OrderController extends Controller
                     $data->created_at = now();
                     $data->save();
 
-                    // return array(
-                    //     'data' => $data
-                    // );
-
+                    $orderedItems = $this->orderedMenu->where('order_id', $order->id)->get()->count();
                     return response()->json([
                         'status' => 200,
                         'text' => 'Success',
-                        'icon' => 'Success'
+                        'icon' => 'Success',
+                        'data' => array(
+                            'ordered_menu' => $data,
+                            'menu' => $menu,
+                            'ordered_items' => $orderedItems
+                        )
                     ]);
                 }
             }else{
@@ -200,11 +203,27 @@ class OrderController extends Controller
             $order = $this->order->where('customer_id', $customers->id)->latest('id')->first();
             if(!empty($order)){
 
-                $orderedMenu = $this->orderedMenu->where('order_id', $order->id)->latest('id')->first();
+                $selectedFields = [
+                    'm.id',
+                    'm.upload_type',
+                    'm.menu_image',
+                    'om.menu_id',
+                    'om.menu_name',
+                    'om.unit_price',
+                    'om.qty',
+                    'om.total_price',
+                ];
+
+                $orderList = DB::table('ordered_menus as om')
+                    ->select($selectedFields)
+                    ->leftJoin('menus as m', 'm.id', 'om.menu_id')->where('om.order_id', $order->id)->latest('id')->first();
+
+                // $orderedMenu = $this->orderedMenu->where('order_id', $order->id)->latest('id')->first();
                 $orderedMenuCount = $this->orderedMenu->where('order_id', $order->id)->get()->count();
-                $orderMenuTotal = $orderedMenu->sum('total_price');
+                $orderMenuTotal = $orderList->sum('om.total_price');
+
                 return response()->json([
-                    'ordered_menu' => $orderedMenu,
+                    'ordered_menu' => $orderList,
                     'order_count' => $orderedMenuCount,
                     'orderMenuTotal' => $orderMenuTotal
                 ]);

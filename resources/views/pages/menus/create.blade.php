@@ -189,9 +189,9 @@
         <div class="input-group">
             <div class="row">
                 <div class="col">
-                    <button type="button" class="btn btn-outline-info btn-sm d-flex align-items-center" id="btn-plus">
-                        <i data-feather="plus"></i>
-                        <span class="btn-text ml-2">Add Recipe</span>
+                    <button type="button" class="btn btn-info btn-sm d-flex align-items-center" id="btn-plus">
+                        <span class="btn-text mr-2">Add Recipe</span>
+                        <i data-feather="plus-circle"></i>
                     </button>
                 </div>
             </div>
@@ -218,7 +218,7 @@
                 </div>
                 <div class="col">
                     <button type="button" class="btn btn-sm text-danger btn-minus" title="remove">
-                        <i class="fas fa-times"></i>
+                        <i data-feather="x"></i>
                     </button>
                 </div>
             </div>
@@ -285,6 +285,8 @@ $('#btn-plus').on('click', function(){
     var length = document.getElementsByClassName('btn-minus').length;
     var cols_length = $('#recipe-list').children().length;
 
+    var x = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>';
+
     var recipe = '\
         <div class="row align-items-center mb-3">\
             <div class="col-8">\
@@ -301,8 +303,7 @@ $('#btn-plus').on('click', function(){
                     value="1" title="product quantity">\
             </div>\
             <div class="col">\
-                <button type="button" class="btn text-danger btn-sm btn-minus btn-minus'+length+'" title="remove" onclick="removeRecipe('+length+')">\
-                    <i class="fas fa-times"></i>\
+                <button type="button" class="btn text-danger btn-sm btn-minus btn-minus'+length+'" title="remove" onclick="removeRecipe('+length+')">'+x+'\
                 </button>\
             </div>\
         </div>';

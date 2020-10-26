@@ -17,6 +17,9 @@
                         <i data-feather="{{ $nav['icon'] }}"></i>
                     </span>
                     <span class="nav-name">{{ $nav['name'] }}</span>
+                    @if($nav['badge'])
+                    <span class="badge badge-pill badge-danger">1</span>
+                    @endif
                 </div>
             </a>
         </li>

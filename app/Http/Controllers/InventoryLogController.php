@@ -140,12 +140,12 @@ class InventoryLogController extends Controller
         foreach ($rows as $key => $value) {
             if (property_exists($value, 'stocks')) {
                 $unit = $this->unit->find($value->unit);
-                $value->stocks = $value->stocks.' '.$unit->name;
+                $value->stocks = $value->stocks.' '.@$unit->name;
             }
 
             if(property_exists($value, 'created_by')){
                 $users = User::select('username')->where('id', $value->created_by)->first();
-                $value->created_by = $users->username;
+                $value->created_by = @$users->username;
             }
 
             if (property_exists($value, 'type')) {
@@ -160,7 +160,7 @@ class InventoryLogController extends Controller
 
             if (property_exists($value, 'qty')) {
                 $unit = $this->unit->find($value->unit);
-                $value->qty = $value->qty.' '.$unit->name;
+                $value->qty = $value->qty.' '.@$unit->name;
             }
         }
 

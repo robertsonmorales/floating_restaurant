@@ -12,11 +12,12 @@ use App\Models\User;
 
 class StockController extends Controller
 {
-    protected $stock, $unit;
+    protected $stock, $unit, $user;
 
-    public function __construct(Stock $stock, ProductUnits $unit){
+    public function __construct(Stock $stock, ProductUnits $unit, User $user){
         $this->stock = $stock;        
         $this->unit = $unit;
+        $this->user = $user;
     }
 
     /**
@@ -136,12 +137,12 @@ class StockController extends Controller
         foreach ($rows as $key => $value) {
             if (property_exists($value, 'stocks')) {
                 $unit = $this->unit->find($value->unit);
-                $value->stocks = $value->stocks.' '.$unit->name;
+                $value->stocks = @$value->stocks.' '.@$unit->name;
             }
 
             if(property_exists($value, 'created_by')){
-                $users = User::select('username')->where('id', $value->created_by)->first();
-                $value->created_by = $users->username;
+                $users = $this->user->select('username')->where('id', $value->created_by)->first();
+                $value->created_by = @$users->username;
             }
         }
 

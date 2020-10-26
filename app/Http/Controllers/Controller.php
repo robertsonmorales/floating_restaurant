@@ -105,7 +105,7 @@ class Controller extends BaseController
                     $value->created_by = 'NULL';
                 }else{
                     $users = User::select('username')->where('id', $value->created_by)->first();
-                    $value->created_by = $users->username;
+                    $value->created_by = @$users->username;
                 }
             }
 
@@ -114,7 +114,7 @@ class Controller extends BaseController
                     $value->updated_by = 'NULL';
                 }else{
                     $users = User::select('username')->where('id', $value->updated_by)->first();
-                    $value->updated_by = $users->username;
+                    $value->updated_by = @$users->username;
                 }
             }
             // ends here

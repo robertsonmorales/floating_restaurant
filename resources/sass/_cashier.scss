@@ -46,7 +46,7 @@
 
 .menu-card{
 	display: grid;
-	grid-template-columns: repeat(1, 1fr);
+	grid-template-columns: repeat(2, 1fr);
 	grid-gap: 20px;
 }
 
@@ -92,6 +92,15 @@
 	padding: 5px 0;
 }
 
-.left-padding-0{
-	padding-left: 0 !important;
+.ellipsis{
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	max-width: 120px;
+}
+
+.scrollbar-show{
+	overflow-y: scroll;
+	height: 38vh;
+	padding-right: 5px;
 }

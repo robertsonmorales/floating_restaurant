@@ -62,7 +62,7 @@ class HomeController extends Controller
         $mode = ['/cashier'];
 
         $categories = $this->categories->where('status', 1)->oldest()->get();
-        $menus = $this->menu->where('status', 1)->paginate(5);
+        $menus = $this->menu->where('status', 1)->paginate(7);
         $menus = $this->changeValue($menus);
         $countMenus = count($menus);
 
@@ -71,9 +71,23 @@ class HomeController extends Controller
         if(!empty($customers)){
             $order = $this->order->where('customer_id', $customers->id)->latest('id')->first();
             if(!empty($order)){
-                $orderedMenu = $this->orderedMenu->where('order_id', $order->id)->get();
-                $orderedMenuCount = count($orderedMenu);
-                $orderedMenuTotal = $orderedMenu->sum('total_price');
+                $selectedFields = [
+                    'm.id',
+                    'm.upload_type',
+                    'm.menu_image',
+                    'om.menu_id',
+                    'om.menu_name',
+                    'om.unit_price',
+                    'om.qty',
+                    'om.total_price',
+                ];
+
+                $orderList = DB::table('ordered_menus as om')
+                    ->select($selectedFields)
+                    ->leftJoin('menus as m', 'm.id', 'om.menu_id')->where('om.order_id', $order->id)->latest('om.created_at')->get();
+                // $orderedMenu = $this->orderedMenu->where('order_id', $order->id)->get();
+                $orderedMenuCount = count($orderList);
+                $orderedMenuTotal = $orderList->sum('total_price');
             }
         }
 
@@ -86,9 +100,10 @@ class HomeController extends Controller
             'menu_categories' => $categories,
             'countMenus' => $countMenus,
             'paginator' => $menus,
-            'orderedMenus' => $orderedMenu,
+            'orderedMenus' => $orderList,
             'orderedMenuCount' => $orderedMenuCount,
-            'orderedMenuTotal' => $orderedMenuTotal
+            'orderedMenuTotal' => $orderedMenuTotal,
+            'transaction_no' => $order->transaction_no
         ]);
     }
 

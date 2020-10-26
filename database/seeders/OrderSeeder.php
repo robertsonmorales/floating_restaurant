@@ -17,7 +17,7 @@ class OrderSeeder extends Seeder
     {
         Orders::insert([
         	'customer_id' => 1, // default when migrated
-        	'name' => 'unknown',
+            'transaction_no' => 000001,
             'status' => 1, // unpaid
         	'created_by' => 2, // cashier
         	'created_at' => Carbon::now()

@@ -41,6 +41,8 @@ class MenuController extends Controller
             'name' => $this->safeInputs($request->input('name')),
             'price' => $this->safeInputs($request->input('price')),
             'status' => $this->safeInputs($request->input('status')),
+            'recipe' => $request->input('recipe'),
+            'recipe_qty' => $request->input('recipe_qty')
         ];
 
         $rules = [
@@ -51,7 +53,9 @@ class MenuController extends Controller
             'menu_type' => 'required',
             'name' => 'required|string|max:255|unique:menus,name,'.$this->safeInputs($request->input('id')).'',
             'price' => 'required|numeric',
-            'status' => 'required'
+            'status' => 'required',
+            'recipe.*' => 'required|string|max:100',
+            'recipe_qty.*' => 'required|numeric'
         ];
 
         $messages = [
@@ -66,7 +70,9 @@ class MenuController extends Controller
             'menu_type' => 'menu type',
             'name' => 'name',
             'price' => 'price',
-            'status' => 'status'
+            'status' => 'status',
+            'recipe' => 'recipe',
+            'recipe_qty' => 'qty'
         ];                
 
         $validator = Validator::make($input, $rules, $messages,$customAttributes);
@@ -283,46 +289,65 @@ class MenuController extends Controller
     {
         $validated = $this->validator($request);
         if ($validated) {
-            $update = $this->menu->find($id)->update([
-                'menu_categories_id' => $validated['menu_category'],
-                'menu_type_id' => $validated['menu_type'],
-                'name' => $validated['name'],
-                'price' => $validated['price'],
-                'status' => $validated['status'],
-                'updated_by' => Auth::id(),
-                'updated_at' => now()
-            ]);
+            $uploadType = explode('|', $validated['upload_type']);
+            $uploadIndex = $uploadType[0];
+            $uploadName = $uploadType[1];
+            $urlImage = $validated['url_image'];
+            $fileImage = $validated['menu_image'];
 
-            if ($update) {
-                $menu = $this->menu->find($id);
-                for ($i=0; $i < count($request->input('recipe')); $i++) { 
-                    $stock_out = $request->input('recipe_qty');
-                    $recipes = $request->input('recipe');
-                    $product = explode('|', $recipes[$i]);
-
-                    $recipeFields = ['id', 'menu_id', 'menu_name', 'product_id', 'product_name', 'stock_out'];
-                    $recipes = $this->recipe->where('menu_id', $menu->id)->get($recipeFields);
-
-                    // nasa update nato
-                    
-                    // foreach ($recipes as $key => $recipe) {
-                    //     $this->recipe->where(array(
-                    //         'menu_id' => $recipe->menu_id,
-                    //         'product_id' => $recipe->product_id
-                    //     ))->update([
-                    //         'menu_id' => $menu->id,
-                    //         'menu_name' => $menu->name,
-                    //         'product_id' => $product[0],
-                    //         'product_name' => $product[1],
-                    //         'stock_out' => $stock_out[$i],
-                    //         'created_by' => Auth::id(),
-                    //         'created_at' => now()
-                    //     ]);
-                    // }
+            $data = $this->menu->find($id);
+            $data->menu_categories_id = $validated['menu_category'];
+            $data->menu_type_id = $validated['menu_type'];
+            $data->upload_type = $validated['upload_type'];
+            if ($uploadIndex == 0) { // URL
+                $data->menu_image = $urlImage;
+            }else if($uploadIndex == 1){ // FILE
+                if ($fileImage->isValid()) {
+                    $publicFolder = public_path('images/menus/');
+                    $profileImage = $fileImage->getClientOriginalName(); // returns original name
+                    $extension = $fileImage->getclientoriginalextension(); // returns the file extension
+                    $newProfileImage = strtoupper(Str::random(20)).'.'.$extension;
+                    $move = $fileImage->move($publicFolder, $newProfileImage);
+                    if ($move) {
+                        $data->menu_image = $newProfileImage;
+                    }else{
+                        return back()->with('error', "Failed to upload image");
+                    }
+                }else{
+                    return back()->with('error', "Something wrong with the image, please try again..");
                 }
             }
 
-            $this->audit_trail_logs('', 'updated', 'menus: '.$this->menu->name, $id);
+            $data->name = $validated['name'];
+            $data->price = $validated['price'];
+            $data->status = $validated['status'];
+            $data->updated_by = Auth::id();
+            $update = $data->save();
+
+            if ($update) {
+                if (Arr::exists($validated, 'recipe')) {
+
+                    $inputRecipe = array();
+                    for ($i=0; $i < count($validated['recipe']); $i++) { 
+                        $fullRecipe = $validated['recipe'][$i].'|'.$validated['recipe_qty'][$i];
+                        $product = explode('|', $fullRecipe);
+
+                        $deleteRecipe = $this->recipe->where('menu_id', $id)->delete();
+
+                        $this->recipe->insert([
+                            'menu_id' => $data->id,
+                            'menu_name' => $data->name,
+                            'product_id' => $product[0],
+                            'product_name' => $product[1],
+                            'stock_out' => $product[2],
+                            'created_by' => Auth::id(),
+                            'created_at' => now()
+                        ]);
+                    }
+                }
+            }
+
+            $this->audit_trail_logs('', 'updated', 'menus: '.$data->name, $id);
 
             return redirect()->route('menus.index')->with('success', 'You have successfully updated '.$validated['name']);
         }
