@@ -4,7 +4,8 @@
 		"mode": "dashboard",
 		"controller": "HomeController",
 		"type": "single",
-		"icon": "grid",
+		"icon": "home",
+		"badge": false,
 		"order": 2,
 		"status": 1
 	},{
@@ -110,9 +111,10 @@
 	},{
 		"name": "Orders",
 		"mode": "orders",
-		"controller": "",
+		"controller": "OrderController",
 		"type": "single",
 		"icon": "archive",
+		"badge": true,
 		"order": 4,
 		"status": 1
 	},{
@@ -124,13 +126,6 @@
 		"order": 5,
 		"status": 1,
 		"sub": [{
-			"name": "Inventory Logs",
-			"mode": "inventory_logs",
-			"controller": "InventoryLogController",
-			"icon": "far fa-circle",
-			"sub_order": 1,
-			"status": 1
-		},{
 			"name": "Stocks",
 			"mode": "stocks",
 			"controller": "StockController",
@@ -213,6 +208,13 @@
 			"icon": "far fa-circle",
 			"sub_order": 1,
 			"status": 1
+		},{
+			"name": "Inventory Logs",
+			"mode": "inventory_logs",
+			"controller": "InventoryLogController",
+			"icon": "far fa-circle",
+			"sub_order": 2,
+			"status": 1
 		}]
 	},{
 		"name": "User Management",
@@ -244,5 +246,23 @@
 			"sub_order": 3,
 			"status": 1
 		}]
+	},{
+		"name": "Cashier",
+		"mode": "cashier",
+		"controller": "HomeController",
+		"type": "single",
+		"icon": "dollar-sign",
+		"badge": false,
+		"order": 10,
+		"status": 1
+	},{
+		"name": "Cook",
+		"mode": "cook",
+		"controller": "HomeController",
+		"type": "single",
+		"icon": "calendar",
+		"badge": true,
+		"order": 10,
+		"status": 1
 	}
 ]
