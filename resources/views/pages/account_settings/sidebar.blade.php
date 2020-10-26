@@ -31,7 +31,7 @@
             </a>
         </li>
         <li>
-            <a href="#password">
+            <a href="{{ route('account_settings.delete_account') }}">
                 <i data-feather="trash"></i>
                 <span>Delete Account</span>
             </a>

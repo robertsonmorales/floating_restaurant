@@ -6,8 +6,6 @@
         overflow: hidden;
         width: 100%;
         height: 100vh;
-        border: $border;
-        box-shadow: $shadow;
         border-radius: $radius;
     }
     
@@ -69,10 +67,10 @@
             text-align: left;
 
             label{
-                font-size: .9em;
-                color: $default;
-                font-weight: normal;
-                margin-bottom: 5px;
+                font-size: .8em;
+                color: #aaa;
+                font-weight: 500;
+                margin-bottom: 3px;
             }
 
             .form-control{
@@ -82,10 +80,11 @@
                 transition: all 0.3s ease;
                 resize: none;
                 width: 100% !important;
+                border-color: #d2d6dc !important;
 
                 &:focus{
                     border: 1px solid $btn-primary;
-                    box-shadow: $shadow;
+                    box-shadow: $shadow-sm;
                 }
             }
 
@@ -98,7 +97,7 @@
                 border: none;
                 background-color: #fcfcfc;
                 padding: 5px;
-                border: 1px solid #ddd;
+                border: 1px solid #d2d6dc;
 
                 &:focus{
                     border: 1px solid $btn-primary;

@@ -1,17 +1,4 @@
-<!-- <div class="user-content" style="padding: 0 !important;">    
-    <form action="{{ route('account_settings.update', Auth::user()->id) }}" method="post" id="settings-form" style="background: #36D1DC;  /* fallback for old browsers */
-    background: -webkit-linear-gradient(to right, #5B86E5, #36D1DC);  /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(to right, #5B86E5, #36D1DC); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */">
-        @csrf        
-        <div class="py-4">
-            <h3>hl</h3>
-        </div> 
-        @method('PUT')
-        <input type="hidden" name="id" value="{{ Auth::user()->id }}">
-    </form>
-</div> -->
-
-<div class="user-content">
+<div class="col-6 user-content">
     <h5>Basic Information</h5>
 
     <form action="{{ route('account_settings.update', Auth::user()->id) }}" method="post" id="settings-form">

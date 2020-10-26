@@ -160,7 +160,11 @@ class MyAccountController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $delete = $this->user->findOrFail($id)->delete();
+        if ($delete) {
+            Auth::logout();
+            return redirect('/login');
+        }
     }
 
     public function passwordValidator(Request $request){
@@ -287,24 +291,18 @@ class MyAccountController extends Controller
         }
     }
 
-    // public function imageValidator(Request $request){
-    //     $input = [
-    //         'profile_image' => $request->file('profile_image')
-    //     ];
+    public function deleteAccount(){
+        $name = ['Home', 'Account Settings', 'Delete Account'];
+        $mode = ['/', route('account_settings.index'), route('account_settings.delete_account')];
 
-    //     $rules = [
-    //         'profile_image' => 'nullable|image|mimes:jpeg,png,jpg,gif'
-    //     ];
+        $this->audit_trail_logs('', '', '', '');
 
-    //     $messages = [];
-
-    //     $customAttributes = [
-    //         'profile_image' => 'profile image'
-    //     ];
-
-    //     $validator = Validator::make($input, $rules, $messages, $customAttributes);
-    //     return $validator->validate();
-    // }
+        return view('pages.account_settings.delete_account.index', [
+            'breadcrumbs' => $this->breadcrumbs($name, $mode),
+            'header' => 'Account Settings',
+            'title' => 'Account Settings',
+        ]);
+    }
 
     public function changeProfile(Request $request){
         $image = $request->file('profile-image');

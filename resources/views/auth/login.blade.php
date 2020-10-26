@@ -82,7 +82,7 @@ $(document).ready(function(){
     $('#login-form').on('submit', function(){
         $('#btn-auth').prop('disabled', true);
 
-        $('#btn-auth').html('Verifying account..');
+        $('#btn-auth').html('Logging in..');
         $(this).submit();
     });
 });

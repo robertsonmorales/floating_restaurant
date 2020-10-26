@@ -22,6 +22,7 @@ class CreateOrderedMenusesTable extends Migration
             $table->integer('qty')->default(1)->nullable();
             $table->integer('total_price')->nullable();
             $table->integer('order_substatus')->nullable();
+            $table->integer('is_ready')->nullable();
             $table->integer('processed_by')->nullable(); // cook
             $table->string('created_by')->nullable();
             $table->string('updated_by')->nullable();

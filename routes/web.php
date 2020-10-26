@@ -48,8 +48,6 @@ Route::middleware('auth')->group(function () {
     Route::get('/orders/get_orders', [App\Http\Controllers\OrderController::class, 'getOrders'])->name('orders.get_orders');
     Route::resource('/orders', App\Http\Controllers\OrderController::class);
 
-
-
     // My Account
     $match = ['PUT', 'POST'];
     Route::get('/account_settings/password', [App\Http\Controllers\MyAccountController::class, 'password'])->name('account_settings.password');
@@ -57,6 +55,8 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/account_settings/email', [App\Http\Controllers\MyAccountController::class, 'email'])->name('account_settings.email');
     Route::match($match, '/account_settings/email_update', [App\Http\Controllers\MyAccountController::class, 'emailUpdate'])->name('account_settings.email_update');
+
+    Route::get('/account_settings/delete_account', [App\Http\Controllers\MyAccountController::class, 'deleteAccount'])->name('account_settings.delete_account');
 
     Route::match($match, '/account_settings/change_profile', [App\Http\Controllers\MyAccountController::class, 'changeProfile'])->name('account_settings.change_profile');
 

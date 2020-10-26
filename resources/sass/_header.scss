@@ -42,48 +42,48 @@
                 height: 42px;
                 width: 42px;
             }
+        }
+    }
+}
 
-            .dropdown-menu{
-                box-shadow: $dropDown-shadow !important;
-                border-radius: $radius !important;
-                border: none !important;
-                padding: 15px 0;
+.dropdown-menu{
+    box-shadow: $dropDown-shadow !important;
+    border-radius: $radius !important;
+    border: none !important;
+    padding: 15px 0;
 
-                .dropdown-item{
-                    color: $toolbar;
-                    outline: none !important;
-                    font-size: .9em !important;
-                    color: $toolbar !important;
+    .dropdown-item{
+        color: $toolbar;
+        outline: none !important;
+        font-size: .9em !important;
+        color: $toolbar !important;
 
-                    &:active{
-                        color: $toolbar;
-                    }
-                }
+        &:active{
+            color: $toolbar;
+        }
+    }
 
-                .profile-image{
-                    display: flex;
-                    align-items: center;
-                    background-size: cover;
-                    height: 40px;
-                    width: 40px;
-                }
+    .profile-image{
+        display: flex;
+        align-items: center;
+        background-size: cover;
+        height: 40px;
+        width: 40px;
+    }
 
-                .profile-info{
-                    display: flex;
-                    flex-direction: column;
-                    align-items: start;
+    .profile-info{
+        display: flex;
+        flex-direction: column;
+        align-items: start;
 
-                    #user-name{
-                        color: $toolbar;
-                        font-size: .9em;
-                    }
+        #user-name{
+            color: $toolbar;
+            font-size: .9em;
+        }
 
-                    #user-email{
-                        color: $default;
-                        font-size: .8em;
-                    }
-                }
-            }
+        #user-email{
+            color: $default;
+            font-size: .8em;
         }
     }
 }

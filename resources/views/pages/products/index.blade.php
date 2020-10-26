@@ -61,7 +61,7 @@
 
     <div class="modal-content">
         <div class="modal-header">      
-            <div class="modal-icon">
+            <div class="modal-icon modal-icon-error">
                 <i data-feather="alert-triangle"></i>
             </div>
 

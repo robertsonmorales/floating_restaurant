@@ -61,7 +61,7 @@
 
     <div class="modal-content">
         <div class="modal-header">      
-            <div class="modal-icon">
+            <div class="modal-icon modal-icon-error">
                 <i data-feather="alert-triangle"></i>
             </div>
 
@@ -220,6 +220,10 @@ $(document).ready(function(){
 
     // setup the grid after the page has finished loading
     new agGrid.Grid(gridDiv, gridOptions);
+
+    $("#btn-cancel").on('click', function(){
+        $('.modal').hide();
+    });
 });
 </script>
 @endsection
