@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('title', $title)
 @section('content')
-<div class="dashboard-container">
+<div class="dashboard-container mx-4">
     <div class="dashboard-cards">
 
         <div class="reports-card">

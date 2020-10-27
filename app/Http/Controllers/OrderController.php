@@ -15,15 +15,20 @@ use App\Models\OrderedMenus;
 use App\Models\Orders;
 use App\Models\Customers;
 use App\Models\Menu;
+use App\Models\OrderStatus;
+use App\Models\User;
 
 class OrderController extends Controller
 {
     protected $orders, $orderedMenus, $customer, $menu;
-    public function __construct(Orders $orders, OrderedMenus $orderedMenus, Customers $customer, Menu $menu){
+    public function __construct(Orders $orders, OrderedMenus $orderedMenus, Customers $customer, Menu $menu, OrderStatus $orderStatus, User $user){
         $this->order = $orders;
         $this->orderedMenu = $orderedMenus;
         $this->customer = $customer;
         $this->menu = $menu;
+        $this->customer = $customer;
+        $this->orderStatus = $orderStatus;
+        $this->user = $user;
     }
 
     /**
@@ -35,11 +40,11 @@ class OrderController extends Controller
     {
         $name = ['Orders'];
         $mode = [route('orders.index')];
-        
+            
         $rows = array();
         $rows = $this->order->latest()->get();
         // $rows = $this->changeVal($rows);
-        // $rows = $this->changeValue($rows);
+        $rows = $this->changeValue($rows);
             
         $arr_set = array(
             'editable'=>false,
@@ -51,7 +56,8 @@ class OrderController extends Controller
         );
 
         $columnDefs = array();
-        $columnDefs[] = array_merge(array('headerName'=>'Name','field'=>'name'), $arr_set);
+        $columnDefs[] = array_merge(array('headerName'=>'Trasanction No.','field'=>'transaction_no'), $arr_set);
+        $columnDefs[] = array_merge(array('headerName'=>'Name','field'=>'customer_id'), $arr_set);
         $columnDefs[] = array_merge(array('headerName'=>'Status','field'=>'status'), $arr_set);
         $columnDefs[] = array_merge(array('headerName'=>'Served By','field'=>'served_by'), $arr_set);
         $columnDefs[] = array_merge(array('headerName'=>'Created By','field'=>'created_by'), $arr_set);
@@ -242,5 +248,35 @@ class OrderController extends Controller
                 'icon' => 'warning'
             ]);
         }
+    }
+
+    public function changeValue($rows){
+        foreach ($rows as $key => $value) {
+            if (Arr::exists($value, 'transaction_no')) {
+                $value->transaction_no = "#".sprintf("%06d", $value->transaction_no);
+            }
+
+            if (Arr::exists($value, 'customer_id')) {
+                $customer = $this->customer->find($value->customer_id);
+                $value->customer_id = $customer->name;
+            }
+
+            if(Arr::exists($value, 'status')){
+                 $status = $this->orderStatus->find($value->status);
+                 $value->status = $status->color.'|'.$status->name;
+            }
+
+            if(Arr::exists($value, 'created_by')){
+                $users = $this->user->select('username')->where('id', $value->created_by)->first();
+                $value->created_by = @$users->username;
+            }
+
+            if(Arr::exists($value, 'updated_by')){
+                $users = $this->user->select('username')->where('id', $value->updated_by)->first();
+                $value->updated_by = @$users->username;
+            }
+        }
+
+        return $rows;
     }
 }

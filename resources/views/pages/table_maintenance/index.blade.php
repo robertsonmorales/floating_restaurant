@@ -3,7 +3,7 @@
 
 @section('content')
 <!-- filter -->
-<div class="filters">
+<div class="filters mx-4 mb-3">
     <div class="filters-child">
         <button onclick="window.location.href='{{ route('table_maintenance.create') }}'" class="btn btn-primary" id="btn-add-record">{{ $add }}</button>
         <button class="btn btn-primary" id="btn-export">
@@ -41,7 +41,7 @@
 
 <!-- alert -->
 @if(session()->get('success'))
-<div class="alert alert-success alert-dismissible fade show alerts" role="alert">
+<div class="alert alert-success alert-dismissible fade show alerts mx-4 mb-3" role="alert">
     <span><i data-feather="check"></i> {{ session()->get('success') }}</span>
     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
         <span aria-hidden="true" class="dismiss-icon"><i data-feather="x"></i> </span>
@@ -50,9 +50,7 @@
 @endif
 <!-- ends here -->
 
-<div class="content">
-    <div id="myGrid" class="ag-theme-material"></div>
-</div>
+<div id="myGrid" class="ag-theme-material mx-4"></div>
 
 <!-- The Modal -->
 <form class="modal" action="" method="POST" id="form-submit">
@@ -131,15 +129,38 @@ $(document).ready(function(){
     }
 
     for (var i = data.column.length - 1; i >= 0; i--) {
-        if (data.column[i].field == "status") {
+        if (data.column[i].field == "created_at") {
             data.column[i].cellRenderer = function display(params) {
-                if (params.data.status == "Active") {
-                    return '<span class="status active-status">' + params.data.status + '</span>';
-                }else{
-                    return '<span class="status inactive-status">' + params.data.status + '</span>';
+                if (params.data.created_at) {
+                    return getNewDateTime(params.data.created_at);
                 }
             }
         }
+
+        if (data.column[i].field == "updated_at") {
+            data.column[i].cellRenderer = function display(params) {
+                if (params.data.updated_at) {
+                    return getNewDateTime(params.data.updated_at);
+                }
+            }
+        }
+    }
+
+    function getNewDateTime(format){
+        date = new Date(format); //'2013-08-0302:00:00Z'
+        year = date.getFullYear();
+        month = date.getMonth()+1;
+        today = date.getDate();
+        hours = date.getHours();
+        minutes = date.getMinutes();
+        seconds = date.getSeconds();
+
+        if (month < 10) {month = '0' + month;}
+        if (today < 10) {today = '0' + today;}
+        if (hours < 10) {hours = '0' + hours;}
+        if (minutes < 10) {minutes = '0' + minutes;}
+        if (seconds < 10) {seconds = '0' + seconds;}
+        return year + '-' + month + '-' + today + ' ' + hours + ':' + minutes + ':' + seconds;
     }
 
     data.column.push(columnDefs);
@@ -164,8 +185,8 @@ $(document).ready(function(){
             color: '#777'
         },
         onGridReady: function () {
-            autoSizeAll();
-            // gridOptions.api.sizeColumnsToFit();
+            // autoSizeAll();
+            gridOptions.api.sizeColumnsToFit();
         }
     }
 

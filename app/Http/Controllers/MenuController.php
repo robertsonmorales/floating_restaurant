@@ -90,7 +90,7 @@ class MenuController extends Controller
         $mode = [route('menus.index')];        
         
         $rows = array();
-        $rows = $this->menu->all();
+        $rows = $this->menu->latest()->get();
         $rows = $this->changeVal($rows);
         $rows = $this->changeValue($rows);
             
@@ -165,8 +165,8 @@ class MenuController extends Controller
         $validated = $this->validator($request);
         if ($validated) {
             $uploadType = explode('|', $validated['upload_type']);
-            $uploadIndex = $uploadType[0];
-            $uploadName = $uploadType[1];
+            $uploadIndex = @$uploadType[0];
+            $uploadName = @$uploadType[1];
             $urlImage = $validated['url_image'];
             $fileImage = $validated['menu_image'];
 
@@ -290,8 +290,8 @@ class MenuController extends Controller
         $validated = $this->validator($request);
         if ($validated) {
             $uploadType = explode('|', $validated['upload_type']);
-            $uploadIndex = $uploadType[0];
-            $uploadName = $uploadType[1];
+            $uploadIndex = @$uploadType[0];
+            $uploadName = @$uploadType[1];
             $urlImage = $validated['url_image'];
             $fileImage = $validated['menu_image'];
 

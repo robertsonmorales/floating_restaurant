@@ -2,12 +2,11 @@
 @section('title', $title)
 
 @section('content')
-<center>
-<div class="content">
+<div class="d-flex flex-column align-items-center">
     <form action="{{ ($mode == 'update') ? 
     route('employee_positions.update', $data->id) : 
         route('employee_positions.store') }}"
-        method="POST" class="mb-4 card-form" id="card-form" style="width: 45%;">
+        method="POST" class="col-5 mb-4 card-form" id="card-form">
         @csrf
 
         <h5>{{ ucfirst($mode).' '.\Str::Singular($header) }}</h5>
@@ -31,7 +30,7 @@
         
         <div class="input-group">
             <label for="">Status</label>
-            <select name="status" id="status" class="form-control @error('status') is-invalid @enderror" autofocus>
+            <select name="status" id="status" class="custom-select form-control @error('status') is-invalid @enderror" autofocus>
                 <option value="1" {{ ($mode == 'update' && $data->status == 1) ? 'selected' : '' }}>Active</option>
                 <option value="0" {{ ($mode == 'update' && $data->status == 0) ? 'selected' : '' }}>In-active</option>
             </select>
@@ -59,7 +58,6 @@
         </div>
     </form>
 </div>
-</center>
 <br>
 @endsection
 @section('scripts')

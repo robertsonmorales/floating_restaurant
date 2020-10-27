@@ -88,11 +88,12 @@ class ProductController extends Controller
         $columnDefs = array();
         $columnDefs[] = array_merge(array('headerName'=>'Name','field'=>'name'), $arr_set);
         $columnDefs[] = array_merge(array('headerName'=>'Category','field'=>'product_categories_id'), $arr_set);
-        $columnDefs[] = array_merge(array('headerName'=>'Status','field'=>'status'), $arr_set);
         $columnDefs[] = array_merge(array('headerName'=>'Inventoriable','field'=>'inventoriable'), $arr_set);
+        $columnDefs[] = array_merge(array('headerName'=>'Status','field'=>'status'), $arr_set);
         $columnDefs[] = array_merge(array('headerName'=>'Created By','field'=>'created_by'), $arr_set);
         $columnDefs[] = array_merge(array('headerName'=>'Updated By','field'=>'updated_by'), $arr_set);
         $columnDefs[] = array_merge(array('headerName'=>'Created At','field'=>'created_at'), $arr_set);
+        $columnDefs[] = array_merge(array('headerName'=>'Updated At','field'=>'created_at'), $arr_set);
         $data = json_encode(array('rows'=>$rows, 'column'=>$columnDefs));
 
         $this->audit_trail_logs('','','','');
@@ -152,17 +153,18 @@ class ProductController extends Controller
             $this->product->status = $validated['status'];
             $this->product->created_by = Auth::id();
             $this->product->created_at = now();
-            $this->product->save();
+            $insert = $this->product->save();
 
-            if ($validated['inventoriable'] == 1) {
+            if ($insert && $validated['inventoriable'] == 1) {
                 $this->stock->product_id = $this->product->id;
                 $this->stock->product_name = $this->product->name;
                 $this->stock->product_category_id = $this->product->product_categories_id;
                 $this->stock->product_category_name = $product_category[1];
                 $this->stock->unit = $unit[1];
+                $this->stock->status = $validated['status'];
                 $this->stock->created_by = Auth::id();
                 $this->stock->created_at = now();
-                $this->stock->save();                
+                $this->stock->save();
             }
             
             $this->audit_trail_logs('', 'created', 'products: '.$validated['name'], $this->product->id);
@@ -239,6 +241,25 @@ class ProductController extends Controller
             $data->status = $validated['status'];
             $data->updated_by = Auth::id();
             $data->save();
+
+            if ($validated['inventoriable'] == 1) {
+                $checkProduct = $this->stock->withTrashed()->where('product_id', $data->id)->first();
+                if (!empty($checkProduct)) {
+                    $restore = $checkProduct->restore();
+                }else{
+                    $this->stock->product_id = $data->id;
+                    $this->stock->product_name = $data->name;
+                    $this->stock->product_category_id = $data->product_categories_id;
+                    $this->stock->product_category_name = $product_category[1];
+                    $this->stock->unit = $unit[1];
+                    $this->stock->status = $validated['status'];
+                    $this->stock->created_by = Auth::id();
+                    $this->stock->created_at = now();
+                    $this->stock->save();
+                }
+            }else{
+                $inActive = $this->stock->where('product_id', $data->id)->delete();
+            }
 
             $this->audit_trail_logs('', 'updated', 'products: '.$data->name, $id);
 

@@ -57,9 +57,9 @@ class HomeController extends Controller
         ]);
     }
 
-    public function cashier(){
-        $name = ['Cashier'];
-        $mode = ['/cashier'];
+    public function pos(){
+        $name = ['Point of Sale'];
+        $mode = ['/pos'];
 
         $categories = $this->categories->where('status', 1)->oldest()->get();
         $menus = $this->menu->where('status', 1)->paginate(7);
@@ -93,10 +93,10 @@ class HomeController extends Controller
 
         $this->audit_trail_logs('','','','');
         
-        return view('pages.cashier.index', [
+        return view('pages.pos.index', [
             'breadcrumbs' => $this->breadcrumbs($name, $mode),
-            'header' => 'Cashier',
-            'title' => 'Cashier',
+            'header' => 'Point of Sale',
+            'title' => 'Point of Sale',
             'menu_categories' => $categories,
             'countMenus' => $countMenus,
             'paginator' => $menus,
@@ -107,16 +107,16 @@ class HomeController extends Controller
         ]);
     }
 
-    public function cook(){
-        $name = ['Cook'];
-        $mode = ['/cook'];
+    public function kitchen(){
+        $name = ['Kitchen'];
+        $mode = ['/kitchen'];
 
         $this->audit_trail_logs('','','','');
         
-        return view('pages.cook.index', [
+        return view('pages.kitchen.index', [
             'breadcrumbs' => $this->breadcrumbs($name, $mode),
-            'header' => 'Cook',
-            'title' => 'Cook'
+            'header' => 'Kitchen',
+            'title' => 'Kitchen'
         ]);
     }
 
@@ -124,7 +124,7 @@ class HomeController extends Controller
         foreach ($rows as $key => $value) {
             if(Arr::exists($value, 'menu_categories_id')){
                 $menu_categories = $this->categories->find($value->menu_categories_id);
-                $value->menu_categories_id = $menu_categories->name;
+                $value->menu_categories_id = [$menu_categories->name, $menu_categories->tag_color];
             }
 
             if(Arr::exists($value, 'menu_type_id')){

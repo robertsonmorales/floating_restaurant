@@ -3,7 +3,7 @@
 
 @section('content')
 <div class="row no-gutters m-4 align-items-start justify-content-between">
-	<div class="col-2 d-flex flex-column mx-2">
+	<div class="col d-flex flex-column">
 
 		@foreach($menu_categories as $categories)
 		@if($categories->upload_type != null)
@@ -22,7 +22,7 @@
 		@endforeach
 	</div>
 
-	<div class="col-6 d-flex flex-column mx-3">
+	<div class="co d-flex flex-column">
 		<div class="form-group form-control d-flex align-items-center search-text">
 			<span>
 				<i data-feather="search"></i>
@@ -33,8 +33,8 @@
 		<div class="row no-gutters" id="menu-list">
 			@foreach($paginator as $menu)
 			<div class="card card-shadow mb-3">
-			  <div class="row card-body align-items-start justify-content-between">
-			  	<div class="col-7 d-flex justify-content-center" style="overflow: hidden;" title="{{ ucFirst($menu->name) }}">
+			  <div class="row card-body align-items-center justify-content-between">
+			  	<div class="col-6 d-flex justify-content-center" style="overflow: hidden;" title="{{ ucFirst($menu->name) }}">
 			  		@if($menu->upload_type == "0|URL")
 			  		<img src="{{ $menu->menu_image }}" class="img-thumbnail border-0 radius" alt="{{ ucFirst($menu->name) }}">
 			  		@elseif($menu->upload_type == "1|File Upload")
@@ -42,7 +42,7 @@
 			  		@endif
 			  	</div>
 			  	<div class="col">
-			  		<div class="badge badge-pill badge-warning font-weight-500 text-white">{{ $menu->menu_categories_id }}</div>
+			  		<div class="badge badge-pill {{ ($menu['menu_categories_id']['1'] == null) ? 'badge-warning' : '' }} font-weight-500 text-white" style="background-color: {{ $menu['menu_categories_id']['1'] }};">{{ $menu['menu_categories_id']['0'] }}</div>
 			  		<div class="card-title title-size d-flex align-items-center justify-content-start">{{ ucFirst($menu->name) }}</div>
 			  		<div class="card-subtitle font-weight-500 text-muted mt-1 mb-3">{{ "₱".$menu->price }}</div>
 
@@ -59,8 +59,8 @@
 			  		  	</button>
 
 			  		</div>
-			  		<button class="btn btn-primary btn-cart subtitle-size font-weight-500 add-to-cart add-to-cart-{{ $menu->id }}" id="{{ $menu->id }}">
-			  			<span class="mr-2" id="cart-{{ $menu->id }}">Add To Cart</span>
+			  		<button class="btn btn-primary btn-cart rounded subtitle-size font-weight-500 add-to-cart add-to-cart-{{ $menu->id }}" id="{{ $menu->id }}">
+			  			<span class="mr-1" id="cart-{{ $menu->id }}">Add To Cart</span>
 			  			<span><i data-feather="plus-circle"></i></span>
 			  		</button>
 			  	</div>
@@ -68,12 +68,12 @@
 			  </div>
 			</div>
 		    @endforeach
-
-			{{ $paginator->links() }}
 	    </div>
+
+	    {{ $paginator->links() }}
 	</div>
 
-	<div class="col mx-3">
+	<div class="col d-flex flex-column">
 		<div class="p-4 position-fixed card-transaction">
 			<div class="d-flex justify-content-start align-items-center">
 				<span class="h5 mb-0">Ordered Items</span>
@@ -85,14 +85,14 @@
 
 			<div class="row no-gutters mb-2">
 				<button class="btn btn-primary btn-cart d-flex justify-content-center align-items-center mr-2">
-					<span class="mr-2">
+					<span class="mr-1">
 						<i data-feather="users"></i>
 					</span>
 					<span class="subtitle-size font-weight-500">Add New Customer</span>
 				</button>
 
 				<div class="btn-group">
-				  <button class="btn btn-outline-light btn-dropdown text-secondary d-flex justify-content-center align-items-center rounded" data-toggle="dropdown" style="width: 15%;" title="More options">
+				  <button class="btn btn-outline-light btn-dropdown text-secondary d-flex justify-content-center align-items-center rounded" data-toggle="dropdown" title="More options">
 				  	<span>
 				  		<i data-feather="more-horizontal"></i>
 				  	</span>
@@ -111,6 +111,8 @@
 				</div>
 
 			</div>
+
+			<hr>
 
 			<ul class="list-group no-gutters" id="order-list">
 				@if($orderedMenuCount <= 0)
@@ -150,7 +152,7 @@
 				</li>
 				<li class="list-group-item list-group-padding border-0 d-flex justify-content-between subtitle-size font-weight-500 text-secondary">
 					<span>Discount</span>
-					<span>20%</span>
+					<span>0%</span>
 				</li>
 				<li class="list-group-item list-group-padding border-0 d-flex justify-content-between subtitle-size font-weight-500 text-secondary">
 					<span>Total Amount</span>
@@ -159,7 +161,7 @@
 				<li class="list-group-item list-group-padding border-0 mt-2">
 					<button id="btn-process-order" class="btn btn-success text-white d-flex justify-content-center w-100 subtitle-size font-weight-500">
 						<span class="mr-2 btn-process-icon"><i data-feather="check" id="check-icon"></i></span>
-						<span class="btn-process-child">Process Order</span>
+						<span class="btn-process-child">Place Order</span>
 					</button>
 				</li>
 			</ul>
@@ -168,7 +170,7 @@
 </div>
 
 <!-- The Modal -->
-<div class="modal">
+<div class="modal" id="modal-warning">
     <div class="modal-content">
         <div class="modal-header">      
             <div class="modal-icon">
@@ -249,7 +251,7 @@ $(document).ready(function(){
 					var content = '<li class="list-group-item list-group-padding border-0 d-flex align-items-center justify-content-between py-2 btn" title="'+newMenuName+'" style="border-top: 1px solid #f3f3f3 !important;">\
 							<div class="row no-gutters align-items-center">\
 								<div class="d-flex justify-content-center" style="overflow: hidden;">\
-									<img src="'+image+'" alt="'+newMenuName+'" class="img-thumbnail" width="70">\
+									<img src="'+image+'" alt="'+newMenuName+'" class="img-thumbnail" width="50">\
 								</div>\
 								<div class="d-flex flex-column ml-2">\
 									<span class="subtitle-size font-weight-500 mb-0 ellipsis">'+newMenuName+'</span>\
@@ -267,11 +269,11 @@ $(document).ready(function(){
 				}
 
 				if (result.status == 404) {
-					$('.modal').attr('style', 'display: flex;');
-					$('.modal-icon').addClass('modal-icon-warning');
+					$('#modal-warning').attr('style', 'display: flex;');
+					$('#modal-warning .modal-icon').addClass('modal-icon-warning');
 					$('#btn-okie').addClass('btn-warning');
-					$('.modal-body h5').html(result.icon);
-					$('.modal-body p').html(result.text);
+					$('#modal-warning .modal-body h5').html(result.icon);
+					$('#modal-warning .modal-body p').html(result.text);
 				}
 			},
 			error: function (xhr, status, error) {
@@ -308,7 +310,7 @@ $(document).ready(function(){
 
     $('#btn-process-order').on('click', function(){
     	$(this).attr('disabled', true);
-    	$('.btn-process-child').html('Processing Order..');
+    	$('.btn-process-child').html('Placing Order..');
     });
 
 	function loadQty(){

@@ -21,6 +21,7 @@ class StockSeeder extends Seeder
         		'product_category_id' => 1,
         		'product_category_name' => 'Drinks',
         		'unit' => 2,
+                'status' => 1,
         		'created_by' => 1,
                 'created_at' => date('Y-m-d H:i:s')
         	],
@@ -30,6 +31,7 @@ class StockSeeder extends Seeder
         		'product_category_id' => 2,
         		'product_category_name' => 'Food',
         		'unit' => 1,
+                'status' => 1,
         		'created_by' => 1,
                 'created_at' => date('Y-m-d H:i:s')
         	],
@@ -39,6 +41,7 @@ class StockSeeder extends Seeder
         		'product_category_id' => 3,
         		'product_category_name' => 'Ice Cream',
         		'unit' => 2,
+                'status' => 1,
         		'created_by' => 1,
                 'created_at' => date('Y-m-d H:i:s')
         	],
@@ -48,6 +51,7 @@ class StockSeeder extends Seeder
         		'product_category_id' => 3,
         		'product_category_name' => 'Food',
         		'unit' => 2,
+                'status' => 1,
         		'created_by' => 1,
                 'created_at' => date('Y-m-d H:i:s')
         	],
@@ -57,6 +61,7 @@ class StockSeeder extends Seeder
         		'product_category_id' => 2,
         		'product_category_name' => 'Food',
         		'unit' => 1,
+                'status' => 1,
         		'created_by' => 1,
                 'created_at' => date('Y-m-d H:i:s')
         	],
@@ -66,6 +71,7 @@ class StockSeeder extends Seeder
         		'product_category_id' => 2,
         		'product_category_name' => 'Food',
         		'unit' => 2,
+                'status' => 1,
         		'created_by' => 1,
                 'created_at' => date('Y-m-d H:i:s')
         	]

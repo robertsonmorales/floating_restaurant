@@ -13,16 +13,18 @@ use App\Models\Damage;
 use App\Models\Products;
 use App\Models\Stock;
 use App\Models\InventoryTransaction;
+use App\Models\ProductUnits;
 
 class DamageController extends Controller
 {
-    protected $damage, $product, $stock, $inventory;
+    protected $damage, $product, $stock, $inventory, $unit;
 
-    public function __construct(Damage $damage, Products $product, Stock $stock, InventoryTransaction $inventory){
+    public function __construct(Damage $damage, Products $product, Stock $stock, InventoryTransaction $inventory, ProductUnits $unit){
         $this->damage = $damage;
         $this->product = $product;
         $this->stock = $stock;
         $this->inventory = $inventory;
+        $this->unit = $unit;
     }
 
     public function validator(Request $request)
@@ -66,7 +68,8 @@ class DamageController extends Controller
         
         $rows = array();
         $rows = $this->damage->latest()->get();
-        $rows = $this->changeVal($rows);
+        $row = $this->changeVal($rows);
+        $rows = $this->changeValue($rows);
 
         $arr_set = array(
             'editable' => false,
@@ -84,7 +87,9 @@ class DamageController extends Controller
         $columnDefs[] = array_merge(array('headerName'=>'Approved By','field'=>'approved_by'), $arr_set);
         $columnDefs[] = array_merge(array('headerName'=>'Description','field'=>'description'), $arr_set);
         $columnDefs[] = array_merge(array('headerName'=>'Created By','field'=>'created_by'), $arr_set);
+        $columnDefs[] = array_merge(array('headerName'=>'Updated By','field'=>'created_by'), $arr_set);
         $columnDefs[] = array_merge(array('headerName'=>'Created At','field'=>'created_at'), $arr_set);
+        $columnDefs[] = array_merge(array('headerName'=>'Updated At','field'=>'created_at'), $arr_set);
 
         $data = json_encode(array('rows'=>$rows, 'column'=>$columnDefs));
 
@@ -260,5 +265,17 @@ class DamageController extends Controller
         $data->delete();
 
         return redirect()->route('damages.index')->with('success','Damage Removed Successfully');
+    }
+
+    public function changeValue($rows)
+    {       
+        foreach ($rows as $value) {
+            if (Arr::exists($value, 'qty')) {
+                $unit = $this->unit->findOrFail($value->unit);
+                $value->qty = ''.$value->qty.' '.$unit->name.'';
+            }
+        }
+
+        return $rows;
     }
 }

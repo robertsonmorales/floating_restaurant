@@ -19,8 +19,8 @@ Auth::routes();
 
 Route::middleware('auth')->group(function () {
     Route::get('/dashboard', [App\Http\Controllers\HomeController::class, 'dashboard'])->name('dashboard');
-    Route::get('/cashier', [App\Http\Controllers\HomeController::class, 'cashier'])->name('cashier');
-    Route::get('/cook', [App\Http\Controllers\HomeController::class, 'cook'])->name('cook');
+    Route::get('/pos', [App\Http\Controllers\HomeController::class, 'pos']);
+    Route::get('/kitchen', [App\Http\Controllers\HomeController::class, 'kitchen']);
     
     Route::resource('/user_accounts', App\Http\Controllers\UserAccountController::class);
     Route::resource('/menu_categories', App\Http\Controllers\MenuCategoryController::class);

@@ -3,7 +3,7 @@
 
 @section('content')
 <!-- filter -->
-<div class="filters">
+<div class="filters mx-4 mb-3">
     <div class="filters-child">
         <button class="btn btn-primary" id="btn-export">
             <span>Export</span>
@@ -38,47 +38,7 @@
 </div>
 <!-- ends here -->
 
-<!-- alert -->
-@if(session()->get('success'))
-<div class="alert alert-success alert-dismissible fade show alerts" role="alert">
-    <span><i data-feather="check"></i> {{ session()->get('success') }}</span>
-    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-        <span aria-hidden="true" class="dismiss-icon"><i data-feather="x"></i> </span>
-    </button>
-</div>
-@endif
-<!-- ends here -->
-
-<div class="content">
-    <div id="myGrid" class="ag-theme-material"></div>
-</div>
-
-<!-- The Modal -->
-<form class="modal" action="" method="POST" id="form-submit">
-    @csrf
-    @method('DELETE')
-
-    <div class="modal-content">
-        <div class="modal-header">      
-            <div class="modal-icon">
-                <i data-feather="alert-triangle"></i>
-            </div>
-
-            <div class="modal-body">
-                <h5>Remove Record</h5>
-                <p>Are you sure you want to remove this record? This will be permanently removed. This action cannot be undone.</p>
-            </div>
-
-        </div>
-
-        <div class="modal-footer">
-            <button type="button" class="btn btn-danger" id="btn-remove">Remove</button>
-            <button type="button" class="btn btn-outline-secondary" id="btn-cancel">Cancel</button>
-        </div>
-    </div>
-
-</form>
-<!-- Ends here -->
+<div id="myGrid" class="ag-theme-material mx-4"></div>
 
 <br>
 @endsection
@@ -91,22 +51,76 @@ $(document).ready(function(){
     var gridDiv = document.querySelector('#myGrid');
 
     for (var i = data.column.length - 1; i >= 0; i--) {
-        if (data.column[i].field == "stocks") {
+        if (data.column[i].field == "status") {
             data.column[i].cellRenderer = function display(params) {
-                var qty = params.data.stocks.split(" ");
-                var minimum = params.data.minimum_stocks;
-
-                if (qty[0] <= minimum) {
-                    return '<span class="status is-below-minimum">' + qty[0] + ' ' + qty[1] + '</span>';
+                if (params.data.status == "Active") {
+                    return '<div class="d-flex align-items-center">\
+                            <div style="width:5px; height: 5px" class="bg-success rounded-circle mr-2"></div>\
+                            ' + params.data.status + '\
+                        <div>';
+                }else{
+                    return '<div class="d-flex align-items-center">\
+                            <div style="width:5px; height: 5px" class="bg-secondary rounded-circle mr-2"></div>\
+                            ' + params.data.status + '\
+                        <div>';
                 }
-
-                if(qty[0] > minimum){
-                    return '<span class="status active-status">' + qty[0] + ' ' + qty[1] + '</span>';
-                }
-
-                console.log(qty[0] + ':' + minimum);
             }
         }
+
+        if (data.column[i].field == "stocks") {
+            data.column[i].cellRenderer = function display(params) {
+                var unit = params.data.unit;
+                var qty = params.data.stocks;
+                var minimum = params.data.minimum_stocks;
+
+                if (qty <= minimum) {
+                    return '<div class="d-flex align-items-center">\
+                            <div style="width:5px; height: 5px" class="bg-warning rounded-circle mr-2"></div>\
+                            ' + qty + ' ' + unit + '\
+                        <div>';
+                }
+
+                if(qty > minimum){
+                    return '<div class="d-flex align-items-center">\
+                            <div style="width:5px; height: 5px" class="bg-success rounded-circle mr-2"></div>\
+                            ' + qty + ' ' + unit + '\
+                        <div>';
+                }
+            }
+        }
+
+        if (data.column[i].field == "created_at") {
+            data.column[i].cellRenderer = function display(params) {
+                if (params.data.created_at) {
+                    return getNewDateTime(params.data.created_at);
+                }
+            }
+        }
+
+        if (data.column[i].field == "updated_at") {
+            data.column[i].cellRenderer = function display(params) {
+                if (params.data.updated_at) {
+                    return getNewDateTime(params.data.updated_at);
+                }
+            }
+        }
+    }
+
+    function getNewDateTime(format){
+        date = new Date(format); //'2013-08-0302:00:00Z'
+        year = date.getFullYear();
+        month = date.getMonth()+1;
+        today = date.getDate();
+        hours = date.getHours();
+        minutes = date.getMinutes();
+        seconds = date.getSeconds();
+
+        if (month < 10) {month = '0' + month;}
+        if (today < 10) {today = '0' + today;}
+        if (hours < 10) {hours = '0' + hours;}
+        if (minutes < 10) {minutes = '0' + minutes;}
+        if (seconds < 10) {seconds = '0' + seconds;}
+        return year + '-' + month + '-' + today + ' ' + hours + ':' + minutes + ':' + seconds;
     }
 
     var gridOptions = {

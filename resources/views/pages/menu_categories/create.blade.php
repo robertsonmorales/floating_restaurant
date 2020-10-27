@@ -2,11 +2,8 @@
 @section('title', $title)
 
 @section('content')
-<center>
-<form action="{{ ($mode == 'update') ? route('menu_categories.update', $data->id) : route('menu_categories.store') }}"
-        method="POST" class="content" id="card-form" enctype="multipart/form-data">
-
-    <div class="mb-4 card-form" style="width: 45%;">
+<form action="{{ ($mode == 'update') ? route('menu_categories.update', $data->id) : route('menu_categories.store') }}" method="POST" class="d-flex flex-column align-items-center" id="card-form" enctype="multipart/form-data">
+    <div class="mb-4 card-form col-5">
         @csrf
 
         <h5>{{ ucfirst($mode).' '.\Str::Singular($header) }}</h5>
@@ -20,6 +17,23 @@
             </span>
 
             @error('name')
+            <span class="invalid-feedback" role="alert">
+                <strong>{{ $message }}</strong>
+            </span>
+            @enderror
+        </div>
+
+        <div class="input-group">
+            <label for="">Tag Color</label>
+            <input type="color" name="tag_color" id="tag-color" autocomplete="off"
+                class="form-control-color @error('tag-color') is-invalid @enderror"
+                value="{{($mode == 'update') ? $data->tag_color : old('tag-color')}}">
+
+            <span class="messages">
+                <strong id="error-tag-color"></strong>
+            </span>
+
+            @error('color')
             <span class="invalid-feedback" role="alert">
                 <strong>{{ $message }}</strong>
             </span>
@@ -60,12 +74,13 @@
         </div>
     </div>
 
-    <div class="mb-4 card-form" style="width: 45%;">
+    <div class="mb-4 card-form col-5">
         <h5>{{ ($mode == 'create') ? 'Upload Image' : 'Change Image' }}</h5>
 
         <div class="input-group">
             <label>Upload Type</label>
             <select id="upload_type" name="upload_type" class="custom-select form-control @error('upload_type') is-invalid @enderror">
+                <option value="None" {{ ($mode == 'update' && $data->upload_type == "None") ? 'selected' : '' }}>None</option>
                 <option value="1|File Upload" {{ ($mode == 'update' && $data->upload_type == "1|File Upload") ? 'selected' : '' }}>File Upload</option>
                 <option value="0|URL" {{ ($mode == 'update' && $data->upload_type == "0|URL") ? 'selected' : '' }}>URL</option>
             </select>
@@ -127,9 +142,7 @@
             <button type="button" onclick="window.location.href='{{route('menu_categories.index') }}'" class="btn btn-secondary" id="btn-back">Back</button>
         </div>
     </div>
-
 </form>
-</center>
 <br>
 @endsection
 @section('scripts')
@@ -137,18 +150,20 @@
 $(document).ready(function(){
     function fileUpload(){
         if ($('#upload_type').val() == "1|File Upload") {
-            $('#file-group').show();
-            $('#url-group').hide();
-        }else{
-            $('#url-group').show();
-            $('#file-group').hide();
+            $('#file-group').show(500);
+            $('#url-group').hide(500);
+        }else if($('#upload_type').val() == "0|URL"){
+            $('#url-group').show(500);
+            $('#file-group').hide(500);
 
             $('#image-preview').attr('src', $("#url_image").val());
+            $('#image-preview').show(500);
+        }else{
+            $('#file-group').hide(500);
+            $('#url-group').hide(500);
+            $('#image-preview').hide(500);
         }
     }
-
-    fileUpload();
-
 
     $("#url_image").on('keyup', function(){
         $('#image-preview').attr('src', $(this).val());
@@ -156,11 +171,18 @@ $(document).ready(function(){
 
     $('#upload_type').on('change', function(){
         if ($(this).val() == "1|File Upload") {
-            $('#file-group').show();
-            $('#url-group').hide();
+            $('#file-group').show(500);
+            $('#url-group').hide(500);
+        }else if($(this).val() == "0|URL"){
+            $('#url-group').show(500);
+            $('#file-group').hide(500);
+
+            $('#image-preview').attr('src', $("#url_image").val());
+            $('#image-preview').show(500);
         }else{
-            $('#url-group').show();
-            $('#file-group').hide();
+            $('#file-group').hide(500);
+            $('#url-group').hide(500);
+            $('#image-preview').hide(500);
         }
     });
 
@@ -188,10 +210,8 @@ $(document).ready(function(){
         $('#btn-submit').html((mode == "update") ? "Submitting Changes.." : "Submitting..");
         $(this).submit();
     });
-});
 
-function previewFile(input){
-    
-}
+    fileUpload();
+});
 </script>
 @endsection

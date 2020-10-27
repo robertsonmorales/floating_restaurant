@@ -2,12 +2,11 @@
 @section('title', $title)
 
 @section('content')
-<center>
-<form class="content" action="{{ ($mode == 'update') ? 
+<form class="d-flex flex-column align-items-center" action="{{ ($mode == 'update') ? 
         route('menus.update', $data->id) : 
         route('menus.store') }}"
         method="POST" enctype="multipart/form-data">
-    <div class="mb-4 card-form" style="width: 45%;">
+    <div class="col-5 mb-4 card-form">
         @csrf
 
         <h5>{{ ucfirst($mode).' '.\Str::Singular($header) }}</h5>
@@ -125,12 +124,13 @@
         </div>
     </div>
 
-    <div class="mb-4 card-form" style="width: 45%;">
+    <div class="col-5 mb-4 card-form" style="width: 45%;">
         <h5>{{ ($mode == 'create') ? 'Upload Image' : 'Change Image' }}</h5>
 
         <div class="input-group">
             <label>Upload Type</label>
             <select id="upload_type" name="upload_type" class="custom-select form-control @error('upload_type') is-invalid @enderror">
+                <option value="None" {{ ($mode == 'update' && $data->upload_type == "None") ? 'selected' : '' }}>None</option>
                 <option value="1|File Upload" {{ ($mode == 'update' && $data->upload_type == "1|File Upload") ? 'selected' : '' }}>File Upload</option>
                 <option value="0|URL" {{ ($mode == 'update' && $data->upload_type == "0|URL") ? 'selected' : '' }}>URL</option>
             </select>
@@ -182,8 +182,7 @@
         </div>
     </div>
 
-
-    <div class="mb-4 card-form" style="width: 45%;">
+    <div class="col-5 mb-4 card-form" style="width: 45%;">
         <h5>{{ ucfirst($mode).' '.'Recipe' }}</h5>         
 
         <div class="input-group">
@@ -239,7 +238,6 @@
         </div>
     </div>
 </form>
-</center>
 @endsection
 @section('scripts')
 <script type="text/javascript">
@@ -253,31 +251,43 @@ const Toast = Swal.mixin({
 
 function fileUpload(){
     if ($('#upload_type').val() == "1|File Upload") {
-        $('#file-group').show();
-        $('#url-group').hide();
-    }else{
-        $('#url-group').show();
-        $('#file-group').hide();
+        $('#file-group').show(500);
+        $('#url-group').hide(500);
+    }else if($('#upload_type').val() == "0|URL"){
+        $('#url-group').show(500);
+        $('#file-group').hide(500);
 
         $('#image-preview').attr('src', $("#url_image").val());
+        $('#image-preview').show(500);
+    }else{
+        $('#file-group').hide(500);
+        $('#url-group').hide(500);
+        $('#image-preview').hide(500);
     }
 }
 
 fileUpload();
 
+$('#upload_type').on('change', function(){
+    if ($(this).val() == "1|File Upload") {
+        $('#file-group').show(500);
+        $('#url-group').hide(500);
+    }else if($(this).val() == "0|URL"){
+        $('#url-group').show(500);
+        $('#file-group').hide(500);
+
+        $('#image-preview').attr('src', $("#url_image").val());
+        $('#image-preview').show(500);
+    }else{
+        $('#file-group').hide(500);
+        $('#url-group').hide(500);
+        $('#image-preview').hide(500);
+    }
+});
+
 
 $("#url_image").on('keyup', function(){
     $('#image-preview').attr('src', $(this).val());
-});
-
-$('#upload_type').on('change', function(){
-    if ($(this).val() == "1|File Upload") {
-        $('#file-group').show();
-        $('#url-group').hide();
-    }else{
-        $('#url-group').show();
-        $('#file-group').hide();
-    }
 });
 
 $('#btn-plus').on('click', function(){

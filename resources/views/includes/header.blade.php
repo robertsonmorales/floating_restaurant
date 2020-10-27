@@ -1,15 +1,12 @@
 <div class="header-content position-sticky sticky-top">
-    <nav>
-        <!-- <div class="date-time">
-            <h5 id="date-time"></h5>
-        </div> -->
-        <div class="row ml-1">
-            <button class="btn btn-sm" type="button" title="collapse">
+    <nav class="px-4 py-3">
+        <div class="row no-gutters">
+            <button class="btn btn-light" type="button" title="collapse">
                 <i data-feather="skip-back"></i>
             </button>
         </div>
         <div class="user-profile">
-            <div class="btn-group mr-2">
+            <div class="btn-group">
               <button class="btn btn-primary btn-dropdown rounded-circle" data-toggle="dropdown" style="background-image: url('{{ (Auth::user()->profile_image) ? asset('images/user_profiles/'.Auth::user()->username.Auth::user()->id.'/'.Auth::user()->profile_image.'') : asset('images/user_profiles/avatar.svg') }}');">
               </button>
 
