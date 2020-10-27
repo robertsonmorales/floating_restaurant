@@ -1,13 +1,11 @@
 .header{
     text-align: left;
     display: flex;
-    align-items: center;
-    margin: 0px 30px;
+    align-items: center;    
 
-    h4{
+    h3{
         font-weight: 500;
         color: $toolbar;
-        margin-bottom: 0 !important;
     }
 
     .breadcrumb-section{
