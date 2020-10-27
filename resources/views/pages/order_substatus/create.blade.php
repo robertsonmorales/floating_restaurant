@@ -2,12 +2,11 @@
 @section('title', $title)
 
 @section('content')
-<center>
-<div class="content">
+<div class="d-flex flex-column align-items-center">
     <form action="{{ ($mode == 'update') ? 
         route('order_substatus.update', $data->id) : 
         route('order_substatus.store') }}"
-        method="POST" class="mb-4 card-form" id="card-form" style="width: 45%;">
+        method="POST" class="col-5 mb-4 card-form" id="card-form">
         @csrf
 
         <h5>{{ ucfirst($mode).' '.\Str::Singular($header) }}</h5>
@@ -77,7 +76,6 @@
         
     </form>
 </div>
-</center>
 <br>
 @endsection
 @section('scripts')

@@ -243,12 +243,12 @@
 			"mode": "",
 			"controller": "",
 			"icon": "far fa-circle",
-			"sub_order": 3,
+		"sub_order": 3,
 			"status": 1
 		}]
 	},{
-		"name": "Cashier",
-		"mode": "cashier",
+		"name": "Point of Sale",
+		"mode": "pos",
 		"controller": "HomeController",
 		"type": "single",
 		"icon": "dollar-sign",
@@ -256,8 +256,8 @@
 		"order": 10,
 		"status": 1
 	},{
-		"name": "Cook",
-		"mode": "cook",
+		"name": "Kitchen",
+		"mode": "kitchen",
 		"controller": "HomeController",
 		"type": "single",
 		"icon": "calendar",

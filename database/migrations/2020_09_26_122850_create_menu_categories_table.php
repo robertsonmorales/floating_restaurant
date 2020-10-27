@@ -18,6 +18,7 @@ class CreateMenuCategoriesTable extends Migration
             $table->string('upload_type')->nullable();
             $table->string('category_image')->nullable();
             $table->string('category_icon')->nullable();
+            $table->string('tag_color')->nullable();
             $table->string('name')->nullable();
             $table->string('status')->default(1)->nullable();
             $table->string('created_by')->nullable();

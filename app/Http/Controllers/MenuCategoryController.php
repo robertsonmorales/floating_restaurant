@@ -26,6 +26,7 @@ class MenuCategoryController extends Controller
             'category_image' => $request->file('category_image'),
             'url_image' => $request->input('url_image'),
             'category_icon' => $this->safeInputs($request->input('category_icon')),
+            'tag_color' => $this->safeInputs($request->input('tag_color')),
             'name' => $this->safeInputs($request->input('name')),
             'status' => $this->safeInputs($request->input('status')),
         ];
@@ -35,6 +36,7 @@ class MenuCategoryController extends Controller
             'category_image' => 'nullable|image|mimes:jpeg,png,jpg,gif',
             'url_image' => 'nullable|url|',
             'category_icon' => 'required|max:100',
+            'tag_color' => 'required|max:50|unique:menu_categories,name,'.$this->safeInputs($request->input('id')).'',
             'name' => 'required|string|max:255|unique:menu_categories,name,'.$this->safeInputs($request->input('id')).'',
             'status' => 'required|numeric'
         ];
@@ -48,6 +50,7 @@ class MenuCategoryController extends Controller
             'category_image' => 'file',
             'url_image' => 'url',
             'category_icon' => 'icon',
+            'tag_color' => 'tag color',
             'name' => 'name',
             'status' => 'status'
         ];                
@@ -158,6 +161,7 @@ class MenuCategoryController extends Controller
                 }
             }
             $data->category_icon = $validated['category_icon'];
+            $data->tag_color = $validated['tag_color'];
             $data->name = $validated['name'];
             $data->status = $validated['status'];
             $data->created_by = Auth::user()->id;
@@ -245,6 +249,7 @@ class MenuCategoryController extends Controller
                 }
             }
             $data->category_icon = $validated['category_icon'];
+            $data->tag_color = $validated['tag_color'];
             $data->name = $validated['name'];
             $data->status = $validated['status'];
             $data->updated_by = Auth::user()->id;

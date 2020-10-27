@@ -22,4 +22,13 @@ class ApiController extends Controller
     public function addOrder(Request $request){
     	return $request;
     }
+
+    public function getMenus(){
+    	$categories = $this->categories->where('status', 1)->get();
+    	$menus = $this->menu->where('status', 1)->get();
+    	return response()->json([
+    		'categories' => $categories,
+    		'menus' => $categories
+    	]);
+    }
 }

@@ -20,13 +20,13 @@ class DatabaseSeeder extends Seeder
             MenuTypeSeeder::class,
             ProductCategorySeeder::class,
             ProductUnitSeeder::class,
-            ProductSeeder::class,
+            // ProductSeeder::class, // removable
             OrderStatusSeeder::class,
             OrderSubstatusSeeder::class,
             ExpenseCategorySeeder::class,
             CustomerDiscountSeeder::class,
             EmployeePositionSeeder::class,
-            StockSeeder::class,
+            // StockSeeder::class, // removable
             CustomerSeeder::class,
             OrderSeeder::class
         ]);

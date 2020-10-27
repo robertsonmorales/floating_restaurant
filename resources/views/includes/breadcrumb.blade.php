@@ -1,4 +1,4 @@
-<div class="d-flex flex-column my-3">
+<div class="d-flex flex-column px-4 py-3">
     @if(count($breadcrumbs['name']) > 1)
     <div class="header mb-1">
         <ul class="breadcrumb-section">

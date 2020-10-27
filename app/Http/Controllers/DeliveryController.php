@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Auth;
 use DB;
 use Validator;
+use Arr;
 
 use Carbon\Carbon;
 use App\Models\Delivery;
@@ -13,7 +14,6 @@ use App\Models\Products;
 use App\Models\Stock;
 use App\Models\InventoryTransaction;
 use App\Models\ProductUnits;
-use App\Models\User;
 
 class DeliveryController extends Controller
 {
@@ -68,6 +68,7 @@ class DeliveryController extends Controller
         
         $rows = array();
         $rows = $this->delivery->latest()->get();
+        $row = $this->changeVal($rows);
         $rows = $this->changeValue($rows);
 
         $arr_set = array(
@@ -85,7 +86,9 @@ class DeliveryController extends Controller
         $columnDefs[] = array_merge(array('headerName'=>'Approved By','field'=>'approved_by'), $arr_set);
         $columnDefs[] = array_merge(array('headerName'=>'Description','field'=>'description'), $arr_set);
         $columnDefs[] = array_merge(array('headerName'=>'Created By','field'=>'created_by'), $arr_set);
+        $columnDefs[] = array_merge(array('headerName'=>'Updated By','field'=>'created_by'), $arr_set);
         $columnDefs[] = array_merge(array('headerName'=>'Created At','field'=>'created_at'), $arr_set);
+        $columnDefs[] = array_merge(array('headerName'=>'Updated At','field'=>'created_at'), $arr_set);
 
         $data = json_encode(array('rows'=>$rows, 'column'=>$columnDefs));
 
@@ -260,18 +263,9 @@ class DeliveryController extends Controller
     public function changeValue($rows)
     {       
         foreach ($rows as $value) {
-            if (isset($value->qty)) {
+            if (Arr::exists($value, 'qty')) {
                 $unit = $this->unit->findOrFail($value->unit);
                 $value->qty = ''.$value->qty.' '.$unit->name.'';
-            }
-
-            if (isset($value->created_by)) {
-                if ($value->created_by == null) {
-                    $value->created_by = 'NULL';
-                }else{
-                    $users = User::select('username')->where('id', $value->created_by)->first();
-                    $value->created_by = $users->username;
-                }
             }
         }
 

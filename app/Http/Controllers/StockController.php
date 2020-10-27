@@ -32,11 +32,10 @@ class StockController extends Controller
         
         $rows = array();
 
-        $selectRow = ['s.product_name', 's.product_category_name', 's.stocks', 's.unit', 'p.minimum_stocks', 's.created_by', 's.created_at'];
+        $selectRow = ['s.product_name', 's.product_category_name', 's.stocks', 's.unit', 's.status', 'p.minimum_stocks', 's.created_by', 's.created_at'];
         $rows = DB::table('stocks as s')
-            ->leftJoin('products as p', 'p.id', 's.product_id')
+            ->join('products as p', 'p.id', 's.product_id')
             ->latest('p.created_at')->get($selectRow);
-
         $rows = $this->changeValue($rows);
 
         $arr_set = array(
@@ -52,6 +51,7 @@ class StockController extends Controller
         $columnDefs[] = array_merge(array('headerName'=>'Categories','field'=>'product_category_name'), $arr_set);
         $columnDefs[] = array_merge(array('headerName'=>'Products','field'=>'product_name'), $arr_set);
         $columnDefs[] = array_merge(array('headerName'=>'Stocks','field'=>'stocks'), $arr_set);
+        $columnDefs[] = array_merge(array('headerName'=>'Status','field'=>'status'), $arr_set);
         $columnDefs[] = array_merge(array('headerName'=>'Created By','field'=>'created_by'), $arr_set);
         $columnDefs[] = array_merge(array('headerName'=>'Created At','field'=>'created_at'), $arr_set);
 
@@ -137,12 +137,20 @@ class StockController extends Controller
         foreach ($rows as $key => $value) {
             if (property_exists($value, 'stocks')) {
                 $unit = $this->unit->find($value->unit);
-                $value->stocks = @$value->stocks.' '.@$unit->name;
+                $value->stocks = $value->stocks.' '.@$unit->name;
             }
 
             if(property_exists($value, 'created_by')){
                 $users = $this->user->select('username')->where('id', $value->created_by)->first();
                 $value->created_by = @$users->username;
+            }
+
+            if(property_exists($value, 'status')){
+                 if($value->status == 1){
+                    $value->status = 'Active';
+                 }else{
+                    $value->status = 'In-active';
+                 }
             }
         }
 

@@ -34,7 +34,7 @@ class InventoryLogController extends Controller
         $selectRow = ['i.product_name', 'i.product_category_name', 'i.type', 'i.qty', 'i.stocks', 'i.unit', 'p.minimum_stocks', 'i.created_by', 'i.created_at'];
         $rows = DB::table('inventory_transactions as i')
             ->leftJoin('products as p', 'p.id', 'i.product_id')
-            ->whereDay('i.created_at', today())
+            // ->whereDay('i.created_at', today())
             ->latest('i.created_at')->get($selectRow);
 
         $rows = $this->changeValue($rows);

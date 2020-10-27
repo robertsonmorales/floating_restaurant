@@ -19,3 +19,5 @@ use Illuminate\Support\Facades\Route;
 // });
 
 // Route::post('/add_order', [App\Http\Controllers\ApiController::class, 'addOrder']);
+
+Route::get('get_menus', [App\Http\Controllers\ApiController::class, 'getMenus']);

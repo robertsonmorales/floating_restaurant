@@ -91,7 +91,7 @@ class Controller extends BaseController
     public function changeVal($rows){
         $array = $rows;
         foreach ($array as $key => $value) {
-            // default 
+    
             if(Arr::exists($value, 'status')){
                  if($value->status == 1){
                     $value->status = 'Active';
@@ -101,52 +101,14 @@ class Controller extends BaseController
             }
 
             if(Arr::exists($value, 'created_by')){
-                if ($value->created_by == null) {
-                    $value->created_by = 'NULL';
-                }else{
-                    $users = User::select('username')->where('id', $value->created_by)->first();
-                    $value->created_by = @$users->username;
-                }
+                $users = User::select('username')->where('id', $value->created_by)->first();
+                $value->created_by = @$users->username;
             }
 
             if(Arr::exists($value, 'updated_by')){
-                if ($value->updated_by == null) {
-                    $value->updated_by = 'NULL';
-                }else{
-                    $users = User::select('username')->where('id', $value->updated_by)->first();
-                    $value->updated_by = @$users->username;
-                }
+                $users = User::select('username')->where('id', $value->updated_by)->first();
+                $value->updated_by = @$users->username;
             }
-            // ends here
-
-            // if (property_exists($value, 'expense_categories_id')) {
-            //     $expense_categories = ExpensesCategories::find($value->expense_categories_id);
-            //     $value->expense_categories_id = $expense_categories->name;
-            // }
-
-            // if (property_exists($value, 'cost')) {
-            //     $value->cost = "Php ".$value->cost.".00";
-            // }
-
-            // if (property_exists($value, 'stocks')) {
-            //     $unit = ProductUnits::find($value->unit);
-            //     $value->stocks = $value->stocks.' '.$unit->name;
-            // }
-
-            // if (property_exists($value, 'deliveries')) {
-            //     $unit = ProductUnits::find($value->unit);
-            //     $value->deliveries = $value->deliveries.' '.$unit->name;
-            // }
-
-            // if (property_exists($value, 'damages')) {
-            //     $unit = ProductUnits::find($value->unit);
-            //     $value->damages = $value->damages.' '.$unit->name;
-            // }
-
-            // if (property_exists($value, 'sold_out')) {
-            //     $unit = ProductUnits::find($value->unit);
-            //     $value->sold_out = $value->sold_out.' '.$unit->name;
-            // }
         }
 
         return $array;

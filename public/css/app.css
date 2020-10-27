@@ -10954,16 +10954,6 @@ body .status {
   font-weight: 600;
 }
 
-body .active-status {
-  background-color: #00e39611;
-  color: #00e396;
-}
-
-body .inactive-status {
-  background-color: #ddd;
-  color: #3e4044;
-}
-
 body .is-below-minimum {
   background-color: #feb01911;
   color: #feb019;
@@ -11468,7 +11458,6 @@ body .admin-container main .header-content {
 }
 
 body .admin-container main .header-content nav {
-  padding: 15px 20px;
   background-color: #fff;
   display: flex;
   justify-content: space-between;
@@ -11555,13 +11544,11 @@ body .admin-container main .header {
   text-align: left;
   display: flex;
   align-items: center;
-  margin: 0px 30px;
 }
 
-body .admin-container main .header h4 {
+body .admin-container main .header h3 {
   font-weight: 500;
   color: #3e4044;
-  margin-bottom: 0 !important;
 }
 
 body .admin-container main .header .breadcrumb-section {
@@ -11595,8 +11582,6 @@ body .admin-container main .header .breadcrumb-section .breadcrumb-items:last-ch
 }
 
 body .admin-container main .filters {
-  margin: 0px 30px;
-  margin-bottom: 20px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -11672,39 +11657,35 @@ body .admin-container main .filters .filters-child select:last-child {
   margin-right: 0;
 }
 
-body .admin-container main .content {
-  background-color: #fff;
+body .admin-container main #myGrid {
   overflow: hidden;
-}
-
-body .admin-container main .content #myGrid {
-  overflow: hidden;
-  width: 100%;
+  max-width: 100%;
   height: 100vh;
   border-radius: 0.75rem;
+  border: 0.0625rem solid rgba(231, 234, 243, 0.7);
 }
 
-body .admin-container main .content .data-profile {
+body .admin-container main .data-profile {
   display: flex;
   justify-content: flex-start;
   align-items: center;
 }
 
-body .admin-container main .content .data-profile .profile {
+body .admin-container main .data-profile .profile {
   width: 36px;
   height: 36px;
   border-radius: 50%;
   border: 2px solid #eee;
 }
 
-body .admin-container main .content .data-profile .account {
+body .admin-container main .data-profile .account {
   display: flex;
   flex-direction: column;
   margin-left: 5px;
 }
 
-body .admin-container main .content .btn-edit,
-body .admin-container main .content .btn-remove {
+body .admin-container main .btn-edit,
+body .admin-container main .btn-remove {
   width: 34px;
   height: 34px;
   border-radius: 5px;
@@ -11712,15 +11693,15 @@ body .admin-container main .content .btn-remove {
   padding: 0;
 }
 
-body .admin-container main .content .btn-edit {
+body .admin-container main .btn-edit {
   background-color: #0e76bd;
 }
 
-body .admin-container main .content .btn-remove {
+body .admin-container main .btn-remove {
   background-color: #EA2034;
 }
 
-body .admin-container main .content .card-form {
+body .admin-container main .card-form {
   padding: 20px;
   background-color: #fff;
   border: 0.0625rem solid rgba(231, 234, 243, 0.7);
@@ -11730,27 +11711,27 @@ body .admin-container main .content .card-form {
   text-align: left;
 }
 
-body .admin-container main .content .card-form h5 {
+body .admin-container main .card-form h5 {
   font-weight: 500;
   color: #3e4044;
   margin-bottom: 20px;
 }
 
-body .admin-container main .content .card-form .input-group {
+body .admin-container main .card-form .input-group {
   display: flex;
   flex-direction: column;
   margin-bottom: 20px;
   text-align: left;
 }
 
-body .admin-container main .content .card-form .input-group label {
+body .admin-container main .card-form .input-group label {
   font-size: 0.8em;
   color: #aaa;
   font-weight: 500;
   margin-bottom: 3px;
 }
 
-body .admin-container main .content .card-form .input-group .form-control {
+body .admin-container main .card-form .input-group .form-control {
   font-weight: 500;
   font-size: 0.9em;
   border-radius: 4px;
@@ -11760,12 +11741,12 @@ body .admin-container main .content .card-form .input-group .form-control {
   border-color: #d2d6dc !important;
 }
 
-body .admin-container main .content .card-form .input-group .form-control:focus {
+body .admin-container main .card-form .input-group .form-control:focus {
   border: 1px solid #0e76bd;
   box-shadow: 1px 3px 5px rgba(0, 0, 0, 0.05);
 }
 
-body .admin-container main .content .card-form .input-group .form-control-color {
+body .admin-container main .card-form .input-group .form-control-color {
   outline: none;
   width: 100%;
   overflow: hidden;
@@ -11777,30 +11758,30 @@ body .admin-container main .content .card-form .input-group .form-control-color 
   border: 1px solid #d2d6dc;
 }
 
-body .admin-container main .content .card-form .input-group .form-control-color:focus {
+body .admin-container main .card-form .input-group .form-control-color:focus {
   border: 1px solid #0e76bd;
   background-color: #fff;
   box-shadow: 0 6px 12px rgba(140, 152, 164, 0.075);
 }
 
-body .admin-container main .content .card-form .input-group .invalid-feedback strong {
+body .admin-container main .card-form .input-group .invalid-feedback strong {
   color: #EA2034;
   font-size: inherit;
   font-weight: 500;
 }
 
-body .admin-container main .content .card-form .input-group .messages strong {
+body .admin-container main .card-form .input-group .messages strong {
   color: #EA2034;
   font-size: 0.8em;
   font-weight: 500;
 }
 
-body .admin-container main .content .card-form .actions {
+body .admin-container main .card-form .actions {
   margin-top: 15px;
   text-align: right;
 }
 
-body .admin-container main .content .card-form .actions button {
+body .admin-container main .card-form .actions button {
   margin-right: 5px;
   border-radius: 5px;
   font-family: "Poppins", "Montserrat", "Segoe UI", sans-serif;
@@ -11811,11 +11792,11 @@ body .admin-container main .content .card-form .actions button {
   padding: 8px 15px;
 }
 
-body .admin-container main .content .card-form .actions button:last-child {
+body .admin-container main .card-form .actions button:last-child {
   margin-right: 0;
 }
 
-body .admin-container main .content .card-form .actions .btn-submit {
+body .admin-container main .card-form .actions .btn-submit {
   background-color: #0e76bd;
 }
 
@@ -11826,7 +11807,6 @@ body .admin-container main .btn-cart {
   font-weight: 500;
   transition: all 0.4s ease;
   color: #fff;
-  padding: 8px 15px;
   background-color: #0e76bd;
 }
 
@@ -12068,11 +12048,8 @@ body .admin-container main .modal .modal-content .modal-footer #btn-save {
 }
 
 body .admin-container main .alerts {
-  box-shadow: 0 6px 12px rgba(140, 152, 164, 0.075);
   border-radius: 4px;
   overflow: hidden;
-  margin: 20px 30px;
-  margin-top: 0;
 }
 
 body .admin-container main .dashboard-container .dashboard-cards {
@@ -12292,12 +12269,5 @@ body .admin-container main .user-content .actions button:last-child {
 
 body .admin-container main .user-content .actions .btn-save {
   background-color: #0e76bd;
-}
-
-body .admin-container main .content,
-body .admin-container main .dashboard-container,
-body .admin-container main .dashboard-content,
-body .admin-container main .user-container {
-  margin: 0 30px;
 }
 

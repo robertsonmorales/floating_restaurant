@@ -3,7 +3,7 @@
 
 @section('content')
 <!-- filter -->
-<div class="filters">
+<div class="filters mx-4 mb-3">
     <div class="filters-child">
         <button class="btn btn-primary" id="btn-export">
             <span>Export</span>
@@ -40,7 +40,7 @@
 
 <!-- alert -->
 @if(session()->get('success'))
-<div class="alert alert-success alert-dismissible fade show alerts" role="alert">
+<div class="alert alert-success alert-dismissible fade show alerts mx-4 mb-3" role="alert">
     <span><i data-feather="check"></i> {{ session()->get('success') }}</span>
     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
         <span aria-hidden="true" class="dismiss-icon"><i data-feather="x"></i> </span>
@@ -49,9 +49,7 @@
 @endif
 <!-- ends here -->
 
-<div class="content">
-    <div id="myGrid" class="ag-theme-material"></div>
-</div>
+<div id="myGrid" class="ag-theme-material mx-4"></div>
 
 <!-- The Modal -->
 <form class="modal" action="" method="POST" id="form-submit">
@@ -60,7 +58,7 @@
 
     <div class="modal-content">
         <div class="modal-header">      
-            <div class="modal-icon">
+            <div class="modal-icon modal-icon-error">
                 <i data-feather="alert-triangle"></i>
             </div>
 
@@ -104,7 +102,7 @@ $(document).ready(function(){
 
             var trash_icon = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash-2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg>';
             
-            var edit_url = '{{ route("order_substatus.edit", ":id") }}';
+            var edit_url = '{{ route("orders.edit", ":id") }}';
             edit_url = edit_url.replace(':id', params.data.id);
 
             var eDiv = document.createElement('div');
@@ -132,23 +130,48 @@ $(document).ready(function(){
     for (var i = data.column.length - 1; i >= 0; i--) {
         if (data.column[i].field == "status") {
             data.column[i].cellRenderer = function display(params) {
-                if (params.data.status == "Active") {
-                    return '<span class="status active-status">' + params.data.status + '</span>';
-                }else{
-                    return '<span class="status inactive-status">' + params.data.status + '</span>';
+                var split = params.data.status;
+                var status = split.split("|");
+
+                return '<div class="d-flex align-items-center">\
+                        <div style="width:5px; height: 5px; background-color: ' + status[0] + ';" class="rounded-circle mr-2"></div>\
+                        ' + status[1] + '\
+                    <div>';
+            }
+        }
+
+        if (data.column[i].field == "created_at") {
+            data.column[i].cellRenderer = function display(params) {
+                if (params.data.created_at) {
+                    return getNewDateTime(params.data.created_at);
                 }
             }
         }
 
-        if (data.column[i].field == "name") {
+        if (data.column[i].field == "updated_at") {
             data.column[i].cellRenderer = function display(params) {
-                if (params.data.color == '#ffffff') {
-                    return '<span class="status" style="color: #fff; background-color: #eee; color: '+params.data.color+';">' + params.data.name + '</span>';
-                }else{
-                    return '<span class="status" style="color: #fff; background-color: '+params.data.color+'11; color: '+params.data.color+';">' + params.data.name + '</span>';
+                if (params.data.updated_at) {
+                    return getNewDateTime(params.data.updated_at);
                 }
             }
         }
+    }
+
+    function getNewDateTime(format){
+        date = new Date(format); //'2013-08-0302:00:00Z'
+        year = date.getFullYear();
+        month = date.getMonth()+1;
+        today = date.getDate();
+        hours = date.getHours();
+        minutes = date.getMinutes();
+        seconds = date.getSeconds();
+
+        if (month < 10) {month = '0' + month;}
+        if (today < 10) {today = '0' + today;}
+        if (hours < 10) {hours = '0' + hours;}
+        if (minutes < 10) {minutes = '0' + minutes;}
+        if (seconds < 10) {seconds = '0' + seconds;}
+        return year + '-' + month + '-' + today + ' ' + hours + ':' + minutes + ':' + seconds;
     }
 
     data.column.push(columnDefs);
@@ -251,7 +274,7 @@ $(document).ready(function(){
     // }
 
     $('#btn-remove').on('click', function(){
-        var destroy = '{{ route("order_substatus.destroy", ":id") }}';
+        var destroy = '{{ route("orders.destroy", ":id") }}';
         url = destroy.replace(':id', $('.modal-content').attr('id'));
 
         $('#btn-cancel').prop('disabled', true);
