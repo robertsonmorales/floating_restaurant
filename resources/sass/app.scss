@@ -57,16 +57,6 @@ body{
         font-weight: 600;
     }
 
-    .active-status{
-        background-color: #00e39611;
-        color: $green;
-    }
-
-    .inactive-status{
-        background-color: $inactive;
-        color: $toolbar;
-    }
-
     .is-below-minimum{
         background-color: #feb01911;
         color: $gold;
