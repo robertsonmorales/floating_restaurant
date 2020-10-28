@@ -2,12 +2,11 @@
 @section('title', $title)
 
 @section('content')
-<center>
-<div class="content">
+<div class="d-flex flex-column align-items-center">
     <form action="{{ ($mode == 'update') ? 
         route('employees.update', $data->id) : 
         route('employees.store') }}"
-        method="POST" class="mb-4 card-form" id="card-form" style="width: 45%;">
+        method="POST" class="col-5 mb-4 card-form" id="card-form">
         @csrf
 
         <h5>{{ ucfirst($mode).' '.\Str::Singular($header) }}</h5>
@@ -50,7 +49,7 @@
 
         <div class="input-group">
             <label for="">Birthdate</label>
-            <input type="text" name="birthdate" id="birthdate" required autocomplete="off"
+            <input type="date" name="birthdate" id="birthdate" required autocomplete="off"
                 class="form-control @error('birthdate') is-invalid @enderror" autofocus
                 value="{{($mode == 'update') ? Crypt::decryptString($data->birthdate) : old('birthdate')}}">
             @error('birthdate')
@@ -149,7 +148,6 @@
         </div>
     </form>
 </div>
-</center>
 <br>
 @endsection
 @section('scripts')
@@ -165,15 +163,6 @@ $(document).ready(function(){
 
         $('#btn-submit').html((mode == "update") ? "Submitting Changes.." : "Submitting..");
         $(this).submit();
-    });
-
-    $("#birthdate").datepicker({
-        showAnim: 'slideDown',
-        showButtonPanel: false,
-        showOtherMonths: true,
-        selectOtherMonths: true,
-        changeMonth: true,
-        changeYear: true
     });
 
 });

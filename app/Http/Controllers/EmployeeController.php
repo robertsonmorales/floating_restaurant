@@ -92,11 +92,13 @@ class EmployeeController extends Controller
 
         $columnDefs = array();
         $columnDefs[] = array_merge(array('headerName'=>'Name','field'=>'name'), $arr_set);
-        $columnDefs[] = array_merge(array('headerName'=>'Birthdate','field'=>'birthdate'), $arr_set);
-        $columnDefs[] = array_merge(array('headerName'=>'Gender','field'=>'gender'), $arr_set);
-        $columnDefs[] = array_merge(array('headerName'=>'Mobile #','field'=>'contact_number'), $arr_set);
+        // $columnDefs[] = array_merge(array('headerName'=>'Birthdate','field'=>'birthdate'), $arr_set);
+        // $columnDefs[] = array_merge(array('headerName'=>'Gender','field'=>'gender'), $arr_set);
+        // $columnDefs[] = array_merge(array('headerName'=>'Mobile #','field'=>'contact_number'), $arr_set);
         $columnDefs[] = array_merge(array('headerName'=>'Job Position','field'=>'position'), $arr_set);
         $columnDefs[] = array_merge(array('headerName'=>'Status','field'=>'status'), $arr_set);
+        $columnDefs[] = array_merge(array('headerName'=>'Created By','field'=>'created_by'), $arr_set);
+        $columnDefs[] = array_merge(array('headerName'=>'Updated By','field'=>'updated_by'), $arr_set);
         $columnDefs[] = array_merge(array('headerName'=>'Created At','field'=>'created_at'), $arr_set);
         $columnDefs[] = array_merge(array('headerName'=>'Updated At','field'=>'updated_at'), $arr_set);
         $data = json_encode(array('rows'=>$rows, 'column'=>$columnDefs));
@@ -156,7 +158,7 @@ class EmployeeController extends Controller
             $this->employee->address = Crypt::encryptString($validated['address']);
             $this->employee->status = $validated['status'];
             $this->employee->created_by = Auth::id();
-            // $this->employee->created_at = now();
+            $this->employee->created_at = now();
             $this->employee->save();
 
             $this->audit_trail_logs('', 'created', 'employees: '.$request->input('first_name'), $this->employee->id);
