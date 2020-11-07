@@ -72,7 +72,7 @@ class MenuCategoryController extends Controller
         $rows = array();
         $rows = $this->category->latest()->get();
         $rows = $this->changeVal($rows);
-            
+        
         $arr_set = array(
             'editable'=>false,
             'resizable'=>true,
@@ -119,7 +119,8 @@ class MenuCategoryController extends Controller
             'mode' => $mode_action,
             'breadcrumbs' => $this->breadcrumbs($name, $mode),
             'header' => 'Menu Categories',
-            'title' => 'Menu Categories'
+            'title' => 'Menu Categories',
+            // 'host' => request()->getSchemeAndHttpHost(),
         ]);
     }
 
@@ -142,24 +143,8 @@ class MenuCategoryController extends Controller
 
             $data = $this->category;
             $data->upload_type = $validated['upload_type'];
-            if ($uploadIndex == 0) { // URL
-                $data->category_image = $urlImage;
-            }else if($uploadIndex == 1){ // FILE
-                if ($fileImage->isValid()) {
-                    $publicFolder = public_path('images/menu_categories/');
-                    $profileImage = $fileImage->getClientOriginalName(); // returns original name
-                    $extension = $fileImage->getclientoriginalextension(); // returns the file extension
-                    $newProfileImage = strtoupper(Str::random(20)).'.'.$extension;
-                    $move = $fileImage->move($publicFolder, $newProfileImage);
-                    if ($move) {
-                        $data->category_image = $newProfileImage;
-                    }else{
-                        return back()->with('error', "Failed to upload image");
-                    }
-                }else{
-                    return back()->with('error', "Something wrong with the image, please try again..");
-                }
-            }
+            $data->category_image = ($uploadIndex == 1) ? $this->uploadImage($fileImage) : $urlImage;
+            
             $data->category_icon = $validated['category_icon'];
             $data->tag_color = $validated['tag_color'];
             $data->name = $validated['name'];
@@ -207,7 +192,8 @@ class MenuCategoryController extends Controller
             'header' => 'Menu Categories',
             'title' => 'Menu Categories',
             'data' => $data,
-            'uniqueData' => $this->category->all()
+            'uniqueData' => $this->category->all(),
+            // 'host' => request()->getSchemeAndHttpHost(),
         ]);
     }
 
@@ -230,24 +216,7 @@ class MenuCategoryController extends Controller
             $fileImage = $validated['category_image'];
 
             $data->upload_type = $validated['upload_type'];
-            if ($uploadIndex == 0) { // URL
-                $data->category_image = $urlImage;
-            }else if($uploadIndex == 1){ // FILE
-                if ($fileImage->isValid()) {
-                    $publicFolder = public_path('images/menu_categories/');
-                    $profileImage = $fileImage->getClientOriginalName(); // returns original name
-                    $extension = $fileImage->getclientoriginalextension(); // returns the file extension
-                    $newProfileImage = strtoupper(Str::random(20)).'.'.$extension;
-                    $move = $fileImage->move($publicFolder, $newProfileImage);
-                    if ($move) {
-                        $data->category_image = $newProfileImage;
-                    }else{
-                        return back()->with('error', "Failed to upload image");
-                    }
-                }else{
-                    return back()->with('error', "Something wrong with the image, please try again..");
-                }
-            }
+            $data->category_image = ($uploadIndex == 1) ? $this->uploadImage($fileImage) : $urlImage;
             $data->category_icon = $validated['category_icon'];
             $data->tag_color = $validated['tag_color'];
             $data->name = $validated['name'];
@@ -276,5 +245,19 @@ class MenuCategoryController extends Controller
         
         return redirect()->route('menu_categories.index')
             ->with('success', 'You have successfully removed '.$data->name);
+    }
+
+    public function uploadImage($data){
+        if ($data->isValid()) {
+            $publicFolder = ('images/menu_categories/');
+            $profileImage = $data->getClientOriginalName(); // returns original name
+            $extension = $data->getclientoriginalextension(); // returns the file extension
+            $newProfileImage = strtoupper(Str::random(20)).'.'.$extension;
+            $move = $data->storeAs($publicFolder, $newProfileImage);
+          
+            if ($move) {
+                return $newProfileImage;
+            }
+        }
     }
 }

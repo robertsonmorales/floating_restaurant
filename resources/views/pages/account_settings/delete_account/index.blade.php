@@ -13,7 +13,7 @@
 @endif
 
 @if(session()->get('error'))
-<div class="alert alert-danger alert-dismissible fade show alerts" role="alert">
+<div class="alert alert-danger alert-dismissible fade show alerts mx-4 mb-3" role="alert">
     <span><i data-feather="x"></i> {{ session()->get('error') }} </span>
     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
         <span aria-hidden="true" class="dismiss-icon"><i data-feather="x"></i> </span>
@@ -21,7 +21,7 @@
 </div>
 @endif
 
-<div class="row no-gutters user-container align-items-start">
+<div class="row no-gutters user-container align-items-start mx-4 mb-3">
     @include('pages.account_settings.sidebar')
 
     <div class="col-6 user-content">

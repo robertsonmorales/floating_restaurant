@@ -174,25 +174,7 @@ class MenuController extends Controller
             $data->menu_categories_id = $validated['menu_category'];
             $data->menu_type_id = $validated['menu_type'];
             $data->upload_type = $validated['upload_type'];
-            if ($uploadIndex == 0) { // URL
-                $data->menu_image = $urlImage;
-            }else if($uploadIndex == 1){ // FILE
-                if ($fileImage->isValid()) {
-                    $publicFolder = public_path('images/menus/');
-                    $profileImage = $fileImage->getClientOriginalName(); // returns original name
-                    $extension = $fileImage->getclientoriginalextension(); // returns the file extension
-                    $newProfileImage = strtoupper(Str::random(20)).'.'.$extension;
-                    $move = $fileImage->move($publicFolder, $newProfileImage);
-                    if ($move) {
-                        $data->menu_image = $newProfileImage;
-                    }else{
-                        return back()->with('error', "Failed to upload image");
-                    }
-                }else{
-                    return back()->with('error', "Something wrong with the image, please try again..");
-                }
-            }
-
+            $data->menu_image = ($uploadIndex == 1) ? $this->uploadImage($fileImage) : $urlImage;
             $data->name = $validated['name'];
             $data->price = $validated['price'];
             $data->status = $validated['status'];
@@ -299,24 +281,7 @@ class MenuController extends Controller
             $data->menu_categories_id = $validated['menu_category'];
             $data->menu_type_id = $validated['menu_type'];
             $data->upload_type = $validated['upload_type'];
-            if ($uploadIndex == 0) { // URL
-                $data->menu_image = $urlImage;
-            }else if($uploadIndex == 1){ // FILE
-                if ($fileImage->isValid()) {
-                    $publicFolder = public_path('images/menus/');
-                    $profileImage = $fileImage->getClientOriginalName(); // returns original name
-                    $extension = $fileImage->getclientoriginalextension(); // returns the file extension
-                    $newProfileImage = strtoupper(Str::random(20)).'.'.$extension;
-                    $move = $fileImage->move($publicFolder, $newProfileImage);
-                    if ($move) {
-                        $data->menu_image = $newProfileImage;
-                    }else{
-                        return back()->with('error', "Failed to upload image");
-                    }
-                }else{
-                    return back()->with('error', "Something wrong with the image, please try again..");
-                }
-            }
+            $data->menu_image = ($uploadIndex == 1) ? $this->uploadImage($fileImage) : $urlImage;
 
             $data->name = $validated['name'];
             $data->price = $validated['price'];
@@ -366,6 +331,20 @@ class MenuController extends Controller
         $data->delete();
 
         return redirect()->route('menus.index')->with('success', 'You have successfully added '.$data->name);
+    }
+
+    public function uploadImage($data){
+        if ($data->isValid()) {
+            $publicFolder = ('images/menus/');
+            $profileImage = $data->getClientOriginalName(); // returns original name
+            $extension = $data->getclientoriginalextension(); // returns the file extension
+            $newProfileImage = strtoupper(Str::random(20)).'.'.$extension;
+            $move = $data->storeAs($publicFolder, $newProfileImage);
+          
+            if ($move) {
+                return $newProfileImage;
+            }
+        }
     }
 
     public function changeValue($rows){

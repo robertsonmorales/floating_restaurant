@@ -2,8 +2,8 @@
 @section('title', $title)
 
 @section('content')
-<div class="row no-gutters m-4 align-items-start justify-content-between">
-	<div class="col d-flex flex-column">
+<div class="m-4 d-flex align-items-start">
+	<div class="d-flex flex-column w-20">
 
 		@foreach($menu_categories as $categories)
 		@if($categories->upload_type != null)
@@ -22,7 +22,7 @@
 		@endforeach
 	</div>
 
-	<div class="co d-flex flex-column">
+	<div class="d-flex flex-column">
 		<div class="form-group form-control d-flex align-items-center search-text">
 			<span>
 				<i data-feather="search"></i>
@@ -31,6 +31,7 @@
 		</div>
 
 		<div class="row no-gutters" id="menu-list">
+			<h5 class="text-muted">{{ $countMenus }} Menus</h5>
 			@foreach($paginator as $menu)
 			<div class="card card-shadow mb-3">
 			  <div class="row card-body align-items-center justify-content-between">
@@ -73,7 +74,7 @@
 	    {{ $paginator->links() }}
 	</div>
 
-	<div class="col d-flex flex-column">
+	<div class="d-flex">
 		<div class="p-4 position-fixed card-transaction">
 			<div class="d-flex justify-content-start align-items-center">
 				<span class="h5 mb-0">Ordered Items</span>
@@ -116,7 +117,7 @@
 
 			<ul class="list-group no-gutters" id="order-list">
 				@if($orderedMenuCount <= 0)
-				<div class="row no-gutters justify-content-center text-muted mt-2" id="no-orders">
+				<div class="row no-gutters justify-content-start text-muted mt-2" id="no-orders">
 					<span class="h5">No Orders Yet.</span>
 				</div>
 				@endif
