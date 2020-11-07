@@ -26,14 +26,14 @@
         <div class="input-group">
             <label for="">Tag Color</label>
             <input type="color" name="tag_color" id="tag-color" autocomplete="off"
-                class="form-control-color @error('tag-color') is-invalid @enderror"
+                class="form-control-color @error('tag_color') is-invalid @enderror"
                 value="{{($mode == 'update') ? $data->tag_color : old('tag-color')}}">
 
             <span class="messages">
                 <strong id="error-tag-color"></strong>
             </span>
 
-            @error('color')
+            @error('tag_color')
             <span class="invalid-feedback" role="alert">
                 <strong>{{ $message }}</strong>
             </span>
@@ -42,7 +42,7 @@
 
         <div class="input-group">
             <label for="">Icon</label>
-            <input type="text" name="category_icon" id="category_icon" autocomplete="off" class="form-control @error('name') is-invalid @enderror" value="{{($mode == 'update') ? $data->category_icon : old('category_icon')}}">
+            <input type="text" name="category_icon" id="category_icon" autocomplete="off" class="form-control @error('category_icon') is-invalid @enderror" value="{{($mode == 'update') ? $data->category_icon : old('category_icon')}}">
 
             <span class="messages" role="alert">
                 <strong id="error-category-icon"></strong>
@@ -75,7 +75,7 @@
     </div>
 
     <div class="mb-4 card-form col-5">
-        <h5>{{ ($mode == 'create') ? 'Upload Image' : 'Change Image' }}</h5>
+        <h5>{{ ($mode == 'create') ? 'Upload Image' : 'Edit Image' }}</h5>
 
         <div class="input-group">
             <label>Upload Type</label>
@@ -98,7 +98,7 @@
 
         <div class="input-group" id="file-group">
             <label>Upload Image</label>
-            <input type="file" id="category_image" name="category_image" onchange="previewFile(this)" class="form-control @error('category_image') is-invalid @enderror" accept="image/*">
+            <input type="file" id="category_image" name="category_image" class="form-control @error('category_image') is-invalid @enderror" accept="image/*">
 
             <span class="messages">
                 <strong id="error-category-image"></strong>
@@ -128,7 +128,7 @@
         </div>
 
         <div class="input-group">
-            <img src="{{ ($mode == 'update' && $data->upload_type == '1|File Upload') ? asset('images/menu_categories/'.$data->category_image) : '' }}" id="image-preview" width="300" class="rounded">
+            <img src="{{ ($mode == 'update' && $data->upload_type == '1|File Upload') ? asset('uploads/menu_categories/'.$data->category_image) : '' }}" id="image-preview" width="300" class="rounded">
         </div>
 
         @if ($mode == 'update')
@@ -150,18 +150,19 @@
 $(document).ready(function(){
     function fileUpload(){
         if ($('#upload_type').val() == "1|File Upload") {
-            $('#file-group').show(500);
-            $('#url-group').hide(500);
+            $('#file-group').show(300);
+            $('#url-group').hide(300);
         }else if($('#upload_type').val() == "0|URL"){
-            $('#url-group').show(500);
-            $('#file-group').hide(500);
+            $('#url-group').show(300);
+            $('#url_image').val(); //host + '/uploads/menu_categories/' + $("#url_image").val()
+            $('#file-group').hide(300);
 
             $('#image-preview').attr('src', $("#url_image").val());
-            $('#image-preview').show(500);
+            $('#image-preview').show(300);
         }else{
-            $('#file-group').hide(500);
-            $('#url-group').hide(500);
-            $('#image-preview').hide(500);
+            $('#file-group').hide(300);
+            $('#url-group').hide(300);
+            $('#image-preview').hide(300);
         }
     }
 
@@ -171,18 +172,20 @@ $(document).ready(function(){
 
     $('#upload_type').on('change', function(){
         if ($(this).val() == "1|File Upload") {
-            $('#file-group').show(500);
-            $('#url-group').hide(500);
+            $('#file-group').show(300);
+            $('#url-group').hide(300);
         }else if($(this).val() == "0|URL"){
-            $('#url-group').show(500);
-            $('#file-group').hide(500);
+            $('#url-group').show(300);
+            $('#file-group').hide(300);
 
             $('#image-preview').attr('src', $("#url_image").val());
-            $('#image-preview').show(500);
+            $('#image-preview').show(300);
+
+
         }else{
-            $('#file-group').hide(500);
-            $('#url-group').hide(500);
-            $('#image-preview').hide(500);
+            $('#file-group').hide(300);
+            $('#url-group').hide(300);
+            $('#image-preview').hide(300);
         }
     });
 
@@ -198,7 +201,7 @@ $(document).ready(function(){
 
             reader.readAsDataURL(file);
         }
-    })
+    });
 
     $('#card-form').on('submit', function(){
         var mode = "{{ $mode }}";

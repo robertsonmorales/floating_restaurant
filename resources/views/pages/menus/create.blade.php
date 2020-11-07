@@ -164,7 +164,7 @@
         <div class="input-group" id="url-group">
             <label for="">URL</label>
             <input type="url" name="url_image" id="url_image" autocomplete="off"
-                class="form-control @error('url_image') is-invalid @enderror" autofocus placeholder="https://www.example.com/img/example.png" value="{{ ($mode == 'update') ? $data->menu_image : '' }}">
+                class="form-control @error('url_image') is-invalid @enderror" autofocus placeholder="https://www.example.com/img/example.png" value="{{ ($mode == 'update' && $data->upload_type == '0|URL') ? $data->menu_image : '' }}">
 
             <span class="messages">
                 <strong id="error-url-image"></strong>
@@ -178,7 +178,7 @@
         </div>
 
         <div class="input-group">
-            <img src="" id="image-preview" width="300" class="rounded">
+            <img src="{{ ($mode == 'update' && $data->upload_type == '1|File Upload') ? asset('uploads/menus/'.$data->menu_image) : '' }}" id="image-preview" width="300" class="rounded">
         </div>
     </div>
 
@@ -251,18 +251,19 @@ const Toast = Swal.mixin({
 
 function fileUpload(){
     if ($('#upload_type').val() == "1|File Upload") {
-        $('#file-group').show(500);
-        $('#url-group').hide(500);
+        $('#file-group').show(300);
+        $('#url-group').hide(300);
     }else if($('#upload_type').val() == "0|URL"){
-        $('#url-group').show(500);
-        $('#file-group').hide(500);
+        $('#url-group').show(300);
+        $('#url_image').val(); //host + '/uploads/menu_categories/' + $("#url_image").val()
+        $('#file-group').hide(300);
 
         $('#image-preview').attr('src', $("#url_image").val());
-        $('#image-preview').show(500);
+        $('#image-preview').show(300);
     }else{
-        $('#file-group').hide(500);
-        $('#url-group').hide(500);
-        $('#image-preview').hide(500);
+        $('#file-group').hide(300);
+        $('#url-group').hide(300);
+        $('#image-preview').hide(300);
     }
 }
 
@@ -270,21 +271,36 @@ fileUpload();
 
 $('#upload_type').on('change', function(){
     if ($(this).val() == "1|File Upload") {
-        $('#file-group').show(500);
-        $('#url-group').hide(500);
+        $('#file-group').show(300);
+        $('#url-group').hide(300);
     }else if($(this).val() == "0|URL"){
-        $('#url-group').show(500);
-        $('#file-group').hide(500);
+        $('#url-group').show(300);
+        $('#file-group').hide(300);
 
         $('#image-preview').attr('src', $("#url_image").val());
-        $('#image-preview').show(500);
+        $('#image-preview').show(300);
+
+
     }else{
-        $('#file-group').hide(500);
-        $('#url-group').hide(500);
-        $('#image-preview').hide(500);
+        $('#file-group').hide(300);
+        $('#url-group').hide(300);
+        $('#image-preview').hide(300);
     }
 });
 
+$('#menu_image').on('change', function(){
+    var file = $("#menu_image").get(0).files[0];
+    
+    if(file){
+        var reader = new FileReader();
+
+        reader.onload = function(){
+            $("#image-preview").attr("src", reader.result);
+        }
+
+        reader.readAsDataURL(file);
+    }
+});
 
 $("#url_image").on('keyup', function(){
     $('#image-preview').attr('src', $(this).val());

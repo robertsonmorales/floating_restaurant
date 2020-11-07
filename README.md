@@ -13,3 +13,5 @@
 - php artisan migrate:fresh --seed
 - php artisan serve --host=hostname --port=portID
 - php artisan vendor:publish --tag=laravel-pagination
+- php artisan storage:link
+
