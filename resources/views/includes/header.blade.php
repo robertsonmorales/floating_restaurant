@@ -1,8 +1,9 @@
 <div class="header-content position-sticky sticky-top">
     <nav class="px-4 py-3">
         <div class="row no-gutters">
-            <button class="btn btn-light" type="button" title="collapse">
-                <i data-feather="skip-back"></i>
+            <button class="btn btn-light" type="button">
+                <!-- <i data-feather="skip-back"></i> -->
+                <i data-feather="menu"></i>
             </button>
         </div>
         <div class="user-profile">

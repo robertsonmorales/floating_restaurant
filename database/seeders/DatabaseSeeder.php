@@ -16,19 +16,19 @@ class DatabaseSeeder extends Seeder
         // \App\Models\User::factory(10)->create();
         $this->call([
             UserSeeder::class,
-            MenuCategorySeeder::class,
+            // MenuCategorySeeder::class,
             MenuTypeSeeder::class,
             ProductCategorySeeder::class,
-            ProductUnitSeeder::class,
+            // ProductUnitSeeder::class,
             // ProductSeeder::class, // removable
-            OrderStatusSeeder::class,
-            OrderSubstatusSeeder::class,
+            // OrderStatusSeeder::class,
+            // OrderSubstatusSeeder::class,
             ExpenseCategorySeeder::class,
-            CustomerDiscountSeeder::class,
-            EmployeePositionSeeder::class,
+            // CustomerDiscountSeeder::class,
+            // EmployeePositionSeeder::class,
             // StockSeeder::class, // removable
-            CustomerSeeder::class,
-            OrderSeeder::class
+            // CustomerSeeder::class,
+            // OrderSeeder::class
         ]);
     }
 }

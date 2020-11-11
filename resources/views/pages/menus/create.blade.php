@@ -15,7 +15,7 @@
             <label for="">Name</label>
             <input type="text" name="name" id="name" autocomplete="off"
                 class="form-control @error('name') is-invalid @enderror" autofocus
-                value="{{($mode == 'update') ? $data->name : old('name')}}">
+                value="{{($mode == 'update') ? $data->name : old('name')}}" required>
 
             <span class="messages">
                 <strong id="error-name"></strong>
@@ -32,18 +32,27 @@
             <label for="">Menu Category</label>
             <select name="menu_category" id="menu_category" class="custom-select form-control @error('menu_category') is-invalid @enderror" autofocus required>
                 @if($mode == 'create')
+                    <option value="">Select Menu Category..</option>
                     @foreach($menu_category as $types)
                     <option value="{{ $types->id }}">{{ $types->name }}</option>
                     @endforeach
                 @endif
 
                 @if($mode == 'update')
+                    @if($select_menu_category == null)
+                    <option value="">Select Menu Category..</option>
+                    @foreach($menu_category as $types)                        
+                        <option value="{{ $types->id }}">{{ $types->name }}</option>
+                    @endforeach
+                    @else
                     <option value="{{ $select_menu_category->id }}">{{ $select_menu_category->name }}</option>
                     @foreach($menu_category as $types)                        
                         @if($select_menu_category->id != $types->id)
                         <option value="{{ $types->id }}">{{ $types->name }}</option>
                         @endif
                     @endforeach
+                    @endif
+
                 @endif
             </select>
 
@@ -79,18 +88,26 @@
             <label for="">Menu Type</label>
             <select name="menu_type" id="menu_type" class="custom-select form-control @error('menu_type') is-invalid @enderror" autofocus required>
                 @if($mode == 'create')
+                    <option value="">Select Menu Type..</option>
                     @foreach($menu_type as $types)
                     <option value="{{ $types->id }}">{{ $types->name }}</option>
                     @endforeach
                 @endif
 
                 @if($mode == 'update')
+                    @if($select_menu_type == null)
+                    <option value="">Select Menu Type..</option>
+                    @foreach($menu_type as $types)                        
+                        <option value="{{ $types->id }}">{{ $types->name }}</option>
+                    @endforeach
+                    @else
                     <option value="{{ $select_menu_type->id }}">{{ $select_menu_type->name }}</option>
                     @foreach($menu_type as $types)                        
                         @if($select_menu_type->id != $types->id)
                         <option value="{{ $types->id }}">{{ $types->name }}</option>
                         @endif
                     @endforeach
+                    @endif
                 @endif
             </select>
 
@@ -125,12 +142,12 @@
     </div>
 
     <div class="col-5 mb-4 card-form" style="width: 45%;">
-        <h5>{{ ($mode == 'create') ? 'Upload Image' : 'Change Image' }}</h5>
+        <h5>Upload Image</h5>
 
         <div class="input-group">
             <label>Upload Type</label>
             <select id="upload_type" name="upload_type" class="custom-select form-control @error('upload_type') is-invalid @enderror">
-                <option value="None" {{ ($mode == 'update' && $data->upload_type == "None") ? 'selected' : '' }}>None</option>
+                <option value="" {{ ($mode == 'update' && $data->upload_type == "None") ? 'selected' : '' }}>Select Upload Type..</option>
                 <option value="1|File Upload" {{ ($mode == 'update' && $data->upload_type == "1|File Upload") ? 'selected' : '' }}>File Upload</option>
                 <option value="0|URL" {{ ($mode == 'update' && $data->upload_type == "0|URL") ? 'selected' : '' }}>URL</option>
             </select>

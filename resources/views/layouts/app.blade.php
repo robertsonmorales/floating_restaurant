@@ -26,9 +26,7 @@
         @include('includes.sidebar')
         <main>
             @include('includes.header')
-            @if(!Request::is('pos'))
-                @include('includes.breadcrumb')
-            @endif
+            @include('includes.breadcrumb')
             @yield('content')
         </main>
     </div>

@@ -43,6 +43,10 @@ Route::middleware('auth')->group(function () {
     Route::resource('/inventory_logs', App\Http\Controllers\InventoryLogController::class);
     Route::resource('/employees', App\Http\Controllers\EmployeeController::class);
 
+    // IMPORTS
+    Route::post('/menu_categories/import', [App\Http\Controllers\MenuCategoryController::class, 'import'])->name('menu_categories.import');
+    Route::post('/menus/import', [App\Http\Controllers\MenuController::class, 'import'])->name('menus.import');
+
 
     // ORDERING
     Route::get('/orders/get_orders', [App\Http\Controllers\OrderController::class, 'getOrders'])->name('orders.get_orders');

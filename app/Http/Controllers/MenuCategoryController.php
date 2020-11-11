@@ -93,7 +93,7 @@ class MenuCategoryController extends Controller
 
         $this->audit_trail_logs('','','','');
 
-        return view('pages.menu_categories.index', [
+        return view('pages.menu_categories.index', [ 
             'breadcrumbs' => $this->breadcrumbs($name, $mode),
             'data' => $data,
             'add' => 'Add New Record',
@@ -245,6 +245,53 @@ class MenuCategoryController extends Controller
         
         return redirect()->route('menu_categories.index')
             ->with('success', 'You have successfully removed '.$data->name);
+    }
+
+    public function importValidator(Request $request){
+      $input = ['import_file'=> $request->file('import_file')];
+      $rules = ['import_file' => 'required|mimetypes:text/csv,text/plain,application/csv'];
+      $messages = ['import_file' => 'Invalid File type'];
+      $customAttributes = ['import_file' => 'Import File',];
+      $validator = Validator::make($input, $rules, $messages,$customAttributes);
+      return $validator->validate();
+    }
+
+    public function import(Request $request){
+        $validator = $this->importValidator($request);
+        $file = $validator['import_file'];
+
+        if ($file->isValid()) {
+            $handleFile = fopen($request->file('import_file'), "r");
+            $rows = [];
+
+            while($line = fgetcsv($handleFile)) {
+                $rows[] = $line;
+            }
+
+            fclose($handleFile);
+
+            $data = array();
+            for ($i=1; $i < count($rows); $i++) { 
+                $data[] = $rows[$i];
+            }
+
+            for ($j=0; $j < count($data); $j++) {
+                $this->category->insert([
+                    'upload_type' => $this->safeInputs(@$data[$j][0]),
+                    'category_image' => $this->safeInputs(@$data[$j][1]),
+                    'category_icon' => $this->safeInputs(@$data[$j][2]),
+                    'tag_color' => $this->safeInputs(@$data[$j][3]),
+                    'name' => $this->safeInputs(@$data[$j][4]),
+                    'status' => 1,
+                    'created_by' => Auth::id(),
+                    'created_at' => now()
+                ]);
+            }
+
+            return back()->with('import', 'File Imported Successfully');
+        }else{
+            return back()->with('error', 'Invalid File Type');
+        }
     }
 
     public function uploadImage($data){

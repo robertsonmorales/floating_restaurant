@@ -6,7 +6,12 @@
 <div class="filters mx-4 mb-3">
     <div class="filters-child">
         <button onclick="window.location.href='{{ route('menus.create') }}'" class="btn btn-primary" id="btn-add-record">{{ $add }}</button>
-        <button class="btn btn-primary" id="btn-export">
+        <button class="btn btn-secondary" id="btn-import">
+            <span>Import</span>
+            <span class="download-icon"><i data-feather="upload"></i></span>
+        </button>
+
+        <button class="btn btn-secondary" id="btn-export">
             <span>Export</span>
             <span class="download-icon"><i data-feather="download"></i></span>
         </button>
@@ -16,15 +21,6 @@
             <span class="search-icon"><i data-feather="search"></i></span>
             <input type="text" name="search-filter" id="search-filter" placeholder="Search here..">
         </div>
-
-        <select name="sortBy" id="sortBy" class="custom-select">
-            <option style="display: none;">Sort by</option>
-            <option disabled selected>Sort by</option>
-            <option value="ascending">Ascending</option>
-            <option value="descending">Descending</option>
-            <option value="date-created">Date created</option>
-            <option value="date-modified">Date modified</option>
-        </select>
 
         <select name="pageSize" id="pageSize" class="custom-select">
             <option style="display: none;">Page size</option>
@@ -43,6 +39,15 @@
 @if(session()->get('success'))
 <div class="alert alert-success alert-dismissible fade show alerts mx-4 mb-3" role="alert">
     <span><i data-feather="check"></i> {{ session()->get('success') }}</span>
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true" class="dismiss-icon"><i data-feather="x"></i> </span>
+    </button>
+</div>
+@endif
+
+@if(session()->get('import'))
+<div class="alert alert-success alert-dismissible fade show alerts mx-4 mb-3" role="alert">
+    <span><i data-feather="check"></i> {{ session()->get('import') }}</span>
     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
         <span aria-hidden="true" class="dismiss-icon"><i data-feather="x"></i> </span>
     </button>
@@ -78,6 +83,32 @@
 
 </form>
 <!-- Ends here -->
+
+<!-- The Import Modal -->
+<form class="modal" action="{{ route('menus.import') }}" method="POST" id="import-form-submit" enctype="multipart/form-data">
+    @csrf
+    <div class="modal-content">
+        <div class="modal-header">      
+            <div class="modal-icon modal-icon-info">
+                <i data-feather="alert-triangle"></i>
+            </div>
+
+            <div class="modal-body">
+                <h5>Import Records</h5>
+                
+                <input type="file" name="import_file" id="import_file" class="form-control" accept=".xlsx, .xls, .csv">
+                <span class="invalid-feedback text-danger" role="alert">This field is required</span>
+            </div>
+
+        </div>
+
+        <div class="modal-footer">
+            <button type="button" class="btn btn-info" id="btn-info">Import File</button>
+            <button type="button" class="btn btn-outline-secondary" id="btn-import-cancel">Cancel</button>
+        </div>
+    </div>
+</form>
+<!-- ends here -->
 
 <br>
 @endsection
@@ -233,50 +264,43 @@ $(document).ready(function(){
         gridOptions.api.paginationSetPageSize(value);
     }
 
-    // SORT 
-    $("#sortBy").on('change', function(){      
-        if ($(this).val() == "ascending") {
-            gridOptions.columnApi.applyColumnState({
-              state: [{ colId: 'name', sort: 'asc' }],
-              defaultState: { sort: null },
-            });
-        }else if($(this).val() == "descending"){
-            gridOptions.columnApi.applyColumnState({
-              state: [{ colId: 'name', sort: 'desc' }],
-              defaultState: { sort: null },
-            });
-        }else if($(this).val() == "date-created"){
-            alert('under construction');
-        }else if($(this).val() == "date-modified"){
-            alert('under construction');
-        }
-    });
-    // ENDS HERE
-
     // PAGE SIZE
     $("#pageSize").change(function(){
         var size = $(this).val();
         // console.log(size);
         pageSize(size);
     });
-
-    // .select2({
-    //     minimumResultsForSearch: Infinity
-    // });
     // ENDS HERE
 
     // setup the grid after the page has finished loading
     new agGrid.Grid(gridDiv, gridOptions);
 
+    $('#btn-import').on('click', function(){
+        $('#import-form-submit').attr('style', 'display: flex;');
+    });
+
+    $('#btn-import-cancel').on('click', function(){
+        $('#import-form-submit').hide();
+        $('#import_file').val('');
+    });
+
+    $('#btn-info').on('click', function(){
+
+        if ($('#import_file')[0].files == null) {
+            console.log($('#import_file')[0]);
+            $('.invalid-feedback').show();
+        }else{
+             $('#btn-import-cancel').prop('disabled', true);
+             $('#btn-info').prop('disabled', true);
+             $('#btn-info').html("Importing File..");
+
+            document.getElementById("import-form-submit").submit(); 
+        }
+    });
+
     $('#btn-cancel').on('click', function(){
         $('#form-submit').hide();
     });
-
-    // window.onclick = function(event) {
-    //     if (event.target == $('.modal')[0]) {
-    //         $('#form-submit').hide();
-    //     }
-    // }
 
     $('#btn-remove').on('click', function(){
         var destroy = '{{ route("menus.destroy", ":id") }}';

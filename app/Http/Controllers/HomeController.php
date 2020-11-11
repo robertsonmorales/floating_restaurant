@@ -85,7 +85,6 @@ class HomeController extends Controller
                 $orderList = DB::table('ordered_menus as om')
                     ->select($selectedFields)
                     ->leftJoin('menus as m', 'm.id', 'om.menu_id')->where('om.order_id', $order->id)->latest('om.created_at')->get();
-                // $orderedMenu = $this->orderedMenu->where('order_id', $order->id)->get();
                 $orderedMenuCount = count($orderList);
                 $orderedMenuTotal = $orderList->sum('total_price');
             }
@@ -100,10 +99,10 @@ class HomeController extends Controller
             'menu_categories' => $categories,
             'countMenus' => $countMenus,
             'paginator' => $menus,
-            'orderedMenus' => $orderList,
-            'orderedMenuCount' => $orderedMenuCount,
-            'orderedMenuTotal' => $orderedMenuTotal,
-            'transaction_no' => $order->transaction_no
+            'orderedMenus' => @$orderList,
+            'orderedMenuCount' => @$orderedMenuCount,
+            'orderedMenuTotal' => @$orderedMenuTotal,
+            'transaction_no' => @$order->transaction_no
         ]);
     }
 
