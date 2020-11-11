@@ -3,7 +3,7 @@
 
 @section('content')
 <div class="m-4 d-flex align-items-start">
-	<div class="d-flex flex-column w-20">
+	<div class="d-flex flex-column">
 
 		@foreach($menu_categories as $categories)
 		@if($categories->upload_type != null)
@@ -22,7 +22,7 @@
 		@endforeach
 	</div>
 
-	<div class="d-flex flex-column">
+	<div class="col-7 d-flex flex-column">
 		<div class="form-group form-control d-flex align-items-center search-text">
 			<span>
 				<i data-feather="search"></i>
@@ -31,7 +31,6 @@
 		</div>
 
 		<div class="row no-gutters" id="menu-list">
-			<h5 class="text-muted">{{ $countMenus }} Menus</h5>
 			@foreach($paginator as $menu)
 			<div class="card card-shadow mb-3">
 			  <div class="row card-body align-items-center justify-content-between">

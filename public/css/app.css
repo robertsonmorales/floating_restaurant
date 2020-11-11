@@ -11609,10 +11609,6 @@ body .admin-container main .filters .filters-child #btn-add-record {
   background-color: #0e76bd;
 }
 
-body .admin-container main .filters .filters-child #btn-export {
-  background-color: #909090;
-}
-
 body .admin-container main .filters .filters-child .search-group {
   margin-right: 8px;
   margin-bottom: 0 !important;
@@ -11953,6 +11949,7 @@ body .admin-container main .modal .modal-content .modal-header .modal-icon {
   align-items: center;
   justify-content: center;
   width: 50px;
+  height: 50px;
   border-radius: 50%;
   padding: 10px;
 }
@@ -11973,8 +11970,8 @@ body .admin-container main .modal .modal-content .modal-header .modal-icon-error
 }
 
 body .admin-container main .modal .modal-content .modal-header .modal-icon-info {
-  color: #0e76bd;
-  background-color: #0e76bd11;
+  color: #138496;
+  background-color: #13849611;
 }
 
 body .admin-container main .modal .modal-content .modal-header .modal-body {

@@ -253,9 +253,9 @@ class MenuController extends Controller
             'data' => $data,
             'products' => $products,
             'menu_category' => $menu_category,
-            'select_menu_category' => $select_menu_category,
+            'select_menu_category' => @$select_menu_category,
             'menu_type' => $menu_type,
-            'select_menu_type' => $select_menu_type,
+            'select_menu_type' => @$select_menu_type,
             'recipes' => $recipes
         ]);
     }
@@ -333,6 +333,52 @@ class MenuController extends Controller
         return redirect()->route('menus.index')->with('success', 'You have successfully added '.$data->name);
     }
 
+    public function importValidator(Request $request){
+      $input = ['import_file'=> $request->file('import_file')];
+      $rules = ['import_file' => 'required|mimetypes:text/csv,text/plain,application/csv'];
+      $messages = ['import_file' => 'Invalid File type'];
+      $customAttributes = ['import_file' => 'Import File',];
+      $validator = Validator::make($input, $rules, $messages,$customAttributes);
+      return $validator->validate();
+    }
+
+    public function import(Request $request){
+        $validator = $this->importValidator($request);
+        $file = $validator['import_file'];
+
+        if ($file->isValid()) {
+            $handleFile = fopen($request->file('import_file'), "r");
+            $rows = [];
+
+            while($line = fgetcsv($handleFile)) {
+                $rows[] = $line;
+            }
+
+            fclose($handleFile);
+
+            $data = array();
+            for ($i=1; $i < count($rows); $i++) { 
+                $data[] = $rows[$i];
+            }
+
+            for ($j=0; $j < count($data); $j++) {
+                $this->menu->insert([
+                    'menu_categories_id' => $this->safeInputs(@$data[$j][0]),
+                    'menu_type_id' => $this->safeInputs(@$data[$j][1]),
+                    'name' => $this->safeInputs(@$data[$j][2]),
+                    'price' => $this->safeInputs(@$data[$j][3]),
+                    'status' => 1,
+                    'created_by' => Auth::id(),
+                    'created_at' => now()
+                ]);
+            }
+
+            return back()->with('import', 'File Imported Successfully');
+        }else{
+            return back()->with('error', 'Invalid File Type');
+        }
+    }
+
     public function uploadImage($data){
         if ($data->isValid()) {
             $publicFolder = ('images/menus/');
@@ -351,7 +397,7 @@ class MenuController extends Controller
         foreach ($rows as $key => $value) {
             if(Arr::exists($value, 'menu_categories_id')){
                 $menu_categories = $this->category->find($value->menu_categories_id);
-                $value->menu_categories_id = $menu_categories->name;
+                $value->menu_categories_id = @$menu_categories->name;
             }
 
             if (Arr::exists($value, 'price')) {
@@ -360,7 +406,7 @@ class MenuController extends Controller
 
             if(Arr::exists($value, 'menu_type_id')){
                 $menu_type = $this->type->find($value->menu_type_id);
-                $value->menu_type_id = $menu_type->name;   
+                $value->menu_type_id = @$menu_type->name;   
             }
         }
 

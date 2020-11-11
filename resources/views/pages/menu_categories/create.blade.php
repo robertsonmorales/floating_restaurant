@@ -75,7 +75,7 @@
     </div>
 
     <div class="mb-4 card-form col-5">
-        <h5>{{ ($mode == 'create') ? 'Upload Image' : 'Edit Image' }}</h5>
+        <h5>Upload Image</h5>
 
         <div class="input-group">
             <label>Upload Type</label>
