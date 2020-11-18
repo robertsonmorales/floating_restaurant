@@ -62,7 +62,7 @@ class HomeController extends Controller
         $mode = ['/pos'];
 
         $categories = $this->categories->where('status', 1)->oldest()->get();
-        $menus = $this->menu->where('status', 1)->paginate(7);
+        $menus = $this->menu->where('status', 1)->paginate(4);
         $menus = $this->changeValue($menus);
         $countMenus = count($menus);
 
@@ -72,7 +72,8 @@ class HomeController extends Controller
             $order = $this->order->where('customer_id', $customers->id)->latest('id')->first();
             if(!empty($order)){
                 $selectedFields = [
-                    'm.id',
+                    'om.id',
+                    'om.order_id',
                     'm.upload_type',
                     'm.menu_image',
                     'om.menu_id',
@@ -84,7 +85,7 @@ class HomeController extends Controller
 
                 $orderList = DB::table('ordered_menus as om')
                     ->select($selectedFields)
-                    ->leftJoin('menus as m', 'm.id', 'om.menu_id')->where('om.order_id', $order->id)->latest('om.created_at')->get();
+                    ->join('menus as m', 'm.id', 'om.menu_id')->where('om.order_id', $order->id)->latest('om.created_at')->get();
                 $orderedMenuCount = count($orderList);
                 $orderedMenuTotal = $orderList->sum('total_price');
             }

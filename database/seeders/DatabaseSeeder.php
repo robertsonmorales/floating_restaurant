@@ -19,16 +19,16 @@ class DatabaseSeeder extends Seeder
             // MenuCategorySeeder::class,
             MenuTypeSeeder::class,
             ProductCategorySeeder::class,
-            // ProductUnitSeeder::class,
-            // ProductSeeder::class, // removable
-            // OrderStatusSeeder::class,
-            // OrderSubstatusSeeder::class,
+            ProductUnitSeeder::class,
+            ProductSeeder::class, // removable
+            OrderStatusSeeder::class,
+            OrderSubstatusSeeder::class,
             ExpenseCategorySeeder::class,
-            // CustomerDiscountSeeder::class,
-            // EmployeePositionSeeder::class,
-            // StockSeeder::class, // removable
-            // CustomerSeeder::class,
-            // OrderSeeder::class
+            CustomerDiscountSeeder::class,
+            EmployeePositionSeeder::class,
+            StockSeeder::class, // removable
+            CustomerSeeder::class,
+            OrderSeeder::class
         ]);
     }
 }
