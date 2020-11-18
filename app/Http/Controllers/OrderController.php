@@ -199,7 +199,20 @@ class OrderController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $data = explode(',', $id);
+        $orderMenuId = $data[0];
+        $orderId = $data[1];
+
+        $data = $this->orderedMenu->findOrFail($orderMenuId);
+        $data->delete();
+
+        $orderedItems = $this->orderedMenu->where('order_id', $orderId)->get()->count();
+        return response()->json([
+            'data' => array(
+                'status' => 200,
+                'ordered_items' => $orderedItems
+            )
+        ]);
     }
 
     public function getOrders(){

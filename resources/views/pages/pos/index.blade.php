@@ -2,8 +2,8 @@
 @section('title', $title)
 
 @section('content')
-<div class="m-4 d-flex align-items-start">
-	<div class="d-flex flex-column">
+<div class="row mx-2 align-items-start">
+	<div class="col-2 d-flex flex-column">
 
 		@foreach($menu_categories as $categories)
 		@if($categories->upload_type != null)
@@ -22,7 +22,7 @@
 		@endforeach
 	</div>
 
-	<div class="col-7 d-flex flex-column">
+	<div class="col-6 flex-column">
 		<div class="form-group form-control d-flex align-items-center search-text">
 			<span>
 				<i data-feather="search"></i>
@@ -30,15 +30,17 @@
 			<input type="text" name="search-bar" placeholder="Search here..." class="border-0 search-bar" maxlength="50">
 		</div>
 
-		<div class="row no-gutters" id="menu-list">
+		<div class="row no-gutters flex-column" id="menu-list">
 			@foreach($paginator as $menu)
-			<div class="card card-shadow mb-3">
+			<div class="card card-shadow align-items-start mb-3">
 			  <div class="row card-body align-items-center justify-content-between">
-			  	<div class="col-6 d-flex justify-content-center" style="overflow: hidden;" title="{{ ucFirst($menu->name) }}">
+			  	<div class="col d-flex justify-content-center overflow-hidden" title="{{ ucFirst($menu->name) }}">
 			  		@if($menu->upload_type == "0|URL")
 			  		<img src="{{ $menu->menu_image }}" class="img-thumbnail border-0 radius" alt="{{ ucFirst($menu->name) }}">
 			  		@elseif($menu->upload_type == "1|File Upload")
-			  		<img src="{{ asset('images/menus/'.$menu->menu_image) }}" class="img-thumbnail border-0 radius" alt="{{ ucFirst($menu->name) }}">
+			  		<img src="{{ asset('uploads/menus/'.$menu->menu_image) }}" class="img-thumbnail border-0 radius" alt="{{ ucFirst($menu->name) }}">
+			  		@else
+			  		<img src="{{ $menu->menu_image }}" class="img-thumbnail border-0 radius" alt="{{ ucFirst($menu->name) }}">
 			  		@endif
 			  	</div>
 			  	<div class="col">
@@ -73,8 +75,8 @@
 	    {{ $paginator->links() }}
 	</div>
 
-	<div class="d-flex">
-		<div class="p-4 position-fixed card-transaction">
+	<div class="col-4">
+		<div class="p-4 card-transaction"> <!-- position-fixed -->
 			<div class="d-flex justify-content-start align-items-center">
 				<span class="h5 mb-0">Ordered Items</span>
 				<span id="no-items" class="badge badge-pill badge-danger ml-2">{{ $orderedMenuCount }}</span>
@@ -83,8 +85,8 @@
 				<span class="text-muted font-weight-500" style="font-size: .7em;">Transaction No: #{{ sprintf("%06d", $transaction_no) }}</span>
 			</div>
 
-			<div class="row no-gutters mb-2">
-				<button class="btn btn-primary btn-cart d-flex justify-content-center align-items-center mr-2">
+			<div class="d-flex justify-content-between mb-3">
+				<button class="btn btn-primary btn-cart d-flex justify-content-center align-items-center mr-2 w-100">
 					<span class="mr-1">
 						<i data-feather="users"></i>
 					</span>
@@ -109,26 +111,26 @@
 				    </button>
 				  </div>
 				</div>
-
 			</div>
 
-			<hr>
-
-			<ul class="list-group no-gutters" id="order-list">
+			<ul class="list-group no-gutters mb-3" id="order-list">
 				@if($orderedMenuCount <= 0)
-				<div class="row no-gutters justify-content-start text-muted mt-2" id="no-orders">
+				<div class="row no-gutters justify-content-center text-muted mt-3 no-orders">
 					<span class="h5">No Orders Yet.</span>
 				</div>
 				@endif
+				<div class="row no-gutters justify-content-center text-muted mt-3 no-orders d-none">
+					<span class="h5">No Orders Yet.</span>
+				</div>
 
 				@foreach($orderedMenus as $orders)
-				<li class="list-group-item list-group-padding border-0 d-flex align-items-center justify-content-between py-2 btn" title="{{ ucFirst($orders->menu_name) }}" style="border-top: 1px solid #f3f3f3 !important;">
+				<li class="list-group-item list-group-padding border-0 d-flex align-items-center justify-content-between py-2" title="{{ ucFirst($orders->menu_name) }}" style="border-top: 1px solid #f3f3f3 !important; border-bottom: 1px solid #f3f3f3 !important;">
 					<div class="row no-gutters align-items-center">
-						<div class="d-flex justify-content-center" style="overflow: hidden;">
+						<div class="d-flex justify-content-center overflow-hidden">
 							@if($orders->upload_type == "0|URL")
-							<img src="{{ $orders->menu_image }}" class="img-thumbnail" alt="{{ $orders->menu_name }}" width="50">
+							<img src="{{ $orders->menu_image }}" class="img-thumbnail border-0 radius" alt="{{ $orders->menu_name }}" width="70">
 							@elseif($orders->upload_type == "1|File Upload")
-							<img src="{{ asset('images/menus/'.$orders->menu_image) }}" class="img-thumbnail" alt="{{ $orders->menu_name }}" width="50">
+							<img src="{{ asset('images/menus/'.$orders->menu_image) }}" class="img-thumbnail border-0 radius" alt="{{ $orders->menu_name }}" width="70">
 							@endif
 						</div>
 						<div class="d-flex flex-column ml-2">
@@ -138,12 +140,11 @@
 					</div>
 					<div class="row no-gutters align-items-center">
 						<span class="mb-0 text-secondary font-weight-500">₱{{ $orders->total_price }}</span>
+						<button type="button" class="btn btn-sm text-danger ml-2 btn-remove-order" id="{{ $orders->id.'|'.$orders->order_id}}" title="Remove Order"><i data-feather="trash-2"></i></button>
 					</div>
 				</li>
 				@endforeach
 			</ul>
-
-			<hr>
 
 			<ul class="list-group">
 				<li class="list-group-item list-group-padding border-0 d-flex justify-content-between subtitle-size font-weight-500 text-secondary">
@@ -248,10 +249,12 @@ $(document).ready(function(){
 					var path = "{{ asset('images/menus/') }}";
 					var image = (data.menu.upload_type == "0|URL") ? data.menu.menu_image : path + '/' + data.menu.menu_image;
 
-					var content = '<li class="list-group-item list-group-padding border-0 d-flex align-items-center justify-content-between py-2 btn" title="'+newMenuName+'" style="border-top: 1px solid #f3f3f3 !important;">\
+					var trash_icon = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash-2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg>';
+
+					var content = '<li class="list-group-item list-group-padding border-0 d-flex align-items-center justify-content-between py-2 btn" title="'+newMenuName+'" style="border-top: 1px solid #f3f3f3 !important; border-bottom: 1px solid #f3f3f3 !important;">\
 							<div class="row no-gutters align-items-center">\
-								<div class="d-flex justify-content-center" style="overflow: hidden;">\
-									<img src="'+image+'" alt="'+newMenuName+'" class="img-thumbnail" width="50">\
+								<div class="d-flex justify-content-center overflow-hidden">\
+									<img src="'+image+'" alt="'+newMenuName+'" class="img-thumbnail border-0 rounded" width="70">\
 								</div>\
 								<div class="d-flex flex-column ml-2">\
 									<span class="subtitle-size font-weight-500 mb-0 ellipsis">'+newMenuName+'</span>\
@@ -260,12 +263,13 @@ $(document).ready(function(){
 							</div>\
 							<div class="row no-gutters align-items-center">\
 								<span class="mb-0 text-secondary font-weight-500">₱'+totalPrice+'</span>\
+								<button type="button" class="btn btn-sm text-danger ml-2 btn-remove-order btn-remove-order-'+data.ordered_menu.id +'" id="'+data.ordered_menu.id + "|" + data.ordered_menu.order_id+'" title="Remove Order" onclick="removeOrder('+data.ordered_menu.id +')">'+trash_icon+'</button>\
 							</div>\
 						</li>';
-					$('#no-orders').hide();
-					$("#order-list").prepend(content);
+					$('.no-orders').addClass('d-none');
 					$("#no-items").html(data.ordered_items);
-					loadOrdersScrollBar();
+					$("#order-list").prepend(content);
+				// 	loadOrdersScrollBar();
 				}
 
 				if (result.status == 404) {
@@ -275,37 +279,40 @@ $(document).ready(function(){
 					$('#modal-warning .modal-body h5').html(result.icon);
 					$('#modal-warning .modal-body p').html(result.text);
 				}
-			},
-			error: function (xhr, status, error) {
-	        	alert(error);
-	    	}
+			}
 		});
 	});
 
-	// mouse events
-	// $('.mouseEvent').on('mousedown', function(event) {
-	//     switch (event.which) {
-	//         case 1:
-	//             alert('Left mouse button is pressed');
-	//             break;
-	//         case 2:
-	//             alert('Middle mouse button is pressed');
-	//             break;
-	//         case 3:
-	//             alert('Right mouse button is pressed');
-	//             break;
-	//         default:
-	//             alert('Nothing');
-	//     }
-	// });
 
 	$('#btn-okie').on('click', function(){
         $('.modal').hide();
     });
 
-    $('.btn-remove').on('click', function(){
-		var id = $(this).attr('id');
-		$(this).parent().parent().remove();
+    $('.btn-remove-order').on('click', function(){
+    	$(this).parent().parent().remove();
+
+		var id = $(this).attr('id').split("|");
+		var path = "{{ route('orders.destroy', ':id') }}";
+		var newPath = path.replace(':id', id);
+
+		$.ajax({
+			type: 'DELETE',
+			url: newPath,
+			dataType: 'json',
+			data: {
+				_token: token,
+				id: id,
+			},
+			success: function(res){
+				console.log(res);
+				if (res.data.status == 200) {
+					$("#no-items").html(res.data.ordered_items);
+					if (res.data.ordered_items == 0) {
+						$('.no-orders').removeClass('d-none');
+					}
+				}
+			}
+		});
 	});
 
     $('#btn-process-order').on('click', function(){
@@ -321,17 +328,17 @@ $(document).ready(function(){
 		}
 	}
 
-	function loadOrdersScrollBar(){
-		if($("#order-list").height() > 260){
-		    $("#order-list").addClass('scrollbar-show');
-		}
-	}
+	// function loadOrdersScrollBar(){
+	// 	if($("#order-list").height() > 260){
+	// 	    $("#order-list").addClass('scrollbar-show');
+	// 	}
+	// }
 
 	loadQty();
-	loadOrdersScrollBar();
+	// loadOrdersScrollBar();
 });
 
-function removeMenu(data){
+function removeOrder(data){
 	alert(data);
 	// $('.btn-remove-'+data).parent().parent().remove();
 }

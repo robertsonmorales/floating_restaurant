@@ -5,7 +5,7 @@
 <!-- filter -->
 <div class="filters mx-4 mb-3">
     <div class="filters-child">
-        <button class="btn btn-primary" id="btn-export">
+        <button class="btn btn-secondary" id="btn-export">
             <span>Export</span>
             <span class="download-icon"><i data-feather="download"></i></span>
         </button>
@@ -15,15 +15,6 @@
             <span class="search-icon"><i data-feather="search"></i></span>
             <input type="text" name="search-filter" id="search-filter" placeholder="Search here..">
         </div>
-
-        <select name="sortBy" id="sortBy" class="custom-select">
-            <option style="display: none;">Sort by</option>
-            <option disabled selected>Sort by</option>
-            <option value="ascending">Ascending</option>
-            <option value="descending">Descending</option>
-            <option value="date-created">Date created</option>
-            <option value="date-modified">Date modified</option>
-        </select>
 
         <select name="pageSize" id="pageSize" class="custom-select">
             <option style="display: none;">Page size</option>
@@ -100,7 +91,7 @@ $(document).ready(function(){
         cellRenderer: function(params){
             var edit_icon = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>';
 
-            var trash_icon = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash-2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg>';
+            // var trash_icon = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash-2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg>';
             
             var edit_url = '{{ route("orders.edit", ":id") }}';
             edit_url = edit_url.replace(':id', params.data.id);
@@ -108,20 +99,20 @@ $(document).ready(function(){
             var eDiv = document.createElement('div');
             eDiv.innerHTML = '';
             eDiv.innerHTML+='<button id="'+params.data.id+'" title="Edit" class="btn btn-info btn-edit">'+ edit_icon +'</button>&nbsp;';
-            eDiv.innerHTML+='<button id="'+params.data.id+'" title="Delete" class="btn btn-danger btn-remove">'+ trash_icon +'</button>&nbsp;';
+            // eDiv.innerHTML+='<button id="'+params.data.id+'" title="Delete" class="btn btn-danger btn-remove">'+ trash_icon +'</button>&nbsp;';
 
             var btn_edit = eDiv.querySelectorAll('.btn-edit')[0];
-            var btn_remove = eDiv.querySelectorAll('.btn-remove')[0];
+            // var btn_remove = eDiv.querySelectorAll('.btn-remove')[0];
 
             btn_edit.addEventListener('click', function() {
                 window.location.href = edit_url;
             });
 
-            btn_remove.addEventListener('click', function() {
-                var data_id = $(this).attr("id");
-                $('.modal').attr('style', 'display: flex;');
-                $('.modal-content').attr('id', params.data.id);
-            });
+            // btn_remove.addEventListener('click', function() {
+            //     var data_id = $(this).attr("id");
+            //     $('.modal').attr('style', 'display: flex;');
+            //     $('.modal-content').attr('id', params.data.id);
+            // });
             
             return eDiv;
         }
