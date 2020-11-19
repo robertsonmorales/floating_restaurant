@@ -135,15 +135,15 @@ class MenuCategoryController extends Controller
         $validated = $this->validator($request);
         if($validated){
             $uploadType = explode('|', $validated['upload_type']);
-            $uploadIndex = $uploadType[0];
-            $uploadName = $uploadType[1];
+            $uploadIndex = @$uploadType[0];
+            $uploadName = @$uploadType[1];
 
             $urlImage = $validated['url_image'];
             $fileImage = $validated['category_image'];
 
             $data = $this->category;
             $data->upload_type = $validated['upload_type'];
-            $data->category_image = ($uploadIndex == 1) ? $this->uploadImage($fileImage) : $urlImage;
+            $data->category_image = @($uploadIndex == 1) ? $this->uploadImage($fileImage) : $urlImage;
             
             $data->category_icon = $validated['category_icon'];
             $data->tag_color = $validated['tag_color'];
@@ -269,26 +269,30 @@ class MenuCategoryController extends Controller
             }
 
             fclose($handleFile);
+            
+            if(count($rows) <= 1){
+                return back()->with('import_failed', 'File is empty, Please check the file or try again');
+            }else{
+                $data = array();
+                for ($i=1; $i < count($rows); $i++) { 
+                    $data[] = $rows[$i];
+                }
 
-            $data = array();
-            for ($i=1; $i < count($rows); $i++) { 
-                $data[] = $rows[$i];
+                for ($j=0; $j < count($data); $j++) {
+                    $this->category->insert([
+                        'upload_type' => $this->safeInputs(@$data[$j][0]),
+                        'category_image' => $this->safeInputs(@$data[$j][1]),
+                        'category_icon' => $this->safeInputs(@$data[$j][2]),
+                        'tag_color' => $this->safeInputs(@$data[$j][3]),
+                        'name' => $this->safeInputs(@$data[$j][4]),
+                        'status' => 1,
+                        'created_by' => Auth::id(),
+                        'created_at' => now()
+                    ]);
+                }
+
+                return back()->with('import', 'File Imported Successfully');
             }
-
-            for ($j=0; $j < count($data); $j++) {
-                $this->category->insert([
-                    'upload_type' => $this->safeInputs(@$data[$j][0]),
-                    'category_image' => $this->safeInputs(@$data[$j][1]),
-                    'category_icon' => $this->safeInputs(@$data[$j][2]),
-                    'tag_color' => $this->safeInputs(@$data[$j][3]),
-                    'name' => $this->safeInputs(@$data[$j][4]),
-                    'status' => 1,
-                    'created_by' => Auth::id(),
-                    'created_at' => now()
-                ]);
-            }
-
-            return back()->with('import', 'File Imported Successfully');
         }else{
             return back()->with('error', 'Invalid File Type');
         }

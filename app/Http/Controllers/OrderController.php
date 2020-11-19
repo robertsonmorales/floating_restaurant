@@ -43,7 +43,7 @@ class OrderController extends Controller
             
         $rows = array();
         $rows = $this->order->latest()->get();
-        // $rows = $this->changeVal($rows);
+        $rows = $this->changeVal($rows);
         $rows = $this->changeValue($rows);
             
         $arr_set = array(
@@ -266,27 +266,17 @@ class OrderController extends Controller
     public function changeValue($rows){
         foreach ($rows as $key => $value) {
             if (Arr::exists($value, 'transaction_no')) {
-                $value->transaction_no = "#".sprintf("%06d", $value->transaction_no);
+                $value->transaction_no = @"#".sprintf("%06d", $value->transaction_no);
             }
 
             if (Arr::exists($value, 'customer_id')) {
                 $customer = $this->customer->find($value->customer_id);
-                $value->customer_id = $customer->name;
+                $value->customer_id = @$customer->name;
             }
 
             if(Arr::exists($value, 'status')){
                  $status = $this->orderStatus->find($value->status);
-                 $value->status = $status->color.'|'.$status->name;
-            }
-
-            if(Arr::exists($value, 'created_by')){
-                $users = $this->user->select('username')->where('id', $value->created_by)->first();
-                $value->created_by = @$users->username;
-            }
-
-            if(Arr::exists($value, 'updated_by')){
-                $users = $this->user->select('username')->where('id', $value->updated_by)->first();
-                $value->updated_by = @$users->username;
+                 $value->status = @$status->color.'|'.@$status->name;
             }
         }
 

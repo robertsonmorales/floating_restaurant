@@ -35,80 +35,12 @@
 </div>
 <!-- ends here -->
 
-<!-- alert -->
-@if(session()->get('success'))
-<div class="alert alert-success alert-dismissible fade show alerts mx-4 mb-3" role="alert">
-    <span><i data-feather="check"></i> {{ session()->get('success') }}</span>
-    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-        <span aria-hidden="true" class="dismiss-icon"><i data-feather="x"></i> </span>
-    </button>
-</div>
-@endif
-
-@if(session()->get('import'))
-<div class="alert alert-success alert-dismissible fade show alerts mx-4 mb-3" role="alert">
-    <span><i data-feather="check"></i> {{ session()->get('import') }}</span>
-    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-        <span aria-hidden="true" class="dismiss-icon"><i data-feather="x"></i> </span>
-    </button>
-</div>
-@endif
-<!-- ends here -->
+@include('includes.alerts')
 
 <div id="myGrid" class="ag-theme-material mx-4"></div>
 
-<!-- The Modal -->
-<form class="modal" action="" method="POST" id="form-submit">
-    @csrf
-    @method('DELETE')
-
-    <div class="modal-content">
-        <div class="modal-header">      
-            <div class="modal-icon modal-icon-error">
-                <i data-feather="alert-triangle"></i>
-            </div>
-
-            <div class="modal-body">
-                <h5>Remove Record</h5>
-                <p>Are you sure you want to remove this record? This will be permanently removed. This action cannot be undone.</p>
-            </div>
-
-        </div>
-
-        <div class="modal-footer">
-            <button type="button" class="btn btn-danger" id="btn-remove">Remove</button>
-            <button type="button" class="btn btn-outline-secondary" id="btn-cancel">Cancel</button>
-        </div>
-    </div>
-
-</form>
-<!-- Ends here -->
-
-<!-- The Import Modal -->
-<form class="modal" action="{{ route('menus.import') }}" method="POST" id="import-form-submit" enctype="multipart/form-data">
-    @csrf
-    <div class="modal-content">
-        <div class="modal-header">      
-            <div class="modal-icon modal-icon-info">
-                <i data-feather="alert-triangle"></i>
-            </div>
-
-            <div class="modal-body">
-                <h5>Import Records</h5>
-                
-                <input type="file" name="import_file" id="import_file" class="form-control" accept=".xlsx, .xls, .csv">
-                <span class="invalid-feedback text-danger" role="alert">This field is required</span>
-            </div>
-
-        </div>
-
-        <div class="modal-footer">
-            <button type="button" class="btn btn-info" id="btn-info">Import File</button>
-            <button type="button" class="btn btn-outline-secondary" id="btn-import-cancel">Cancel</button>
-        </div>
-    </div>
-</form>
-<!-- ends here -->
+@include('includes.modal')
+@include('includes.modal-import')
 
 <br>
 @endsection
@@ -151,7 +83,7 @@ $(document).ready(function(){
 
             btn_remove.addEventListener('click', function() {
                 var data_id = $(this).attr("id");
-                $('.modal').attr('style', 'display: flex;');
+                $('#form-submit').attr('style', 'display: flex;');
                 $('.modal-content').attr('id', params.data.id);
             });
             
@@ -275,29 +207,41 @@ $(document).ready(function(){
     // setup the grid after the page has finished loading
     new agGrid.Grid(gridDiv, gridOptions);
 
+    // import
+    $('#import_file').on('change', function(){
+        if($(this)[0].files.length == 0){
+            $('#btn-import-submit').prop('disabled', true);
+        }else{
+            $('#btn-import-submit').prop('disabled', false);
+        }
+    });
+
     $('#btn-import').on('click', function(){
         $('#import-form-submit').attr('style', 'display: flex;');
+
+        if($('#import_file')[0].files.length == 0){
+            $('#btn-import-submit').prop('disabled', true);
+        }else{
+            $('#btn-import-submit').prop('disabled', false);
+        }
     });
 
     $('#btn-import-cancel').on('click', function(){
         $('#import-form-submit').hide();
-        $('#import_file').val('');
+        $('#btn-import-submit').html("Import File");
     });
 
-    $('#btn-info').on('click', function(){
+    $('#btn-import-submit').on('click', function(){
+        $('#btn-import-cancel').prop('disabled', true);
+        $(this).prop('disabled', true);
+        $(this).html("Importing File..");
 
-        if ($('#import_file')[0].files == null) {
-            console.log($('#import_file')[0]);
-            $('.invalid-feedback').show();
-        }else{
-             $('#btn-import-cancel').prop('disabled', true);
-             $('#btn-info').prop('disabled', true);
-             $('#btn-info').html("Importing File..");
-
-            document.getElementById("import-form-submit").submit(); 
-        }
+        document.getElementById("import-form-submit").action = "{{ route('menus.import') }}";
+        document.getElementById("import-form-submit").submit(); 
     });
+    // ends here
 
+    // remove
     $('#btn-cancel').on('click', function(){
         $('#form-submit').hide();
     });
@@ -313,6 +257,7 @@ $(document).ready(function(){
         document.getElementById("form-submit").action = url;
         document.getElementById("form-submit").submit();
     });
+    // ends here
 });
 </script>
 @endsection

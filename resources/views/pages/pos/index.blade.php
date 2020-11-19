@@ -76,25 +76,25 @@
 	</div>
 
 	<div class="col-4">
-		<div class="p-4 card-transaction"> <!-- position-fixed -->
+		<div class="p-4 card-transaction bg-white"> <!-- position-fixed -->
 			<div class="d-flex justify-content-start align-items-center">
 				<span class="h5 mb-0">Ordered Items</span>
 				<span id="no-items" class="badge badge-pill badge-danger ml-2">{{ $orderedMenuCount }}</span>
 			</div>
 			<div class="row no-gutters mb-2">
-				<span class="text-muted font-weight-500" style="font-size: .7em;">Transaction No: #{{ sprintf("%06d", $transaction_no) }}</span>
+				<span class="text-muted font-weight-500" style="font-size: .8em;">Transaction No: #{{ sprintf("%06d", $transaction_no) }}</span>
 			</div>
 
 			<div class="d-flex justify-content-between mb-3">
 				<button class="btn btn-primary btn-cart d-flex justify-content-center align-items-center mr-2 w-100">
-					<span class="mr-1">
+					<span class="mr-2">
 						<i data-feather="users"></i>
 					</span>
 					<span class="subtitle-size font-weight-500">Add New Customer</span>
 				</button>
 
 				<div class="btn-group">
-				  <button class="btn btn-outline-light btn-dropdown text-secondary d-flex justify-content-center align-items-center rounded" data-toggle="dropdown" title="More options">
+				  <button class="btn btn-outline-light btn-dropdown text-secondary d-flex justify-content-center align-items-center rounded border" data-toggle="dropdown" title="More options">
 				  	<span>
 				  		<i data-feather="more-horizontal"></i>
 				  	</span>

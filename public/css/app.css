@@ -1,7 +1,7 @@
 @import url(https://fonts.googleapis.com/css?family=Poppins);@charset "UTF-8";
 
 /*!
- * Bootstrap v4.5.2 (https://getbootstrap.com/)
+ * Bootstrap v4.5.3 (https://getbootstrap.com/)
  * Copyright 2011-2020 The Bootstrap Authors
  * Copyright 2011-2020 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
@@ -233,6 +233,7 @@ caption {
 
 th {
   text-align: inherit;
+  text-align: -webkit-match-parent;
 }
 
 label {
@@ -3939,6 +3940,8 @@ input[type=button].btn-block {
   display: block;
   min-height: 1.44rem;
   padding-left: 1.5rem;
+  -webkit-print-color-adjust: exact;
+          color-adjust: exact;
 }
 
 .custom-control-inline {
@@ -5518,6 +5521,7 @@ a.badge-dark.focus {
   position: absolute;
   top: 0;
   right: 0;
+  z-index: 2;
   padding: 0.75rem 1.25rem;
   color: inherit;
 }
@@ -10786,7 +10790,7 @@ a.text-dark:focus {
 
 .text-break {
   word-break: break-word !important;
-  overflow-wrap: break-word !important;
+  word-wrap: break-word !important;
 }
 
 .text-reset {
@@ -10938,7 +10942,7 @@ html {
 }
 
 body {
-  font-family: "Poppins", "Montserrat", "Segoe UI", sans-serif;
+  font-family: "Roboto", "Poppins", "Montserrat", "Segoe UI", sans-serif;
   font-size: 90% !important;
   font-weight: 500 !important;
 }
@@ -10971,7 +10975,7 @@ body .auth-container {
 }
 
 body .auth-container .auth-content {
-  background-color: #fff;
+  background-color: #f3f3f3;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -11113,7 +11117,7 @@ body .auth-container .auth-content .auth-card .body-card .form-group input:inval
 body .auth-container .auth-content .auth-card .body-card .form-group .btn-auth {
   margin-right: 5px;
   border-radius: 5px;
-  font-family: "Poppins", "Montserrat", "Segoe UI", sans-serif;
+  font-family: "Roboto", "Poppins", "Montserrat", "Segoe UI", sans-serif;
   font-size: 0.9em;
   font-weight: 500;
   padding: 8px;
@@ -11133,10 +11137,6 @@ body .auth-container .auth-content .auth-card .body-card .form-group .form-check
   top: 1.5px;
 }
 
-body .auth-container .auth-content .auth-card .body-card .form-group .forgot {
-  text-align: left;
-}
-
 body .auth-container .auth-content .auth-card .body-card .form-group .forgot a {
   font-size: 0.9em;
   color: #0e76bd;
@@ -11151,7 +11151,7 @@ body .auth-container .auth-content .auth-card .body-card .form-group .two-cols {
 
 body .auth-container .auth-content .auth-card .body-card .form-group .two-cols .btn-go-back {
   color: #0e76bd;
-  font-family: "Poppins", "Montserrat", "Segoe UI", sans-serif;
+  font-family: "Roboto", "Poppins", "Montserrat", "Segoe UI", sans-serif;
   font-size: 0.9em;
   font-weight: 500;
 }
@@ -11780,7 +11780,7 @@ body .admin-container main .card-form .actions {
 body .admin-container main .card-form .actions button {
   margin-right: 5px;
   border-radius: 5px;
-  font-family: "Poppins", "Montserrat", "Segoe UI", sans-serif;
+  font-family: "Roboto", "Poppins", "Montserrat", "Segoe UI", sans-serif;
   font-size: 0.9em;
   font-weight: 500;
   transition: all 0.4s ease;
@@ -11798,7 +11798,7 @@ body .admin-container main .card-form .actions .btn-submit {
 
 body .admin-container main .btn-cart {
   border-radius: 5px;
-  font-family: "Poppins", "Montserrat", "Segoe UI", sans-serif;
+  font-family: "Roboto", "Poppins", "Montserrat", "Segoe UI", sans-serif;
   font-size: 0.9em;
   font-weight: 500;
   transition: all 0.4s ease;
@@ -11830,7 +11830,7 @@ body .admin-container main .search-text {
 body .admin-container main .search-text .search-bar {
   font-weight: 500;
   font-size: 0.9em;
-  font-family: "Poppins", "Montserrat", "Segoe UI", sans-serif;
+  font-family: "Roboto", "Poppins", "Montserrat", "Segoe UI", sans-serif;
   flex: 1;
   padding: 10px;
   outline: none;
@@ -12252,7 +12252,7 @@ body .admin-container main .user-content .actions {
 body .admin-container main .user-content .actions button {
   margin-right: 5px;
   border-radius: 5px;
-  font-family: "Poppins", "Montserrat", "Segoe UI", sans-serif;
+  font-family: "Roboto", "Poppins", "Montserrat", "Segoe UI", sans-serif;
   font-size: 0.9em;
   font-weight: 500;
   transition: all 0.4s ease;

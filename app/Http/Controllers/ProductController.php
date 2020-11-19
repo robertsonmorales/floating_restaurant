@@ -295,6 +295,57 @@ class ProductController extends Controller
         return redirect()->route('products.index')->with('success', 'You have successfully removed '.$data->name);
     }
 
+    public function importValidator(Request $request){
+        $input = ['import_file'=> $request->file('import_file')];
+        $rules = ['import_file' => 'required|mimetypes:text/csv,text/plain,application/csv'];
+        $messages = ['import_file' => 'Invalid File type'];
+        $customAttributes = ['import_file' => 'Import File',];
+        $validator = Validator::make($input, $rules, $messages,$customAttributes);
+        return $validator->validate();
+      }
+  
+    public function import(Request $request){
+        $validator = $this->importValidator($request);
+        $file = $validator['import_file'];
+  
+        if ($file->isValid()) {
+            $handleFile = fopen($request->file('import_file'), "r");
+            $rows = [];
+  
+            while($line = fgetcsv($handleFile)) {
+                $rows[] = $line;
+            }
+  
+            fclose($handleFile);
+            
+            if(count($rows) <= 1){
+                return back()->with('import_failed', 'File is empty, Please check the file or try again');
+            }else{
+                $data = array();
+                for ($i=1; $i < count($rows); $i++) { 
+                    $data[] = $rows[$i];
+                }
+    
+                for ($j=0; $j < count($data); $j++) {
+                    $this->product->insert([
+                        'product_categories_id' => $this->safeInputs(@$data[$j][0]),
+                        'name' => $this->safeInputs(@$data[$j][1]),
+                        'inventoriable' => $this->safeInputs(@$data[$j][2]),
+                        'unit' => $this->safeInputs(@$data[$j][3]),
+                        'minimum_stocks' => $this->safeInputs(@$data[$j][4]),
+                        'status' => 1,
+                        'created_by' => Auth::id(),
+                        'created_at' => now()
+                    ]);
+                }
+    
+                return back()->with('import', 'File Imported Successfully');
+            }
+        }else{
+            return back()->with('error', 'Invalid File Type');
+        }
+    }
+
     public function changeValue($rows){
         foreach ($rows as $key => $value) {
             if (Arr::exists($value, 'product_categories_id')) {

@@ -15,3 +15,8 @@
 - php artisan vendor:publish --tag=laravel-pagination
 - php artisan storage:link
 
+
+### ERRORS
+- if you found error in npm install
+- try this removing node_modules and package-lock.json file
+- then run npm install

@@ -30,45 +30,11 @@
 </div>
 <!-- ends here -->
 
-<!-- alert -->
-@if(session()->get('success'))
-<div class="alert alert-success alert-dismissible fade show alerts mx-4 mb-3" role="alert">
-    <span><i data-feather="check"></i> {{ session()->get('success') }}</span>
-    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-        <span aria-hidden="true" class="dismiss-icon"><i data-feather="x"></i> </span>
-    </button>
-</div>
-@endif
-<!-- ends here -->
+@include('includes.alerts')
 
 <div id="myGrid" class="ag-theme-material mx-4"></div>
 
-<!-- The Modal -->
-<form class="modal" action="" method="POST" id="form-submit">
-    @csrf
-    @method('DELETE')
-
-    <div class="modal-content">
-        <div class="modal-header">      
-            <div class="modal-icon modal-icon-error">
-                <i data-feather="alert-triangle"></i>
-            </div>
-
-            <div class="modal-body">
-                <h5>Remove Record</h5>
-                <p>Are you sure you want to remove this record? This will be permanently removed. This action cannot be undone.</p>
-            </div>
-
-        </div>
-
-        <div class="modal-footer">
-            <button type="button" class="btn btn-danger" id="btn-remove">Remove</button>
-            <button type="button" class="btn btn-outline-secondary" id="btn-cancel">Cancel</button>
-        </div>
-    </div>
-
-</form>
-<!-- Ends here -->
+@include('includes.modal')
 
 <br>
 @endsection
@@ -111,7 +77,7 @@ $(document).ready(function(){
 
             btn_remove.addEventListener('click', function() {
                 var data_id = $(this).attr("id");
-                $('.modal').attr('style', 'display: flex;');
+                $('#form-submit').attr('style', 'display: flex;');
                 $('.modal-content').attr('id', params.data.id);
             });
             

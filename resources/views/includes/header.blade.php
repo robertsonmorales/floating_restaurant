@@ -32,7 +32,9 @@
 
                 <div class="dropdown-divider"></div>
                 
-                <button onclick="document.getElementById('logout-form').submit();" class="dropdown-item py-2" type="button">Logout</button>
+                <button onclick="document.getElementById('logout-form').submit();" class="dropdown-item py-2" type="button">
+                    <span>Logout</span>
+                </button>
                 <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                     @csrf
                 </form>
