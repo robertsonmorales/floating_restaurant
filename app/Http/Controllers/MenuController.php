@@ -167,6 +167,7 @@ class MenuController extends Controller
             $uploadType = explode('|', $validated['upload_type']);
             $uploadIndex = @$uploadType[0];
             $uploadName = @$uploadType[1];
+            
             $urlImage = $validated['url_image'];
             $fileImage = $validated['menu_image'];
 
@@ -174,7 +175,7 @@ class MenuController extends Controller
             $data->menu_categories_id = $validated['menu_category'];
             $data->menu_type_id = $validated['menu_type'];
             $data->upload_type = $validated['upload_type'];
-            $data->menu_image = ($uploadIndex == 1) ? $this->uploadImage($fileImage) : $urlImage;
+            $data->menu_image = @($uploadIndex == 1) ? $this->uploadImage($fileImage) : $urlImage;
             $data->name = $validated['name'];
             $data->price = $validated['price'];
             $data->status = $validated['status'];
@@ -356,24 +357,28 @@ class MenuController extends Controller
 
             fclose($handleFile);
 
-            $data = array();
-            for ($i=1; $i < count($rows); $i++) { 
-                $data[] = $rows[$i];
-            }
+            if(count($rows) <= 1){
+                return back()->with('import_failed', 'File is empty, Please check the file or try again');
+            }else{
+                $data = array();
+                for ($i=1; $i < count($rows); $i++) { 
+                    $data[] = $rows[$i];
+                }
 
-            for ($j=0; $j < count($data); $j++) {
-                $this->menu->insert([
-                    'menu_categories_id' => $this->safeInputs(@$data[$j][0]),
-                    'menu_type_id' => $this->safeInputs(@$data[$j][1]),
-                    'name' => $this->safeInputs(@$data[$j][2]),
-                    'price' => $this->safeInputs(@$data[$j][3]),
-                    'status' => 1,
-                    'created_by' => Auth::id(),
-                    'created_at' => now()
-                ]);
-            }
+                for ($j=0; $j < count($data); $j++) {
+                    $this->menu->insert([
+                        'menu_categories_id' => $this->safeInputs(@$data[$j][0]),
+                        'menu_type_id' => $this->safeInputs(@$data[$j][1]),
+                        'name' => $this->safeInputs(@$data[$j][2]),
+                        'price' => $this->safeInputs(@$data[$j][3]),
+                        'status' => 1,
+                        'created_by' => Auth::id(),
+                        'created_at' => now()
+                    ]);
+                }
 
-            return back()->with('import', 'File Imported Successfully');
+                return back()->with('import', 'File Imported Successfully');
+            }
         }else{
             return back()->with('error', 'Invalid File Type');
         }

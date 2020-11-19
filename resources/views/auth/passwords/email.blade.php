@@ -5,7 +5,7 @@
 @section('login')
 <div class="auth-card">
     <div class="logo">
-        <img src="{{ asset('images/svg/forgot.png') }}">
+        <img src="{{ asset('images/svg/login.png') }}">
     </div>
     <div class="body-card">
         <h5>Reset Password</h5>
@@ -39,7 +39,7 @@
 
             <div class="form-group">
                 <div class="two-cols">
-                    <a href="/login" class="btn-go-back">{{ __('Go Back') }}</a>
+                    <a href="/login" class="btn-go-back">{{ __('Back to login') }}</a>
 
                     <button type="submit" class="btn btn-primary btn-auth">
                         {{ __('Send Password Reset Link') }}

@@ -157,21 +157,21 @@
 		"status": 1,
 		"sub": [{
 			"name": "Sales Reports",
-			"mode": "",
+			"mode": "sales_report",
 			"controller": "SalesReportController",
 			"icon": "far fa-circle",
 			"sub_order": 1,
 			"status": 1
 		},{
 			"name": "Expenses Reports",
-			"mode": "expenses_reports",
+			"mode": "expenses_report",
 			"controller": "ExpenseReportController",
 			"icon": "far fa-circle",
 			"sub_order": 2,
 			"status": 1
 		},{
 			"name": "Order Reports",
-			"mode": "",
+			"mode": "order_reports",
 			"controller": "",
 			"icon": "far fa-circle",
 			"sub_order": 3,
@@ -187,7 +187,7 @@
 		"status": 1,
 		"sub": [{
 			"name": "General Settings",
-			"mode": "",
+			"mode": "general_settings",
 			"controller": "",
 			"icon": "far fa-circle",
 			"sub_order": 1,

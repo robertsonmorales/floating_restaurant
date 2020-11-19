@@ -247,8 +247,7 @@ class DamageController extends Controller
 
             $this->audit_trail_logs('', 'updated', 'damages: '.$data->product_name, $id);
 
-            return redirect()->route('damages.index')
-                ->with('success', 'Damage Updated Successfully');
+            return redirect()->route('damages.index')->with('success', 'You have successfully updated '.$product[1]);
         }
     }
 
@@ -264,7 +263,7 @@ class DamageController extends Controller
         $this->audit_trail_logs('', 'deleted', 'damages '.$data->name, $id);
         $data->delete();
 
-        return redirect()->route('damages.index')->with('success','Damage Removed Successfully');
+        return redirect()->route('damages.index')->with('success', 'You have successfully removed '.$data->product_name);
     }
 
     public function changeValue($rows)

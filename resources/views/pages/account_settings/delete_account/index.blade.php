@@ -32,7 +32,10 @@
         </div>
 
         <div class="actions">                        
-            <button type="button" class="btn btn-danger" id="btn-delete">Delete Account</button>
+            <button type="button" class="btn btn-danger" id="btn-delete">
+                <span class="mr-1"><i data-feather="trash"></i></span>
+                <span>Delete Account</span>
+            </button>
         </div>
     </div>
 

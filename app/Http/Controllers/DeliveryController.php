@@ -257,7 +257,7 @@ class DeliveryController extends Controller
         $data->delete();
         $this->audit_trail_logs('', 'deleted', 'deliveries '.$data->product_name, $id);
 
-        return redirect()->route('deliveries.index')->with('success', 'You have successfully updated '.$data->product_name);
+        return redirect()->route('deliveries.index')->with('success', 'You have successfully removed '.$data->product_name);
     }
 
     public function changeValue($rows)

@@ -1,5 +1,5 @@
 .auth-content{
-    background-color: $body-bg;
+    background-color: #f3f3f3; //$body-bg
     display: flex;
     align-items: center;
     justify-content: center;
@@ -161,8 +161,6 @@
                 }
 
                 .forgot{
-                    text-align: left;
-
                     a{
                         font-size: .9em;
                         color: $btn-primary;
