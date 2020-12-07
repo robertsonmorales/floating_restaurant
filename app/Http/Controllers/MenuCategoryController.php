@@ -210,13 +210,13 @@ class MenuCategoryController extends Controller
         $validated = $this->validator($request);
         if($validated){
             $uploadType = explode('|', $validated['upload_type']);
-            $uploadIndex = $uploadType[0];
-            $uploadName = $uploadType[1];
+            $uploadIndex = @$uploadType[0];
+            $uploadName = @$uploadType[1];
             $urlImage = $validated['url_image'];
             $fileImage = $validated['category_image'];
 
             $data->upload_type = $validated['upload_type'];
-            $data->category_image = ($uploadIndex == 1) ? $this->uploadImage($fileImage) : $urlImage;
+            $data->category_image = @($uploadIndex == 1) ? $this->uploadImage($fileImage) : $urlImage;
             $data->category_icon = $validated['category_icon'];
             $data->tag_color = $validated['tag_color'];
             $data->name = $validated['name'];

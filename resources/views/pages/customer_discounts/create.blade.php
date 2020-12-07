@@ -33,11 +33,11 @@
                 <a tabindex="0" id="percentage-popover" role="button" data-toggle="popover" data-placement="top" data-trigger="focus" title="More Information" data-content="Please input the percentage of the discount, e.g(10, 20, 30)." style="outline: none;">
                     <i data-feather="help-circle"></i>
                 </a>
-
             </label>
-            <input type="text" name="percentage" id="percentage" required autocomplete="off"
+
+            <input type="number" name="percentage" id="percentage" required autocomplete="off"
                 class="form-control @error('percentage') is-invalid @enderror" autofocus
-                value="{{($mode == 'update') ? $data->percentage : old('percentage')}}" maxlength="3" minlength="1">
+                value="{{($mode == 'update') ? $data->percentage : old('percentage')}}" max="100" min="1">
 
             <span class="messages">
                 <strong id="error-percentage"></strong>

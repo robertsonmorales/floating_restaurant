@@ -44,7 +44,7 @@
             <h6>Password Requirements:</h6>
 
             <ul class="list-group ml-4" style="font-size: .9em; color: #909090;">
-              <li>Minimumm 8 characters long, the more the better</li>
+              <li>Minimum 8 characters long, the more the better</li>
               <li>Contain at-least 1 uppercase character</li>
               <li>Contain at-least 1 lowercase character</li>
               <li>And 1 numeric and 1 special character</li>

@@ -92,6 +92,12 @@ $(document).ready(function(){
     }
 
     for (var i = data.column.length - 1; i >= 0; i--) {
+        if(data.column[i].field == "recipe"){
+            data.column[i].cellRenderer = function display(params) {
+                return '<a href="#" style="color: #0e76bd;">Check Recipe</a>';
+            }
+        }
+
         if (data.column[i].field == "status") {
             data.column[i].cellRenderer = function display(params) {
                 if (params.data.status == "Active") {

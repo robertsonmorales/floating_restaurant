@@ -3,79 +3,83 @@
 @section('title', 'Login')
 
 @section('login')
-<div class="auth-card">
-    <div class="logo">
-        <img src="{{ asset('images/svg/login.png') }}">
-    </div>
-    <div class="logo-banner">
-        <img src="{{ asset('images/logo/favicon.png') }}">
-    </div>
-    <div class="body-card">
-        <h5>Login your account.</h5>
-        
-        <form method="POST" action="{{ route('login') }}" id="login-form">
-            @csrf
-
-            <div class="form-group">
-                <label>Username</label>
-                <div class="input-group-single">
-                    <span class="icon">
-                        <i data-feather="user"></i>
-                    </span>
-
-                    <input id="username" name="username" type="text" class="form-control @error('username') is-invalid @enderror" name="username" value="{{ old('username') }}" required autocomplete="off">
+<div class="auth-container">
+    <div class="auth-content">
+        <div class="row auth-card d-flex justify-content-between">
+            <div class="col-md d-flex align-items-center justify-content-center overflow-hidden">
+                <div class="p-4">
+                    <img src="{{ asset('images/logo/favicon.png') }}" class="img-fluid" width="300">
                 </div>
-                @error('username')
-                <span class="invalid-feedback" role="alert">
-                    {{ $message }}
-                </span>
-                @enderror
+            </div>
+            <div class="col-md body-card bg-light p-4">
+                <h5 class="text-muted">Login your account.</h5>
                 
+                <form method="POST" action="{{ route('login') }}" id="login-form">
+                    @csrf
+
+                    <div class="form-group">
+                        <label class="text-muted">Username</label>
+                        <div class="input-group-single">
+                            <span class="icon">
+                                <i data-feather="user"></i>
+                            </span>
+
+                            <input id="username" name="username" type="text" class="form-control @error('username') is-invalid @enderror" name="username" value="{{ old('username') }}" required autocomplete="off">
+                        </div>
+                        @error('username')
+                        <span class="invalid-feedback" role="alert">
+                            {{ $message }}
+                        </span>
+                        @enderror
+                        
+                    </div>
+
+                    <div class="form-group">
+                        <label class="text-muted">Password</label>
+                        <div class="input-group-single">
+                            <span class="icon">
+                                <i data-feather="lock"></i>
+                            </span>
+                            <input id="password" name="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
+                        </div>
+                        @error('password')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                        @enderror
+                    </div>
+
+                    <div class="form-group form-columns">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox"
+                                name="remember"
+                                id="remember" {{ old('remember') ?
+                                'checked' : '' }}>
+
+                            <label class="text-muted" for="remember">{{ __('Remember Me') }}</label>
+
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary btn-auth" id="btn-auth">{{ __('Login') }}</button>
+                    </div>
+
+                    @if (Route::has('password.request'))
+                        <div class="forgot text-center">
+                            <a href="{{ route('password.request') }}">
+                                {{ __('Forgot Your Password?') }}
+                            </a>
+                        </div>
+                    @endif
+                    
+                </form>
             </div>
-
-            <div class="form-group">
-                <label>Password</label>
-                <div class="input-group-single">
-                    <span class="icon">
-                        <i data-feather="lock"></i>
-                    </span>
-                    <input id="password" name="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
-                </div>
-                @error('password')
-                <span class="invalid-feedback" role="alert">
-                    <strong>{{ $message }}</strong>
-                </span>
-                @enderror
-            </div>
-
-            <div class="form-group form-columns">
-                <div class="form-check form-inline-check">
-                    <input class="form-check-input" type="checkbox"
-                        name="remember"
-                        id="remember" {{ old('remember') ?
-                        'checked' : '' }}>
-
-                    <label class="form-check-label" for="remember">{{ __('Remember Me') }}</label>
-
-                </div>
-
-                @if (Route::has('password.request'))
-                <div class="forgot text-right">
-                    <a href="{{ route('password.request') }}">
-                        {{ __('Forgot Your Password?') }}
-                    </a>
-                </div>
-                @endif
-            </div>
-
-            <div class="form-group">
-                <button type="submit" class="btn btn-primary btn-auth" id="btn-auth">{{ __('Login') }}</button>
-            </div>
-            
-        </form>
+        </div>      
     </div>
 </div>
 @endsection
+
 @section('scripts')
 <script type="text/javascript">
 $(document).ready(function(){

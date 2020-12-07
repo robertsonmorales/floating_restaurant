@@ -62,9 +62,7 @@ body{
         color: $gold;
     }
     
-    .auth-container{
-        @import 'auth';
-    }
+    @import 'auth';
     
     .admin-container{
         display: flex;

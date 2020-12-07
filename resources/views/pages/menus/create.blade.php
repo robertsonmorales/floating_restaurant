@@ -69,7 +69,7 @@
 
         <div class="input-group">
             <label for="">Price</label>
-            <input type="text" name="price" id="price" required autocomplete="off"
+            <input type="number" name="price" id="price" required autocomplete="off"
                 class="form-control @error('price') is-invalid @enderror" autofocus
                 value="{{($mode == 'update') ? $data->price : old('price')}}">
 
@@ -122,7 +122,7 @@
             @enderror
         </div>
         
-        <div class="input-group">
+        <div class="input-group mb-0">
             <label for="">Status</label>
             <select name="status" id="status" class="custom-select form-control @error('status') is-invalid @enderror" autofocus>
                 <option value="1" {{ ($mode == 'update' && $data->status == 1) ? 'selected' : '' }}>Active</option>
@@ -147,7 +147,7 @@
         <div class="input-group">
             <label>Upload Type</label>
             <select id="upload_type" name="upload_type" class="custom-select form-control @error('upload_type') is-invalid @enderror">
-                <option value="" {{ ($mode == 'update' && $data->upload_type == "None") ? 'selected' : '' }}>Select Upload Type..</option>
+                <option value="None" {{ ($mode == 'update' && $data->upload_type == "None") ? 'selected' : '' }}>None</option>
                 <option value="1|File Upload" {{ ($mode == 'update' && $data->upload_type == "1|File Upload") ? 'selected' : '' }}>File Upload</option>
                 <option value="0|URL" {{ ($mode == 'update' && $data->upload_type == "0|URL") ? 'selected' : '' }}>URL</option>
             </select>
@@ -163,7 +163,7 @@
             @enderror
         </div>
 
-        <div class="input-group" id="file-group">
+        <div class="input-group mb-0" id="file-group">
             <label>Upload Image</label>
             <input type="file" id="menu_image" name="menu_image" class="form-control @error('menu_image') is-invalid @enderror" accept="image/*">
 
@@ -178,7 +178,7 @@
             @enderror
         </div>
 
-        <div class="input-group" id="url-group">
+        <div class="input-group mb-0" id="url-group">
             <label for="">URL</label>
             <input type="url" name="url_image" id="url_image" autocomplete="off"
                 class="form-control @error('url_image') is-invalid @enderror" autofocus placeholder="https://www.example.com/img/example.png" value="{{ ($mode == 'update' && $data->upload_type == '0|URL') ? $data->menu_image : '' }}">
@@ -194,7 +194,7 @@
             @enderror
         </div>
 
-        <div class="input-group">
+        <div class="input-group mt-4 mb-0">
             <img src="{{ ($mode == 'update' && $data->upload_type == '1|File Upload') ? asset('uploads/menus/'.$data->menu_image) : '' }}" id="image-preview" width="300" class="rounded">
         </div>
     </div>
@@ -206,8 +206,8 @@
             <div class="row">
                 <div class="col">
                     <button type="button" class="btn btn-info btn-sm d-flex align-items-center" id="btn-plus">
-                        <span class="btn-text mr-2">Add Recipe</span>
-                        <i data-feather="plus-circle"></i>
+                        <span><i data-feather="plus-circle"></i></span>
+                        <span class="btn-text ml-2">Add Recipe</span>                        
                     </button>
                 </div>
             </div>
@@ -255,6 +255,29 @@
         </div>
     </div>
 </form>
+
+<!-- The Modal -->
+<div class="modal">
+    <div class="modal-content">
+        <div class="modal-header">      
+            <div class="modal-icon">
+                <i data-feather="alert-triangle"></i>
+            </div>
+
+            <div class="modal-body">
+                <h5></h5>
+                <p></p>
+            </div>
+
+        </div>
+
+        <div class="modal-footer">
+            <button type="button" class="btn" id="btn-okie"></button>
+        </div>
+    </div>
+</form>
+<!-- Ends here -->
+
 @endsection
 @section('scripts')
 <script type="text/javascript">
@@ -268,19 +291,19 @@ const Toast = Swal.mixin({
 
 function fileUpload(){
     if ($('#upload_type').val() == "1|File Upload") {
-        $('#file-group').show(300);
-        $('#url-group').hide(300);
+        $('#file-group').show();
+        $('#url-group').hide();
     }else if($('#upload_type').val() == "0|URL"){
-        $('#url-group').show(300);
+        $('#url-group').show();
         $('#url_image').val(); //host + '/uploads/menu_categories/' + $("#url_image").val()
-        $('#file-group').hide(300);
+        $('#file-group').hide();
 
         $('#image-preview').attr('src', $("#url_image").val());
-        $('#image-preview').show(300);
+        $('#image-preview').show();
     }else{
-        $('#file-group').hide(300);
-        $('#url-group').hide(300);
-        $('#image-preview').hide(300);
+        $('#file-group').hide();
+        $('#url-group').hide();
+        $('#image-preview').hide();
     }
 }
 
@@ -288,20 +311,18 @@ fileUpload();
 
 $('#upload_type').on('change', function(){
     if ($(this).val() == "1|File Upload") {
-        $('#file-group').show(300);
-        $('#url-group').hide(300);
+        $('#file-group').show();
+        $('#url-group').hide();
     }else if($(this).val() == "0|URL"){
-        $('#url-group').show(300);
-        $('#file-group').hide(300);
+        $('#url-group').show();
+        $('#file-group').hide();
 
         $('#image-preview').attr('src', $("#url_image").val());
-        $('#image-preview').show(300);
-
-
+        $('#image-preview').show();
     }else{
-        $('#file-group').hide(300);
-        $('#url-group').hide(300);
-        $('#image-preview').hide(300);
+        $('#file-group').hide();
+        $('#url-group').hide();
+        $('#image-preview').hide();
     }
 });
 
@@ -317,6 +338,12 @@ $('#menu_image').on('change', function(){
 
         reader.readAsDataURL(file);
     }
+});
+
+$('#btn-reset').on('click', function(){
+    $('#file-group').hide();
+    $('#url-group').hide();
+    $('#image-preview').hide();
 });
 
 $("#url_image").on('keyup', function(){
@@ -355,11 +382,17 @@ $('#btn-plus').on('click', function(){
         $('#recipe-list').append(recipe);
     }else{
         $(this).prop('disabled', true);
-        Toast.fire({
-            icon: 'warning',
-            title: 'Maximum adding recipe reached',
-        });
+        $('.modal').attr('style', 'display: flex;');
+        $('.modal .modal-icon').addClass('modal-icon-info');
+        $('.modal .modal-body h5').html('Information');
+        $('.modal .modal-body p').html('You have reached the maximum adding of recipes.');
+        $('#btn-okie').addClass('btn-secondary');
+        $('#btn-okie').html('Close');
     }
+});
+
+$('#btn-okie').on('click', function(){
+    $('.modal').hide();
 });
 
 function removeRecipe(data){

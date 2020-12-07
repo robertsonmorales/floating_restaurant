@@ -171,7 +171,7 @@
 </div>
 
 <!-- The Modal -->
-<div class="modal" id="modal-warning">
+<div class="modal">
     <div class="modal-content">
         <div class="modal-header">      
             <div class="modal-icon">
@@ -186,11 +186,12 @@
         </div>
 
         <div class="modal-footer">
-            <button type="button" class="btn btn-warning" id="btn-okie">Okay, I got it!</button>
+            <button type="button" class="btn" id="btn-okie"></button>
         </div>
     </div>
 </form>
 <!-- Ends here -->
+
 @endsection
 
 @section('scripts')
@@ -273,11 +274,12 @@ $(document).ready(function(){
 				}
 
 				if (result.status == 404) {
-					$('#modal-warning').attr('style', 'display: flex;');
-					$('#modal-warning .modal-icon').addClass('modal-icon-warning');
-					$('#btn-okie').addClass('btn-warning');
-					$('#modal-warning .modal-body h5').html(result.icon);
-					$('#modal-warning .modal-body p').html(result.text);
+					$('.modal').attr('style', 'display: flex;');
+					$('.modal .modal-icon').addClass('modal-icon-warning');
+					$('.modal .modal-body h5').html(result.icon);
+					$('.modal .modal-body p').html(result.text);
+					$('#btn-okie').addClass('btn-secondary');
+					$('#btn-okie').html('Close');
 				}
 			}
 		});

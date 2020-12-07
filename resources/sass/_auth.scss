@@ -1,162 +1,142 @@
-.auth-content{
-    background-color: #f3f3f3; //$body-bg
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-
-    .auth-card{
+.auth-container{
+    .auth-content{
+        background-color: #eee; //$body-bg;
         display: flex;
-        justify-content: space-around;
-        background-color: #fff !important;
-        border: $border;
-        box-shadow: $shadow;
-        border-radius: $radius;
-        overflow: hidden;
-        position: relative;
-        width: 55%;
-
-        .logo{
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 30px;
-            background-color: #fdfdfd;
-            flex: 1;
+        align-items: center;
+        justify-content: center;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+    
+        .auth-card{
+            border: $border;
+            box-shadow: $shadow;
+            border-radius: $radius;
             overflow: hidden;
-            
-            img{
-                width: 100%;
-                height: auto;
-            }
-        }
-
-        .logo-banner{
-            justify-content: center;
-            align-items: center;
-            display: none;
-            padding: 30px;
-            padding-bottom: 0px;
-            overflow: hidden;
-
-            img{
-                width: 120px;
-                height: auto;
-            }
-        }
-
-        .body-card{
-            background-color: #fff;
-            display: flex;
-            flex-direction: column;
-            flex: 1;
-            padding: 30px;
-
-            h5{                
-                color: $toolbar;
-                font-weight: 500;
-                margin-bottom: 15px;
-            }
-
-            #login-form{
-                width: 100%;
-            }
-
-            .form-columns{
-                display: grid !important;
-                grid-template-columns: repeat(2, 1fr);
-                font-size: .9em !important;
-                align-items: center;
-            }
-
-            .form-group{
-                margin-bottom: 15px;
+            position: relative;
+            background-color: #fff !important;
+            width: 55%;
+    
+            .body-card{
+                flex: 1;
                 display: flex;
                 flex-direction: column;
-                position: relative;
-
-                label{
-                    margin-bottom: 5px;
-                    font-size: .8em;
+                background-color: #fff;
+    
+                h5{                
                     font-weight: 500;
-                    color: #999;
+                    margin-bottom: 15px;
                 }
-
-                .input-group-single{
-                    display: flex;
+    
+                #login-form{
+                    width: 100%;
+                }
+    
+                .form-columns{
+                    display: grid !important;
+                    grid-template-columns: repeat(2, 1fr);
+                    font-size: .9em !important;
                     align-items: center;
-                    justify-content: flex-start;
-                    border-radius: 4px;
-                    transition: all 0.3s ease;
-                    border: 1px solid #ddd;
-                    font-weight: 500;
-                    background-color: #fff;
-                    padding: 0 10px;
-
-                    .icon{
-                        color: #555;
-                        font-size: .9em;
-                    }
-
-                    .form-control{
-                        border: none;
-                        outline: none;
-                        background-color: transparent;
-                        font-weight: 500;
-                        color: $toolbar;
-                        flex: 1;
-                        font-size: .9em;
-                    }
-                    
-
-                    &:focus-within{
-                        border: 1px solid $btn-primary;
-                        background-color: #fff;
-                        box-shadow: $shadow;
-                    }
                 }
-
-                .invalid-feedback{
-                    color: $red;
-                    font-size: .9em;
-                    font-weight: 500;
-                    display: block !important;
-                }
-
-                input:required {
-                    box-shadow: none;
-                }
-
-                input:invalid {
-                    box-shadow: 0 0 3px transparent;
-                }
-
-                .btn-auth{
-                    margin-right: 5px;
-                    border-radius: 5px;
-                    font-family: $font-family;
-                    font-size: .9em;
-                    font-weight: 500;
-                    padding: 8px;
-                    transition: all 0.4s ease;
-                    color: #fff;
-                    background-color: $btn-primary;
-
-                    &:last-child{
-                        margin-right: 0;
-                    }
-                }
-
-                .form-check{
+    
+                .form-group{
+                    margin-bottom: 15px;
+                    display: flex;
+                    flex-direction: column;
+                    position: relative;
+    
                     label{
+                        margin-bottom: 5px;
                         font-size: .9em;
-                        color: #999;
-                        position: relative;
-                        top: 1.5px;
+                        font-weight: 500;
+                    }
+    
+                    .input-group-single{
+                        display: flex;
+                        align-items: center;
+                        justify-content: flex-start;
+                        border-radius: 4px;
+                        transition: all 0.3s ease;
+                        border: 1px solid #ddd;
+                        font-weight: 500;
+                        background-color: #fff;
+                        padding: 0 10px;
+    
+                        .icon{
+                            color: #555;
+                            font-size: .9em;
+                        }
+    
+                        .form-control{
+                            border: none;
+                            outline: none;
+                            background-color: transparent;
+                            font-weight: 500;
+                            color: $toolbar;
+                            flex: 1;
+                            font-size: .9em;
+                        }
+                        
+    
+                        &:focus-within{
+                            border: 1px solid $btn-primary;
+                            background-color: #fff;
+                            box-shadow: $shadow-sm;
+                        }
+                    }
+    
+                    .invalid-feedback{
+                        color: $red;
+                        font-size: .9em;
+                        font-weight: 500;
+                        display: block !important;
+                    }
+    
+                    input:required {
+                        box-shadow: none;
+                    }
+    
+                    input:invalid {
+                        box-shadow: 0 0 3px transparent;
+                    }
+    
+                    .form-check{
+                        label{
+                            font-size: 1em;
+                            position: relative;
+                            top: 1.5px;
+                            font-weight: 500;
+                        }
+                    }
+    
+                    .two-cols{
+                        display: flex;
+                        align-items: center;
+                        justify-content: space-between;
+    
+                        .btn-go-back{
+                            color: $btn-primary;
+                            font-family: $font-family;
+                            font-size: .9em;
+                            font-weight: 500;
+                        }
+                    }
+
+                    .btn-auth{
+                        border-radius: 5px;
+                        font-family: $font-family;
+                        font-size: .9em;
+                        font-weight: 500;
+                        padding: 8px;
+                        transition: all 0.4s ease;
+                        color: #fff;
+                        background-color: $btn-primary;
+    
+                        &:last-child{
+                            margin-right: 0;
+                        }
                     }
                 }
 
@@ -165,24 +145,10 @@
                         font-size: .9em;
                         color: $btn-primary;
                         outline: none;
-                    }
-                }
-
-                .two-cols{
-                    display: flex;
-                    align-items: center;
-                    justify-content: space-between;
-
-                    .btn-go-back{
-                        color: $btn-primary;
-                        font-family: $font-family;
-                        font-size: .9em;
                         font-weight: 500;
                     }
                 }
             }
         }
-    }
+    }        
 }
-
-@import 'auth-responsive';
