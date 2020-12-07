@@ -32,32 +32,6 @@
 @section('scripts')
 <script type="text/javascript">
 $(document).ready(function(){
-    $('.modal-footer').hide();
-
-    $('.btn-change-profile').on('click', function(){
-        $('#form-submit').attr('style', 'display: flex;');
-    });
-
-    $('#btn-cancel').on('click', function(){
-        $('#form-submit').attr('style', 'display: none;');
-    });
-
-    $('#close-modal').on('click', function(){
-        $('#form-submit').attr('style', 'display: none;');
-    });
-
-    $(".btn-choose-photo").on('click', function(){
-        $('#profile-image').trigger('click');
-    });
-
-    $('#btn-save').on('click', function(){
-        $('#btn-cancel').prop('disabled', true);
-        $(this).prop('disabled', true);
-        $(this).html("Setting New Profile Picture..");
-
-        document.getElementById("form-submit").submit();
-    });
-
     $('#settings-form').on('submit', function(){
         $('#btn-save').prop('disabled', true);
         $('#btn-reset').prop('disabled', true);
@@ -66,20 +40,5 @@ $(document).ready(function(){
         $(this).submit();
     });
 });
-
-function previewFile(input){
-    var file = $("#profile-image").get(0).files[0];
-    
-    if(file){
-        var reader = new FileReader();
-
-        reader.onload = function(){
-            $("#previewImg").attr("src", reader.result);
-            $('.modal-footer').show();
-        }
-
-        reader.readAsDataURL(file);
-    }
-}
 </script>
 @endsection

@@ -65,7 +65,7 @@
 
         label{
             font-size: .8em;
-            color: #aaa;
+            color: #555;
             font-weight: 500;
             margin-bottom: 3px;
         }
@@ -77,11 +77,12 @@
             transition: all 0.3s ease;
             resize: none;
             width: 100% !important;
-            border-color: #d2d6dc !important;
+            border: 1px solid #d2d6dc !important;
+            background-color: #fff;
 
             &:focus{
-                border: 1px solid $btn-primary;
-                box-shadow: $shadow-sm;
+                border: 1px solid $btn-primary !important;
+                box-shadow: $shadow-sm !important;
             }
         }
 
@@ -94,12 +95,12 @@
             border: none;
             background-color: #fcfcfc;
             padding: 5px;
-            border: 1px solid #d2d6dc;
+            border: 1px solid #d2d6dc !important;
+            background-color: #fff;
 
             &:focus{
-                border: 1px solid $btn-primary;
-                background-color: #fff;
-                box-shadow: $shadow;
+                border: 1px solid $btn-primary !important;
+                box-shadow: $shadow-sm !important;
             }
         }
 
@@ -133,6 +134,7 @@
             transition: all 0.4s ease;
             color: #fff;
             padding: 8px 15px;
+            box-shadow: $shadow-sm;
 
             &:last-child{
                 margin-right: 0;

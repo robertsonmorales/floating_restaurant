@@ -4,9 +4,9 @@
 <div class="dashboard-container mx-4">
     <div class="dashboard-cards">
 
-        <div class="reports-card">
-            <div class="reports">                
-                <span class="card-name">Sales</span>
+        <div class="row no-gutters reports-card">
+            <div class="col reports mr-4">
+                <span class="card-name text-muted">Sales</span>
                 <div class="report-record">
                     <span class="card-total">₱ 150</span>
                     <span class="card-icon" id="sales-icon">
@@ -15,8 +15,8 @@
                 </div>
             </div>
 
-            <div class="reports">
-                <span class="card-name">Expenses</span>
+            <div class="col reports mr-4">
+                <span class="card-name text-muted">Expenses</span>
                 <div class="report-record">
                     <span class="card-total">₱ 100</span>
                     <span class="card-icon" id="expenses-icon">
@@ -25,8 +25,8 @@
                 </div>
             </div>
 
-            <div class="reports">
-                <span class="card-name">Orders</span>
+            <div class="col reports mr-4">
+                <span class="card-name text-muted">Orders</span>
                 <div class="report-record">
                     <span class="card-total">150</span>
                     <span class="card-icon" id="order-icon">
@@ -35,8 +35,8 @@
                 </div>
             </div>
 
-            <div class="reports">   
-                <span class="card-name">Today's Customers</span>
+            <div class="col reports">   
+                <span class="card-name text-muted">Today's Customers</span>
                 <div class="report-record">
                     <span class="card-total">150</span>
                     <span class="card-icon" id="customer-icon">
@@ -47,16 +47,16 @@
         </div>
 
         <div class="exp-vs-sales">
-            <span class="card-name">Annual Sales & Expenses</span>
+            <span class="card-name text-muted">Annual Sales & Expenses</span>
             <div id="report-chart" class="report-chart"></div>
         </div>
 
         <div class="report-details">
             <div class="details1">
-                <span class="card-name">Stocks</span>
+                <span class="card-name text-muted">Stocks</span>
             </div>
             <div class="details2">
-                <span class="card-name">On-going Orders</span>
+                <span class="card-name text-muted">On-going Orders</span>
             </div>
         </div>
     </div>

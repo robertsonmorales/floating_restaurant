@@ -150,19 +150,19 @@
 $(document).ready(function(){
     function fileUpload(){
         if ($('#upload_type').val() == "1|File Upload") {
-            $('#file-group').show(300);
-            $('#url-group').hide(300);
+            $('#file-group').show();
+            $('#url-group').hide();
         }else if($('#upload_type').val() == "0|URL"){
-            $('#url-group').show(300);
+            $('#url-group').show();
             $('#url_image').val(); //host + '/uploads/menu_categories/' + $("#url_image").val()
-            $('#file-group').hide(300);
+            $('#file-group').hide();
 
             $('#image-preview').attr('src', $("#url_image").val());
-            $('#image-preview').show(300);
+            $('#image-preview').show();
         }else{
-            $('#file-group').hide(300);
-            $('#url-group').hide(300);
-            $('#image-preview').hide(300);
+            $('#file-group').hide();
+            $('#url-group').hide();
+            $('#image-preview').hide();
         }
     }
 
@@ -172,21 +172,25 @@ $(document).ready(function(){
 
     $('#upload_type').on('change', function(){
         if ($(this).val() == "1|File Upload") {
-            $('#file-group').show(300);
-            $('#url-group').hide(300);
+            $('#file-group').show();
+            $('#url-group').hide();
         }else if($(this).val() == "0|URL"){
-            $('#url-group').show(300);
-            $('#file-group').hide(300);
+            $('#url-group').show();
+            $('#file-group').hide();
 
             $('#image-preview').attr('src', $("#url_image").val());
-            $('#image-preview').show(300);
-
-
+            $('#image-preview').show();
         }else{
-            $('#file-group').hide(300);
-            $('#url-group').hide(300);
-            $('#image-preview').hide(300);
+            $('#file-group').hide();
+            $('#url-group').hide();
+            $('#image-preview').hide();
         }
+    });
+
+    $('#btn-reset').on('click', function(){
+        $('#file-group').hide();
+        $('#url-group').hide();
+        $('#image-preview').hide();
     });
 
     $('#category_image').on('change', function(){

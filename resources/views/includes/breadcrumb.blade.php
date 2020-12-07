@@ -11,7 +11,7 @@
 
                 <li class="breadcrumb-items">
                     <div class="chevrons-right">
-                        <i data-feather="chevron-right"></i>
+                        <i data-feather="chevrons-right"></i>
                     </div>
                 </li>
 

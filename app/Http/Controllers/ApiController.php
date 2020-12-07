@@ -23,12 +23,12 @@ class ApiController extends Controller
     	return $request;
     }
 
-    public function getMenus(){
+    public function getData(){
     	$categories = $this->categories->where('status', 1)->get();
     	$menus = $this->menu->where('status', 1)->get();
     	return response()->json([
     		'categories' => $categories,
-    		'menus' => $categories
+    		'menus' => $menus
     	]);
     }
 }

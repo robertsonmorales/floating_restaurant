@@ -107,6 +107,7 @@ class MenuController extends Controller
         $columnDefs[] = array_merge(array('headerName'=>'Name','field'=>'name'), $arr_set);
         $columnDefs[] = array_merge(array('headerName'=>'Category','field'=>'menu_categories_id'), $arr_set);
         $columnDefs[] = array_merge(array('headerName'=>'Price','field'=>'price'), $arr_set);
+        $columnDefs[] = array_merge(array('headerName'=>'Recipe','field'=>'recipe'), $arr_set);
         $columnDefs[] = array_merge(array('headerName'=>'Type','field'=>'menu_type_id'), $arr_set);
         $columnDefs[] = array_merge(array('headerName'=>'Status','field'=>'status'), $arr_set);
         $columnDefs[] = array_merge(array('headerName'=>'Created By','field'=>'created_by'), $arr_set);
@@ -171,27 +172,32 @@ class MenuController extends Controller
             $urlImage = $validated['url_image'];
             $fileImage = $validated['menu_image'];
 
-            $data = $this->menu;
-            $data->menu_categories_id = $validated['menu_category'];
-            $data->menu_type_id = $validated['menu_type'];
-            $data->upload_type = $validated['upload_type'];
-            $data->menu_image = @($uploadIndex == 1) ? $this->uploadImage($fileImage) : $urlImage;
-            $data->name = $validated['name'];
-            $data->price = $validated['price'];
-            $data->status = $validated['status'];
-            $data->created_by = Auth::id();
-            $data->created_at = now();
-            $insert = $data->save();
+            $data = $this->menu->insert([
+                'menu_categories_id' => $validated['menu_category'],
+                'menu_type_id' => $validated['menu_type'],
+                'upload_type' => $validated['upload_type'],
+                'menu_image' => @($uploadIndex == 1) ? $this->uploadImage($fileImage) : $urlImage,
+                'name' => $validated['name'],
+                'price' => $validated['price'],
+                'status' => $validated['status'],
+                'created_by' => Auth::id(),
+                'created_at' => now()
+            ]);
 
-            if ($insert) {
-                if (Arr::exists($request, 'recipe')) {
-                    for ($i=0; $i < count($request->input('recipe')); $i++) { 
-                        $stock_out = $request->input('recipe_qty');
-                        $recipes = $request->input('recipe');
-                        $product = explode('|', $recipes[$i]);
+            if ($data && $request->has('recipe')) {
+                $menu = $this->menu->latest()->first();
 
-                        $menu = $this->menu->latest()->first();
+                for ($i=0; $i < count($validated['recipe']); $i++) { 
+                    $stock_out = $validated['recipe_qty'];
+                    $recipes = $validated['recipe'];
+                    $product = explode('|', $recipes[$i]);
 
+                    $checkRecipe = $this->recipe->where(array(
+                        'menu_id' => $menu->id,
+                        'product_id' => $product[0]
+                    ))->first();
+
+                    if(empty($checkRecipe)){
                         $this->recipe->insert([
                             'menu_id' => $menu->id,
                             'menu_name' => $menu->name,
@@ -278,42 +284,57 @@ class MenuController extends Controller
             $urlImage = $validated['url_image'];
             $fileImage = $validated['menu_image'];
 
-            $data = $this->menu->find($id);
-            $data->menu_categories_id = $validated['menu_category'];
-            $data->menu_type_id = $validated['menu_type'];
-            $data->upload_type = $validated['upload_type'];
-            $data->menu_image = ($uploadIndex == 1) ? $this->uploadImage($fileImage) : $urlImage;
+            $data = $this->menu->find($id)->update([
+                'menu_categories_id' => $validated['menu_category'],
+                'menu_type_id' => $validated['menu_type'],
+                'upload_type' => $validated['upload_type'],
+                'menu_image' => @($uploadIndex == 1) ? $this->uploadImage($fileImage) : $urlImage,
+                'name' => $validated['name'],
+                'price' => $validated['price'],
+                'status' => $validated['status'],
+                'updated_by' => Auth::id(),
+                'updated_at' => now()
+            ]);
 
-            $data->name = $validated['name'];
-            $data->price = $validated['price'];
-            $data->status = $validated['status'];
-            $data->updated_by = Auth::id();
-            $update = $data->save();
+            $findMenu = $this->menu->find($id);
+            $getRecipes = $this->recipe->where('menu_id', $id)->get(); 
+            
+            if ($data && $request->has('recipe')) {
+                
+                $currentRecipes = count($getRecipes);
+                $newRecipes = count($validated['recipe']); 
 
-            if ($update) {
-                if (Arr::exists($validated, 'recipe')) {
+                foreach ($getRecipes as $key => $value) {
+                    $this->recipe->where('id', $value['id'])->delete();
+                }
 
-                    $inputRecipe = array();
-                    for ($i=0; $i < count($validated['recipe']); $i++) { 
-                        $fullRecipe = $validated['recipe'][$i].'|'.$validated['recipe_qty'][$i];
-                        $product = explode('|', $fullRecipe);
+                for ($i=0; $i < $newRecipes; $i++) {
+                    $stock_out = $validated['recipe_qty'];
+                    $recipes = $validated['recipe'];
+                    $product = explode('|', $recipes[$i]);
 
-                        $deleteRecipe = $this->recipe->where('menu_id', $id)->delete();
-
+                    $checkRecipe = $this->recipe->where(array(
+                        'menu_id' => $findMenu->id,
+                        'product_id' => $product[0]
+                    ))->first();
+                    
+                    if(empty($checkRecipe) || is_null($checkRecipe)){
                         $this->recipe->insert([
-                            'menu_id' => $data->id,
-                            'menu_name' => $data->name,
+                            'menu_id' => $findMenu->id,
+                            'menu_name' => $findMenu->name,
                             'product_id' => $product[0],
                             'product_name' => $product[1],
-                            'stock_out' => $product[2],
+                            'stock_out' => $stock_out[$i],
                             'created_by' => Auth::id(),
                             'created_at' => now()
                         ]);
                     }
                 }
+            }else{
+                $this->recipe->where('menu_id', $findMenu->id)->delete();
             }
 
-            $this->audit_trail_logs('', 'updated', 'menus: '.$data->name, $id);
+            $this->audit_trail_logs('', 'updated', 'menus: '.$validated['name'], $id);
 
             return redirect()->route('menus.index')->with('success', 'You have successfully updated '.$validated['name']);
         }
@@ -328,8 +349,14 @@ class MenuController extends Controller
     public function destroy($id)
     {
         $data = $this->menu->findOrFail($id);
-        $this->audit_trail_logs('', 'deleted', 'menus '.$data->name, $id);
         $data->delete();
+
+        $recipes = $this->recipe->where('menu_id', $id)->get();
+        foreach ($recipes as $key => $recipe) {
+            $this->recipe->find($recipe->id)->delete();
+        }
+
+        $this->audit_trail_logs('', 'deleted', 'menus '.$data->name, $id);
 
         return redirect()->route('menus.index')->with('success', 'You have successfully added '.$data->name);
     }

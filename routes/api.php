@@ -18,6 +18,4 @@ use Illuminate\Support\Facades\Route;
 //     return $request->user();
 // });
 
-// Route::post('/add_order', [App\Http\Controllers\ApiController::class, 'addOrder']);
-
-Route::get('get_menus', [App\Http\Controllers\ApiController::class, 'getMenus']);
+Route::get('/get_data', [App\Http\Controllers\ApiController::class, 'getData']);

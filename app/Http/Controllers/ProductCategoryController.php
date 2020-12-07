@@ -116,13 +116,14 @@ class ProductCategoryController extends Controller
     {
         $validated = $this->validator($request);
         if ($validated) {
-            $this->productCategory->name = $validated['name'];
-            $this->productCategory->status = $validated['status'];
-            $this->productCategory->created_by = Auth::id();
-            $this->productCategory->created_at = Carbon::now();
-            $this->productCategory->save();
+            $this->productCategory->insert([
+                'name' => $validated['name'],
+                'status' => $validated['status'],
+                'created_by' => Auth::id(),
+                'created_at' => now()
+            ]);
 
-            $this->audit_trail_logs('', 'created', 'product_categories: '.$validated['name'], $data->id);
+            $this->audit_trail_logs('', 'created', 'product_categories: '.$validated['name'], $this->productCategory->id);
 
             return redirect()->route('product_categories.index')->with('success', 'You have successfully added '.$validated['name']);
         } 

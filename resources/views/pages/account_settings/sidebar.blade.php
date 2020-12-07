@@ -8,7 +8,7 @@
         </li>
         <li>
             <a href="{{ route('account_settings.email') }}">
-                <i data-feather="at-sign"></i>
+                <i data-feather="mail"></i>
                 <span>Email</span>
             </a>
         </li>
