@@ -64,9 +64,7 @@ body{
     
     @import 'auth';
     
-    .admin-container{
-        display: flex;
-        height: 100vh;
+    .container-fluid{
         background-color: $body-bg;
     
         @import 'sidebar';

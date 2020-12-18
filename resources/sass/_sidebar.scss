@@ -1,15 +1,15 @@
 .sidebar{
+    width: 25%;
     overflow: hidden;
     position: relative;
     display: flex;
     flex-direction: column;
     border-right: 1px solid #f3f3f3;
-    // box-shadow: $shadow;
+    box-shadow: $shadow;
     background-color: #fff;
-    width: 20%;
 
     .logo{
-        padding: 20px;
+        padding: 20px 0;
         overflow: hidden;
         display: flex;
         align-items: center;
@@ -25,10 +25,10 @@
     }
 
     .btn-sidebar{
-        list-style: none;
         flex: 1;
-        overflow-y: auto !important;
+        list-style: none;
         transition: all 0.2s ease;
+        overflow-y: auto !important;
 
         li{
             display: flex;
@@ -41,8 +41,6 @@
                 font-size: .9em;
                 font-weight: 500;
                 padding: 8px 0;
-                margin: 0 15px;
-                flex: 1;
                 border-radius: 4px;
                 outline: none;
                 position: relative;
