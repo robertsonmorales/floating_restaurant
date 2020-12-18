@@ -573,6 +573,7 @@ class ComposerStaticInit182bb56126690632982edb98ebd12be0
         'App\\Models\\CustomerDiscount' => __DIR__ . '/../..' . '/app/Models/CustomerDiscount.php',
         'App\\Models\\Customers' => __DIR__ . '/../..' . '/app/Models/Customers.php',
         'App\\Models\\Damage' => __DIR__ . '/../..' . '/app/Models/Damage.php',
+        'App\\Models\\DeliveredProduct' => __DIR__ . '/../..' . '/app/Models/DeliveredProduct.php',
         'App\\Models\\Delivery' => __DIR__ . '/../..' . '/app/Models/Delivery.php',
         'App\\Models\\Discount' => __DIR__ . '/../..' . '/app/Models/Discount.php',
         'App\\Models\\EmployeePositions' => __DIR__ . '/../..' . '/app/Models/EmployeePositions.php',

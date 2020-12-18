@@ -31,7 +31,7 @@ class InventoryLogController extends Controller
         $mode = [route('inventory_logs.index')];        
         
         $rows = array();
-        $selectRow = ['i.product_name', 'i.product_category_name', 'i.type', 'i.qty', 'i.stocks', 'i.unit', 'p.minimum_stocks', 'i.created_by', 'i.created_at'];
+        $selectRow = ['i.product_name', 'i.type', 'i.qty', 'i.stocks', 'i.unit', 'p.minimum_stocks', 'i.created_by', 'i.created_at'];
         $rows = DB::table('inventory_transactions as i')
             ->leftJoin('products as p', 'p.id', 'i.product_id')
             // ->whereDay('i.created_at', today())
@@ -50,7 +50,6 @@ class InventoryLogController extends Controller
         );
 
         $columnDefs = array();
-        $columnDefs[] = array_merge(array('headerName'=>'Categories','field'=>'product_category_name'), $arr_set);
         $columnDefs[] = array_merge(array('headerName'=>'Products','field'=>'product_name'), $arr_set);
         $columnDefs[] = array_merge(array('headerName'=>'Transaction Type','field'=>'type'), $arr_set);
         $columnDefs[] = array_merge(array('headerName'=>'Quantity','field'=>'qty'), $arr_set);

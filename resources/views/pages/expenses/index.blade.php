@@ -5,6 +5,8 @@
 <!-- filter -->
 <div class="filters mx-4 mb-3">
     <div class="filters-child">
+        <button onclick="window.location.href='{{ route('expenses.create') }}'" class="btn btn-primary" id="btn-add-record">{{ $add }}</button>
+
         <button class="btn btn-secondary" id="btn-export">
             <span>Export</span>
             <span class="download-icon"><i data-feather="download"></i></span>
@@ -29,7 +31,11 @@
 </div>
 <!-- ends here -->
 
+@include('includes.alerts')
+
 <div id="myGrid" class="ag-theme-material mx-4"></div>
+
+@include('includes.modal')
 
 <br>
 @endsection
@@ -41,44 +47,46 @@ $(document).ready(function(){
     // assign agGrid to a variable
     var gridDiv = document.querySelector('#myGrid');
 
+    var columnDefs = [];
+    columnDefs = {
+        headerName: 'Controls',
+        field: 'Controls',
+        sortable: false,
+        filter: false,
+        // width: 150,
+        flex: 1,
+        pinned: 'left',
+        cellRenderer: function(params){
+            var edit_icon = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>';
+
+            var trash_icon = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash-2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg>';
+
+            var edit_url = '{{ route("expenses.edit", ":id") }}';
+            edit_url = edit_url.replace(':id', params.data.id);
+
+            var eDiv = document.createElement('div');
+            eDiv.innerHTML = '';
+            eDiv.innerHTML+='<button id="'+params.data.id+'" title="Edit" class="btn btn-info btn-edit">'+ edit_icon +'</button>&nbsp;';
+            eDiv.innerHTML+='<button id="'+params.data.id+'" title="Delete" class="btn btn-danger btn-remove">'+ trash_icon +'</button>&nbsp;';
+
+            var btn_edit = eDiv.querySelectorAll('.btn-edit')[0];
+            var btn_remove = eDiv.querySelectorAll('.btn-remove')[0];
+
+            btn_edit.addEventListener('click', function() {
+                window.location.href = edit_url;
+            });
+
+            btn_remove.addEventListener('click', function() {
+                var data_id = $(this).attr("id");
+                $('#form-submit').attr('style', 'display: flex;');
+                $('.modal-content').attr('id', params.data.id);
+            });
+            
+            return eDiv;
+        }
+    }
+
     for (var i = data.column.length - 1; i >= 0; i--) {
-        if (data.column[i].field == "status") {
-            data.column[i].cellRenderer = function display(params) {
-                if (params.data.status == "Active") {
-                    return '<div class="d-flex align-items-center">\
-                            <div style="width:5px; height: 5px" class="bg-success rounded-circle mr-2"></div>\
-                            ' + params.data.status + '\
-                        <div>';
-                }else{
-                    return '<div class="d-flex align-items-center">\
-                            <div style="width:5px; height: 5px" class="bg-secondary rounded-circle mr-2"></div>\
-                            ' + params.data.status + '\
-                        <div>';
-                }
-            }
-        }
-
-        if (data.column[i].field == "stocks") {
-            data.column[i].cellRenderer = function display(params) {
-                var qty = params.data.stocks.split(" ");
-                var minimum = params.data.minimum_stocks;
-
-                if (qty[0] <= minimum) {
-                    return '<div class="d-flex align-items-center">\
-                            <div style="width:5px; height: 5px" class="bg-warning rounded-circle mr-2"></div>\
-                            ' + qty[0] + ' ' + qty[1] + '\
-                        <div>';
-                }
-
-                if(qty[0] > minimum){
-                    return '<div class="d-flex align-items-center">\
-                            <div style="width:5px; height: 5px" class="bg-success rounded-circle mr-2"></div>\
-                            ' + qty[0] + ' ' + qty[1] + '\
-                        <div>';
-                }
-            }
-        }
-
         if (data.column[i].field == "created_at") {
             data.column[i].cellRenderer = function display(params) {
                 if (params.data.created_at) {
@@ -113,13 +121,15 @@ $(document).ready(function(){
         return year + '-' + month + '-' + today + ' ' + hours + ':' + minutes + ':' + seconds;
     }
 
+    data.column.push(columnDefs);
+
     var gridOptions = {
         // sortingOrder: ['desc', 'asc', null],
         columnDefs: data.column,
         rowData: data.rows,
         groupSelectsChildren: true,
         suppressRowTransform: true,
-        rowHeight: 50,
+        rowHeight: 48,
         animateRows: true,
         pagination: true,
         paginationPageSize: 10,
@@ -133,8 +143,8 @@ $(document).ready(function(){
             color: '#777'
         },
         onGridReady: function () {
-            // autoSizeAll();
-            gridOptions.api.sizeColumnsToFit();
+            autoSizeAll();
+            // gridOptions.api.sizeColumnsToFit();
         }
     }
 
@@ -168,13 +178,29 @@ $(document).ready(function(){
     // PAGE SIZE
     $("#pageSize").change(function(){
         var size = $(this).val();
-        // console.log(size);
         pageSize(size);
     });
-    // ENDS HERE
 
     // setup the grid after the page has finished loading
     new agGrid.Grid(gridDiv, gridOptions);
+
+    // remove
+    $('#btn-cancel').on('click', function(){
+        $('#form-submit').hide();
+    });
+
+    $('#btn-remove').on('click', function(){
+        var destroy = '{{ route("expenses.destroy", ":id") }}';
+        url = destroy.replace(':id', $('.modal-content').attr('id'));
+
+        $('#btn-cancel').prop('disabled', true);
+        $('#btn-remove').prop('disabled', true);
+        $('#btn-remove').html("Removing..");
+
+        document.getElementById("form-submit").action = url;
+        document.getElementById("form-submit").submit();
+    });
+    // ends here
 });
 </script>
 @endsection

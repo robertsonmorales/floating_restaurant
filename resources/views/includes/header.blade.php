@@ -1,24 +1,23 @@
 <div class="header-content position-sticky sticky-top mx-4 mt-4 mb-1">
     <nav class="px-4 py-3">
         <div class="row no-gutters">
-            <button class="btn btn-light" type="button">
-                <!-- <i data-feather="skip-back"></i> -->
+            <button class="btn btn-light d-md-none" type="button">
                 <i data-feather="menu"></i>
             </button>
         </div>
         <div class="user-profile">
             <div class="btn-group">
                 <button class="btn btn-primary btn-dropdown rounded-circle" data-toggle="dropdown" style="background-image: url('{{ (Auth::user()->profile_image) ? asset('images/user_profiles/'.Auth::user()->username.Auth::user()->id.'/'.Auth::user()->profile_image.'') : asset('images/user_profiles/TIMEKEEPING_Robertson_ Morales.jpg') }}');"></button>
-              <div class="dropdown-menu dropdown-menu-right mt-2 py-2">
+                <div class="dropdown-menu dropdown-menu-right mt-2 py-2">
 
-                <div class="dropdown-item-text d-flex align-items-center py-2">
-                    <span class="profile-image rounded-circle mr-2" style="background-image: url('{{ (Auth::user()->profile_image) ? asset('images/user_profiles/'.Auth::user()->username.Auth::user()->id.'/'.Auth::user()->profile_image.'') : asset('images/user_profiles/TIMEKEEPING_Robertson_ Morales.jpg') }}');"></span>
+                    <div class="dropdown-item-text d-flex align-items-center py-2">
+                        <span class="profile-image rounded-circle mr-2" style="background-image: url('{{ (Auth::user()->profile_image) ? asset('images/user_profiles/'.Auth::user()->username.Auth::user()->id.'/'.Auth::user()->profile_image.'') : asset('images/user_profiles/TIMEKEEPING_Robertson_ Morales.jpg') }}');"></span>
 
-                    <span class="profile-info">
-                        <span id="user-name">{{ ucfirst(Crypt::decryptString(Auth::user()->first_name)). ' '.ucfirst(Crypt::decryptString(Auth::user()->last_name)) }}</span>
-                        <span id="user-email">{{ Crypt::decryptString(Auth::user()->email) }}</span>
-                    </span>
-                </div>
+                        <span class="profile-info">
+                            <span id="user-name">{{ ucfirst(Crypt::decryptString(Auth::user()->first_name)). ' '.ucfirst(Crypt::decryptString(Auth::user()->last_name)) }}</span>
+                            <span id="user-email">{{ Crypt::decryptString(Auth::user()->email) }}</span>
+                        </span>
+                    </div>
 
                 <div class="dropdown-divider"></div>
 

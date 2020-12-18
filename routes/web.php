@@ -34,6 +34,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('/cancellation_reasons', App\Http\Controllers\CancellationReasonController::class);
     Route::resource('/table_maintenance', App\Http\Controllers\TableMaintenanceController::class);
     Route::resource('/expense_categories', App\Http\Controllers\ExpenseCategoryController::class);
+    Route::resource('/expenses', App\Http\Controllers\ExpenseController::class);
     Route::resource('/customer_discounts', App\Http\Controllers\CustomerDiscountController::class);
     Route::resource('/employee_positions', App\Http\Controllers\EmployeePositionController::class);
     Route::resource('/audit_trail_logs', App\Http\Controllers\AuditTrailLogController::class);
