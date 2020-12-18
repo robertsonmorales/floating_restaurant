@@ -15,10 +15,7 @@ class CreateDeliveriesTable extends Migration
     {
         Schema::create('deliveries', function (Blueprint $table) {
             $table->id();
-            $table->integer('product_id')->nullable();
-            $table->string('product_name')->nullable();
-            $table->integer('qty')->nullable();
-            $table->string('unit')->nullable();
+            $table->string('delivery_name')->nullable();
             $table->string('description')->nullable();
             $table->string('created_by')->nullable();
             $table->string('updated_by')->nullable();

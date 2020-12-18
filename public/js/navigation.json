@@ -94,18 +94,25 @@
 			"sub_order": 11,
 			"status": 1
 		},{
+			"name": "Expenses",
+			"mode": "expenses",
+			"controller": "ExpenseController",
+			"icon": "far fa-circle",
+			"sub_order": 12,
+			"status": 1
+		},{
 			"name": "Customer Discount",
 			"mode": "customer_discounts",
 			"controller": "CustomerDiscountController",
 			"icon": "far fa-circle",
-			"sub_order": 12,
+			"sub_order": 13,
 			"status": 1
 		},{
 			"name": "Employee Positions",
 			"mode": "employee_positions",
 			"controller": "EmployeePositionsController",
 			"icon": "far fa-circle",
-			"sub_order": 13,
+			"sub_order": 14,
 			"status": 1
 		}]
 	},{

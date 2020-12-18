@@ -54,6 +54,7 @@ return array(
     'App\\Models\\CustomerDiscount' => $baseDir . '/app/Models/CustomerDiscount.php',
     'App\\Models\\Customers' => $baseDir . '/app/Models/Customers.php',
     'App\\Models\\Damage' => $baseDir . '/app/Models/Damage.php',
+    'App\\Models\\DeliveredProduct' => $baseDir . '/app/Models/DeliveredProduct.php',
     'App\\Models\\Delivery' => $baseDir . '/app/Models/Delivery.php',
     'App\\Models\\Discount' => $baseDir . '/app/Models/Discount.php',
     'App\\Models\\EmployeePositions' => $baseDir . '/app/Models/EmployeePositions.php',

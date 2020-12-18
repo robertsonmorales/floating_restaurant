@@ -73,6 +73,6 @@ $(document).ready(function(){
         $('#btn-submit').html((mode == "update") ? "Submitting Changes.." : "Submitting..");
         $(this).submit();
     });
-});
+}); 
 </script>
 @endsection

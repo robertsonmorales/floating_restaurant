@@ -10948,8 +10948,8 @@ body {
 }
 
 body .feather {
-  width: 16px;
-  height: 16px;
+  width: 17px;
+  height: 17px;
 }
 
 body .status {
@@ -11173,8 +11173,8 @@ body .admin-container .sidebar .btn-sidebar li a {
 }
 
 body .admin-container .sidebar .btn-sidebar li a .feather {
-  width: 18px;
-  height: 18px;
+  width: 17px;
+  height: 17px;
 }
 
 body .admin-container .sidebar .btn-sidebar li a .awesome2 {
@@ -11296,7 +11296,7 @@ body .admin-container main .dropdown-menu .profile-image {
 body .admin-container main .dropdown-menu .profile-info {
   display: flex;
   flex-direction: column;
-  align-items: start;
+  align-items: flex-start;
 }
 
 body .admin-container main .dropdown-menu .profile-info #user-name {
@@ -11454,11 +11454,18 @@ body .admin-container main .data-profile .account {
 
 body .admin-container main .btn-edit,
 body .admin-container main .btn-remove {
-  width: 34px;
-  height: 34px;
+  width: 36px;
+  height: 36px;
   border-radius: 5px;
   color: #fff;
   padding: 0;
+}
+
+body .admin-container main .btn-edit .feather,
+body .admin-container main .btn-remove .feather {
+  position: relative;
+  right: 1px;
+  bottom: 2px;
 }
 
 body .admin-container main .btn-edit {

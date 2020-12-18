@@ -14,31 +14,31 @@ use App\Models\Products;
 use App\Models\Stock;
 use App\Models\InventoryTransaction;
 use App\Models\ProductUnits;
+use App\Models\DeliveredProduct;
 
 class DeliveryController extends Controller
 {
-    protected $delivery, $product, $stock, $inventory, $unit;
+    protected $delivery, $product, $stock, $inventory, $unit, $deliverProduct;
 
-    public function __construct(Delivery $delivery, Products $product, Stock $stock, InventoryTransaction $inventory, ProductUnits $unit){
+    public function __construct(Delivery $delivery, Products $product, Stock $stock, InventoryTransaction $inventory, ProductUnits $unit, DeliveredProduct $deliverProduct){
         $this->delivery = $delivery;
         $this->product = $product;
         $this->stock = $stock;
         $this->inventory = $inventory;
         $this->unit = $unit;
+        $this->deliveredProduct = $deliverProduct;
     }
 
     public function validator(Request $request)
     {
         $input = [
-            'product' => $request->input('product'),
-            'quantity' => $this->safeInputs($request->input('quantity')),
+            'delivery_name' => $this->safeInputs($request->input('delivery_name')),
             'description' => $this->safeInputs($request->input('description')),
             'approved_by' => $this->safeInputs($request->input('approved_by'))
         ];
 
         $rules = [
-            'product' => 'required|string|max:255',
-            'quantity' => 'required|numeric',
+            'delivery_name' => 'required|string|max:255|unique:deliveries,delivery_name,'.$this->safeInputs($request->input('id')),
             'description' => 'nullable|string|max:1000',
             'approved_by' => 'required|string|max:100',
         ];
@@ -46,8 +46,7 @@ class DeliveryController extends Controller
         $messages = [];
 
         $customAttributes = [
-            'product' => 'product',
-            'quantity' => 'quantity',
+            'delivery_name' => 'delivery name',
             'description' => 'description',
             'approved_by' => 'approval',
         ];                
@@ -81,8 +80,7 @@ class DeliveryController extends Controller
         );
 
         $columnDefs = array();
-        $columnDefs[] = array_merge(array('headerName'=>'Products','field'=>'product_name'), $arr_set);
-        $columnDefs[] = array_merge(array('headerName'=>'Quantity','field'=>'qty'), $arr_set);
+        $columnDefs[] = array_merge(array('headerName'=>'Delivery Name','field'=>'delivery_name'), $arr_set);
         $columnDefs[] = array_merge(array('headerName'=>'Approved By','field'=>'approved_by'), $arr_set);
         $columnDefs[] = array_merge(array('headerName'=>'Description','field'=>'description'), $arr_set);
         $columnDefs[] = array_merge(array('headerName'=>'Created By','field'=>'created_by'), $arr_set);
@@ -140,38 +138,70 @@ class DeliveryController extends Controller
     {
         $validated = $this->validator($request);
         if($validated){
-            $explodeProduct = explode("|", $request->input('product'));
-            $product = $this->product->find($explodeProduct[0]);
+            $validatedProduct = $request->input('product');
+            $validatedQty = $request->input('qty');
+            $countProducts = count($validatedProduct);
+            $findDelivery = $this->delivery->latest()->first();
 
-            $this->delivery->product_id = $explodeProduct[0];
-            $this->delivery->product_name = $explodeProduct[1];
-            $this->delivery->qty = $validated['quantity'];
-            $this->delivery->unit = $product->unit;
-            $this->delivery->description = $validated['description'];
-            $this->delivery->approved_by = $validated['approved_by'];
-            $this->delivery->created_by = Auth::user()->id;
-            $this->delivery->created_at = now();
-            $this->delivery->save();
+            $data = $this->delivery;
+            $data->delivery_name = $validated['delivery_name'];
+            $data->description = $validated['description'];
+            $data->approved_by = $validated['approved_by'];
+            $data->created_by = Auth::id();
+            $data->created_at = now();
+            $data->save();
+            
+            if ($data) {
+                for ($i=0; $i < $countProducts; $i++) { 
+                    $explodeProducts = explode("|", $validatedProduct[$i]);
+                    $productId = $this->safeInputs($explodeProducts[0]);
+                    $productName = $this->safeInputs($explodeProducts[1]);
 
-            $stock = $this->stock->find($explodeProduct[0]);
-            $stock->stocks = $stock->stocks + $validated['quantity'];
-            $stock->save();
+                    $findProduct = $this->product->find($productId);
 
-            $this->inventory->product_id = $stock->product_id;
-            $this->inventory->product_name = $stock->product_name;
-            $this->inventory->product_category_id = $stock->product_category_id;
-            $this->inventory->product_category_name = $stock->product_category_name;
-            $this->inventory->type = 1;
-            $this->inventory->qty = $validated['quantity'];
-            $this->inventory->unit = $stock->unit;
-            $this->inventory->stocks = $stock->stocks;
-            $this->inventory->created_by = Auth::id();
-            $this->inventory->created_at = now();
-            $this->inventory->save();
+                    $findDeliveredProduct = $this->deliveredProduct->where(array(
+                        'delivery_id' => $data->id,
+                        'product_id' => $productId
+                    ))->first();
 
-            $this->audit_trail_logs('', 'created', 'deliveries: '.$explodeProduct[1], $this->delivery->id);
+                    if (empty($findDeliveredProduct) || $findDeliveredProduct == null) {
+                        $delivered = $this->deliveredProduct->insert([
+                            'delivery_id' => $data->id,
+                            'product_id' => $productId,
+                            'product_name' => $productName,
+                            'qty' => $validatedQty[$i],
+                            'unit' => $findProduct->unit,
+                            'created_by' => Auth::id(),
+                            'created_at' => now()
+                        ]);
 
-            return redirect()->route('deliveries.index')->with('success', 'You have successfully added '.$stock->product_name);
+                        if ($delivered) {
+                            $findStock = $this->stock->find($productId);
+                            
+                            $findStock->update([
+                                'stocks' => ($findStock->stocks + $validatedQty[$i]), 
+                            ]);
+
+                            $this->inventory->insert([
+                                'product_id' => $productId,
+                                'product_name' => $productName,
+                                'product_category_id' => $findStock->product_category_id,
+                                'product_category_name' => $findStock->product_category_name,
+                                'type' => 1,
+                                'qty' => $validatedQty[$i],
+                                'unit' => $findProduct->unit,
+                                'stocks' => $findStock->stocks,
+                                'created_by' => Auth::id(),
+                                'created_at' => now()
+                            ]);
+
+                            $this->audit_trail_logs('', 'created', 'deliveries: '.$productName, $this->delivery->id);   
+                        }       
+                    }
+                }
+            }
+
+            return redirect()->route('deliveries.index')->with('success', 'You have successfully added '.$validated['delivery_name']);
         }
     }
 
@@ -198,6 +228,8 @@ class DeliveryController extends Controller
         $mode_action = 'update';
         $name = ['Deliveries', 'Edit', $data->product_name];
         $mode = [route('deliveries.index'), route('deliveries.edit', $id), route('deliveries.edit', $id)];
+        
+        $deliverProduct = $this->deliveredProduct->where('delivery_id', $data->id)->get();
 
         $this->audit_trail_logs('', '', 'deliveries: '.$data->product_name, $id);
 
@@ -210,6 +242,7 @@ class DeliveryController extends Controller
             'header' => 'Deliveries',
             'title' => 'Deliveries',
             'data' => $data,
+            'delivered_products' => $deliverProduct,
             'products' => $products,
             'select_product' => $select_product
         ]);
@@ -224,25 +257,25 @@ class DeliveryController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $validated = $this->validator($request);
-        if($validated){
-            $product = explode("|", $request->input('product'));
-            $unit = $this->product->find($product[0]);
+        // $validated = $this->validator($request);
+        // if($validated){
+        //     $product = explode("|", $request->input('product'));
+        //     $unit = $this->product->find($product[0]);
 
-            $data = $this->delivery->findOrFail($id);
-            $data->product_id = $product[0];
-            $data->product_name = $product[1];
-            $data->qty = $validated['quantity'];
-            $data->unit = $unit->unit;
-            $data->description = $validated['description'];
-            $data->approved_by = $validated['approved_by'];
-            $data->updated_by = Auth::user()->id;
-            $data->save();
+        //     $data = $this->delivery->findOrFail($id);
+        //     $data->product_id = $product[0];
+        //     $data->product_name = $product[1];
+        //     $data->qty = $validated['quantity'];
+        //     $data->unit = $unit->unit;
+        //     $data->description = $validated['description'];
+        //     $data->approved_by = $validated['approved_by'];
+        //     $data->updated_by = Auth::user()->id;
+        //     $data->save();
 
-            $this->audit_trail_logs('', 'updated', 'deliveries: '.$data->product_name, $id);
+        //     $this->audit_trail_logs('', 'updated', 'deliveries: '.$data->product_name, $id);
 
-            return redirect()->route('deliveries.index')->with('success', 'You have successfully updated '.$product[1]);
-        }
+        //     return redirect()->route('deliveries.index')->with('success', 'You have successfully updated '.$data->delivery_name);
+        // }
     }
 
     /**
@@ -257,7 +290,7 @@ class DeliveryController extends Controller
         $data->delete();
         $this->audit_trail_logs('', 'deleted', 'deliveries '.$data->product_name, $id);
 
-        return redirect()->route('deliveries.index')->with('success', 'You have successfully removed '.$data->product_name);
+        return redirect()->route('deliveries.index')->with('success', 'You have successfully removed '.$data->delivery_name);
     }
 
     public function changeValue($rows)
