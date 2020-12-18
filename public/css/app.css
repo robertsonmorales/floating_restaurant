@@ -11111,59 +11111,88 @@ body .auth-container .auth-content .auth-card .body-card .forgot a {
   font-weight: 500;
 }
 
-body .admin-container {
-  display: flex;
-  height: 100vh;
+body .container-fluid,
+body .container-sm,
+body .container-md,
+body .container-lg,
+body .container-xl {
   background-color: #eee;
 }
 
-body .admin-container .sidebar {
+body .container-fluid .sidebar,
+body .container-sm .sidebar,
+body .container-md .sidebar,
+body .container-lg .sidebar,
+body .container-xl .sidebar {
+  width: 25%;
   overflow: hidden;
   position: relative;
   display: flex;
   flex-direction: column;
   border-right: 1px solid #f3f3f3;
+  box-shadow: 0 6px 12px rgba(140, 152, 164, 0.075);
   background-color: #fff;
-  width: 20%;
 }
 
-body .admin-container .sidebar .logo {
-  padding: 20px;
+body .container-fluid .sidebar .logo,
+body .container-sm .sidebar .logo,
+body .container-md .sidebar .logo,
+body .container-lg .sidebar .logo,
+body .container-xl .sidebar .logo {
+  padding: 20px 0;
   overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-body .admin-container .sidebar .logo img {
+body .container-fluid .sidebar .logo img,
+body .container-sm .sidebar .logo img,
+body .container-md .sidebar .logo img,
+body .container-lg .sidebar .logo img,
+body .container-xl .sidebar .logo img {
   width: 130px;
 }
 
-body .admin-container .sidebar .btn-sidebar::-webkit-scrollbar-thumb {
+body .container-fluid .sidebar .btn-sidebar::-webkit-scrollbar-thumb,
+body .container-sm .sidebar .btn-sidebar::-webkit-scrollbar-thumb,
+body .container-md .sidebar .btn-sidebar::-webkit-scrollbar-thumb,
+body .container-lg .sidebar .btn-sidebar::-webkit-scrollbar-thumb,
+body .container-xl .sidebar .btn-sidebar::-webkit-scrollbar-thumb {
   display: none;
 }
 
-body .admin-container .sidebar .btn-sidebar {
-  list-style: none;
+body .container-fluid .sidebar .btn-sidebar,
+body .container-sm .sidebar .btn-sidebar,
+body .container-md .sidebar .btn-sidebar,
+body .container-lg .sidebar .btn-sidebar,
+body .container-xl .sidebar .btn-sidebar {
   flex: 1;
-  overflow-y: auto !important;
+  list-style: none;
   transition: all 0.2s ease;
+  overflow-y: auto !important;
 }
 
-body .admin-container .sidebar .btn-sidebar li {
+body .container-fluid .sidebar .btn-sidebar li,
+body .container-sm .sidebar .btn-sidebar li,
+body .container-md .sidebar .btn-sidebar li,
+body .container-lg .sidebar .btn-sidebar li,
+body .container-xl .sidebar .btn-sidebar li {
   display: flex;
   flex-direction: column;
   overflow: hidden;
 }
 
-body .admin-container .sidebar .btn-sidebar li a {
+body .container-fluid .sidebar .btn-sidebar li a,
+body .container-sm .sidebar .btn-sidebar li a,
+body .container-md .sidebar .btn-sidebar li a,
+body .container-lg .sidebar .btn-sidebar li a,
+body .container-xl .sidebar .btn-sidebar li a {
   text-decoration: none;
   color: #3e4044;
   font-size: 0.9em;
   font-weight: 500;
   padding: 8px 0;
-  margin: 0 15px;
-  flex: 1;
   border-radius: 4px;
   outline: none;
   position: relative;
@@ -11172,74 +11201,133 @@ body .admin-container .sidebar .btn-sidebar li a {
   background-color: #fff;
 }
 
-body .admin-container .sidebar .btn-sidebar li a .feather {
+body .container-fluid .sidebar .btn-sidebar li a .feather,
+body .container-sm .sidebar .btn-sidebar li a .feather,
+body .container-md .sidebar .btn-sidebar li a .feather,
+body .container-lg .sidebar .btn-sidebar li a .feather,
+body .container-xl .sidebar .btn-sidebar li a .feather {
   width: 17px;
   height: 17px;
 }
 
-body .admin-container .sidebar .btn-sidebar li a .awesome2 {
+body .container-fluid .sidebar .btn-sidebar li a .awesome2,
+body .container-sm .sidebar .btn-sidebar li a .awesome2,
+body .container-md .sidebar .btn-sidebar li a .awesome2,
+body .container-lg .sidebar .btn-sidebar li a .awesome2,
+body .container-xl .sidebar .btn-sidebar li a .awesome2 {
   font-size: 0.5em !important;
 }
 
-body .admin-container .sidebar .btn-sidebar li a span {
+body .container-fluid .sidebar .btn-sidebar li a span,
+body .container-sm .sidebar .btn-sidebar li a span,
+body .container-md .sidebar .btn-sidebar li a span,
+body .container-lg .sidebar .btn-sidebar li a span,
+body .container-xl .sidebar .btn-sidebar li a span {
   margin-left: 15px;
 }
 
-body .admin-container .sidebar .btn-sidebar li a .dropdown {
+body .container-fluid .sidebar .btn-sidebar li a .dropdown,
+body .container-sm .sidebar .btn-sidebar li a .dropdown,
+body .container-md .sidebar .btn-sidebar li a .dropdown,
+body .container-lg .sidebar .btn-sidebar li a .dropdown,
+body .container-xl .sidebar .btn-sidebar li a .dropdown {
   position: absolute;
   right: 12px;
   transition: all 0.3s ease;
   transform: rotate(270deg);
 }
 
-body .admin-container .sidebar .btn-sidebar li a:hover {
+body .container-fluid .sidebar .btn-sidebar li a:hover,
+body .container-sm .sidebar .btn-sidebar li a:hover,
+body .container-md .sidebar .btn-sidebar li a:hover,
+body .container-lg .sidebar .btn-sidebar li a:hover,
+body .container-xl .sidebar .btn-sidebar li a:hover {
   color: #0e76bd;
 }
 
-body .admin-container .sidebar .btn-sidebar li a:active {
+body .container-fluid .sidebar .btn-sidebar li a:active,
+body .container-sm .sidebar .btn-sidebar li a:active,
+body .container-md .sidebar .btn-sidebar li a:active,
+body .container-lg .sidebar .btn-sidebar li a:active,
+body .container-xl .sidebar .btn-sidebar li a:active {
   color: #3e4044;
 }
 
-body .admin-container .sidebar .btn-sidebar li .sub-nav {
+body .container-fluid .sidebar .btn-sidebar li .sub-nav,
+body .container-sm .sidebar .btn-sidebar li .sub-nav,
+body .container-md .sidebar .btn-sidebar li .sub-nav,
+body .container-lg .sidebar .btn-sidebar li .sub-nav,
+body .container-xl .sidebar .btn-sidebar li .sub-nav {
   transition: all 0.8s ease !important;
   max-height: 0;
 }
 
-body .admin-container .sidebar .btn-sidebar li .sidebar-focus {
+body .container-fluid .sidebar .btn-sidebar li .sidebar-focus,
+body .container-sm .sidebar .btn-sidebar li .sidebar-focus,
+body .container-md .sidebar .btn-sidebar li .sidebar-focus,
+body .container-lg .sidebar .btn-sidebar li .sidebar-focus,
+body .container-xl .sidebar .btn-sidebar li .sidebar-focus {
   background: #0e76bd;
   color: #fff;
   box-shadow: 0 6px 12px rgba(140, 152, 164, 0.075);
 }
 
-body .admin-container .sidebar .btn-sidebar li .sidebar-focus:hover {
+body .container-fluid .sidebar .btn-sidebar li .sidebar-focus:hover,
+body .container-sm .sidebar .btn-sidebar li .sidebar-focus:hover,
+body .container-md .sidebar .btn-sidebar li .sidebar-focus:hover,
+body .container-lg .sidebar .btn-sidebar li .sidebar-focus:hover,
+body .container-xl .sidebar .btn-sidebar li .sidebar-focus:hover {
   background: #0e76bd;
   color: #fff;
 }
 
-body .admin-container .sidebar .btn-sidebar li .dropdown-focus {
+body .container-fluid .sidebar .btn-sidebar li .dropdown-focus,
+body .container-sm .sidebar .btn-sidebar li .dropdown-focus,
+body .container-md .sidebar .btn-sidebar li .dropdown-focus,
+body .container-lg .sidebar .btn-sidebar li .dropdown-focus,
+body .container-xl .sidebar .btn-sidebar li .dropdown-focus {
   transform: rotate(360deg) !important;
 }
 
-body .admin-container .sidebar .btn-sidebar li .selected-color {
+body .container-fluid .sidebar .btn-sidebar li .selected-color,
+body .container-sm .sidebar .btn-sidebar li .selected-color,
+body .container-md .sidebar .btn-sidebar li .selected-color,
+body .container-lg .sidebar .btn-sidebar li .selected-color,
+body .container-xl .sidebar .btn-sidebar li .selected-color {
   color: #0e76bd;
 }
 
-body .admin-container .sidebar .btn-sidebar:hover::-webkit-scrollbar-thumb {
+body .container-fluid .sidebar .btn-sidebar:hover::-webkit-scrollbar-thumb,
+body .container-sm .sidebar .btn-sidebar:hover::-webkit-scrollbar-thumb,
+body .container-md .sidebar .btn-sidebar:hover::-webkit-scrollbar-thumb,
+body .container-lg .sidebar .btn-sidebar:hover::-webkit-scrollbar-thumb,
+body .container-xl .sidebar .btn-sidebar:hover::-webkit-scrollbar-thumb {
   display: block;
 }
 
-body .admin-container main {
-  width: 80%;
+body .container-fluid main,
+body .container-sm main,
+body .container-md main,
+body .container-lg main,
+body .container-xl main {
   overflow-y: auto;
   overflow-x: hidden;
 }
 
-body .admin-container main .header-content {
+body .container-fluid main .header-content,
+body .container-sm main .header-content,
+body .container-md main .header-content,
+body .container-lg main .header-content,
+body .container-xl main .header-content {
   display: flex;
   flex-direction: column;
 }
 
-body .admin-container main .header-content nav {
+body .container-fluid main .header-content nav,
+body .container-sm main .header-content nav,
+body .container-md main .header-content nav,
+body .container-lg main .header-content nav,
+body .container-xl main .header-content nav {
   background-color: #fff;
   display: flex;
   justify-content: space-between;
@@ -11249,13 +11337,21 @@ body .admin-container main .header-content nav {
   box-shadow: 0 6px 12px rgba(140, 152, 164, 0.075);
 }
 
-body .admin-container main .header-content nav .user-profile {
+body .container-fluid main .header-content nav .user-profile,
+body .container-sm main .header-content nav .user-profile,
+body .container-md main .header-content nav .user-profile,
+body .container-lg main .header-content nav .user-profile,
+body .container-xl main .header-content nav .user-profile {
   display: flex;
   align-items: center;
   justify-content: flex-end;
 }
 
-body .admin-container main .header-content nav .user-profile .btn-dropdown {
+body .container-fluid main .header-content nav .user-profile .btn-dropdown,
+body .container-sm main .header-content nav .user-profile .btn-dropdown,
+body .container-md main .header-content nav .user-profile .btn-dropdown,
+body .container-lg main .header-content nav .user-profile .btn-dropdown,
+body .container-xl main .header-content nav .user-profile .btn-dropdown {
   color: #3e4044;
   text-decoration: none;
   font-weight: 600;
@@ -11267,25 +11363,41 @@ body .admin-container main .header-content nav .user-profile .btn-dropdown {
   width: 42px;
 }
 
-body .admin-container main .dropdown-menu {
+body .container-fluid main .dropdown-menu,
+body .container-sm main .dropdown-menu,
+body .container-md main .dropdown-menu,
+body .container-lg main .dropdown-menu,
+body .container-xl main .dropdown-menu {
   box-shadow: 0 10px 40px 10px rgba(140, 152, 164, 0.175) !important;
   border-radius: 0.75rem !important;
   border: none !important;
   padding: 15px 0;
 }
 
-body .admin-container main .dropdown-menu .dropdown-item {
+body .container-fluid main .dropdown-menu .dropdown-item,
+body .container-sm main .dropdown-menu .dropdown-item,
+body .container-md main .dropdown-menu .dropdown-item,
+body .container-lg main .dropdown-menu .dropdown-item,
+body .container-xl main .dropdown-menu .dropdown-item {
   color: #3e4044;
   outline: none !important;
   font-size: 0.9em !important;
   color: #3e4044 !important;
 }
 
-body .admin-container main .dropdown-menu .dropdown-item:active {
+body .container-fluid main .dropdown-menu .dropdown-item:active,
+body .container-sm main .dropdown-menu .dropdown-item:active,
+body .container-md main .dropdown-menu .dropdown-item:active,
+body .container-lg main .dropdown-menu .dropdown-item:active,
+body .container-xl main .dropdown-menu .dropdown-item:active {
   color: #3e4044;
 }
 
-body .admin-container main .dropdown-menu .profile-image {
+body .container-fluid main .dropdown-menu .profile-image,
+body .container-sm main .dropdown-menu .profile-image,
+body .container-md main .dropdown-menu .profile-image,
+body .container-lg main .dropdown-menu .profile-image,
+body .container-xl main .dropdown-menu .profile-image {
   display: flex;
   align-items: center;
   background-size: cover;
@@ -11293,41 +11405,69 @@ body .admin-container main .dropdown-menu .profile-image {
   width: 40px;
 }
 
-body .admin-container main .dropdown-menu .profile-info {
+body .container-fluid main .dropdown-menu .profile-info,
+body .container-sm main .dropdown-menu .profile-info,
+body .container-md main .dropdown-menu .profile-info,
+body .container-lg main .dropdown-menu .profile-info,
+body .container-xl main .dropdown-menu .profile-info {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
 }
 
-body .admin-container main .dropdown-menu .profile-info #user-name {
+body .container-fluid main .dropdown-menu .profile-info #user-name,
+body .container-sm main .dropdown-menu .profile-info #user-name,
+body .container-md main .dropdown-menu .profile-info #user-name,
+body .container-lg main .dropdown-menu .profile-info #user-name,
+body .container-xl main .dropdown-menu .profile-info #user-name {
   color: #3e4044;
   font-size: 0.9em;
 }
 
-body .admin-container main .dropdown-menu .profile-info #user-email {
+body .container-fluid main .dropdown-menu .profile-info #user-email,
+body .container-sm main .dropdown-menu .profile-info #user-email,
+body .container-md main .dropdown-menu .profile-info #user-email,
+body .container-lg main .dropdown-menu .profile-info #user-email,
+body .container-xl main .dropdown-menu .profile-info #user-email {
   color: #909090;
   font-size: 0.8em;
 }
 
-body .admin-container main .header {
+body .container-fluid main .header,
+body .container-sm main .header,
+body .container-md main .header,
+body .container-lg main .header,
+body .container-xl main .header {
   text-align: left;
   display: flex;
   align-items: center;
 }
 
-body .admin-container main .header h3 {
+body .container-fluid main .header h3,
+body .container-sm main .header h3,
+body .container-md main .header h3,
+body .container-lg main .header h3,
+body .container-xl main .header h3 {
   font-weight: 500;
   color: #3e4044;
 }
 
-body .admin-container main .header .breadcrumb-section {
+body .container-fluid main .header .breadcrumb-section,
+body .container-sm main .header .breadcrumb-section,
+body .container-md main .header .breadcrumb-section,
+body .container-lg main .header .breadcrumb-section,
+body .container-xl main .header .breadcrumb-section {
   list-style: none;
   display: flex;
   align-items: center;
   margin-bottom: -1px;
 }
 
-body .admin-container main .header .breadcrumb-section .breadcrumb-items {
+body .container-fluid main .header .breadcrumb-section .breadcrumb-items,
+body .container-sm main .header .breadcrumb-section .breadcrumb-items,
+body .container-md main .header .breadcrumb-section .breadcrumb-items,
+body .container-lg main .header .breadcrumb-section .breadcrumb-items,
+body .container-xl main .header .breadcrumb-section .breadcrumb-items {
   margin-right: 10px;
   color: #909090;
   font-weight: 500;
@@ -11335,33 +11475,57 @@ body .admin-container main .header .breadcrumb-section .breadcrumb-items {
   position: relative;
 }
 
-body .admin-container main .header .breadcrumb-section .breadcrumb-items a {
+body .container-fluid main .header .breadcrumb-section .breadcrumb-items a,
+body .container-sm main .header .breadcrumb-section .breadcrumb-items a,
+body .container-md main .header .breadcrumb-section .breadcrumb-items a,
+body .container-lg main .header .breadcrumb-section .breadcrumb-items a,
+body .container-xl main .header .breadcrumb-section .breadcrumb-items a {
   text-decoration: none;
   color: #909090;
   font-size: 0.9em;
 }
 
-body .admin-container main .header .breadcrumb-section .breadcrumb-items a:hover {
+body .container-fluid main .header .breadcrumb-section .breadcrumb-items a:hover,
+body .container-sm main .header .breadcrumb-section .breadcrumb-items a:hover,
+body .container-md main .header .breadcrumb-section .breadcrumb-items a:hover,
+body .container-lg main .header .breadcrumb-section .breadcrumb-items a:hover,
+body .container-xl main .header .breadcrumb-section .breadcrumb-items a:hover {
   color: #555;
   text-decoration: underline;
 }
 
-body .admin-container main .header .breadcrumb-section .breadcrumb-items:last-child {
+body .container-fluid main .header .breadcrumb-section .breadcrumb-items:last-child,
+body .container-sm main .header .breadcrumb-section .breadcrumb-items:last-child,
+body .container-md main .header .breadcrumb-section .breadcrumb-items:last-child,
+body .container-lg main .header .breadcrumb-section .breadcrumb-items:last-child,
+body .container-xl main .header .breadcrumb-section .breadcrumb-items:last-child {
   display: none;
 }
 
-body .admin-container main .filters {
+body .container-fluid main .filters,
+body .container-sm main .filters,
+body .container-md main .filters,
+body .container-lg main .filters,
+body .container-xl main .filters {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-body .admin-container main .filters .filters-child {
+body .container-fluid main .filters .filters-child,
+body .container-sm main .filters .filters-child,
+body .container-md main .filters .filters-child,
+body .container-lg main .filters .filters-child,
+body .container-xl main .filters .filters-child {
   display: flex;
   align-items: center;
 }
 
-body .admin-container main .filters .filters-child button {
+body .container-fluid main .filters .filters-child button,
+body .container-sm main .filters .filters-child button,
+body .container-md main .filters .filters-child button,
+body .container-lg main .filters .filters-child button,
+body .container-xl main .filters .filters-child button {
   color: #fff;
   font-size: 0.9em;
   font-weight: 500;
@@ -11371,15 +11535,27 @@ body .admin-container main .filters .filters-child button {
   box-shadow: 0 6px 12px rgba(140, 152, 164, 0.075);
 }
 
-body .admin-container main .filters .filters-child button .download-icon {
+body .container-fluid main .filters .filters-child button .download-icon,
+body .container-sm main .filters .filters-child button .download-icon,
+body .container-md main .filters .filters-child button .download-icon,
+body .container-lg main .filters .filters-child button .download-icon,
+body .container-xl main .filters .filters-child button .download-icon {
   margin-left: 5px;
 }
 
-body .admin-container main .filters .filters-child #btn-add-record {
+body .container-fluid main .filters .filters-child #btn-add-record,
+body .container-sm main .filters .filters-child #btn-add-record,
+body .container-md main .filters .filters-child #btn-add-record,
+body .container-lg main .filters .filters-child #btn-add-record,
+body .container-xl main .filters .filters-child #btn-add-record {
   background-color: #0e76bd;
 }
 
-body .admin-container main .filters .filters-child .search-group {
+body .container-fluid main .filters .filters-child .search-group,
+body .container-sm main .filters .filters-child .search-group,
+body .container-md main .filters .filters-child .search-group,
+body .container-lg main .filters .filters-child .search-group,
+body .container-xl main .filters .filters-child .search-group {
   margin-right: 8px;
   margin-bottom: 0 !important;
   padding: 0px 10px;
@@ -11390,7 +11566,11 @@ body .admin-container main .filters .filters-child .search-group {
   box-shadow: 0 6px 12px rgba(140, 152, 164, 0.075);
 }
 
-body .admin-container main .filters .filters-child .search-group input {
+body .container-fluid main .filters .filters-child .search-group input,
+body .container-sm main .filters .filters-child .search-group input,
+body .container-md main .filters .filters-child .search-group input,
+body .container-lg main .filters .filters-child .search-group input,
+body .container-xl main .filters .filters-child .search-group input {
   outline: none;
   border: none;
   background-color: transparent;
@@ -11400,15 +11580,27 @@ body .admin-container main .filters .filters-child .search-group input {
   transition: all 0.3s ease;
 }
 
-body .admin-container main .filters .filters-child .search-group .search-icon {
+body .container-fluid main .filters .filters-child .search-group .search-icon,
+body .container-sm main .filters .filters-child .search-group .search-icon,
+body .container-md main .filters .filters-child .search-group .search-icon,
+body .container-lg main .filters .filters-child .search-group .search-icon,
+body .container-xl main .filters .filters-child .search-group .search-icon {
   color: #909090;
 }
 
-body .admin-container main .filters .filters-child .search-group:focus-within {
+body .container-fluid main .filters .filters-child .search-group:focus-within,
+body .container-sm main .filters .filters-child .search-group:focus-within,
+body .container-md main .filters .filters-child .search-group:focus-within,
+body .container-lg main .filters .filters-child .search-group:focus-within,
+body .container-xl main .filters .filters-child .search-group:focus-within {
   border: 1px solid #0e76bd;
 }
 
-body .admin-container main .filters .filters-child select {
+body .container-fluid main .filters .filters-child select,
+body .container-sm main .filters .filters-child select,
+body .container-md main .filters .filters-child select,
+body .container-lg main .filters .filters-child select,
+body .container-xl main .filters .filters-child select {
   margin-right: 8px;
   border: 0.0625rem solid rgba(231, 234, 243, 0.7);
   font-weight: 500;
@@ -11417,15 +11609,27 @@ body .admin-container main .filters .filters-child select {
   box-shadow: 0 6px 12px rgba(140, 152, 164, 0.075);
 }
 
-body .admin-container main .filters .filters-child select:focus {
+body .container-fluid main .filters .filters-child select:focus,
+body .container-sm main .filters .filters-child select:focus,
+body .container-md main .filters .filters-child select:focus,
+body .container-lg main .filters .filters-child select:focus,
+body .container-xl main .filters .filters-child select:focus {
   border: 1px solid #0e76bd;
 }
 
-body .admin-container main .filters .filters-child select:last-child {
+body .container-fluid main .filters .filters-child select:last-child,
+body .container-sm main .filters .filters-child select:last-child,
+body .container-md main .filters .filters-child select:last-child,
+body .container-lg main .filters .filters-child select:last-child,
+body .container-xl main .filters .filters-child select:last-child {
   margin-right: 0;
 }
 
-body .admin-container main #myGrid {
+body .container-fluid main #myGrid,
+body .container-sm main #myGrid,
+body .container-md main #myGrid,
+body .container-lg main #myGrid,
+body .container-xl main #myGrid {
   overflow: hidden;
   max-width: 100%;
   height: 100vh;
@@ -11433,27 +11637,47 @@ body .admin-container main #myGrid {
   border: 0.0625rem solid rgba(231, 234, 243, 0.7);
 }
 
-body .admin-container main .data-profile {
+body .container-fluid main .data-profile,
+body .container-sm main .data-profile,
+body .container-md main .data-profile,
+body .container-lg main .data-profile,
+body .container-xl main .data-profile {
   display: flex;
   justify-content: flex-start;
   align-items: center;
 }
 
-body .admin-container main .data-profile .profile {
+body .container-fluid main .data-profile .profile,
+body .container-sm main .data-profile .profile,
+body .container-md main .data-profile .profile,
+body .container-lg main .data-profile .profile,
+body .container-xl main .data-profile .profile {
   width: 36px;
   height: 36px;
   border-radius: 50%;
   border: 2px solid #eee;
 }
 
-body .admin-container main .data-profile .account {
+body .container-fluid main .data-profile .account,
+body .container-sm main .data-profile .account,
+body .container-md main .data-profile .account,
+body .container-lg main .data-profile .account,
+body .container-xl main .data-profile .account {
   display: flex;
   flex-direction: column;
   margin-left: 5px;
 }
 
-body .admin-container main .btn-edit,
-body .admin-container main .btn-remove {
+body .container-fluid main .btn-edit,
+body .container-sm main .btn-edit,
+body .container-md main .btn-edit,
+body .container-lg main .btn-edit,
+body .container-xl main .btn-edit,
+body .container-fluid main .btn-remove,
+body .container-sm main .btn-remove,
+body .container-md main .btn-remove,
+body .container-lg main .btn-remove,
+body .container-xl main .btn-remove {
   width: 36px;
   height: 36px;
   border-radius: 5px;
@@ -11461,22 +11685,42 @@ body .admin-container main .btn-remove {
   padding: 0;
 }
 
-body .admin-container main .btn-edit .feather,
-body .admin-container main .btn-remove .feather {
+body .container-fluid main .btn-edit .feather,
+body .container-sm main .btn-edit .feather,
+body .container-md main .btn-edit .feather,
+body .container-lg main .btn-edit .feather,
+body .container-xl main .btn-edit .feather,
+body .container-fluid main .btn-remove .feather,
+body .container-sm main .btn-remove .feather,
+body .container-md main .btn-remove .feather,
+body .container-lg main .btn-remove .feather,
+body .container-xl main .btn-remove .feather {
   position: relative;
   right: 1px;
   bottom: 2px;
 }
 
-body .admin-container main .btn-edit {
+body .container-fluid main .btn-edit,
+body .container-sm main .btn-edit,
+body .container-md main .btn-edit,
+body .container-lg main .btn-edit,
+body .container-xl main .btn-edit {
   background-color: #0e76bd;
 }
 
-body .admin-container main .btn-remove {
+body .container-fluid main .btn-remove,
+body .container-sm main .btn-remove,
+body .container-md main .btn-remove,
+body .container-lg main .btn-remove,
+body .container-xl main .btn-remove {
   background-color: #EA2034;
 }
 
-body .admin-container main .card-form {
+body .container-fluid main .card-form,
+body .container-sm main .card-form,
+body .container-md main .card-form,
+body .container-lg main .card-form,
+body .container-xl main .card-form {
   padding: 20px;
   background-color: #fff;
   border: 0.0625rem solid rgba(231, 234, 243, 0.7);
@@ -11486,27 +11730,43 @@ body .admin-container main .card-form {
   text-align: left;
 }
 
-body .admin-container main .card-form h5 {
+body .container-fluid main .card-form h5,
+body .container-sm main .card-form h5,
+body .container-md main .card-form h5,
+body .container-lg main .card-form h5,
+body .container-xl main .card-form h5 {
   font-weight: 500;
   color: #3e4044;
   margin-bottom: 20px;
 }
 
-body .admin-container main .card-form .input-group {
+body .container-fluid main .card-form .input-group,
+body .container-sm main .card-form .input-group,
+body .container-md main .card-form .input-group,
+body .container-lg main .card-form .input-group,
+body .container-xl main .card-form .input-group {
   display: flex;
   flex-direction: column;
   margin-bottom: 20px;
   text-align: left;
 }
 
-body .admin-container main .card-form .input-group label {
+body .container-fluid main .card-form .input-group label,
+body .container-sm main .card-form .input-group label,
+body .container-md main .card-form .input-group label,
+body .container-lg main .card-form .input-group label,
+body .container-xl main .card-form .input-group label {
   font-size: 0.8em;
   color: #555;
   font-weight: 500;
   margin-bottom: 3px;
 }
 
-body .admin-container main .card-form .input-group .form-control {
+body .container-fluid main .card-form .input-group .form-control,
+body .container-sm main .card-form .input-group .form-control,
+body .container-md main .card-form .input-group .form-control,
+body .container-lg main .card-form .input-group .form-control,
+body .container-xl main .card-form .input-group .form-control {
   font-weight: 500;
   font-size: 0.9em;
   border-radius: 4px;
@@ -11517,12 +11777,20 @@ body .admin-container main .card-form .input-group .form-control {
   background-color: #fff;
 }
 
-body .admin-container main .card-form .input-group .form-control:focus {
+body .container-fluid main .card-form .input-group .form-control:focus,
+body .container-sm main .card-form .input-group .form-control:focus,
+body .container-md main .card-form .input-group .form-control:focus,
+body .container-lg main .card-form .input-group .form-control:focus,
+body .container-xl main .card-form .input-group .form-control:focus {
   border: 1px solid #0e76bd !important;
   box-shadow: 1px 3px 5px rgba(0, 0, 0, 0.05) !important;
 }
 
-body .admin-container main .card-form .input-group .form-control-color {
+body .container-fluid main .card-form .input-group .form-control-color,
+body .container-sm main .card-form .input-group .form-control-color,
+body .container-md main .card-form .input-group .form-control-color,
+body .container-lg main .card-form .input-group .form-control-color,
+body .container-xl main .card-form .input-group .form-control-color {
   outline: none;
   width: 100%;
   overflow: hidden;
@@ -11535,29 +11803,49 @@ body .admin-container main .card-form .input-group .form-control-color {
   background-color: #fff;
 }
 
-body .admin-container main .card-form .input-group .form-control-color:focus {
+body .container-fluid main .card-form .input-group .form-control-color:focus,
+body .container-sm main .card-form .input-group .form-control-color:focus,
+body .container-md main .card-form .input-group .form-control-color:focus,
+body .container-lg main .card-form .input-group .form-control-color:focus,
+body .container-xl main .card-form .input-group .form-control-color:focus {
   border: 1px solid #0e76bd !important;
   box-shadow: 1px 3px 5px rgba(0, 0, 0, 0.05) !important;
 }
 
-body .admin-container main .card-form .input-group .invalid-feedback strong {
+body .container-fluid main .card-form .input-group .invalid-feedback strong,
+body .container-sm main .card-form .input-group .invalid-feedback strong,
+body .container-md main .card-form .input-group .invalid-feedback strong,
+body .container-lg main .card-form .input-group .invalid-feedback strong,
+body .container-xl main .card-form .input-group .invalid-feedback strong {
   color: #EA2034;
   font-size: inherit;
   font-weight: 500;
 }
 
-body .admin-container main .card-form .input-group .messages strong {
+body .container-fluid main .card-form .input-group .messages strong,
+body .container-sm main .card-form .input-group .messages strong,
+body .container-md main .card-form .input-group .messages strong,
+body .container-lg main .card-form .input-group .messages strong,
+body .container-xl main .card-form .input-group .messages strong {
   color: #EA2034;
   font-size: 0.8em;
   font-weight: 500;
 }
 
-body .admin-container main .card-form .actions {
+body .container-fluid main .card-form .actions,
+body .container-sm main .card-form .actions,
+body .container-md main .card-form .actions,
+body .container-lg main .card-form .actions,
+body .container-xl main .card-form .actions {
   margin-top: 15px;
   text-align: right;
 }
 
-body .admin-container main .card-form .actions button {
+body .container-fluid main .card-form .actions button,
+body .container-sm main .card-form .actions button,
+body .container-md main .card-form .actions button,
+body .container-lg main .card-form .actions button,
+body .container-xl main .card-form .actions button {
   margin-right: 5px;
   border-radius: 5px;
   font-family: "Poppins", "Montserrat", "Roboto", "Segoe UI", sans-serif;
@@ -11569,15 +11857,27 @@ body .admin-container main .card-form .actions button {
   box-shadow: 1px 3px 5px rgba(0, 0, 0, 0.05);
 }
 
-body .admin-container main .card-form .actions button:last-child {
+body .container-fluid main .card-form .actions button:last-child,
+body .container-sm main .card-form .actions button:last-child,
+body .container-md main .card-form .actions button:last-child,
+body .container-lg main .card-form .actions button:last-child,
+body .container-xl main .card-form .actions button:last-child {
   margin-right: 0;
 }
 
-body .admin-container main .card-form .actions .btn-submit {
+body .container-fluid main .card-form .actions .btn-submit,
+body .container-sm main .card-form .actions .btn-submit,
+body .container-md main .card-form .actions .btn-submit,
+body .container-lg main .card-form .actions .btn-submit,
+body .container-xl main .card-form .actions .btn-submit {
   background-color: #0e76bd;
 }
 
-body .admin-container main .btn-cart {
+body .container-fluid main .btn-cart,
+body .container-sm main .btn-cart,
+body .container-md main .btn-cart,
+body .container-lg main .btn-cart,
+body .container-xl main .btn-cart {
   border-radius: 5px;
   font-family: "Poppins", "Montserrat", "Roboto", "Segoe UI", sans-serif;
   font-size: 0.9em;
@@ -11587,19 +11887,35 @@ body .admin-container main .btn-cart {
   background-color: #0e76bd;
 }
 
-body .admin-container main .radius {
+body .container-fluid main .radius,
+body .container-sm main .radius,
+body .container-md main .radius,
+body .container-lg main .radius,
+body .container-xl main .radius {
   border-radius: 0.5rem !important;
 }
 
-body .admin-container main .bg-cover {
+body .container-fluid main .bg-cover,
+body .container-sm main .bg-cover,
+body .container-md main .bg-cover,
+body .container-lg main .bg-cover,
+body .container-xl main .bg-cover {
   background-size: cover !important;
 }
 
-body .admin-container main .active-page {
+body .container-fluid main .active-page,
+body .container-sm main .active-page,
+body .container-md main .active-page,
+body .container-lg main .active-page,
+body .container-xl main .active-page {
   background-color: #0e76bd;
 }
 
-body .admin-container main .search-text {
+body .container-fluid main .search-text,
+body .container-sm main .search-text,
+body .container-md main .search-text,
+body .container-lg main .search-text,
+body .container-xl main .search-text {
   padding: 0 10px;
   border-radius: 4px;
   border: 1px solid #ddd;
@@ -11608,7 +11924,11 @@ body .admin-container main .search-text {
   overflow: hidden;
 }
 
-body .admin-container main .search-text .search-bar {
+body .container-fluid main .search-text .search-bar,
+body .container-sm main .search-text .search-bar,
+body .container-md main .search-text .search-bar,
+body .container-lg main .search-text .search-bar,
+body .container-xl main .search-text .search-bar {
   font-weight: 500;
   font-size: 0.9em;
   font-family: "Poppins", "Montserrat", "Roboto", "Segoe UI", sans-serif;
@@ -11617,73 +11937,129 @@ body .admin-container main .search-text .search-bar {
   outline: none;
 }
 
-body .admin-container main .search-text:focus-within {
+body .container-fluid main .search-text:focus-within,
+body .container-sm main .search-text:focus-within,
+body .container-md main .search-text:focus-within,
+body .container-lg main .search-text:focus-within,
+body .container-xl main .search-text:focus-within {
   border: 1px solid #0e76bd;
   box-shadow: 0 6px 12px rgba(140, 152, 164, 0.075);
 }
 
-body .admin-container main .menu-card {
+body .container-fluid main .menu-card,
+body .container-sm main .menu-card,
+body .container-md main .menu-card,
+body .container-lg main .menu-card,
+body .container-xl main .menu-card {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   grid-gap: 20px;
 }
 
-body .admin-container main .card-shadow {
+body .container-fluid main .card-shadow,
+body .container-sm main .card-shadow,
+body .container-md main .card-shadow,
+body .container-lg main .card-shadow,
+body .container-xl main .card-shadow {
   box-shadow: 0 6px 12px rgba(140, 152, 164, 0.075);
   border: 0.0625rem solid rgba(231, 234, 243, 0.7);
   border-radius: 0.75rem;
 }
 
-body .admin-container main .fixed-size {
+body .container-fluid main .fixed-size,
+body .container-sm main .fixed-size,
+body .container-md main .fixed-size,
+body .container-lg main .fixed-size,
+body .container-xl main .fixed-size {
   height: 42px;
   width: 42px;
 }
 
-body .admin-container main .outline-0 {
+body .container-fluid main .outline-0,
+body .container-sm main .outline-0,
+body .container-md main .outline-0,
+body .container-lg main .outline-0,
+body .container-xl main .outline-0 {
   outline: none;
 }
 
-body .admin-container main .title-size {
+body .container-fluid main .title-size,
+body .container-sm main .title-size,
+body .container-md main .title-size,
+body .container-lg main .title-size,
+body .container-xl main .title-size {
   font-size: 1.1em;
   margin-bottom: 0 !important;
 }
 
-body .admin-container main .subtitle-size {
+body .container-fluid main .subtitle-size,
+body .container-sm main .subtitle-size,
+body .container-md main .subtitle-size,
+body .container-lg main .subtitle-size,
+body .container-xl main .subtitle-size {
   font-size: 0.9em;
 }
 
-body .admin-container main .font-weight-500 {
+body .container-fluid main .font-weight-500,
+body .container-sm main .font-weight-500,
+body .container-md main .font-weight-500,
+body .container-lg main .font-weight-500,
+body .container-xl main .font-weight-500 {
   font-weight: 500;
 }
 
-body .admin-container main .card-transaction {
+body .container-fluid main .card-transaction,
+body .container-sm main .card-transaction,
+body .container-md main .card-transaction,
+body .container-lg main .card-transaction,
+body .container-xl main .card-transaction {
   box-shadow: 0 6px 12px rgba(140, 152, 164, 0.075);
   border: 0.0625rem solid rgba(231, 234, 243, 0.7);
   border-radius: 0.75rem;
 }
 
-body .admin-container main .text-blue {
+body .container-fluid main .text-blue,
+body .container-sm main .text-blue,
+body .container-md main .text-blue,
+body .container-lg main .text-blue,
+body .container-xl main .text-blue {
   color: #0e76bd;
 }
 
-body .admin-container main .list-group-padding {
+body .container-fluid main .list-group-padding,
+body .container-sm main .list-group-padding,
+body .container-md main .list-group-padding,
+body .container-lg main .list-group-padding,
+body .container-xl main .list-group-padding {
   padding: 5px 0;
 }
 
-body .admin-container main .ellipsis {
+body .container-fluid main .ellipsis,
+body .container-sm main .ellipsis,
+body .container-md main .ellipsis,
+body .container-lg main .ellipsis,
+body .container-xl main .ellipsis {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
   max-width: 120px;
 }
 
-body .admin-container main .scrollbar-show {
+body .container-fluid main .scrollbar-show,
+body .container-sm main .scrollbar-show,
+body .container-md main .scrollbar-show,
+body .container-lg main .scrollbar-show,
+body .container-xl main .scrollbar-show {
   overflow-y: scroll;
   height: 38vh;
   padding-right: 5px;
 }
 
-body .admin-container main .modal {
+body .container-fluid main .modal,
+body .container-sm main .modal,
+body .container-md main .modal,
+body .container-lg main .modal,
+body .container-xl main .modal {
   display: none;
   position: fixed;
   z-index: 9999999;
@@ -11694,7 +12070,11 @@ body .admin-container main .modal {
   /* Add Animation */
 }
 
-body .admin-container main .modal .modal-content {
+body .container-fluid main .modal .modal-content,
+body .container-sm main .modal .modal-content,
+body .container-md main .modal .modal-content,
+body .container-lg main .modal .modal-content,
+body .container-xl main .modal .modal-content {
   background-color: #fefefe;
   margin: auto;
   padding: 0;
@@ -11706,7 +12086,11 @@ body .admin-container main .modal .modal-content {
   animation-duration: 0.4s;
 }
 
-body .admin-container main .modal .modal-content #close-modal {
+body .container-fluid main .modal .modal-content #close-modal,
+body .container-sm main .modal .modal-content #close-modal,
+body .container-md main .modal .modal-content #close-modal,
+body .container-lg main .modal .modal-content #close-modal,
+body .container-xl main .modal .modal-content #close-modal {
   position: absolute;
   right: 10px;
   top: 10px;
@@ -11714,17 +12098,33 @@ body .admin-container main .modal .modal-content #close-modal {
   z-index: 1;
 }
 
-body .admin-container main .modal .modal-content .modal-header,
-body .admin-container main .modal .modal-content .modal-footer {
+body .container-fluid main .modal .modal-content .modal-header,
+body .container-sm main .modal .modal-content .modal-header,
+body .container-md main .modal .modal-content .modal-header,
+body .container-lg main .modal .modal-content .modal-header,
+body .container-xl main .modal .modal-content .modal-header,
+body .container-fluid main .modal .modal-content .modal-footer,
+body .container-sm main .modal .modal-content .modal-footer,
+body .container-md main .modal .modal-content .modal-footer,
+body .container-lg main .modal .modal-content .modal-footer,
+body .container-xl main .modal .modal-content .modal-footer {
   border: none !important;
 }
 
-body .admin-container main .modal .modal-content .modal-header {
+body .container-fluid main .modal .modal-content .modal-header,
+body .container-sm main .modal .modal-content .modal-header,
+body .container-md main .modal .modal-content .modal-header,
+body .container-lg main .modal .modal-content .modal-header,
+body .container-xl main .modal .modal-content .modal-header {
   padding: 20px;
   padding-bottom: 15px !important;
 }
 
-body .admin-container main .modal .modal-content .modal-header .modal-icon {
+body .container-fluid main .modal .modal-content .modal-header .modal-icon,
+body .container-sm main .modal .modal-content .modal-header .modal-icon,
+body .container-md main .modal .modal-content .modal-header .modal-icon,
+body .container-lg main .modal .modal-content .modal-header .modal-icon,
+body .container-xl main .modal .modal-content .modal-header .modal-icon {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -11732,40 +12132,72 @@ body .admin-container main .modal .modal-content .modal-header .modal-icon {
   padding: 10px;
 }
 
-body .admin-container main .modal .modal-content .modal-header .modal-icon .feather {
+body .container-fluid main .modal .modal-content .modal-header .modal-icon .feather,
+body .container-sm main .modal .modal-content .modal-header .modal-icon .feather,
+body .container-md main .modal .modal-content .modal-header .modal-icon .feather,
+body .container-lg main .modal .modal-content .modal-header .modal-icon .feather,
+body .container-xl main .modal .modal-content .modal-header .modal-icon .feather {
   width: 24px;
   height: 24px;
 }
 
-body .admin-container main .modal .modal-content .modal-header .modal-icon-warning {
+body .container-fluid main .modal .modal-content .modal-header .modal-icon-warning,
+body .container-sm main .modal .modal-content .modal-header .modal-icon-warning,
+body .container-md main .modal .modal-content .modal-header .modal-icon-warning,
+body .container-lg main .modal .modal-content .modal-header .modal-icon-warning,
+body .container-xl main .modal .modal-content .modal-header .modal-icon-warning {
   background-color: #ffc10733;
   color: #ffc107;
 }
 
-body .admin-container main .modal .modal-content .modal-header .modal-icon-error {
+body .container-fluid main .modal .modal-content .modal-header .modal-icon-error,
+body .container-sm main .modal .modal-content .modal-header .modal-icon-error,
+body .container-md main .modal .modal-content .modal-header .modal-icon-error,
+body .container-lg main .modal .modal-content .modal-header .modal-icon-error,
+body .container-xl main .modal .modal-content .modal-header .modal-icon-error {
   background-color: #EA203433;
   color: #EA2034;
 }
 
-body .admin-container main .modal .modal-content .modal-header .modal-icon-info {
+body .container-fluid main .modal .modal-content .modal-header .modal-icon-info,
+body .container-sm main .modal .modal-content .modal-header .modal-icon-info,
+body .container-md main .modal .modal-content .modal-header .modal-icon-info,
+body .container-lg main .modal .modal-content .modal-header .modal-icon-info,
+body .container-xl main .modal .modal-content .modal-header .modal-icon-info {
   color: #138496;
   background-color: #13849633;
 }
 
-body .admin-container main .modal .modal-content .modal-header .modal-icon-success {
+body .container-fluid main .modal .modal-content .modal-header .modal-icon-success,
+body .container-sm main .modal .modal-content .modal-header .modal-icon-success,
+body .container-md main .modal .modal-content .modal-header .modal-icon-success,
+body .container-lg main .modal .modal-content .modal-header .modal-icon-success,
+body .container-xl main .modal .modal-content .modal-header .modal-icon-success {
   color: #00bd7d;
   background-color: #00bd7d33;
 }
 
-body .admin-container main .modal .modal-content .modal-header .modal-body {
+body .container-fluid main .modal .modal-content .modal-header .modal-body,
+body .container-sm main .modal .modal-content .modal-header .modal-body,
+body .container-md main .modal .modal-content .modal-header .modal-body,
+body .container-lg main .modal .modal-content .modal-header .modal-body,
+body .container-xl main .modal .modal-content .modal-header .modal-body {
   padding: 0 1rem !important;
 }
 
-body .admin-container main .modal .modal-content .modal-header .modal-body p {
+body .container-fluid main .modal .modal-content .modal-header .modal-body p,
+body .container-sm main .modal .modal-content .modal-header .modal-body p,
+body .container-md main .modal .modal-content .modal-header .modal-body p,
+body .container-lg main .modal .modal-content .modal-header .modal-body p,
+body .container-xl main .modal .modal-content .modal-header .modal-body p {
   font-weight: normal !important;
 }
 
-body .admin-container main .modal .modal-content .modal-header .modal-body .profile-image {
+body .container-fluid main .modal .modal-content .modal-header .modal-body .profile-image,
+body .container-sm main .modal .modal-content .modal-header .modal-body .profile-image,
+body .container-md main .modal .modal-content .modal-header .modal-body .profile-image,
+body .container-lg main .modal .modal-content .modal-header .modal-body .profile-image,
+body .container-xl main .modal .modal-content .modal-header .modal-body .profile-image {
   overflow: hidden;
   display: flex;
   align-items: center;
@@ -11775,13 +12207,21 @@ body .admin-container main .modal .modal-content .modal-header .modal-body .prof
   padding: 10px;
 }
 
-body .admin-container main .modal .modal-content .modal-header .modal-body .profile-image img {
+body .container-fluid main .modal .modal-content .modal-header .modal-body .profile-image img,
+body .container-sm main .modal .modal-content .modal-header .modal-body .profile-image img,
+body .container-md main .modal .modal-content .modal-header .modal-body .profile-image img,
+body .container-lg main .modal .modal-content .modal-header .modal-body .profile-image img,
+body .container-xl main .modal .modal-content .modal-header .modal-body .profile-image img {
   width: 70%;
   height: auto;
   border-radius: 4px;
 }
 
-body .admin-container main .modal .modal-content .modal-header .modal-body .btn-choose-photo {
+body .container-fluid main .modal .modal-content .modal-header .modal-body .btn-choose-photo,
+body .container-sm main .modal .modal-content .modal-header .modal-body .btn-choose-photo,
+body .container-md main .modal .modal-content .modal-header .modal-body .btn-choose-photo,
+body .container-lg main .modal .modal-content .modal-header .modal-body .btn-choose-photo,
+body .container-xl main .modal .modal-content .modal-header .modal-body .btn-choose-photo {
   width: 100%;
   color: #0e76bd;
   margin-bottom: 10px;
@@ -11790,15 +12230,27 @@ body .admin-container main .modal .modal-content .modal-header .modal-body .btn-
   outline: none;
 }
 
-body .admin-container main .modal .modal-content .modal-footer {
+body .container-fluid main .modal .modal-content .modal-footer,
+body .container-sm main .modal .modal-content .modal-footer,
+body .container-md main .modal .modal-content .modal-footer,
+body .container-lg main .modal .modal-content .modal-footer,
+body .container-xl main .modal .modal-content .modal-footer {
   background-color: #f8f8f8;
 }
 
-body .admin-container main .modal .modal-content .modal-footer button {
+body .container-fluid main .modal .modal-content .modal-footer button,
+body .container-sm main .modal .modal-content .modal-footer button,
+body .container-md main .modal .modal-content .modal-footer button,
+body .container-lg main .modal .modal-content .modal-footer button,
+body .container-xl main .modal .modal-content .modal-footer button {
   font-size: 0.9em !important;
 }
 
-body .admin-container main .modal .modal-content .modal-footer #btn-save {
+body .container-fluid main .modal .modal-content .modal-footer #btn-save,
+body .container-sm main .modal .modal-content .modal-footer #btn-save,
+body .container-md main .modal .modal-content .modal-footer #btn-save,
+body .container-lg main .modal .modal-content .modal-footer #btn-save,
+body .container-xl main .modal .modal-content .modal-footer #btn-save {
   background-color: #0e76bd;
   color: #fff;
 }
@@ -11827,12 +12279,20 @@ body .admin-container main .modal .modal-content .modal-footer #btn-save {
   }
 }
 
-body .admin-container main .alerts {
+body .container-fluid main .alerts,
+body .container-sm main .alerts,
+body .container-md main .alerts,
+body .container-lg main .alerts,
+body .container-xl main .alerts {
   border-radius: 4px;
   overflow: hidden;
 }
 
-body .admin-container main .dashboard-container .dashboard-cards {
+body .container-fluid main .dashboard-container .dashboard-cards,
+body .container-sm main .dashboard-container .dashboard-cards,
+body .container-md main .dashboard-container .dashboard-cards,
+body .container-lg main .dashboard-container .dashboard-cards,
+body .container-xl main .dashboard-container .dashboard-cards {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   grid-gap: 20px;
@@ -11840,16 +12300,28 @@ body .admin-container main .dashboard-container .dashboard-cards {
   grid-row-gap: 20px;
 }
 
-body .admin-container main .dashboard-container .dashboard-cards .card-name {
+body .container-fluid main .dashboard-container .dashboard-cards .card-name,
+body .container-sm main .dashboard-container .dashboard-cards .card-name,
+body .container-md main .dashboard-container .dashboard-cards .card-name,
+body .container-lg main .dashboard-container .dashboard-cards .card-name,
+body .container-xl main .dashboard-container .dashboard-cards .card-name {
   font-weight: 600;
   font-size: 0.9em;
 }
 
-body .admin-container main .dashboard-container .dashboard-cards .reports-card {
+body .container-fluid main .dashboard-container .dashboard-cards .reports-card,
+body .container-sm main .dashboard-container .dashboard-cards .reports-card,
+body .container-md main .dashboard-container .dashboard-cards .reports-card,
+body .container-lg main .dashboard-container .dashboard-cards .reports-card,
+body .container-xl main .dashboard-container .dashboard-cards .reports-card {
   grid-column: 1/3;
 }
 
-body .admin-container main .dashboard-container .dashboard-cards .reports-card .reports {
+body .container-fluid main .dashboard-container .dashboard-cards .reports-card .reports,
+body .container-sm main .dashboard-container .dashboard-cards .reports-card .reports,
+body .container-md main .dashboard-container .dashboard-cards .reports-card .reports,
+body .container-lg main .dashboard-container .dashboard-cards .reports-card .reports,
+body .container-xl main .dashboard-container .dashboard-cards .reports-card .reports {
   border: 0.0625rem solid rgba(231, 234, 243, 0.7);
   box-shadow: 0 6px 12px rgba(140, 152, 164, 0.075);
   overflow: hidden;
@@ -11858,20 +12330,32 @@ body .admin-container main .dashboard-container .dashboard-cards .reports-card .
   background-color: #fff;
 }
 
-body .admin-container main .dashboard-container .dashboard-cards .reports-card .reports .report-record {
+body .container-fluid main .dashboard-container .dashboard-cards .reports-card .reports .report-record,
+body .container-sm main .dashboard-container .dashboard-cards .reports-card .reports .report-record,
+body .container-md main .dashboard-container .dashboard-cards .reports-card .reports .report-record,
+body .container-lg main .dashboard-container .dashboard-cards .reports-card .reports .report-record,
+body .container-xl main .dashboard-container .dashboard-cards .reports-card .reports .report-record {
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
 
-body .admin-container main .dashboard-container .dashboard-cards .reports-card .reports .report-record .card-total {
+body .container-fluid main .dashboard-container .dashboard-cards .reports-card .reports .report-record .card-total,
+body .container-sm main .dashboard-container .dashboard-cards .reports-card .reports .report-record .card-total,
+body .container-md main .dashboard-container .dashboard-cards .reports-card .reports .report-record .card-total,
+body .container-lg main .dashboard-container .dashboard-cards .reports-card .reports .report-record .card-total,
+body .container-xl main .dashboard-container .dashboard-cards .reports-card .reports .report-record .card-total {
   color: #3e4044;
   font-weight: 500;
   font-size: 1.5em;
   font-style: uppercase;
 }
 
-body .admin-container main .dashboard-container .dashboard-cards .reports-card .reports .report-record .card-icon {
+body .container-fluid main .dashboard-container .dashboard-cards .reports-card .reports .report-record .card-icon,
+body .container-sm main .dashboard-container .dashboard-cards .reports-card .reports .report-record .card-icon,
+body .container-md main .dashboard-container .dashboard-cards .reports-card .reports .report-record .card-icon,
+body .container-lg main .dashboard-container .dashboard-cards .reports-card .reports .report-record .card-icon,
+body .container-xl main .dashboard-container .dashboard-cards .reports-card .reports .report-record .card-icon {
   background-color: #ddd;
   border-radius: 50%;
   display: flex;
@@ -11882,12 +12366,20 @@ body .admin-container main .dashboard-container .dashboard-cards .reports-card .
   background-color: #0e76bd33;
 }
 
-body .admin-container main .dashboard-container .dashboard-cards .reports-card .reports .report-record .card-icon .feather {
+body .container-fluid main .dashboard-container .dashboard-cards .reports-card .reports .report-record .card-icon .feather,
+body .container-sm main .dashboard-container .dashboard-cards .reports-card .reports .report-record .card-icon .feather,
+body .container-md main .dashboard-container .dashboard-cards .reports-card .reports .report-record .card-icon .feather,
+body .container-lg main .dashboard-container .dashboard-cards .reports-card .reports .report-record .card-icon .feather,
+body .container-xl main .dashboard-container .dashboard-cards .reports-card .reports .report-record .card-icon .feather {
   height: 22px;
   width: 22px;
 }
 
-body .admin-container main .dashboard-container .dashboard-cards .exp-vs-sales {
+body .container-fluid main .dashboard-container .dashboard-cards .exp-vs-sales,
+body .container-sm main .dashboard-container .dashboard-cards .exp-vs-sales,
+body .container-md main .dashboard-container .dashboard-cards .exp-vs-sales,
+body .container-lg main .dashboard-container .dashboard-cards .exp-vs-sales,
+body .container-xl main .dashboard-container .dashboard-cards .exp-vs-sales {
   border: 0.0625rem solid rgba(231, 234, 243, 0.7);
   box-shadow: 0 6px 12px rgba(140, 152, 164, 0.075);
   overflow: hidden;
@@ -11896,25 +12388,45 @@ body .admin-container main .dashboard-container .dashboard-cards .exp-vs-sales {
   background-color: #fff;
 }
 
-body .admin-container main .dashboard-container .dashboard-cards .exp-vs-sales h4 {
+body .container-fluid main .dashboard-container .dashboard-cards .exp-vs-sales h4,
+body .container-sm main .dashboard-container .dashboard-cards .exp-vs-sales h4,
+body .container-md main .dashboard-container .dashboard-cards .exp-vs-sales h4,
+body .container-lg main .dashboard-container .dashboard-cards .exp-vs-sales h4,
+body .container-xl main .dashboard-container .dashboard-cards .exp-vs-sales h4 {
   color: #909090;
   font-weight: 500;
   font-size: 1.2em;
   margin-bottom: 15px;
 }
 
-body .admin-container main .dashboard-container .dashboard-cards .exp-vs-sales #report-chart {
+body .container-fluid main .dashboard-container .dashboard-cards .exp-vs-sales #report-chart,
+body .container-sm main .dashboard-container .dashboard-cards .exp-vs-sales #report-chart,
+body .container-md main .dashboard-container .dashboard-cards .exp-vs-sales #report-chart,
+body .container-lg main .dashboard-container .dashboard-cards .exp-vs-sales #report-chart,
+body .container-xl main .dashboard-container .dashboard-cards .exp-vs-sales #report-chart {
   height: auto;
 }
 
-body .admin-container main .dashboard-container .dashboard-cards .report-details {
+body .container-fluid main .dashboard-container .dashboard-cards .report-details,
+body .container-sm main .dashboard-container .dashboard-cards .report-details,
+body .container-md main .dashboard-container .dashboard-cards .report-details,
+body .container-lg main .dashboard-container .dashboard-cards .report-details,
+body .container-xl main .dashboard-container .dashboard-cards .report-details {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   grid-gap: 20px;
 }
 
-body .admin-container main .dashboard-container .dashboard-cards .report-details .details1,
-body .admin-container main .dashboard-container .dashboard-cards .report-details .details2 {
+body .container-fluid main .dashboard-container .dashboard-cards .report-details .details1,
+body .container-sm main .dashboard-container .dashboard-cards .report-details .details1,
+body .container-md main .dashboard-container .dashboard-cards .report-details .details1,
+body .container-lg main .dashboard-container .dashboard-cards .report-details .details1,
+body .container-xl main .dashboard-container .dashboard-cards .report-details .details1,
+body .container-fluid main .dashboard-container .dashboard-cards .report-details .details2,
+body .container-sm main .dashboard-container .dashboard-cards .report-details .details2,
+body .container-md main .dashboard-container .dashboard-cards .report-details .details2,
+body .container-lg main .dashboard-container .dashboard-cards .report-details .details2,
+body .container-xl main .dashboard-container .dashboard-cards .report-details .details2 {
   border: 0.0625rem solid rgba(231, 234, 243, 0.7);
   box-shadow: 0 6px 12px rgba(140, 152, 164, 0.075);
   overflow: hidden;
@@ -11923,7 +12435,11 @@ body .admin-container main .dashboard-container .dashboard-cards .report-details
   background-color: #fff;
 }
 
-body .admin-container main .list-options ul {
+body .container-fluid main .list-options ul,
+body .container-sm main .list-options ul,
+body .container-md main .list-options ul,
+body .container-lg main .list-options ul,
+body .container-xl main .list-options ul {
   list-style: none;
   box-shadow: 0 6px 12px rgba(140, 152, 164, 0.075);
   border-radius: 0.75rem;
@@ -11933,13 +12449,21 @@ body .admin-container main .list-options ul {
   background-color: #fff;
 }
 
-body .admin-container main .list-options ul li {
+body .container-fluid main .list-options ul li,
+body .container-sm main .list-options ul li,
+body .container-md main .list-options ul li,
+body .container-lg main .list-options ul li,
+body .container-xl main .list-options ul li {
   font-weight: 500;
   font-size: 0.9em;
   display: flex;
 }
 
-body .admin-container main .list-options ul li a {
+body .container-fluid main .list-options ul li a,
+body .container-sm main .list-options ul li a,
+body .container-md main .list-options ul li a,
+body .container-lg main .list-options ul li a,
+body .container-xl main .list-options ul li a {
   text-decoration: none;
   padding: 8px 30px;
   flex: 1;
@@ -11947,15 +12471,27 @@ body .admin-container main .list-options ul li a {
   color: #3e4044;
 }
 
-body .admin-container main .list-options ul li a span {
+body .container-fluid main .list-options ul li a span,
+body .container-sm main .list-options ul li a span,
+body .container-md main .list-options ul li a span,
+body .container-lg main .list-options ul li a span,
+body .container-xl main .list-options ul li a span {
   margin-left: 10px;
 }
 
-body .admin-container main .list-options ul li a:hover {
+body .container-fluid main .list-options ul li a:hover,
+body .container-sm main .list-options ul li a:hover,
+body .container-md main .list-options ul li a:hover,
+body .container-lg main .list-options ul li a:hover,
+body .container-xl main .list-options ul li a:hover {
   color: #0e76bd;
 }
 
-body .admin-container main .user-content {
+body .container-fluid main .user-content,
+body .container-sm main .user-content,
+body .container-md main .user-content,
+body .container-lg main .user-content,
+body .container-xl main .user-content {
   padding: 20px;
   background-color: #fff;
   box-shadow: 0 6px 12px rgba(140, 152, 164, 0.075);
@@ -11965,27 +12501,43 @@ body .admin-container main .user-content {
   margin-bottom: 20px;
 }
 
-body .admin-container main .user-content h5 {
+body .container-fluid main .user-content h5,
+body .container-sm main .user-content h5,
+body .container-md main .user-content h5,
+body .container-lg main .user-content h5,
+body .container-xl main .user-content h5 {
   color: #3e4044;
   font-weight: 500;
   margin-bottom: 15px;
 }
 
-body .admin-container main .user-content .input-group {
+body .container-fluid main .user-content .input-group,
+body .container-sm main .user-content .input-group,
+body .container-md main .user-content .input-group,
+body .container-lg main .user-content .input-group,
+body .container-xl main .user-content .input-group {
   display: flex;
   flex-direction: column;
   margin-bottom: 20px;
   text-align: left;
 }
 
-body .admin-container main .user-content .input-group label {
+body .container-fluid main .user-content .input-group label,
+body .container-sm main .user-content .input-group label,
+body .container-md main .user-content .input-group label,
+body .container-lg main .user-content .input-group label,
+body .container-xl main .user-content .input-group label {
   font-size: 0.8em;
   color: #999;
   font-weight: 500;
   margin-bottom: 5px;
 }
 
-body .admin-container main .user-content .input-group .form-control {
+body .container-fluid main .user-content .input-group .form-control,
+body .container-sm main .user-content .input-group .form-control,
+body .container-md main .user-content .input-group .form-control,
+body .container-lg main .user-content .input-group .form-control,
+body .container-xl main .user-content .input-group .form-control {
   outline: none;
   border-radius: 4px;
   font-weight: 500;
@@ -11995,22 +12547,38 @@ body .admin-container main .user-content .input-group .form-control {
   width: 100% !important;
 }
 
-body .admin-container main .user-content .input-group .form-control:focus {
+body .container-fluid main .user-content .input-group .form-control:focus,
+body .container-sm main .user-content .input-group .form-control:focus,
+body .container-md main .user-content .input-group .form-control:focus,
+body .container-lg main .user-content .input-group .form-control:focus,
+body .container-xl main .user-content .input-group .form-control:focus {
   border: 1px solid #0e76bd;
   box-shadow: 0 6px 12px rgba(140, 152, 164, 0.075);
 }
 
-body .admin-container main .user-content .input-group .invalid-feedback strong {
+body .container-fluid main .user-content .input-group .invalid-feedback strong,
+body .container-sm main .user-content .input-group .invalid-feedback strong,
+body .container-md main .user-content .input-group .invalid-feedback strong,
+body .container-lg main .user-content .input-group .invalid-feedback strong,
+body .container-xl main .user-content .input-group .invalid-feedback strong {
   color: #EA2034;
   font-size: 0.9em;
   font-weight: 500;
 }
 
-body .admin-container main .user-content .actions {
+body .container-fluid main .user-content .actions,
+body .container-sm main .user-content .actions,
+body .container-md main .user-content .actions,
+body .container-lg main .user-content .actions,
+body .container-xl main .user-content .actions {
   text-align: right;
 }
 
-body .admin-container main .user-content .actions button {
+body .container-fluid main .user-content .actions button,
+body .container-sm main .user-content .actions button,
+body .container-md main .user-content .actions button,
+body .container-lg main .user-content .actions button,
+body .container-xl main .user-content .actions button {
   margin-right: 5px;
   border-radius: 5px;
   font-family: "Poppins", "Montserrat", "Roboto", "Segoe UI", sans-serif;
@@ -12021,11 +12589,19 @@ body .admin-container main .user-content .actions button {
   padding: 8px 15px;
 }
 
-body .admin-container main .user-content .actions button:last-child {
+body .container-fluid main .user-content .actions button:last-child,
+body .container-sm main .user-content .actions button:last-child,
+body .container-md main .user-content .actions button:last-child,
+body .container-lg main .user-content .actions button:last-child,
+body .container-xl main .user-content .actions button:last-child {
   margin-right: 0;
 }
 
-body .admin-container main .user-content .actions .btn-save {
+body .container-fluid main .user-content .actions .btn-save,
+body .container-sm main .user-content .actions .btn-save,
+body .container-md main .user-content .actions .btn-save,
+body .container-lg main .user-content .actions .btn-save,
+body .container-xl main .user-content .actions .btn-save {
   background-color: #0e76bd;
 }
 

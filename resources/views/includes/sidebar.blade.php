@@ -1,65 +1,63 @@
-<nav class="sidebar">
-    <div class="logo">
-        <a href="/dashboard">
-            <img src="{{ asset('images/logo/favicon.png') }}">
+<div class="logo">
+    <a href="/dashboard">
+        <img src="{{ asset('images/logo/favicon.png') }}">
+    </a>
+</div>
+<ul class="btn-sidebar">
+@if(isset($navigations))
+@foreach($navigations as $nav)
+
+    @if($nav['type'] == "single")
+
+    <li>
+        <a href="{{ url('/'.$nav['mode']) }}" id="{{ $nav['mode'] }}" class="btn {{ $nav['mode'] }}">
+            <div class="nav-name">
+                <span class="awesome">
+                    <i data-feather="{{ $nav['icon'] }}"></i>
+                </span>
+                <span class="nav-name">{{ $nav['name'] }}</span>
+                @if($nav['badge'])
+                <span class="badge badge-pill badge-danger">1</span>
+                @endif
+            </div>
         </a>
-    </div>
-    <ul class="btn-sidebar">
-    @if(isset($navigations))
-    @foreach($navigations as $nav)
+    </li>
 
-        @if($nav['type'] == "single")
+    @elseif($nav['type'] == "main")
 
-        <li>
-            <a href="{{ url('/'.$nav['mode']) }}" id="{{ $nav['mode'] }}" class="btn {{ $nav['mode'] }}">
-                <div class="nav-name">
-                    <span class="awesome">
-                        <i data-feather="{{ $nav['icon'] }}"></i>
-                    </span>
-                    <span class="nav-name">{{ $nav['name'] }}</span>
-                    @if($nav['badge'])
-                    <span class="badge badge-pill badge-danger">1</span>
-                    @endif
-                </div>
-            </a>
-        </li>
+    <li>
+        <a href="#" id="{{ $nav['mode'] }}" class="btn nav-list a-{{ $nav['mode'] }}">
+            <div class="nav-name">
+                <span class="awesome">
+                    <i data-feather="{{ $nav['icon'] }}"></i>
+                </span>
+                <span class="nav-name">{{ $nav['name'] }}</span>
+            </div>
+            <div class="dropdown dr-{{ $nav['mode'] }}">
+                <i data-feather="chevron-down"></i>
+            </div>
+        </a>
+        
+        <ul class="sub-nav {{ $nav['mode'] }}">
+            @foreach($nav['sub'] as $sub)
 
-        @elseif($nav['type'] == "main")
+            <li class="sub-nav-list ml-2">
+                <a href="{{ url('/'.$sub['mode']) }}" id="{{ $sub['mode'] }}" class="btn {{ $sub['mode'] }}">
+                    <div class="nav-name">
+                        <span class="awesome2">
+                            <i class="{{ $sub['icon'] }}"></i>
+                        </span>
+                        <span>{{ $sub['name'] }}</span>
+                    </div>
+                </a>
+            </li>
 
-        <li>
-            <a href="#" id="{{ $nav['mode'] }}" class="btn nav-list a-{{ $nav['mode'] }}">
-                <div class="nav-name">
-                    <span class="awesome">
-                        <i data-feather="{{ $nav['icon'] }}"></i>
-                    </span>
-                    <span class="nav-name">{{ $nav['name'] }}</span>
-                </div>
-                <div class="dropdown dr-{{ $nav['mode'] }}">
-                    <i data-feather="chevron-down"></i>
-                </div>
-            </a>
-            
-            <ul class="sub-nav {{ $nav['mode'] }}">
-                @foreach($nav['sub'] as $sub)
+            @endforeach
+        </ul>
+    </li>
 
-                <li class="sub-nav-list ml-3">
-                    <a href="{{ url('/'.$sub['mode']) }}" id="{{ $sub['mode'] }}" class="btn {{ $sub['mode'] }}">
-                        <div class="nav-name">
-                            <span class="awesome2">
-                                <i class="{{ $sub['icon'] }}"></i>
-                            </span>
-                            <span>{{ $sub['name'] }}</span>
-                        </div>
-                    </a>
-                </li>
-
-                @endforeach
-            </ul>
-        </li>
-
-        @endif
-
-    @endforeach
     @endif
-    </ul>
-</nav>
+
+@endforeach
+@endif
+</ul>

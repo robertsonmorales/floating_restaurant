@@ -27,9 +27,11 @@
 
 </head>
 <body>
-    <div class="admin-container" id="app">
-        @include('includes.sidebar')
-        <main>
+    <div class="container-fluid d-flex m-0 p-0" id="app">
+        <nav class="sidebar vh-100 px-3">
+            @include('includes.sidebar')
+        </nav>
+        <main class="w-100">
             @include('includes.header')
             @include('includes.breadcrumb')
             @yield('content')
