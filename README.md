@@ -16,7 +16,7 @@
 - php artisan storage:link
 
 
-### ERRORS
+### Running into Errors
 - if you found error in npm install
-- try this removing node_modules and package-lock.json file
+- try removing node_modules and package-lock.json file
 - then run npm install
