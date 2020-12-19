@@ -17,7 +17,8 @@
             overflow: hidden;
             position: relative;
             background-color: #fff !important;
-            width: 55%;
+            display: flex;
+            justify-content: space-between;  
     
             .body-card{
                 flex: 1;

@@ -1,7 +1,8 @@
 <div class="logo">
-    <a href="/dashboard">
-        <img src="{{ asset('images/logo/favicon.png') }}">
-    </a>
+    <img src="{{ asset('images/logo/favicon.png') }}">
+    <button type="button" class="btn btn-sm d-block d-lg-none" id="btn-close">
+        <i data-feather="x"></i>
+    </button>
 </div>
 <ul class="btn-sidebar">
 @if(isset($navigations))
@@ -41,7 +42,7 @@
         <ul class="sub-nav {{ $nav['mode'] }}">
             @foreach($nav['sub'] as $sub)
 
-            <li class="sub-nav-list ml-2">
+            <li class="sub-nav-list ml-3">
                 <a href="{{ url('/'.$sub['mode']) }}" id="{{ $sub['mode'] }}" class="btn {{ $sub['mode'] }}">
                     <div class="nav-name">
                         <span class="awesome2">

@@ -38,12 +38,13 @@
 }
 
 html{
-    overflow-y: hidden;
+    // overflow-y: hidden;
 }
 
 body{
-	font-family: $font-family;
-    font-size: 90% !important;
+    font-family: $font-family !important;
+    line-height: $line-height-base !important;
+    // font-size: $font-size-base !important;
     font-weight: 500 !important;
 
     .feather {

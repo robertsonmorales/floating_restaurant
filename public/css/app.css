@@ -10937,13 +10937,9 @@ a.text-dark:focus {
   background: #888;
 }
 
-html {
-  overflow-y: hidden;
-}
-
 body {
-  font-family: "Poppins", "Montserrat", "Roboto", "Segoe UI", sans-serif;
-  font-size: 90% !important;
+  font-family: "Poppins", "Montserrat", "Roboto", "Segoe UI", sans-serif !important;
+  line-height: 1.6 !important;
   font-weight: 500 !important;
 }
 
@@ -10982,7 +10978,8 @@ body .auth-container .auth-content .auth-card {
   overflow: hidden;
   position: relative;
   background-color: #fff !important;
-  width: 55%;
+  display: flex;
+  justify-content: space-between;
 }
 
 body .auth-container .auth-content .auth-card .body-card {
@@ -11124,7 +11121,7 @@ body .container-sm .sidebar,
 body .container-md .sidebar,
 body .container-lg .sidebar,
 body .container-xl .sidebar {
-  width: 25%;
+  width: 350px !important;
   overflow: hidden;
   position: relative;
   display: flex;
@@ -11132,6 +11129,7 @@ body .container-xl .sidebar {
   border-right: 1px solid #f3f3f3;
   box-shadow: 0 6px 12px rgba(140, 152, 164, 0.075);
   background-color: #fff;
+  transition: all 1s ease;
 }
 
 body .container-fluid .sidebar .logo,
@@ -11144,6 +11142,7 @@ body .container-xl .sidebar .logo {
   display: flex;
   align-items: center;
   justify-content: center;
+  position: relative;
 }
 
 body .container-fluid .sidebar .logo img,
@@ -11152,6 +11151,16 @@ body .container-md .sidebar .logo img,
 body .container-lg .sidebar .logo img,
 body .container-xl .sidebar .logo img {
   width: 130px;
+}
+
+body .container-fluid .sidebar .logo button,
+body .container-sm .sidebar .logo button,
+body .container-md .sidebar .logo button,
+body .container-lg .sidebar .logo button,
+body .container-xl .sidebar .logo button {
+  position: absolute;
+  right: 5px;
+  top: 20px;
 }
 
 body .container-fluid .sidebar .btn-sidebar::-webkit-scrollbar-thumb,
@@ -11198,7 +11207,7 @@ body .container-xl .sidebar .btn-sidebar li a {
   position: relative;
   display: flex;
   align-items: center;
-  background-color: #fff;
+  justify-content: flex-start;
 }
 
 body .container-fluid .sidebar .btn-sidebar li a .feather,
@@ -11303,6 +11312,16 @@ body .container-md .sidebar .btn-sidebar:hover::-webkit-scrollbar-thumb,
 body .container-lg .sidebar .btn-sidebar:hover::-webkit-scrollbar-thumb,
 body .container-xl .sidebar .btn-sidebar:hover::-webkit-scrollbar-thumb {
   display: block;
+}
+
+body .container-fluid .slide-nav,
+body .container-sm .slide-nav,
+body .container-md .slide-nav,
+body .container-lg .slide-nav,
+body .container-xl .slide-nav {
+  width: 300px !important;
+  position: absolute;
+  z-index: 9999;
 }
 
 body .container-fluid main,
@@ -11696,7 +11715,7 @@ body .container-md main .btn-remove .feather,
 body .container-lg main .btn-remove .feather,
 body .container-xl main .btn-remove .feather {
   position: relative;
-  right: 1px;
+  right: 0;
   bottom: 2px;
 }
 
@@ -12288,75 +12307,47 @@ body .container-xl main .alerts {
   overflow: hidden;
 }
 
-body .container-fluid main .dashboard-container .dashboard-cards,
-body .container-sm main .dashboard-container .dashboard-cards,
-body .container-md main .dashboard-container .dashboard-cards,
-body .container-lg main .dashboard-container .dashboard-cards,
-body .container-xl main .dashboard-container .dashboard-cards {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  grid-gap: 20px;
-  grid-column-gap: 20px;
-  grid-row-gap: 20px;
-}
-
-body .container-fluid main .dashboard-container .dashboard-cards .card-name,
-body .container-sm main .dashboard-container .dashboard-cards .card-name,
-body .container-md main .dashboard-container .dashboard-cards .card-name,
-body .container-lg main .dashboard-container .dashboard-cards .card-name,
-body .container-xl main .dashboard-container .dashboard-cards .card-name {
-  font-weight: 600;
-  font-size: 0.9em;
-}
-
-body .container-fluid main .dashboard-container .dashboard-cards .reports-card,
-body .container-sm main .dashboard-container .dashboard-cards .reports-card,
-body .container-md main .dashboard-container .dashboard-cards .reports-card,
-body .container-lg main .dashboard-container .dashboard-cards .reports-card,
-body .container-xl main .dashboard-container .dashboard-cards .reports-card {
-  grid-column: 1/3;
-}
-
-body .container-fluid main .dashboard-container .dashboard-cards .reports-card .reports,
-body .container-sm main .dashboard-container .dashboard-cards .reports-card .reports,
-body .container-md main .dashboard-container .dashboard-cards .reports-card .reports,
-body .container-lg main .dashboard-container .dashboard-cards .reports-card .reports,
-body .container-xl main .dashboard-container .dashboard-cards .reports-card .reports {
+body .container-fluid main .card,
+body .container-sm main .card,
+body .container-md main .card,
+body .container-lg main .card,
+body .container-xl main .card {
   border: 0.0625rem solid rgba(231, 234, 243, 0.7);
   box-shadow: 0 6px 12px rgba(140, 152, 164, 0.075);
-  overflow: hidden;
-  padding: 20px;
   border-radius: 0.75rem;
+  padding: 20px;
   background-color: #fff;
-}
-
-body .container-fluid main .dashboard-container .dashboard-cards .reports-card .reports .report-record,
-body .container-sm main .dashboard-container .dashboard-cards .reports-card .reports .report-record,
-body .container-md main .dashboard-container .dashboard-cards .reports-card .reports .report-record,
-body .container-lg main .dashboard-container .dashboard-cards .reports-card .reports .report-record,
-body .container-xl main .dashboard-container .dashboard-cards .reports-card .reports .report-record {
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
 
-body .container-fluid main .dashboard-container .dashboard-cards .reports-card .reports .report-record .card-total,
-body .container-sm main .dashboard-container .dashboard-cards .reports-card .reports .report-record .card-total,
-body .container-md main .dashboard-container .dashboard-cards .reports-card .reports .report-record .card-total,
-body .container-lg main .dashboard-container .dashboard-cards .reports-card .reports .report-record .card-total,
-body .container-xl main .dashboard-container .dashboard-cards .reports-card .reports .report-record .card-total {
-  color: #3e4044;
-  font-weight: 500;
-  font-size: 1.5em;
-  font-style: uppercase;
+body .container-fluid main .card .card-details,
+body .container-sm main .card .card-details,
+body .container-md main .card .card-details,
+body .container-lg main .card .card-details,
+body .container-xl main .card .card-details {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
-body .container-fluid main .dashboard-container .dashboard-cards .reports-card .reports .report-record .card-icon,
-body .container-sm main .dashboard-container .dashboard-cards .reports-card .reports .report-record .card-icon,
-body .container-md main .dashboard-container .dashboard-cards .reports-card .reports .report-record .card-icon,
-body .container-lg main .dashboard-container .dashboard-cards .reports-card .reports .report-record .card-icon,
-body .container-xl main .dashboard-container .dashboard-cards .reports-card .reports .report-record .card-icon {
-  background-color: #ddd;
+body .container-fluid main .card .card-details .card-total,
+body .container-sm main .card .card-details .card-total,
+body .container-md main .card .card-details .card-total,
+body .container-lg main .card .card-details .card-total,
+body .container-xl main .card .card-details .card-total {
+  color: #3e4044;
+  font-weight: 600;
+  font-size: 1.5em;
+}
+
+body .container-fluid main .card .card-icon,
+body .container-sm main .card .card-icon,
+body .container-md main .card .card-icon,
+body .container-lg main .card .card-icon,
+body .container-xl main .card .card-icon {
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -12364,75 +12355,25 @@ body .container-xl main .dashboard-container .dashboard-cards .reports-card .rep
   padding: 12px;
   color: #0e76bd;
   background-color: #0e76bd33;
+  box-shadow: 1px 3px 5px rgba(0, 0, 0, 0.05);
+  margin-bottom: 10px;
 }
 
-body .container-fluid main .dashboard-container .dashboard-cards .reports-card .reports .report-record .card-icon .feather,
-body .container-sm main .dashboard-container .dashboard-cards .reports-card .reports .report-record .card-icon .feather,
-body .container-md main .dashboard-container .dashboard-cards .reports-card .reports .report-record .card-icon .feather,
-body .container-lg main .dashboard-container .dashboard-cards .reports-card .reports .report-record .card-icon .feather,
-body .container-xl main .dashboard-container .dashboard-cards .reports-card .reports .report-record .card-icon .feather {
-  height: 22px;
-  width: 22px;
+body .container-fluid main .card .card-icon .feather,
+body .container-sm main .card .card-icon .feather,
+body .container-md main .card .card-icon .feather,
+body .container-lg main .card .card-icon .feather,
+body .container-xl main .card .card-icon .feather {
+  height: 20px;
+  width: 20px;
 }
 
-body .container-fluid main .dashboard-container .dashboard-cards .exp-vs-sales,
-body .container-sm main .dashboard-container .dashboard-cards .exp-vs-sales,
-body .container-md main .dashboard-container .dashboard-cards .exp-vs-sales,
-body .container-lg main .dashboard-container .dashboard-cards .exp-vs-sales,
-body .container-xl main .dashboard-container .dashboard-cards .exp-vs-sales {
-  border: 0.0625rem solid rgba(231, 234, 243, 0.7);
-  box-shadow: 0 6px 12px rgba(140, 152, 164, 0.075);
-  overflow: hidden;
-  padding: 20px;
-  border-radius: 0.75rem;
-  background-color: #fff;
-}
-
-body .container-fluid main .dashboard-container .dashboard-cards .exp-vs-sales h4,
-body .container-sm main .dashboard-container .dashboard-cards .exp-vs-sales h4,
-body .container-md main .dashboard-container .dashboard-cards .exp-vs-sales h4,
-body .container-lg main .dashboard-container .dashboard-cards .exp-vs-sales h4,
-body .container-xl main .dashboard-container .dashboard-cards .exp-vs-sales h4 {
-  color: #909090;
-  font-weight: 500;
-  font-size: 1.2em;
-  margin-bottom: 15px;
-}
-
-body .container-fluid main .dashboard-container .dashboard-cards .exp-vs-sales #report-chart,
-body .container-sm main .dashboard-container .dashboard-cards .exp-vs-sales #report-chart,
-body .container-md main .dashboard-container .dashboard-cards .exp-vs-sales #report-chart,
-body .container-lg main .dashboard-container .dashboard-cards .exp-vs-sales #report-chart,
-body .container-xl main .dashboard-container .dashboard-cards .exp-vs-sales #report-chart {
-  height: auto;
-}
-
-body .container-fluid main .dashboard-container .dashboard-cards .report-details,
-body .container-sm main .dashboard-container .dashboard-cards .report-details,
-body .container-md main .dashboard-container .dashboard-cards .report-details,
-body .container-lg main .dashboard-container .dashboard-cards .report-details,
-body .container-xl main .dashboard-container .dashboard-cards .report-details {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  grid-gap: 20px;
-}
-
-body .container-fluid main .dashboard-container .dashboard-cards .report-details .details1,
-body .container-sm main .dashboard-container .dashboard-cards .report-details .details1,
-body .container-md main .dashboard-container .dashboard-cards .report-details .details1,
-body .container-lg main .dashboard-container .dashboard-cards .report-details .details1,
-body .container-xl main .dashboard-container .dashboard-cards .report-details .details1,
-body .container-fluid main .dashboard-container .dashboard-cards .report-details .details2,
-body .container-sm main .dashboard-container .dashboard-cards .report-details .details2,
-body .container-md main .dashboard-container .dashboard-cards .report-details .details2,
-body .container-lg main .dashboard-container .dashboard-cards .report-details .details2,
-body .container-xl main .dashboard-container .dashboard-cards .report-details .details2 {
-  border: 0.0625rem solid rgba(231, 234, 243, 0.7);
-  box-shadow: 0 6px 12px rgba(140, 152, 164, 0.075);
-  overflow: hidden;
-  padding: 20px;
-  border-radius: 0.75rem;
-  background-color: #fff;
+body .container-fluid main #report-chart,
+body .container-sm main #report-chart,
+body .container-md main #report-chart,
+body .container-lg main #report-chart,
+body .container-xl main #report-chart {
+  width: 100%;
 }
 
 body .container-fluid main .list-options ul,

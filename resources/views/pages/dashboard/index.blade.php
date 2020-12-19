@@ -1,63 +1,70 @@
 @extends('layouts.app')
 @section('title', $title)
 @section('content')
-<div class="dashboard-container mx-4">
-    <div class="dashboard-cards">
+<div class="mx-4 overflow-auto">
+    <!-- <div class="row no-gutters d-flex flex-column flex-md-row"> -->
+    <div class="row no-gutters">
 
-        <div class="row no-gutters reports-card">
-            <div class="col reports mr-4">
-                <span class="card-name text-muted">Sales</span>
-                <div class="report-record">
-                    <span class="card-total">₱ 150</span>
-                    <span class="card-icon" id="sales-icon">
-                        <i data-feather="database"></i>
-                    </span>
-                </div>
-            </div>
-
-            <div class="col reports mr-4">
-                <span class="card-name text-muted">Expenses</span>
-                <div class="report-record">
-                    <span class="card-total">₱ 100</span>
-                    <span class="card-icon" id="expenses-icon">
-                        <i data-feather="book"></i>
-                    </span>
-                </div>
-            </div>
-
-            <div class="col reports mr-4">
-                <span class="card-name text-muted">Orders</span>
-                <div class="report-record">
-                    <span class="card-total">150</span>
-                    <span class="card-icon" id="order-icon">
-                        <i data-feather="package"></i>
-                    </span>
-                </div>
-            </div>
-
-            <div class="col reports">   
-                <span class="card-name text-muted">Today's Customers</span>
-                <div class="report-record">
-                    <span class="card-total">150</span>
-                    <span class="card-icon" id="customer-icon">
-                        <i data-feather="user-check"></i>
-                    </span>
-                </div>
+        <div class="col card mr-3 mb-3">
+            <span class="card-icon" id="sales-icon">
+                <i data-feather="database"></i>
+            </span>
+            <div class="card-details">
+                <span class="card-total">₱150</span>
+                <span class="text-muted">Sales</span>
             </div>
         </div>
 
-        <div class="exp-vs-sales">
-            <span class="card-name text-muted">Annual Sales & Expenses</span>
+        <div class="col card mb-3">
+            <span class="card-icon" id="expenses-icon">
+                <i data-feather="book"></i>
+            </span>
+            <div class="card-details">
+                <span class="card-total">₱100</span>
+                <span class="text-muted">Expenses</span>
+            </div>
+        </div>
+
+        <div class="w-100"></div>
+
+        <div class="col card mr-3 mb-3">
+            <span class="card-icon" id="order-icon">
+                <i data-feather="package"></i>
+            </span>
+            <div class="card-details">
+                <span class="card-total">150</span>
+                <span class="text-muted">Orders</span>
+            </div>
+        </div>
+
+        <div class="col card mb-3">
+            <span class="card-icon" id="customer-icon">
+                <i data-feather="user-check"></i>
+            </span>
+            <div class="card-details">
+                <span class="card-total">150</span>
+                <span class="text-muted">Customers</span>
+            </div>            
+        </div>
+
+    </div>
+
+    <div class="row no-gutters d-flex flex-column flex-md-row justify-content-between">
+        <div class="col card mb-3">
+            <span class="text-muted w-100">Annual Sales & Expenses</span>
             <div id="report-chart" class="report-chart"></div>
         </div>
 
-        <div class="report-details">
-            <div class="details1">
-                <span class="card-name text-muted">Stocks</span>
-            </div>
-            <div class="details2">
-                <span class="card-name text-muted">On-going Orders</span>
-            </div>
+        <div class="w-100"></div>
+    
+        <div class="col card mb-3">
+            <span class="text-muted w-100">Stocks</span>
+        </div>
+
+        <div class="w-100"></div>
+
+        <div class="col card mb-3">
+            <span class="text-muted w-100">On-going Orders</span>
         </div>
     </div>
 </div>
@@ -67,6 +74,7 @@
 <script>
 $(document).ready(function(){
     var token = $("meta[name='csrf-token']").attr("content");
+    
     var animations = {
         enabled: true,
         easing: 'easeinout',
@@ -95,7 +103,7 @@ $(document).ready(function(){
             
         ],
         chart: {
-            type: 'area',
+            type: 'bar',
             stacked: false,
             markers: {
                 size: 4,
@@ -109,24 +117,38 @@ $(document).ready(function(){
             fontFamily: ['Poppins', 'Montserrat', 'Segoe UI'],
             color: '#3e4044'
         },
-        legend: {
+        grid: {
             show: true,
+            borderColor: '#ddd',
+            strokeDashArray: 0,
+            position: 'back',
+            xaxis: {
+                lines: {
+                    show: false
+                }
+            },   
+            yaxis: {
+                lines: {
+                    show: true
+                }
+            },  
+        },
+        legend: {
+            show: false,
             position: 'bottom',
-            horizontalAlign: 'right',
-            fontSize: '13px',
+            horizontalAlign: 'center',
             fontWeight: '500',
-            fontFamily: 'inherit',
+            fontFamily: ['Poppins', 'Montserrat', 'Segoe UI'],
             color: '#3e4044'
         },
-        stroke: {
-            // dashArray: [5, 0],
-            width: [3, 3],
-            curve: 'smooth'
-        },
-        fill: {
-            opacity: [0.8, 0.8],
-            type: ['gradient', 'gradient']
-        },
+        // stroke: {
+        //     width: [3, 3],
+        //     curve: 'smooth'
+        // },
+        // fill: {
+        //     opacity: [1, 1],
+        //     type: ['gradient', 'gradient']
+        // },
         xaxis: {
             categories: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
         },
@@ -138,14 +160,14 @@ $(document).ready(function(){
             intersect: false,
             y: {
                 formatter: function (y) {
-                  if (typeof y !== "undefined") {
-                    return "₱" + y.toFixed(0);
-                  }
-                  return y;
-
+                    if (typeof y !== "undefined") {
+                        return "₱" + y.toFixed(0);
+                    }
+                    
+                    return y;
                 }
             },
-            fontSize: '12px',
+            fontSize: '1em',
             fontWeight: '500',
             fontFamily: ['Poppins', 'Montserrat'],
             color: '#3e4044'

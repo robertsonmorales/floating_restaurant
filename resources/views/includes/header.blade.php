@@ -1,7 +1,7 @@
 <div class="header-content position-sticky sticky-top mx-4 mt-4 mb-1">
-    <nav class="px-4 py-3">
+    <nav class="px-3 py-2">
         <div class="row no-gutters">
-            <button class="btn btn-light d-md-none" type="button">
+            <button class="btn d-block d-lg-none" type="button" id="btn-slide">
                 <i data-feather="menu"></i>
             </button>
         </div>
@@ -19,25 +19,25 @@
                         </span>
                     </div>
 
-                <div class="dropdown-divider"></div>
+                    <div class="dropdown-divider"></div>
 
-                <!-- <button class="dropdown-item d-flex justify-content-between py-2" type="button">
-                    <span class="item-text">Set Status</span>
-                    <span class="item-icon"><i data-feather="chevron-right"></i></span>
-                </button> -->
+                    <button class="dropdown-item d-flex justify-content-between py-2" type="button">
+                        <span class="item-text">Set Status</span>
+                        <span class="item-icon"><i data-feather="chevron-right"></i></span>
+                    </button>
 
-                <button onclick="window.location.href='{{ route('account_settings.index') }}'" class="dropdown-item py-2" type="button">Profile & Account</button>
+                    <button onclick="window.location.href='{{ route('account_settings.index') }}'" class="dropdown-item py-2" type="button">Profile & Account</button>
 
-                <div class="dropdown-divider"></div>
-                
-                <button onclick="document.getElementById('logout-form').submit();" class="dropdown-item py-2" type="button">
-                    <span><i data-feather="log-out"></i></span>
-                    <span>Logout</span>
-                </button>
-                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                    @csrf
-                </form>
-              </div>
+                    <div class="dropdown-divider"></div>
+                    
+                    <button onclick="document.getElementById('logout-form').submit();" class="dropdown-item py-2" type="button">
+                        <span><i data-feather="log-out"></i></span>
+                        <span>Logout</span>
+                    </button>
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                        @csrf
+                    </form>
+                </div>
             </div>
         </div>
     </nav>
