@@ -5,8 +5,8 @@
 @section('login')
 <div class="auth-container">
     <div class="auth-content">
-        <div class="row auth-card d-flex justify-content-between">
-            <div class="col-md d-flex align-items-center justify-content-center overflow-hidden">
+        <div class="row auth-card mx-3">
+            <div class="col-md d-none d-md-flex align-items-center justify-content-center overflow-hidden">
                 <div class="p-4">
                     <img src="{{ asset('images/logo/favicon.png') }}" class="img-fluid" width="300">
                 </div>

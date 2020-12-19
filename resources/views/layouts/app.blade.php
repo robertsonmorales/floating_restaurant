@@ -28,7 +28,7 @@
 </head>
 <body>
     <div class="container-fluid d-flex m-0 p-0" id="app">
-        <nav class="sidebar vh-100 px-3">
+        <nav class="sidebar vh-100 px-3 d-none d-lg-flex">
             @include('includes.sidebar')
         </nav>
         <main class="w-100">

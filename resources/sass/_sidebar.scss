@@ -1,5 +1,5 @@
 .sidebar{
-    width: 25%;
+    width: 350px !important;
     overflow: hidden;
     position: relative;
     display: flex;
@@ -7,6 +7,7 @@
     border-right: 1px solid #f3f3f3;
     box-shadow: $shadow;
     background-color: #fff;
+    transition: all 1s ease;
 
     .logo{
         padding: 20px 0;
@@ -14,9 +15,16 @@
         display: flex;
         align-items: center;
         justify-content: center;
+        position: relative;
 
         img{
             width: 130px;
+        }
+
+        button{
+            position: absolute;
+            right: 5px;
+            top: 20px;
         }
     }
 
@@ -46,7 +54,7 @@
                 position: relative;
                 display: flex;
                 align-items: center;
-                background-color: #fff;
+                justify-content: flex-start;
 
                 .feather{
                     width: 17px;
@@ -106,4 +114,11 @@
             display: block;
         }
     }
+}
+
+
+.slide-nav{
+    width: 300px !important;
+    position: absolute;
+	z-index: 9999;
 }
