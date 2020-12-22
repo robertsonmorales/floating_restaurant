@@ -49,7 +49,7 @@
                         @enderror
                     </div>
 
-                    <div class="form-group form-columns">
+                    <div class="form-group">
                         <div class="form-check">
                             <input class="form-check-input" type="checkbox"
                                 name="remember"

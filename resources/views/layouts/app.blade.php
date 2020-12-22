@@ -27,15 +27,17 @@
 
 </head>
 <body>
-    <div class="container-fluid d-flex m-0 p-0" id="app">
-        <nav class="sidebar vh-100 px-3 d-none d-lg-flex">
-            @include('includes.sidebar')
-        </nav>
-        <main class="w-100">
-            @include('includes.header')
-            @include('includes.breadcrumb')
-            @yield('content')
-        </main>
+    <div class="container-fluid p-0" id="app">
+        <div class="row no-gutters">
+            <nav class="col col-md-4 col-lg-3 col-xl-2 vh-100 d-none d-lg-flex flex-column align-items-center position-fixed" id="sidebar">
+                @include('includes.sidebar')
+            </nav>
+            <main class="col col-lg-9 col-xl-10 offset-lg-3 offset-xl-2 vh-100">
+                @include('includes.header')
+                @include('includes.breadcrumb')
+                @yield('content')
+            </main>
+        </div>
     </div>
     @yield('scripts')
 </body>

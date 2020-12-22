@@ -1,74 +1,87 @@
 @extends('layouts.app')
 @section('title', $title)
 @section('content')
-<div class="mx-4 overflow-auto">
-    <!-- <div class="row no-gutters d-flex flex-column flex-md-row"> -->
+<div class="mx-4">
+
     <div class="row no-gutters">
 
-        <div class="col card mr-3 mb-3">
-            <span class="card-icon" id="sales-icon">
-                <i data-feather="database"></i>
-            </span>
-            <div class="card-details">
-                <span class="card-total">₱150</span>
-                <span class="text-muted">Sales</span>
+        <div class="col card mr-3 mb-3 p-xl-2">
+            <div class="card-body d-flex flex-column justify-content-between align-items-center flex-xl-row-reverse w-100">
+                <span class="card-icon mb-3 mb-xl-0" id="sales-icon">
+                    <i data-feather="database"></i>
+                </span>
+                <div class="d-flex flex-column align-items-center align-items-xl-start">
+                    <span class="card-title h3 font-weight-bold mb-1">₱ 150</span>
+                    <span class="card-subtitle text-muted">Sales</span>
+                </div>
             </div>
         </div>
 
-        <div class="col card mb-3">
-            <span class="card-icon" id="expenses-icon">
-                <i data-feather="book"></i>
-            </span>
-            <div class="card-details">
-                <span class="card-total">₱100</span>
-                <span class="text-muted">Expenses</span>
+        <div class="col card mr-lg-3 mb-3 p-xl-2">
+            <div class="card-body d-flex flex-column justify-content-between align-items-center flex-xl-row-reverse w-100">
+                <span class="card-icon mb-3 mb-xl-0" id="sales-icon">
+                    <i data-feather="book"></i>
+                </span>
+                <div class="d-flex flex-column align-items-center align-items-xl-start">
+                    <span class="card-title h3 font-weight-bold mb-1">₱ 150</span>
+                    <span class="card-subtitle text-muted">Expenses</span>
+                </div>
             </div>
         </div>
 
-        <div class="w-100"></div>
+        <div class="w-100 d-block d-lg-none"></div>
 
-        <div class="col card mr-3 mb-3">
-            <span class="card-icon" id="order-icon">
-                <i data-feather="package"></i>
-            </span>
-            <div class="card-details">
-                <span class="card-total">150</span>
-                <span class="text-muted">Orders</span>
+        <div class="col card mr-3 mb-3 p-xl-2">
+            <div class="card-body d-flex flex-column justify-content-between align-items-center flex-xl-row-reverse w-100">
+                <span class="card-icon mb-3 mb-xl-0" id="sales-icon">
+                    <i data-feather="package"></i>
+                </span>
+                <div class="d-flex flex-column align-items-center align-items-xl-start">
+                    <span class="card-title h3 font-weight-bold mb-1">150</span>
+                    <span class="card-subtitle text-muted">Orders</span>
+                </div>
             </div>
         </div>
 
-        <div class="col card mb-3">
-            <span class="card-icon" id="customer-icon">
-                <i data-feather="user-check"></i>
-            </span>
-            <div class="card-details">
-                <span class="card-total">150</span>
-                <span class="text-muted">Customers</span>
-            </div>            
-        </div>
+        <div class="col card mb-3 p-xl-2">
+            <div class="card-body d-flex flex-column justify-content-between align-items-center flex-xl-row-reverse w-100">
+                <span class="card-icon mb-3 mb-xl-0" id="sales-icon">
+                    <i data-feather="user-check"></i>
+                </span>
+                <div class="d-flex flex-column align-items-center align-items-xl-start">
+                    <span class="card-title h3 font-weight-bold mb-1">150</span>
+                    <span class="card-subtitle text-muted">Customers</span>
+                </div>
+            </div>
+        </div>        
 
     </div>
 
-    <div class="row no-gutters d-flex flex-column flex-md-row justify-content-between">
-        <div class="col card mb-3">
-            <span class="text-muted w-100">Annual Sales & Expenses</span>
-            <div id="report-chart" class="report-chart"></div>
+    <div class="row no-gutters d-flex justify-content-between flex-column flex-lg-row">
+        <div class="col col-md-12 col-lg-6 card mr-lg-3 mb-3 mb-lg-0">
+            <div class="card-body w-100">
+                <span class="card-subtitle text-muted">Annual Sales & Expenses</span>
+                <div id="report-chart" class="report-chart"></div>
+            </div>
         </div>
 
-        <div class="w-100"></div>
+        <div class="w-100 d-lg-none"></div>
     
-        <div class="col card mb-3">
-            <span class="text-muted w-100">Stocks</span>
+        <div class="col card mr-lg-3 mb-3 mb-lg-0">
+            <div class="card-body w-100">
+                <span class="card-subtitle text-muted">Stocks</span>
+            </div>
         </div>
 
-        <div class="w-100"></div>
+        <div class="w-100 d-lg-none"></div>
 
-        <div class="col card mb-3">
-            <span class="text-muted w-100">On-going Orders</span>
+        <div class="col card mb-3 mb-lg-0">
+            <div class="card-body w-100">
+                <span class="card-subtitle text-muted">On-going Orders</span>
+            </div>
         </div>
     </div>
 </div>
-<br>
 @endsection
 @section('scripts')
 <script>
@@ -103,7 +116,7 @@ $(document).ready(function(){
             
         ],
         chart: {
-            type: 'bar',
+            type: 'area',
             stacked: false,
             markers: {
                 size: 4,
@@ -118,20 +131,20 @@ $(document).ready(function(){
             color: '#3e4044'
         },
         grid: {
-            show: true,
-            borderColor: '#ddd',
-            strokeDashArray: 0,
-            position: 'back',
-            xaxis: {
-                lines: {
-                    show: false
-                }
-            },   
-            yaxis: {
-                lines: {
-                    show: true
-                }
-            },  
+            show: false,
+            // borderColor: '#ddd',
+            // strokeDashArray: 0,
+            // position: 'back',
+            // xaxis: {
+            //     lines: {
+            //         show: false
+            //     }
+            // },   
+            // yaxis: {
+            //     lines: {
+            //         show: true
+            //     }
+            // },  
         },
         legend: {
             show: false,
@@ -141,14 +154,14 @@ $(document).ready(function(){
             fontFamily: ['Poppins', 'Montserrat', 'Segoe UI'],
             color: '#3e4044'
         },
-        // stroke: {
-        //     width: [3, 3],
-        //     curve: 'smooth'
-        // },
-        // fill: {
-        //     opacity: [1, 1],
-        //     type: ['gradient', 'gradient']
-        // },
+        stroke: {
+            width: [3, 3],
+            curve: 'smooth'
+        },
+        fill: {
+            opacity: [1, 1],
+            type: ['gradient', 'gradient']
+        },
         xaxis: {
             categories: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
         },

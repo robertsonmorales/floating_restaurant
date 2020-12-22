@@ -1,31 +1,28 @@
-.header-content{
+nav{
+    background-color: #fff;
     display: flex;
-    flex-direction: column;    
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    border-radius: $radius;
+    box-shadow: $shadow;
 
-    nav{
-        background-color: #fff;
+    .user-profile{
         display: flex;
-        justify-content: space-between;
         align-items: center;
-        position: relative;
-        border-radius: $radius;
-        box-shadow: $shadow;
+        justify-content: flex-end;
 
-        .user-profile{
+        .btn-dropdown{
             display: flex;
             align-items: center;
-            justify-content: flex-end;
-
-            .btn-dropdown{
-                color: $toolbar;
-                text-decoration: none;
-                font-weight: 600;
-                font-size: .9em;
-                display: flex;
-                align-items: center;
-                background-size: cover;
+            justify-content: center;
+            height: 42px;
+            width: 42px;
+            
+            img{
                 height: 42px;
                 width: 42px;
+                object-fit: cover;
             }
         }
     }

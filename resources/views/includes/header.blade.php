@@ -1,13 +1,17 @@
-<div class="header-content position-sticky sticky-top mx-4 mt-4 mb-1">
+<div class="mx-4 mt-3 position-sticky sticky-top">
     <nav class="px-3 py-2">
         <div class="row no-gutters">
-            <button class="btn d-block d-lg-none" type="button" id="btn-slide">
+            <button class="btn btn-light d-block d-lg-none" type="button" id="btn-slide">
                 <i data-feather="menu"></i>
             </button>
         </div>
+
         <div class="user-profile">
             <div class="btn-group">
-                <button class="btn btn-primary btn-dropdown rounded-circle" data-toggle="dropdown" style="background-image: url('{{ (Auth::user()->profile_image) ? asset('images/user_profiles/'.Auth::user()->username.Auth::user()->id.'/'.Auth::user()->profile_image.'') : asset('images/user_profiles/TIMEKEEPING_Robertson_ Morales.jpg') }}');"></button>
+                <button class="btn btn-light btn-dropdown rounded-circle" data-toggle="dropdown">
+                    <img class="rounded-circle" src="{{ (Auth::user()->profile_image) ? asset('images/user_profiles/'.Auth::user()->username.Auth::user()->id.'/'.Auth::user()->profile_image.'') : asset('images/user_profiles/TIMEKEEPING_Robertson_ Morales.jpg') }}">
+                </button>
+
                 <div class="dropdown-menu dropdown-menu-right mt-2 py-2">
 
                     <div class="dropdown-item-text d-flex align-items-center py-2">
