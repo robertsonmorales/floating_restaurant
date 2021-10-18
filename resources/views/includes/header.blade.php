@@ -1,4 +1,4 @@
-<div class="mx-4 mt-3 position-sticky sticky-top">
+<div class="mx-4 mt-3 sticky-top">
     <nav class="px-3 py-2">
         <div class="row no-gutters">
             <button class="btn btn-light d-block d-lg-none" type="button" id="btn-slide">
@@ -9,7 +9,7 @@
         <div class="user-profile">
             <div class="btn-group">
                 <button class="btn btn-light btn-dropdown rounded-circle" data-toggle="dropdown">
-                    <img class="rounded-circle" src="{{ (Auth::user()->profile_image) ? asset('images/user_profiles/'.Auth::user()->username.Auth::user()->id.'/'.Auth::user()->profile_image.'') : asset('images/user_profiles/TIMEKEEPING_Robertson_ Morales.jpg') }}">
+                    <img class="rounded-circle" src="{{ (Auth::user()->profile_image) ? asset('images/user_profiles/'.Auth::user()->username.Auth::user()->id.'/'.Auth::user()->profile_image.'') : asset('images/user_profiles/avatar.svg') }}">
                 </button>
 
                 <div class="dropdown-menu dropdown-menu-right mt-2 py-2">

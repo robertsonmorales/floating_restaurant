@@ -15,14 +15,15 @@ mix.js('resources/js/app.js', 'public/js')
     .sass('resources/sass/app.scss', 'public/css');
 
 mix.scripts([
-		'public/vendors/apexcharts/apexcharts.js',
-		'public/js/dropdown.js',
-    ], 'public/js/vendors.js');
+	'public/vendors/apexcharts/apexcharts.js',
+	'public/js/dropdown.js',
+	'public/vendors/sweetalert2/dist/sweetalert2.min.js'
+], 'public/js/vendors.js');
 
 mix.styles([
-		'public/vendors/select2/select2.min.css',
-		'public/vendors/jquery/jquery-ui.css',
-		'public/vendors/sweetalert2/node_modules/sweetalert2/dist/sweetalert2.min.css',
-		'public/vendors/agGrid/agGrid.css',
-		'public/vendors/agGrid/ag-theme_material.css'
-	], 'public/css/vendors.css');
+	'public/vendors/select2/select2.min.css',
+	'public/vendors/jquery/jquery-ui.css',
+	'public/vendors/sweetalert2/dist/sweetalert2.min.css',
+	'public/vendors/agGrid/agGrid.css',
+	'public/vendors/agGrid/ag-theme_material.css'
+], 'public/css/vendors.css');

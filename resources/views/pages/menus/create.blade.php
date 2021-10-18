@@ -277,17 +277,17 @@
     </div>
 </form>
 <!-- Ends here -->
-
 @endsection
+
 @section('scripts')
 <script type="text/javascript">
-const Toast = Swal.mixin({
-    toast: true,
-    position: 'bottom-right',
-    showConfirmButton: false,
-    timer: 4000,
-    timerProgressBar: false,
-});
+// const Toast = Swal.mixin({
+//     toast: true,
+//     position: 'bottom-right',
+//     showConfirmButton: false,
+//     timer: 4000,
+//     timerProgressBar: false,
+// });
 
 function fileUpload(){
     if ($('#upload_type').val() == "1|File Upload") {
